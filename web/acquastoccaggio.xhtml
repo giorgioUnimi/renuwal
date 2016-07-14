@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <title>ReNuWal-Acqua Stoccaggio</title>
+             
+             
+<h:outputStylesheet library="css" name="style.css"  />
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-content/themes/travelify/images/background.png'); background-repeat: repeat; background-position: top left; background-attachment: scroll; }
+</style>
+
+<link rel="icon" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-32x32.jpg" sizes="32x32" />
+<link rel="icon" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-192x192.jpg" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-180x180.jpg"/>
+<meta name="msapplication-TileImage" content="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-270x270.jpg"/>
+
+           <script src="resources/jquery/jquery-1.9.1.js"></script>
+           <script type="text/javascript" src="resources/css/operazioni.js"></script>
+           <style>
+                #tabAggiungi{
+                  font-size: 9pt; 
+                  background-color:  lightgray;
+               }
+               #tabAggiungi th,#tabAggiungi td {
+                   border: 0px;
+                   margin: 0px;
+                   padding: 0px;
+               }
+               #tabAggiungi tbody{
+                     background-color: white;
+               }
+               
+               #tabAggiungi tbody, #tabAggiungi tfoot{
+                   border: 0px;
+                   margin: 0px;
+                   padding: 0px;
+                 
+               } 
+               #tabAggiungi th, #tabAggiungi thead{
+                   background-color: rgb(225,237,252);
+                   font-size: 9pt;
+                   font-weight: bold;
+                   text-align: center;
+               }
+               
+               #tabAggiungi tr td {
+                   height: 10px;
+                   border: 0px;
+                   margin: 0px;
+                   padding: 0px;
+               }
+              /*.titolo_sinistra
+               {
+                   font-size: 18px;
+               }*/
+               
+              #secondary {
+                  float: left;
+                  margin-left: 2.06%;
+                  width: 12.28%;
+              }  
+              .wrapper {
+
+                  max-width: 1190px;
+
+                  margin: 0 auto;
+                  background-color: #f8f8f8;
+                  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+                  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+                  border-radius: 4px;
+              }
+              .container {
+                  margin: 0 auto;
+
+                  max-width: 1100px;
+
+              }
+
+             #formRoot\:tabAggiungi input[type="text"]
+               {
+                  height: 20px;  
+                  width:20px;
+                  margin: 0px;
+                  padding: 0px;
+                  border:0px;
+                  
+               } 
+
+             /* input[type="submit"]
+              {
+                  height: 32px;  
+                  width:160px;
+                  vertical-align: top;
+                  margin: 0px 40px 0px 0px;
+                  padding:0px 0px 0px 0px ;
+
+
+              }*/
+
+             
+              /*#formRoot\:tabellaAziendalistaStoA\:bottoneaggiungi2
+              {
+                  background-color: red;
+                  height: 62px;  
+                  width:60px;
+              }*/
+               
+            
+           </style>    
+            </h:head>
+     <h:body class="home page page-id-12 page-template-default custom-background ecwd-theme-travelify ">
+	
+      <div class="wrapper">
+               <header id="branding" >
+                                    
+               <div class="container clearfix">
+                   <div class="hgroup-wrap clearfix">
+                       <section class="hgroup-right">
+                       </section>
+                       <div id="site-logo" class="clearfix">
+                          
+                           <div  id="site-title"  >
+                               <div style="float:left;">
+                                   <a href="http://www.renuwal.unimi.it/it_IT/" title="ReNuWal" rel="home" style="color: #57ad68;font-size: 36px;">
+                                       ReNuWal                                                                  
+                                   </a>
+                               </div>
+                               <div>
+                                   <a href="http://www.disaa.unimi.it"><img style="padding-left: 25px;" src="http://users.unimi.it/renuwal/wp-content/uploads/2015/10/logho_DiSAA2.png" alt="logo disaa" /></a>
+                               </div>  
+                           </div>  
+                                                            
+                           <div style="clear: both;">
+                               <h2 id="site-description">Tecniche innovative di gestione e trattamento degli effluenti per la riduzione dell’inquinamento diffuso delle acque in aree ad alta densità zootecnica</h2>
+                                                            
+                           </div>
+                                    
+                       </div>
+                   </div>
+                  <!--<img src="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-foto-6.jpg" class="header-image" width="1500" height="369" alt="ReNuWal"/>-->
+                   <ui:insert name="leftside" >
+                    <ui:include src="/template/menu_renuwal.xhtml" />
+                   </ui:insert>
+               
+                   </div>
+               </header>
+		
+				<div id="main" class="container clearfix">
+
+<div id="container">
+    <div id="secondary" class="widget no-margin-left" style="width:120px;" >
+        <aside style="float:left;"> 
+            <header class="entry-header">
+            
+                <ui:insert name="leftside" >
+                    <ui:include src="/resources/css/colonnasinistra.xhtml" />
+                </ui:insert>
+                <br/>
+                <br/>
+                 <h:form>
+                <h:panelGrid columns="1" id="panelAzienda" width="100px;" >
+                    <a4j:outputPanel id="first"    >
+                        <h:outputText id="selectaziendeLabel"  value="Azienda:"  /><br/>
+                        <h:selectOneMenu id="selectaziende" value="#{listaAziende.currentTypeAz}" valueChangeListener="#{listaAziende.aziendeChanged}">
+                            <f:selectItems value="#{listaAziende.selectaziende}" />
+                            <a4j:ajax event="valueChange" render="second" execute="@this"  />
+                        </h:selectOneMenu>
+                    </a4j:outputPanel>          
+                                                                 
+                    <a4j:outputPanel id="second"    >
+
+                        <h:outputText id="selectanniLabel"  value="Anno:" rendered="#{not empty listaAziende.currentTypeAn}" />
+                        <br/> 
+                        <h:selectOneMenu id="selectanni" value="#{listaAziende.currentTypeAn}"  valueChangeListener="#{listaAziende.anniChanged}"  rendered="#{not empty listaAziende.currentTypeAn}" >
+                            <f:selectItems value="#{listaAziende.selectanni}" />
+                            <a4j:ajax event="valueChange" render="third" execute="@this" />
+                        </h:selectOneMenu>
+
+                    </a4j:outputPanel>
+
+                    <a4j:outputPanel id="third"   >
+
+                        <h:outputText id="selectscenariLabel"  value="Scenario:" rendered="#{not empty listaAziende.currentTypeSce}" />
+                        <br/>   
+                        <h:selectOneMenu id="selectscenari" value="#{listaAziende.currentTypeSce}"  valueChangeListener="#{listaAziende.scenariChanged}"  rendered="#{not empty listaAziende.currentTypeSce}" >
+                            <f:selectItems value="#{listaAziende.selectscenari}" />
+                            <a4j:ajax event="valueChange" render="tabellaAziendalistaStoA id_azienda id_anno id_scenario"  execute="@this tabellaAzienda "   oncomplete="javascript:location.reload(true)" />
+                        </h:selectOneMenu>
+                                                                            
+                    </a4j:outputPanel>
+                </h:panelGrid>
+                </h:form>
+            </header>
+        </aside>
+            
+    </div>
+ 
+
+<div id="primary" class="no-margin-right" style="width:780px;">
+    
+   <div id="content">	<section id="post-12" class="post-12 page type-page status-publish hentry">
+          
+		<article>
+
+			
+			<header class="entry-header">
+    			<h2 class="entry-title" style="padding:5px 0px 0px 20px;">
+    				Acqua di Stoccaggio
+                        </h2>
+  			</header>
+  			
+  			<div class="entry-content clearfix">
+              
+                            <f:view id="vistaRoot">
+                                <h:form id="formRoot">
+                                    <h:panelGrid columns="2" style="width: 30%; margin:-10px 0px 2px 0px;" >
+                                        <h:outputLabel id="id_azienda_label" for="id_azienda"
+                                                       value="Azienda" />
+                                        <h:outputText  value="#{dettaglioCuaa.cuaa}" id="id_azienda"/>      
+                                        <h:outputLabel id="id_anno_label" for="id_anno"
+                                                       value="Anno" />
+                                        <h:outputText value="#{dettaglioCuaa.anno}" id="id_anno"/>
+                                        <h:outputLabel id="id_scenario_label" for="id_scenario"
+                                                       value="Scenario" />
+                                        <h:outputText value="#{dettaglioCuaa.scenarioString}" id="id_scenario"/>
+                                    </h:panelGrid>
+                                    <br />
+                                    
+                                    <table id="tabAggiungi" >
+                                        <thead style="color:rgb(11,53,108);">
+                                            <tr>
+                                                <th>Acqua</th>
+                                                <th>Superfici Scoperte</th>
+                                                <th>Pioggia</th>
+                                                <th>Capacita Liquidi</th>
+                                                <th>Capacita Solidi</th>
+                                                <th>Superficie Scoperta Liquidi</th>   
+                                                <th>Superficie Scoperta Solidi</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                     <h:inputText  value="#{acquastoccaggioJ.acquaImpianti}"     style="width: 50px;padding:0px;margin:0px;"  />
+                                                </td> 
+                                                <td>
+                                                    <h:inputText  value="#{acquastoccaggioJ.superfici_scoperte}" style="width: 50px;padding:0px;margin:0px;" />
+                                                </td>
+                                                <td>
+                                                    <h:inputText  value="#{acquastoccaggioJ.pioggia}" style="width: 50px;padding:0px;margin:0px;" />
+                                                </td>    
+                                                <td>
+                                                    <h:inputText  value="#{acquastoccaggioJ.capacita_liquidi}" style="width: 80px;padding:0px;margin:0px;" />
+                                                </td>    
+                                                <td>
+                                                    <h:inputText  value="#{acquastoccaggioJ.capacita_solidi}" style="width: 80px;padding:0px;margin:0px;" />
+                                                </td>    
+                                                <td>
+                                                    <h:inputText  value="#{acquastoccaggioJ.superfici_scoperte_liquidi}" style="width: 80px;padding:0px;margin:0px;" />
+                                                </td>    
+                                                <td>
+                                                    <h:inputText  value="#{acquastoccaggioJ.superfici_scoperte_solidi}" style="width: 80px;padding:0px;margin:0px;" />
+                                                </td> 
+                                                <td>
+                                                    <a4j:commandButton value="Aggiorna" action="#{acquastoccaggioJ.aggiorna()}"   oncomplete="javascript:location.reload(true)" style="width:60px;height: 23px;" />
+                                                </td>    
+                                            </tr>    
+                                        </tbody>
+                                    </table>
+                                    
+                                    <br/>
+                                  <!--  <a4j:jsFunction name="selectRow" action="#{acquastoccaggioJ.selectClient}">
+                                        <a4j:param name="acquaImpianti" assignTo="#{acquastoccaggioJ.acquaImpianti}" />
+                                         <a4j:param name="capLiquidi1rac" assignTo="#{acquastoccaggioJ.capLiquidi1rac}" />
+                                    </a4j:jsFunction>
+                                    
+                                    <rich:dataTable id="tabellaAziendalistaStoA"  value="#{acquastoccaggioJ.tabella}"   var="row" onrowclick="selectRow('#{row.acquaImpianti}','#{row.capLiquidi1rac}')"  style="font-size: 10px;line-height: 10px;">         
+                                        <a4j:ajax execute="@form" event="selectionchange" listener="#{acquastoccaggioJ.selectionListener}"/>
+                                        
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Acqua impianti(m3)" />
+                                            </f:facet>
+                                            <h:inputText id="idacqua" value="#{row.acquaImpianti}"   onchange=""  style="width: 80px;"  >
+                        
+                                            </h:inputText>            
+                        
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Superfici scoperte(m2)" />
+                                            </f:facet>
+                                            <h:inputText  value="#{row.superficiScoperte}" style="width: 80px;" />
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Pioggia(mm)" />
+                                            </f:facet>
+                                            <h:inputText   value="#{row.pioggia}" style="width: 80px;" >
+
+                                            </h:inputText>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Capacita Liquidi(m3)" />
+                                            </f:facet>
+                                                <h:inputText   value="#{row.capLiquidi1rac}" style="width: 80px;" >
+                                  
+                                            </h:inputText>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Capacita Solidi(m3)" />
+                                            </f:facet>
+                                                <h:inputText   value="#{row.capSolidi1rac}" style="width: 80px;" >
+                                        
+                                            </h:inputText>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Superficie scoperta Liquidi(m2)" />
+                                            </f:facet>
+                                                <h:inputText   value="#{row.supLiquidi1rac}" style="width: 80px;" >
+                                        
+                                            </h:inputText>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Superficie scoperta Solidi(m2)" />
+                                            </f:facet>
+                                                <h:inputText   value="#{row.supSolidi1rac}" style="width: 80px;" >
+                                        
+                                            </h:inputText>
+                                        </h:column>
+                                        <f:facet name="footer">
+                                            <h:panelGroup>
+
+                        
+                                                <h:commandButton value="Aggiorna "  action="#{acquastoccaggioJ.aggiorna}"    styleClass="bottoneaggiungi2" binding="#{acquastoccaggioJ.bottoneaggiungi2}"/>
+                                                <br/>
+                            
+                                               <h:message for="bottoneaggiungi2" class="messaggi" />
+                            
+                                            </h:panelGroup>
+                                        </f:facet> 
+                    
+                    
+                    
+
+                                    </rich:dataTable> 
+                          
+                                    <h:panelGroup rendered="#{facesContext.validationFailed}">
+                                        <p class="messaggi">L'aggiornamento non è andato a buon fine.</p>
+                                    </h:panelGroup>-->
+                        
+                                    <br/>
+                                    <br/>                    
+                                </h:form>
+                            </f:view>
+                
+             
+                
+         </div>
+
+                </article>
+       </section>
+       </div>
+     </div>
+       
+</div>
+                                </div>
+	   <footer id="footerarea" class="clearfix">
+			
+
+
+<div id="site-generator">
+				<div class="container">
+                                    <div class="copyright" style="float:left;padding:15px 0px 0px 0px;">Sviluppato dal <a href="http://www.disaa.unimi.it">Dipartimeno di Scienze Agrarie e Ambientali    </a>
+                                    </div>
+                                    <a href="http://www.disaa.unimi.it">
+                                        <div>
+                                            <img style="vertical-align:text-top;" src="http://users.unimi.it/renuwal/wp-content/uploads/2015/10/logodisaa2.jpg" alt="logo disaa" /></div></a><div class="footer-right"></div><div style="clear:both;"></div>
+			</div>
+			</div>
+                        <div class="back-to-top"><a href="#branding"></a></div>
+           </footer> 
+       </div>
+      
+    </h:body> 
+</html>
+

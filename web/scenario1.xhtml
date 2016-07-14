@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>TODO supply a title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+                   <h:panelGrid id="tabellaAlt" columns="3">
+                        
+                        <h:outputText    value="Alternative:" ></h:outputText>
+                        
+                        <h:selectOneMenu id="selalt"  value="#{refluiAzienda.alternativa}"  valueChangeListener="#{refluiAzienda.valueChanged}"     >
+                     
+                                <f:selectItems value="#{refluiAzienda.listaAlternativeID}"  />
+                                <f:ajax  immediate="true"  event="valueChange" render="immagineAlt"  />
+                             
+                       </h:selectOneMenu>
+                  
+                      <h:graphicImage id="immagineAlt" name="#{refluiAzienda.immagine}"  />
+                     
+                   </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>

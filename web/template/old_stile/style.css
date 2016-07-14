@@ -1,0 +1,210 @@
+root { 
+    display: block;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    /*color: #3a4f54;*/
+    background-color: gainsboro;
+    font-size: small;
+    margin-left: auto;
+    margin-right: auto;
+    width:1050px;
+      
+}
+
+/**
+l'header è comune a tutte le pagine
+*/
+#headerside {
+    background-color: #FFF;
+    width: 1030px;
+    height: 246px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top : 1px;
+   
+}
+
+
+#containerfoto{
+   width: 1025px;
+   float:left;
+   vertical-align:middle;
+   background-color: green;
+   
+}
+
+
+#fotosinistra
+{
+    float:left;
+    padding-left: 20px;
+    padding-bottom: 40px;
+    padding-right: 20px;
+    padding-top: 50px;
+   
+}
+
+
+
+/**
+*contenitore centrale delle due colonne 
+*leftside e rightside
+*
+*/
+#leftrightcontainer{
+   
+   width: 1050px;
+   height: auto;
+  
+}
+
+
+
+/**
+parte comune a tutte le pagine : colonna di sinistra
+*/
+#leftside {
+    
+    background-color: #FFF ;
+    float:left;
+    width: 170px;
+    text-align: left;
+    padding-left: 0px;
+    border-left: 0px;
+    border-top: 0px;
+    border-right-style:solid;
+    
+   
+}
+
+
+/**
+parte comune di tutte le pagine: colonna di destra
+*/
+#rightside {
+    background-color:#FFF;
+    float:left;
+    width:872px;
+    border-right: 0px;
+    border-bottom: 0px;
+    border-top: 0px;
+    padding-left: 5px;
+    
+    
+}
+
+
+
+/**
+etichette delle colonne delle tabelle outputgestionali e output emissioni collocate nella pagian specifica
+del trattamento
+*/
+.etichettegestionali
+{
+    font-size: 12px;
+    font-weight: bold;
+    
+}
+
+/**
+*/
+.etichetteUL{
+    clear:left;
+    list-style: none;
+}
+
+
+/**
+*il footer della pagina 
+*/
+#footerside {
+    
+    background-color: grey;
+    text-align: center;
+    font-size: 8px;
+    width: 1050px;
+    height: 60px;
+       
+}
+
+
+
+/**
+utility per riposizinare il conteuto dopo il menu
+in modo che scenda e non venga spostato a sinistra
+*/
+.cleardiv {
+    clear: left;
+}
+
+/**
+La seguente classe modella i campi testo contenuti in <p>
+del mennu si sinsitra cosi da renderli evidenti 
+*/
+/*.menusinistra{
+     background-color: skyblue;
+}*/
+
+
+
+
+  #headerside ul
+{
+        display:block;
+        height: 20px;
+        margin:10px 0px 1px 0px;
+        text-align:left;
+        list-style-type:none;
+        padding:10px 0px 10px 0px;
+        background-color: #e0e0e0;
+        color : black;
+        border-top:solid 1px #ddd;
+        /*position:absolute;
+        top:0;
+        right:0px;*/
+
+}
+
+#headerside ul li a:link,
+#headerside ul li a:visited
+{
+        color : black;
+        text-transform:uppercase;
+        padding:10px;
+        display:inline
+}
+
+#headerside ul.menu li
+{
+        display:inline ;
+        padding:0 ;
+        margin:0;
+       
+
+}
+
+#headerside ul.menu li a:link,
+#headerside ul.menu li a:visited
+{
+        font-weight:bold;
+        text-decoration:none;
+        padding:0px 10px;
+        margin:0 ;
+}
+
+#headerside ul li a:hover,
+#headerside ul li a:active,
+#headerside ul li a:focus
+{
+        font-weight:bold;
+}
+
+#headerside ul li.active a:link,
+#headerside ul li.active a:visited
+{
+        text-transform:uppercase;
+        padding:10px 10px;
+}
+                

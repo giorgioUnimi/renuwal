@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>ReNuWal-home</title>
+             
+             
+<!--<link rel='stylesheet' id='mltlngg_stylesheet-css'  href='http://www.renuwal.unimi.it/wp-content/plugins/multilanguage/css/style.css?ver=4.3.1' type='text/css' media='all' />-->
+<!--<link rel='stylesheet' id='ecwd-popup-style-css'  href='http://www.renuwal.unimi.it/wp-content/plugins/event-calendar-wd/css/ecwd_popup.css?ver=1.0.20' type='text/css' media='all' />-->
+<!--<link rel='stylesheet' id='ecwd_font-awesome-css'  href='http://www.renuwal.unimi.it/wp-content/plugins/event-calendar-wd/css/font-awesome/font-awesome.css?ver=1.0.20' type='text/css' media='all' />-->
+<!--<link rel='stylesheet' id='ecwd-public-css'  href='http://www.renuwal.unimi.it/wp-content/plugins/event-calendar-wd/css/style.css?ver=1.0.20' type='text/css' media='all' />-->
+<!--<link rel='stylesheet' id='travelify_style-css'  href='http://localhost:8080/renuwal/faces/template/stile2/style.css?ver=4.3.1' type='text/css' media='all' />-->
+<h:outputStylesheet library="css" name="style.css"  />
+<!--<link rel='stylesheet' id='google_font_ubuntu-css'  href='//fonts.googleapis.com/css?family=Ubuntu&#038;ver=4.3.1' type='text/css' media='all' />-->
+<!--<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/jquery.js?ver=1.11.3'></script>-->
+<!--<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>-->
+<!--<script type='text/javascript'>
+/* <![CDATA[ */
+var mltlngg_vars = {"update_post_error":"Attention!!! The changes will not be saved because Title and Content fields are empty on the current tab! It is recommended to fill in at least one field or switch to the tab with the fields that are already filled."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-content/plugins/multilanguage/js/script.js?ver=4.3.1'></script>
+<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-content/themes/travelify/library/js/functions.min.js?ver=4.3.1'></script>
+    -->
+    <style type="text/css" id="custom-background-css">
+body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-content/themes/travelify/images/background.png'); background-repeat: repeat; background-position: top left; background-attachment: scroll; }
+</style>
+<style>
+            /*.titolo_sinistra
+            {
+                font-size: 18px;
+            }*/
+            #secondary{
+                width:100px;
+            }
+            
+             .bottoni
+            {
+                height: 5px;
+            }
+        </style> 
+<link rel="icon" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-32x32.jpg" sizes="32x32" />
+<link rel="icon" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-192x192.jpg" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-180x180.jpg"/>
+<link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&amp;subset=Latin'/> 
+<meta name="msapplication-TileImage" content="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-270x270.jpg"/>
+<!--<script src="resources/jquery/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="resources/librerie/funzionicomuni.js"></script>     -->
+<script src="resources/jquery/jquery-1.9.1.js"></script>
+           <script type="text/javascript" src="resources/css/operazioni.js"></script>
+           <style>
+               .riga_tabella tr td{
+                   height: 10px;
+               }
+           </style>    
+           <script>
+              
+               function getval(sel) {
+                       //idazienda
+                       var idazienda = document.getElementById("id_azienda");
+                       //valore anno
+                       var anno = document.getElementById("selscenario:state");
+                       var annoStr = anno.options[anno.selectedIndex].text;
+                       var scenarioStr = document.getElementById('selscenario:selsce').options[document.getElementById('selscenario:selsce').selectedIndex].text;
+                       
+                       var scenarioInt = document.getElementById('selscenario:selsce').options[document.getElementById('selscenario:selsce').selectedIndex].value;
+
+                       //seleziono lalternativa
+                       var alternativa = document.getElementById("alternativa1:selalt");
+                       var alternativaStr = alternativa.options[alternativa.selectedIndex].text;
+                       var cuaa = document.getElementById("cuaa1");
+                      // alert("idazienda "+idazienda.value+" scenario " +scenarioInt + " anno " + annoStr + " scenario str " + scenarioStr + " alternativa " + alternativaStr + " cuaa " + cuaa.value);
+                       window.location.replace("dettaglioAzienda.xhtml?id="+scenarioInt+"\u0026descrizione="+scenarioStr+"\u0026alternativa="+alternativaStr+"\u0026cuaa="+cuaa.value);
+
+                   }
+      
+             
+           </script> 
+    </h:head>
+ 
+    <h:body class="home page page-id-12 page-template-default custom-background ecwd-theme-travelify ">
+	
+       <div class="wrapper">
+               <header id="branding" >
+                                    
+               <div class="container clearfix">
+                   <div class="hgroup-wrap clearfix">
+                       <section class="hgroup-right">
+                       </section><!-- .hgroup-right -->
+                       <div id="site-logo" class="clearfix">
+                           <!--<div   >-->
+                           <div  id="site-title"  >
+                               <div style="float:left;">
+                                   <a href="http://www.renuwal.unimi.it/it_IT/" title="ReNuWal" rel="home" style="color: #57ad68;font-size: 36px;">
+                                       ReNuWal                                                                  
+                                   </a>
+                               </div>
+                               <div>
+                                   <a href="http://www.disaa.unimi.it"><img style="padding-left: 25px;" src="http://users.unimi.it/renuwal/wp-content/uploads/2015/10/logho_DiSAA2.png" alt="logo disaa" /></a>
+                               </div>  
+                           </div>  
+                                                            
+                           <div style="clear: both;">
+                               <h2 id="site-description">Tecniche innovative di gestione e trattamento degli effluenti per la riduzione dell’inquinamento diffuso delle acque in aree ad alta densità zootecnica</h2>
+                                                            
+                           </div><!-- #site-logo -->
+                                    
+                       </div><!-- .hgroup-wrap -->
+                   </div><!-- .container -->
+                  <!--<img src="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-foto-6.jpg" class="header-image" width="1500" height="369" alt="ReNuWal"/>
+                    --><ui:insert name="leftside" >
+                    <ui:include src="/template/menu_renuwal.xhtml" />
+                   </ui:insert>
+                   </div>
+               </header>
+		
+				<div id="main" class="container clearfix">
+
+<div id="container" >
+    <div id="secondary" class="widget no-margin-left" style="width: 100px;">
+        <aside style="float:left;width: 100px;"> 
+            <header class="entry-header">
+                <!--<h4 class="entry-title">
+                    Login    			</h4>--><!-- .entry-title -->
+                <ui:insert name="leftside" >
+                    <ui:include src="/resources/css/colonnasinistra.xhtml" />
+                </ui:insert>
+            </header>
+        </aside>
+            
+    </div>
+ 
+
+<div id="primary" class="no-margin-right">
+    
+   <div id="content">	<section id="post-12" class="post-12 page type-page status-publish hentry">
+          
+		<article>
+
+			
+			<header class="entry-header">
+    			<h2 class="entry-title">
+    				Aziende    
+                        </h2><!-- .entry-title -->
+  			</header>
+
+  			
+  			
+  			<div class="entry-content clearfix">
+            
+          
+             <c:if test="#{utente.corretto}">
+             </c:if>
+              <h:outputText value="Utente :#{utente.username}  "/>
+             <br/>
+             <h:outputText value="Mail :#{utente.mail_utente}  "/>
+             
+              <f:metadata>
+                <f:viewParam name="percorso" value="#{dettaglioCuaa.percorso}" />
+            </f:metadata>
+             
+             <br/>
+            <br/>  
+             
+                <f:view id="vistaRoot">
+                    <h:form id="formRoot">
+                                     
+                            <h:commandButton value="Nuova Azienda"  action="nuovaazienda"  class="no_class"  style="font-weight:bold;text-transform: uppercase;margin-right: 20px; " >
+                                 <f:param  name="username" value="#{utente.username}" />  
+                                 <f:param  name="password" value="#{utente.password}" />  
+                           </h:commandButton>
+                       
+                           <br/>  
+                          <br/>  
+                         <rich:dataTable value="#{listaAziende.tabella}"  var="row1" rows="4" id="listaziende1" style="width: 700px;" >
+                         
+                                      <rich:column sortBy="#{row1.cuaa}" sortOrder="#{sortaziende.cuaaOrder}">
+                                          <f:facet name="header">
+                                              <a4j:commandLink value="Cuaa" render="listaziende1" action="#{sortaziende.sortByCuaa()}" />
+                                          </f:facet>
+                                          <h:outputText  value="#{row1.cuaa}"   />
+                                      </rich:column>
+                           
+                                      <rich:column sortBy="#{row1.ragioneSociale}" sortOrder="#{sortaziende.ragionisocialiOrder}">
+                                              <f:facet name="header">
+                                              <a4j:commandLink value="Ragione Sociale" render="listaziende1" action="#{sortaziende.sortByRagione()}" />
+                                          </f:facet>
+                                          <h:outputText  value="#{row1.ragioneSociale}"   />
+                                      </rich:column>
+                                <rich:column sortBy="#{row1.desComune}" sortOrder="#{sortaziende.comuniOrder}">
+                                  <f:facet name="header">
+                                      <a4j:commandLink value="Comune" render="listaziende1" action="#{sortaziende.sortByComuni}" />
+                                  </f:facet>
+                                  <h:outputText  value="#{row1.desComune}"   />
+                              </rich:column>
+                              <rich:column sortBy="#{row1.codComune}" sortOrder="#{sortaziende.codcomuniOrder}">
+                                  <f:facet name="header">
+                                      <a4j:commandLink value="Cod.Comune" render="listaziende1" action="#{sortaziende.sortByCodComuni}" />
+                                  </f:facet>
+                                  <h:outputText  value="#{row1.codComune}"   />
+                              </rich:column>
+                              <rich:column sortBy="#{row1.desProvincia}" sortOrder="#{sortaziende.provinciaOrder}">
+                                  <f:facet name="header">
+                                      <a4j:commandLink value="Provincia" render="listaziende1" action="#{sortaziende.sortByProvincia}" />
+                                  </f:facet>
+                                  <h:outputText  value="#{row1.desProvincia}"   />
+                              </rich:column>
+                              <rich:column sortBy="#{row1.codiceProvincia}" sortOrder="#{sortaziende.codprovinciaOrder}">
+                                  <f:facet name="header">
+                                      <a4j:commandLink value="Cod.Provincia" render="listaziende1" action="#{sortaziende.sortByCodProvincia}" />
+                                  </f:facet>
+                                  <h:outputText  value="#{row1.codiceProvincia}"   />
+                              </rich:column>
+                              <rich:column sortBy="#{row1.deroga}" sortOrder="#{sortaziende.derogaOrder}">
+                                  <f:facet name="header">
+                                      <a4j:commandLink value="Deroga" render="listaziende1" action="#{sortaziende.sortByDeroga}" />
+                                  </f:facet>
+                                  <h:outputText  value="#{row1.deroga}"   />
+                              </rich:column>
+                              <rich:column style="width: 130px;">
+                                  <a4j:commandButton image="/resources/css/images/delete.gif"  render="listaziende1"  action="#{listaAziende.cancella()}" onclick="this.disabled=true" oncomplete="this.disabled=false" style="margin-right:5px;height: 20px;"> 
+                                      <f:param name="id" value="#{row1.id}"/>                                    
+                                  </a4j:commandButton>
+                            
+                                  <a4j:commandLink styleClass="no-decor" render="editGrid" execute="@this"
+                                                   oncomplete="#{rich:component('editPane')}.show()" resetValues="true" actionListener="#{listaAziende.resetValues()}">
+                                      <h:graphicImage value="/resources/css/images/edit.gif" alt="edit" />
+                                      <a4j:param value="#{row1.id}" assignTo="#{listaAziende.currentAppIndex}" />
+                                      <f:setPropertyActionListener target="#{listaAziende.aziendaEdit}" value="#{row1}" />
+                                  </a4j:commandLink>
+                              </rich:column>
+                              <f:facet name="footer">
+                                  <rich:dataScroller page="#{listaAziende.page}" fastStep="3"/>
+                              </f:facet>                                        
+                          </rich:dataTable>
+                                
+                </h:form>
+            <hr/>      
+                   <h4>Gestione Scenari</h4>
+                
+                
+                  <h:commandButton value="Nuovo Scenario" id="creascenario" class="no_class"  style="font-weight:bold;text-transform: uppercase;margin-right: 30px; " >
+                  </h:commandButton>
+                  <h:commandButton value="Elimina Scenario" id="eliminascenario" class="no_class"  style="font-weight:bold;text-transform: uppercase; " >
+                  </h:commandButton>
+               
+                <br/> 
+                <br/>   
+                
+                
+                    <rich:popupPanel id="deletescenarioPane" autosized="true">
+                        Scenario eliminato.                       
+                        <a4j:commandButton value="Esci" onclick="#{rich:component('deletescenarioPane')}.hide();return false;" style=" text-transform: capitalize;margin-right: 10px;" />
+                    </rich:popupPanel>    
+                    
+                     <rich:popupPanel id="newscenarioPane" autosized="true" >
+                        Nuovo Scenario creato.
+                        <a4j:commandButton value="Esci" onclick="#{rich:component('newscenarioPane')}.hide(); return false;" style=" text-transform: capitalize;margin-right: 10px;" />
+                    </rich:popupPanel>         
+                 <h:form>      
+                    <rich:popupPanel id="editPane" autosized="true"  header="Modifica Azienda" domElementAttachment="parent">
+                        <h:panelGrid columns="2" id="editGrid" >
+                            <h:outputLabel id="label_cuaa" for="cuaa_id" value="Cuaa"/>
+                            <h:outputText id="cuaa_id" value="#{listaAziende.aziendaEdit.cuaa}" />
+                            <h:outputLabel id="label_ragione_sociale" for="ragione_sociale_id" value="Ragione Sociale"/>
+                            <h:inputText id="ragione_sociale_id" value="#{listaAziende.aziendaEdit.ragioneSociale}" />
+                            <h:outputLabel id="label_comune" for="comune_id" value="Comune"/>
+                            <h:inputText id="comune_id" value="#{listaAziende.aziendaEdit.desComune}" />
+                            <h:outputLabel id="label_cod_comune" for="cod_comune_id" value="Cod.Comune"/>
+                            <h:inputText id="cod_comune_id" value="#{listaAziende.aziendaEdit.codComune}" />
+                            <h:outputLabel id="label_provincia" for="provincia_id" value="Provincia"/>
+                            <h:inputText id="provincia_id" value="#{listaAziende.aziendaEdit.desProvincia}" />
+                            <h:outputLabel id="label_cod_provincia" for="cod_provincia_id" value="Cod.Provincia"/>
+                            <h:inputText id="cod_provincia_id" value="#{listaAziende.aziendaEdit.codiceProvincia}" />
+                            <h:outputLabel id="label_deroga" for="deroga_id" value="Deroga"/>
+                            <h:selectBooleanCheckbox value="#{listaAziende.aziendaEdit.deroga}" id="deroga_id">
+                            </h:selectBooleanCheckbox>                                            
+                       </h:panelGrid>
+                        <a4j:commandButton value="Salva" action="#{listaAziende.store}" render="listaziende1" execute="editPane"
+                                                                               oncomplete="if (#{facesContext.maximumSeverity==null}) {#{rich:component('editPane')}.hide();}" style=" text-transform: capitalize;margin-right: 20px;" />                                                                        
+                        <a4j:commandButton value="Esci" onclick="#{rich:component('editPane')}.hide(); return false;" style=" text-transform: capitalize;margin-right: 10px;" />
+                    </rich:popupPanel>  
+                   </h:form> 
+                <h:form id="formcreazionescenario">  
+                <fieldset>
+                    <legend>Form Creazione Scenario:</legend>
+                    <table>
+                        <tr>
+                            <td>
+                                <label for="selectaziende" id="descrizionescenario_tip">Azienda: </label>
+                            </td>    
+                            <td>
+                                <h:selectOneMenu id="selectaziende" value="#{listaAziende.currentTypeAz}" >
+                                    <f:selectItems value="#{listaAziende.selectaziende}" />
+                                </h:selectOneMenu>  
+                            </td>    
+                        </tr>    
+                        <tr>
+                            <tr>
+                                <td>Anno</td>
+                                <td>
+                                    <h:selectOneMenu  id="anno_scenario" value="#{dettaglioCuaa.anno}" >
+                                        <f:selectItems value="#{dettaglioCuaa.anni}" var="item" itemLabel="#{item.descrizione}" itemValue="#{item.id}"/>
+                                    </h:selectOneMenu>
+                                </td>
+                            </tr>   
+                            <td> 
+                                <label for="descrizionescenario" id="descrizionescenario_tip">Descrizione:
+                                </label>
+                            </td>   
+                            <td> 
+                                <h:inputText id="descrizionescenario" value="#{dettaglioCuaa.descrizionescenario}"></h:inputText>
+                            </td>
+                        </tr>
+                    </table>
+                     <a4j:commandButton value="Crea" action="#{listaAziende.creaScenario()}"  oncomplete="#{rich:component('newscenarioPane')}.show()"  style=" text-transform: capitalize;" > 
+                     </a4j:commandButton> 
+                     <a4j:commandButton value="Esci"   onclick="#{rich:component('formcreazionescenario')}.hide();" style=" text-transform: capitalize;" > 
+                     </a4j:commandButton>   
+                </fieldset>
+                </h:form>
+                <br/> 
+                <h:form id="formeliminazionescenario">
+               <fieldset>                   
+                       <legend>Form Eliminazione Scenario:</legend>
+                    <table>         
+                    <tr>    
+                    <td>    
+                       <label for="selectaziendee" id="descrizionescenario_tip">Azienda: </label>
+                    </td>
+                    <td>    
+                       <h:selectOneMenu id="selectaziendee" value="#{listaAziende.currentTypeAz}" valueChangeListener="#{listaAziende.aziendeChanged}">
+                           <f:selectItems value="#{listaAziende.selectaziende}" />
+                           <a4j:ajax event="valueChange" render="second" execute="@this" />
+                       </h:selectOneMenu> 
+                    </td>
+                    </tr>
+                    <tr>    
+                    <td>    
+                       <label for="selectanni" id="selectanni_tip" >Anno</label>
+                    </td>
+                    <td>    
+                       <a4j:outputPanel id="second" layout="block"  >
+                           <h:selectOneMenu id="selectanni" value="#{listaAziende.currentTypeAn}"  valueChangeListener="#{listaAziende.anniChanged}"  rendered="#{not empty listaAziende.currentTypeAn}" >
+                               <f:selectItems value="#{listaAziende.selectanni}" />
+                               <a4j:ajax event="valueChange" render="third" execute="@this" />
+                           </h:selectOneMenu>
+                       </a4j:outputPanel>
+                    </td>
+                    </tr>
+                    <tr>    
+                    <td>    
+                       <label for="selectscenari" id="descrizionescenario_tip">Scenario:
+                       </label>
+                    </td>                
+                    <td>    
+                       <a4j:outputPanel id="third" layout="block"  >
+                           <h:selectOneMenu id="selectscenari" value="#{listaAziende.currentTypeSce}"  valueChangeListener="#{listaAziende.scenariChanged}"  rendered="#{not empty listaAziende.currentTypeSce}" >
+                               <f:selectItems value="#{listaAziende.selectscenari}" />
+                               <a4j:ajax event="valueChange"  execute="@this" />
+                           </h:selectOneMenu>
+                       </a4j:outputPanel>  
+                    </td>  
+                    </tr>     
+                    <tr>                
+                        <td>    
+                        <a4j:commandButton value="Elimina" action="#{listaAziende.eliminaScenario()}"  oncomplete="#{rich:component('deletescenarioPane')}.show()" style="text-transform: capitalize;" > 
+                        </a4j:commandButton>
+                        <a4j:commandButton value="Esci"   onclick="#{rich:component('formeliminazionescenario')}.hide();" style=" text-transform: capitalize;" > 
+                        </a4j:commandButton>  
+                        </td>
+                    </tr>
+                    </table>  
+                         </fieldset>  
+               </h:form>
+             
+              
+            
+                  
+             </f:view>    
+             
+                
+        </div><!-- #main -->
+
+                </article>
+       </section>
+       </div><!-- #content --></div><!-- #primary -->
+       
+</div>
+                                </div>
+	   <footer id="footerarea" class="clearfix">
+			
+
+
+<div id="site-generator">
+				<div class="container">
+                                    <div class="copyright" style="float:left;padding:15px 0px 0px 0px;">Sviluppato dal <a href="http://www.disaa.unimi.it">Dipartimeno di Scienze Agrarie e Ambientali    </a>
+                                    </div>
+                                    <a href="http://www.disaa.unimi.it">
+                                        <div>
+                                            <img style="vertical-align:text-top;" src="http://users.unimi.it/renuwal/wp-content/uploads/2015/10/logodisaa2.jpg" alt="logo disaa" /></div></a><div class="footer-right"></div><div style="clear:both;"></div>
+			</div><!-- .container -->
+			</div><!-- #site-generator -->
+                        <div class="back-to-top"><a href="#branding"></a></div>
+           </footer>  
+       </div>
+    </h:body>
+</html>
+

@@ -1,0 +1,297 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <h:outputStylesheet  library="css" name="jsfcrud_joomla.css"/>
+      <!--
+        <h:outputStylesheet  library="css" name="animated-menu.css"/>
+        <h:outputStylesheet  library="css" name="jsfcrud.css"/>
+	<script src="http://jqueryjs.googlecode.com/files/jquery-1.3.js" type="text/javascript"></script>
+        <h:outputScript library="css" name="js/jquery.easing.1.3.js" />
+                        
+	<h:outputScript library="css" name="animated-menu.js" />
+      
+      -->
+         <title>Progetto Ager - Acque di Stoccaggio</title>
+    </h:head>
+    <h:body>
+       
+            <h:panelGroup id="headerside" layout="block">
+                <!--
+                     <c:if test="#{utente.corretto}">
+               
+            </c:if>
+                  <p>
+                        <h:graphicImage  value="resources/css/images/logobianco1.jpg" />
+                      
+                        <fieldset style="border: 1px solid #21221A;margin-bottom: 0px;">
+                            <legend><h1><g>Progetto Ager</g></h1></legend>
+                  
+                            <h3>Decision<br /><br /> Support<br /><br /> Tool</h3><br /><br /><br />
+                   </fieldset> 
+                  
+                    
+                  </p>
+                  
+                  -->
+               
+            </h:panelGroup> 
+         <div id="leftrightcontainer"> 
+             
+             <!--
+              <ui:insert name="leftside" >
+		  <ui:include src="/template/colonnasinistra.xhtml" />
+		</ui:insert>    
+             -->
+             <!--
+            <h:panelGroup id="leftside" layout="block">
+                
+                <p>
+               
+                    
+                    
+                <p class="menusinistra"> Vai A :</p>
+                  <h:form>
+                   <ul >
+                      <li><h:commandLink action="home" value="Home"></h:commandLink></li>
+                      <li><h:commandLink action="aziende" value="Aziende"></h:commandLink></li>
+                      <li><h:commandLink action="dettaglioazienda" value="Dettaglio Azienda"></h:commandLink></li>
+                   </ul>
+                   <p class="menusinistra"> Inserimento :</p>   
+                    <ul>   
+                      <li><h:commandLink action="allevamento" value="Allevamento"></h:commandLink></li>
+                      <li><h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></li>
+                     
+                   </ul>
+                   <p class="menusinistra"> Alternative :</p>
+                   <ul>
+                      <li><h:commandLink action="alternative" value="Scelta Alternative"></h:commandLink></li>
+                    
+                      
+                    </ul>
+                   <p class="menusinistra"> Guida :</p>
+                   <ul>
+                       <li><h:commandLink action="guida" value="Help"></h:commandLink></li>
+                   </ul>    
+                        </h:form>
+                    
+                    -->
+                   <!-- <h:form>
+                        <h:panelGrid columns="2">
+                            <h:outputLabel value="User: " style="font-weight:bold" />
+                            <h:inputText size="10" value="#{userAger.username}" />
+                            <h:outputLabel value="Psw : " style="font-weight:bold" />
+                            <h:inputSecret size="10" value="#{userAger.password}" />
+                            <h:commandButton value="Login" type="submit" action="#{userAger.logga}"/>
+                            <h:commandButton value="New" type="submit" action="#{userAger.nuovoUser}"/>
+                        </h:panelGrid>
+                    </h:form>-->
+                   
+             <!--   </p>-->
+              <!--  <h:outputLabel value="Stringa da remoto: "></h:outputLabel>
+                <h:outputText value="#{userAger.testGiorgio}"></h:outputText>-->
+           <!-- </h:panelGroup> -->
+        
+        
+            <h:panelGroup id="rightside" layout="block">
+                
+                <!--
+	
+	<ul id="ulmenu">
+		<li class="green">
+			<p><a href="#">Vai A</a></p>
+			 <p class="subtext"><h:form> <h:commandLink action="home" value="Home"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="aziende" value="Aziende"></h:commandLink></h:form></p>
+                         <p class="subtext"><h:form> <h:commandLink action="dettaglioazienda" value="Dettaglio Azienda"></h:commandLink></h:form></p>
+		</li>
+		<li class="yellow">
+			<p><a href="#">Inserimento</a></p>
+			<p class="subtext"><h:form> <h:commandLink action="allevamento" value="Allevamento"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></h:form></p>
+                       
+		</li>
+		<li class="red">
+			<p><a href="#">Alternative</a></p>
+			<p class="subtext"><h:form> <h:commandLink action="alternative" value="Scelta Alternative"></h:commandLink></h:form></p>
+
+		</li>-->
+		<!--<li class="blue">
+			<p><a href="#">Trattamenti</a></p>
+			<p class="subtext"><a href="faces/separazione.xhtml">Separazione</a></p>
+                        <p class="subtext"><a href="faces/platea.xhtml">Platea</a></p>
+                        <p class="subtext"><a href="faces/vasca.xhtml">Vasca</a></p>
+                        
+
+                </li>
+		<li class="purple">
+			<p><a href="faces/alternative.xhtml">Alternative</a></p>
+			<p class="subtext">Legal things</p>
+			<p class="subtext"><a href="http://www.google.it">Legal things1</a></p>
+			<p class="subtext">Legal things2</p>
+			<p class="subtext">Legal things3</p>
+		</li>
+		
+		<li class="black">
+			<p><a href="#">Black</a></p>
+			<p class="subtext"><a href="http://www.google.it">Black Things</a></p>
+			<p class="subtext">Black Things1</p>
+			<p class="subtext">Black Things2</p>
+		</li>
+                -->
+	<!--</ul>-->
+        <!--
+          <ui:insert name="ulmenu" >
+		  <ui:include src="/template/menu.xhtml" />
+		</ui:insert>       
+            -->  
+              
+                <div class="cleardiv">
+                    </div>
+               <!--
+               <p>
+                   <h2>Progetto Ager : Acque di stoccaggio</h2>     
+               </p>    
+               -->
+               
+                <!-- <p>
+                      Questa pagina si occuperà del lato aziendale     
+                  
+               </p> -->
+                <f:view id="vistaRoot">
+                    <h:form id="formRoot">
+                   
+               <f:metadata>
+                    <f:viewParam name="sp_utente" value="#{dettaglioCuaa.utente}" />
+                    <f:viewParam name="sp_utente" value="#{utente.username}" />
+                    <f:viewParam name="sp_azienda" value="#{dettaglioCuaa.cuaa}" />
+                    <f:viewParam name="sp_scenario" value="#{dettaglioCuaa.scenarioString}" />
+              </f:metadata>     
+                    
+                        
+                   <!--     
+                  <c:choose>
+                 <c:when test="#{utente.username == 'azienda1'}">
+                    <h:outputText value="Cuaa selezionato : #{dettaglioCuaa.cuaa}" style="display: block;"/>
+                    <h:outputText value="Ragione sociale : #{dettaglioCuaa.ragionesociale}" style="display: block;" />
+                 
+                 </c:when>
+                 <c:otherwise>
+                     <h:outputText value="Cuaa selezionato : #{dettaglioCuaa.cuaa_finto}" style="display: block;"/>
+                     <h:outputText value="Ragione sociale : #{dettaglioCuaa.ragionesociale_finto}" style="display: block;" />
+                     
+                 </c:otherwise>
+             </c:choose>      
+                   -->
+                  <!--      
+                   <h:outputText value="Cuaa selezionato : #{dettaglioCuaa.cuaa}" style="display: block;" />
+                        
+                    <h:outputText value="Ragione sociale : #{dettaglioCuaa.ragionesociale}" style="display: block;" />    
+                  -->
+                  <!--
+                    <h:outputText value="Comune : #{dettaglioCuaa.comune}" style="display: block;"/>
+                     <h:outputText value ="Scenario : #{dettaglioCuaa.scenario}" style="display: block;"/>
+                   
+                   <h:outputText value ="Descrizione Scenario : #{dettaglioCuaa.descrizionescenario}" style="display: block;"/>
+                    -->
+                    <br />
+                    
+                      <h:dataTable id="tabellaAziendalistaStoA" value="#{acquastoccaggioJ.tabella}"  binding="#{acquastoccaggioJ.dataTable}"  var="row">
+              
+                 
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Acqua impianti(m3)" style="font-size:12px;"  />
+                    </f:facet>
+                    <h:inputText  value="#{row.acquaImpianti}" style="width: 80px;"  />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Superfici scoperte(m2)" style="font-size:12px;"/>
+                    </f:facet>
+                    <h:inputText  value="#{row.superficiScoperte}" style="width: 80px;" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Pioggia(mm)" style="font-size:12px;"/>
+                    </f:facet>
+                    <h:inputText   value="#{row.pioggia}" style="width: 80px;" >
+                        
+                    </h:inputText>
+                </h:column>
+                          <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Capacita Liquidi(m3)" style="font-size:12px;" />
+                    </f:facet>
+                              <h:inputText   value="#{row.capLiquidi1rac}" style="width: 80px;" >
+                        
+                    </h:inputText>
+                </h:column>
+                                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Capacita Solidi(m3)" style="font-size:12px;"/>
+                    </f:facet>
+                                    <h:inputText   value="#{row.capSolidi1rac}" style="width: 80px;" >
+                        
+                    </h:inputText>
+                </h:column>
+                                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Superficie scoperta Liquidi(m2)" style="font-size:12px;"/>
+                    </f:facet>
+                                    <h:inputText   value="#{row.supLiquidi1rac}" style="width: 120px;" >
+                        
+                    </h:inputText>
+                </h:column>
+                                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Superficie scoperta Solidi(m2)" style="font-size:12px;" />
+                    </f:facet>
+                                    <h:inputText   value="#{row.supSolidi1rac}" style="width: 120px;" >
+                        
+                    </h:inputText>
+                </h:column>
+                <f:facet name="footer">
+                    <h:panelGroup>
+                        
+                     
+                             <h:commandButton value="Aggiorna "  action="#{acquastoccaggioJ.aggiorna}" />
+                           
+                       
+                    </h:panelGroup>
+                </f:facet> 
+               
+
+              
+                    
+                      </h:dataTable>
+                    <br/>
+                    <br/>
+               
+                    
+                    
+                    </h:form>
+                </f:view>
+                
+             
+                
+            </h:panelGroup>  
+             </div>
+        <div class="cleardiv">
+            </div>
+        <!--
+       <div id="footerside">
+                    <p>
+                        <br/>
+                        <h3>Sviluppato da :<br /><a href="http://www.disaa.unimi.it">Dipartimento di Scienze Agrarie e Ambientali</a> <br /><a href="http://www.unimi.it"> Università degli Studi di Milano </a></h3>
+                     
+                    </p>    
+        </div>
+        -->
+    </h:body>
+</html>
+

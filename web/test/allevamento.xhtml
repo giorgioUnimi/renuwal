@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich">
+    
+    <!--<h:panelGrid columns="6">-->
+    <table id="tabAggiungi" style="700px;">
+        <thead style="color:rgb(11,53,108);" >
+            <tr>
+                <th>Specie</th>
+                <th>Categoria</th>
+                <th>Allevamento</th>
+                <th>Stabulazione</th>
+                <th>#</th>
+                <th>Kg</th>   
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td >
+                    <h:selectOneMenu id="stateR1" required="true"  value="#{recordAllevamento1.desSpecie}"  style="width:70px;">
+                        <f:selectItems value="#{recordAllevamento1.listaSpecie}" />
+                    <a4j:ajax execute="@this"  event="change" render="categoriaR1 allevamentoR1 stabulazioneR1" />
+                </h:selectOneMenu> 
+                </td>
+                <td>
+                    <h:selectOneMenu id="categoriaR1"   value="#{recordAllevamento1.desCatAllev}" style="width:150px;">
+                    <f:selectItems value="#{recordAllevamento1.listaCategorie}" />  
+                    <a4j:ajax execute="@this" immediate="true" event="click" render="allevamentoR1 stabulazioneR1" />
+                </h:selectOneMenu> 
+                </td>
+                <td>
+                    <h:selectOneMenu id="allevamentoR1" value="#{recordAllevamento1.desAllevamento}" style="width:160px;" >
+                    <f:selectItems value="#{recordAllevamento1.listAllevamento}" />  
+                    <a4j:ajax execute="@this" immediate="true" event="click" render="stabulazioneR1" />
+                </h:selectOneMenu>
+                </td>
+                <td>
+                    <h:selectOneMenu id="stabulazioneR1"   value="#{recordAllevamento1.desStabulazione}"   style="width:180px;">
+                    <f:selectItems value="#{recordAllevamento1.listStabulazione}" />  
+                    <f:ajax execute="stabulazioneR1" immediate="true" event="click" render="pesovivoR1" />
+                </h:selectOneMenu> 
+                    
+                </td>
+                <td>
+                      <h:inputText   value="#{recordAllevamento1.numCapiSpecieStab}"  style="width:30px;"  ></h:inputText>
+                </td>
+                <td style="width:30px;">
+                    
+                     <h:outputText  id="pesovivoR1" value="#{recordAllevamento1.pesoVivo}" style="width:30px;"  ></h:outputText>
+                </td>
+            </tr>
+        </tbody>
+        
+    </table>
+                   
+    <a4j:commandButton value="Aggiungi"  action="#{recordAllevamento1.aggiungi}" render="tableR" oncomplete="javascript:location.reload(true)" id="bottoneaggiungi" binding="#{recordAllevamento1.bottoneaggiungi}"/>             
+               
+           
+   <!-- </h:panelGrid>-->
+       <h:panelGrid columns="2">
+           
+        
+           <rich:extendedDataTable id="tableR"   binding="#{listaAllevamentiJ.dataTable1}" value="#{listaAllevamentiJ.tabella}" var="rowR"   selection="#{listaAllevamentiJ.selection}" selectionMode="#{listaAllevamentiJ.selectionMode}" onrowclick="" style=" width: 700px;">
+                                        <!--<a4j:ajax execute="@form" event="selectionchange" listener="#{listaAllevamentiJ.selectionListener}"/>-->                                        
+                                        <!--<a4j:ajax execute="@form" event="click" listener="#{listaAllevamentiJ.selectionListener}"/>-->                                        
+        <!--<rich:jQuery selector="#tableR tr"   query="mouseout(function(){jQuery(this).removeClass('active-row')})"/>  
+        <rich:jQuery selector="#tableR tbody tr"   query="click(function(){jQuery(this.siblings()).removeClass('selected-row');jQuery(this).addClass('selected-row')})"/> -->
+       <!-- <rich:jQuery selector="#tableR tr"   query="mouseout(function(){jQuery(this).removeClass('rigaSelezionata')})"/>  
+        <rich:jQuery selector="#tableR tbody tr"   query="click(function(){jQuery(this.siblings()).removeClass('rigaSelezionata');jQuery(this).addClass('rigaSelezionata')})"/> 
+           -->                                
+                                        <rich:column width="70px;"  >
+                                            <f:facet name="header" >
+                                                <h:outputText value="Specie" />
+                                            </f:facet>
+                                           <h:outputText   value="#{rowR.desSpecie}" />
+                                           <!-- <h:selectOneMenu id="stateR" required="true"  value="#{rowR.desSpecie}"  >
+                                                <f:selectItems value="#{rowR.listaSpecie}" />  
+                                                <a4j:ajax execute="@this"  event="change" render="categoriaR allevamentoR stabulazioneR" />
+                                            </h:selectOneMenu> -->
+                                              
+                                        </rich:column>
+                                        <rich:column width="150px;">
+                                            <f:facet name="header">
+                                                <h:outputText value="Categorie" />
+                                            </f:facet>
+                                            <h:outputText   value="#{rowR.desCatAllev}"/>
+                                           <!-- <h:selectOneMenu id="categoriaR"   value="#{rowR.desCatAllev}" >
+                                                <f:selectItems value="#{rowR.listaCategorie}" />  
+                                                <a4j:ajax execute="@this" immediate="true" event="click" render="allevamentoR stabulazioneR" />
+                                            </h:selectOneMenu> -->
+                                               
+                                        </rich:column>
+                                        <rich:column width="170px;">
+                                            <f:facet name="header">
+                                                <h:outputText value="Allevamento" />
+                                            </f:facet>
+                                             <h:outputText   value="#{rowR.desAllevamento}"/>
+                                           <!-- <h:selectOneMenu id="allevamentoR" value="#{rowR.desAllevamento}" style="width:140px;" >
+                                                <f:selectItems value="#{rowR.listAllevamento}" />  
+                                                <a4j:ajax execute="@this" immediate="true" event="click" render="stabulazioneR" />
+                                            </h:selectOneMenu> -->
+                                        </rich:column>
+                                        <rich:column width="180px;">
+                                            <f:facet name="header">
+                                                <h:outputText value="Stabulazione" />
+                                            </f:facet>
+                                           <h:outputText   value="#{rowR.desStabulazione}"/>   
+                                          <!--  <h:selectOneMenu id="stabulazioneR"   value="#{rowR.desStabulazione}"   style="width:140px;">
+                                                <f:selectItems value="#{rowR.listStabulazione}" />  
+                                                <f:ajax execute="stabulazioneR" immediate="true" event="click" render="pesovivoR" />
+                                            </h:selectOneMenu> -->
+                                        </rich:column>
+                                        <rich:column width="30px;">
+                                            <f:facet name="header">
+                                                <h:outputText value="#"   />
+                                            </f:facet>
+                                            <h:inputText   value="#{rowR.numCapiSpecieStab}"  style="width:50px;"  >
+                                                
+                                            </h:inputText>
+                                        </rich:column>  
+                                        <rich:column width="40px;">
+                                            <f:facet name="header">
+                                                <h:outputText value="Kg" />
+                                            </f:facet>
+                                            <h:outputText  id="pesovivoR" value="#{rowR.pesoVivo}" style="width:40px;"  >
+                                            </h:outputText>
+                                        </rich:column>
+                                        <rich:column width="50px;">
+                                             <f:facet name="header">
+                                                <h:outputText value="Op" />
+                                            </f:facet>
+                                          
+                                           <a4j:commandLink oncomplete="#{rich:component('editPane')}.show()"  execute="@this" resetValues="true" actionListener="#{listaAllevamentiJ.resetValues()}"  >                                               
+                                               <h:graphicImage value="/resources/css/images/edit.gif" alt="edit" />
+                                               <a4j:param value="#{rowR.id}" assignTo="#{listaAllevamentiJ.idallevamento}" />
+                                                <f:setPropertyActionListener target="#{listaAllevamentiJ.allevamentoEdit}" value="#{rowR}" />
+                                           </a4j:commandLink>  
+                                            <a4j:commandLink    action="#{listaAllevamentiJ.eliminaRiga(rowR.id)}"  oncomplete="javascript:location.reload(true)" >
+                                                <h:graphicImage value="/resources/css/images/delete.gif" alt="delete" />
+                                            </a4j:commandLink>     
+                                        </rich:column>
+                                       
+                                    </rich:extendedDataTable>
+           
+           
+       
+          
+        
+    </h:panelGrid>
+   
+   <rich:popupPanel header="Modifica Allevamento" id="editPane" domElementAttachment="parent" width="210" height="210">
+       <h:panelGrid columns="2" id="editGrid">
+           <h:outputText value="Specie" />
+           <h:selectOneMenu id="stateR2" required="true"  value="#{listaAllevamentiJ.allevamentoEdit.desSpecie}"  style="width:97px;">
+               <f:selectItems value="#{listaAllevamentiJ.allevamentoEdit.listaSpecie}" />
+               <a4j:ajax execute="@this"  event="change" render="categoriaR2 allevamentoR2 stabulazioneR2" />
+           </h:selectOneMenu> 
+           <h:outputText value="Categoria" />
+           <h:selectOneMenu id="categoriaR2"   value="#{listaAllevamentiJ.allevamentoEdit.desCatAllev}" style="width:97px;">
+               <f:selectItems value="#{listaAllevamentiJ.allevamentoEdit.listaCategorie}" />  
+               <a4j:ajax execute="@this" immediate="true" event="click" render="allevamentoR2 stabulazioneR2" />                
+           </h:selectOneMenu> 
+           <h:outputText value="Allevamento" />
+           <h:selectOneMenu id="allevamentoR2"   value="#{listaAllevamentiJ.allevamentoEdit.desAllevamento}" style="width:97px;">
+               <f:selectItems value="#{listaAllevamentiJ.allevamentoEdit.listAllevamento}" />  
+               <a4j:ajax execute="@this" immediate="true" event="click" render="stabulazioneR2" />
+           </h:selectOneMenu> 
+           <h:outputText value="Stabulazione" />
+           <h:selectOneMenu id="stabulazioneR2"   value="#{listaAllevamentiJ.allevamentoEdit.desStabulazione}" style="width:97px;">
+               <f:selectItems value="#{listaAllevamentiJ.allevamentoEdit.listStabulazione}" />  
+               <a4j:ajax execute="@this" immediate="true" event="click" render="pesovivoR2" />                
+           </h:selectOneMenu> 
+           <h:outputText value="#" />
+           <h:inputText   value="#{listaAllevamentiJ.allevamentoEdit.numCapiSpecieStab}"    ></h:inputText>      
+           <h:outputText value="Kg" />
+           <h:outputText  id="pesovivoR2" value="#{listaAllevamentiJ.allevamentoEdit.pesoVivo}"   ></h:outputText>
+           <a4j:commandButton value="Esci" onclick="#{rich:component('editPane')}.hide(); return false;"  style=" text-transform: capitalize;" />  
+          <a4j:commandButton value="Modifica" action="#{listaAllevamentiJ.store}" render="tableR" execute="editPane" oncomplete="if (#{facesContext.maximumSeverity==null}) {#{rich:component('editPane')}.hide();}" style=" text-transform: capitalize;margin-right: 20px;" />
+                                                                         
+       </h:panelGrid>
+   </rich:popupPanel>
+   
+</ui:composition>

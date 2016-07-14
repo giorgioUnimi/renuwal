@@ -1,0 +1,333 @@
+root { 
+    display: block;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #3a4f54;
+    background-color: #dfecf1;
+    font-size: small;
+    margin-left: auto;
+    margin-right: auto;
+    width: 860px;
+    /*height: 2100px;*/
+     
+    
+}
+
+/**
+l'header è comune a tutte le pagine
+*/
+#headerside {
+    background-color: lightblue;
+   /* background-image: url('logo_ager_big.jpg');*/
+    background-repeat:no-repeat;
+    width: 860px;
+    height: 259px;
+    border-top: 0px;
+    text-align: center;
+    vertical-align:text-top;
+    /*margin-left: auto;
+    margin-right: auto;*/
+    /*padding-bottom: 10px;*/
+   
+}
+
+
+#headerside img{
+    float:right;
+}
+
+/*#headerLeft{
+    float:left;
+}
+
+#headerRight{
+    
+}*/
+
+/**
+*contenitore centrale delle due colonne 
+*leftside e rightside
+*
+*/
+#leftrightcontainer{
+  background:lightgrey;
+  width:100%;
+  display:block;
+  float:left;
+   
+}
+
+
+
+/**
+parte comune a tutte le pagine : colonna di sinistra
+*/
+#leftside {
+   float:left;
+   display:block;
+   width :15%;
+}
+
+
+/**
+parte comune di tutte le pagine: colonna di destra
+*/
+#rightside {
+    float:right;
+    background-color:#CCFFCC;
+    display :block;
+    width:84%;
+}
+
+/*select,textarea {
+    background-color:burlywood;
+}*/
+
+/**
+descalternativa è il campo testo che contiene la descrizione dell'alternativa e selalt
+è il menu a tendina che contiene i valori numerici delle alternative
+*/
+#formRoot\:descAlternativa,  #formRoot\:selalt{
+    background-color: burlywood;
+}
+
+/**
+E la prima tabella in nella pagina dei trattamenti in alto che contiene i totali
+*/
+#formRoot\:tabellaAzienda td {
+    border-style: solid;
+    text-align: right;
+}
+/**
+sono le due tabella sotto tabellaAzienda che vengono nascoste e mosrtate con i bottoni nascondi e mostra 
+e contengono il dettaglio delle caratteristiche chimiche dei reflui
+*/
+#formRoot\:tabellaAziendaLiqPan td,#formRoot\:tabellaAziendaLetPan td {
+    border-style:dotted ;
+    border-width:1px; 
+    width: 60px;
+    text-align: right;
+}
+
+/**
+*sono le due tabella sotto tabellaAzienda che vengono nascoste e mosrtate con i bottoni nascondi e mostra 
+*e contengono il dettaglio delle caratteristiche chimiche dei reflui. Imposta la lunghezza della prima colonna 
+*delle due tablle sotto cosi che la stringa tipologia sia su un unica linea
+*/
+#formRoot\:tabellaAziendaLiqPan td:first-child,#formRoot\:tabellaAziendaLetPan td:first-child {
+    width: 130px;
+}
+
+/**
+tabella flussi contiene le informazioni dei singoli passaggi di ogni singola alternativa nella pagina delle alternative
+*/
+ #formRoot\:tabellaFlussi td  {
+    border-width:1px; 
+    border-style:solid ;
+    text-align: right;
+   width : 100px;
+    background-color: deepskyblue;
+   
+}
+
+/**
+tabella flussi contiene le informazioni dei singoli passaggi di ogni singola alternativa nella pagina delle alternative
+*/
+ #formRoot\:tabellaFlussi tr > td:first-child ,#formRoot\:tabellaFlussi tr > td:first-child+td {
+  
+   width : 300px;
+    
+   
+}
+
+/**
+TotaliReteidrica,totalivendita,totaliagronomici sono nella pagina dei trattamenti mentre le altre nella pagina 
+specifica del trattamento
+*/
+#formRoot\:tabellaGestionali td  ,#formRoot\:tabellaEmissioni td  ,#totaliVendita td , #totaliReteIdrica td ,
+ #totaliAgronomici td ,#formRoot\:tabelladatiOutput td , #formRoot\:tabellaGesti td , #tabellaEmissioni td ,#tabellaGestionali td {
+    border-width:1px; 
+    border-style:solid ;
+    width: 120px;
+    text-align: right;
+   
+}
+/**
+tabellaAziendaLetOut e tabellaAziendaLiqOut sono presenti nella seconda parte della pagina
+specifica del trattamento e contengono i dati di output mentre #formRoot\:tabellaAziendaLiq e #formRoot\:tabellaAziendaLet
+i dati di input alla trattamento
+*/
+#formRoot\:tabellaAziendaLetOut td , #formRoot\:tabellaAziendaLiqOut td , #formRoot\:tabellaAziendaLiq td , #formRoot\:tabellaAziendaLet td{
+    border-width:1px; 
+    border-style:solid ;
+    width: 60px;
+    text-align: right;
+}
+
+/**
+tabellaAziendaLetOut e tabellaAziendaLiqOut sono presenti nella seconda parte della pagina
+specifica del trattamento e contengono i dati di output mentre #formRoot\:tabellaAziendaLiq e #formRoot\:tabellaAziendaLet
+i dati di input alla trattamento
+*/
+#formRoot\:tabellaAziendaLetOut , #formRoot\:tabellaAziendaLet{
+    
+    background-color:  greenyellow;
+   
+}
+
+#formRoot\:tabellaAziendaLet td , #formRoot\:tabellaAziendaLiq td{
+    
+   text-align: right;
+   
+}
+
+/**
+tabellaAziendaLetOut e tabellaAziendaLiqOut sono presenti nella seconda parte della pagina
+specifica del trattamento e contengono i dati di output mentre #formRoot\:tabellaAziendaLiq e #formRoot\:tabellaAziendaLet
+i dati di input alla trattamento
+*/
+#formRoot\:tabellaAziendaLiqOut , #formRoot\:tabellaAziendaLiq{
+    
+    background-color:  deepskyblue;
+   
+}
+
+#formRoot\:tabellaAziendaLiqOut td , #formRoot\:tabellaAziendaLiq td{
+    
+    text-align: right;
+   
+}
+
+#formRoot\:tabellaAziendaLetOut td:first-child , #formRoot\:tabellaAziendaLiqOut td:first-child , #formRoot\:tabellaAziendaLiq td:first-child , #formRoot\:tabellaAziendaLet td:first-child{
+     width: 130px;
+     text-align: right;
+     
+}
+
+#formRoot\:tabellaAlt td , #formRoot\:tabellaAziendalista
+{
+     vertical-align:top;
+}
+
+#totaliVendita td{
+     border-width:1px; 
+     border-style:solid ;
+     text-align: right;
+}
+
+/**
+etichette delle colonne delle tabelle outputgestionali e output emissioni collocate nella pagian specifica
+del trattamento
+*/
+.etichettegestionali
+{
+    font-size: 12px;
+    font-weight: bold;
+    
+}
+
+/**
+*/
+.etichetteUL{
+    clear:left;
+    list-style: none;
+}
+
+.etichetteULli {
+    
+}
+/**
+*il footer della pagina 
+*/
+#footerside {
+    
+    background-color: lightblue;
+    text-align: center;
+    font-size: 8px;
+    /*
+    font-weight: bold;
+    font-style: oblique ;
+    font-family: serif;*/
+    width: 860px;
+    height: 60px;
+    
+    /*border-top: 1px;*/
+  
+    /*vertical-align:text-top;*/
+    
+}
+
+
+
+
+/**
+utility per riposizinare il conteuto dopo il menu
+in modo che scenda e non venga spostato a sinistra
+*/
+.cleardiv {
+    clear: left;
+}
+
+/**
+La seguente classe modella i campi testo contenuti in <p>
+del mennu si sinsitra cosi da renderli evidenti 
+*/
+.menusinistra{
+     background-color: skyblue;
+}
+
+/**
+*modella il bottone calcola usato per eseguire un 'alternativa
+nella pagina alternative posizionato prima della descrizione flussi
+*/
+
+#formRoot\:bottonecalcola{
+ 
+  /*color: #900;*/
+  font-weight: bold;
+  font-size: 130%;
+  text-transform: uppercase;
+  margin-top: 20px;
+  margin-left: 200px;
+  width: 240px;
+  height: 50px;
+}
+
+
+.listaparametri_primacolonna{
+    width: 500px;
+}
+
+
+/*
+in altenative la tabella che mostra i risultati
+*/
+.tabella td{
+    border-style:dotted ;
+    border-width:1px; 
+    width: 120px;
+    text-align: right;
+}
+
+/*
+.tabella td{
+     border-width:1px; 
+}
+*/
+
+
+
+.testgiorgio{
+    color: red/*{fcHover}*/;
+      background: #000000; 
+     text-decoration: none;
+}
+
+#formRoot\:risultatiDinamici table td{
+    
+     border-width:1px; 
+     border-style:solid ;
+     text-align: right;
+}

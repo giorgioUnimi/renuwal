@@ -1,0 +1,288 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition>
+       <h:panelGroup id="leftside" layout="block">
+                
+           <c:if test="#{navigazione.paginaAttuale eq 'index.xhtml'|| navigazione.paginaAttuale eq 'index_1.xhtml'}">
+               
+               <c:if test="#{utente.inseritoCorretto == false}">
+               
+             
+                   <fieldset>
+                       <legend>Info</legend>
+                       <p style="color: blue;font-size: 10px;">E' necessario fornire username e password per proseguire nella navigazione.<br/><b>Registrati</b> usando il link sotto se sei un nuovo utente.</p>
+                   </fieldset>    
+                   <h:form>
+                       <h:panelGrid style="font-weight:bold;padding-left: 10px;font-size: 8px;">
+                           <h:outputLabel value="Username: " style="font-weight:bold;" />
+                           <h:inputText value="#{utente.username}" />
+                          
+                           <h:outputLabel value="Password: " style="font-weight:bold;font-size: 8px;" />
+                           <h:inputSecret value="#{utente.password}" />
+                           
+                           <h:commandButton value="Login"  action="sceltapercorso" >
+                                 <f:param  name="username" value="#{utente.username}" />  
+                                 <f:param  name="password" value="#{utente.password}" />  
+                           </h:commandButton>
+                            <h:link value="Password dimenticata" outcome="vecchio" />
+                           <br/>
+                           <h:link value="Registrati" outcome="registrati" />
+                       </h:panelGrid>
+
+                       <br />
+                       <c:if test="#{utente.messaggio.length() != 0}">
+                           <fieldset>
+                               <legend>Avviso</legend>
+                               <h:outputLabel value="#{utente.messaggio}" style="color: red;"/>
+                           </fieldset>
+                       </c:if> 
+                      
+                   </h:form>
+               </c:if>
+               
+               <c:if test="#{utente.inseritoCorretto  == true}">
+              
+                    <p class="menusinistra"> Calcola Alternativa :</p>
+                   <h:form>
+                       <ul>
+                        
+                           <li><h:commandLink action="sceltapercorso" value="Operazioni">
+                                   <f:param  name="username" value="#{utente.username}" />  
+                                   <f:param  name="password" value="#{utente.password}" />  
+                        
+                               </h:commandLink></li>
+                       </ul>
+                        <p class="menusinistra"> Guida :</p>
+                   <ul>
+                       <li><h:commandLink action="guida" value="Help"></h:commandLink></li>
+                       
+                   </ul> 
+                
+                   </h:form>
+                   
+               </c:if>   
+
+           </c:if><!--close if pagina attuale index.xhtml-->
+           
+           <c:if test="#{navigazione.paginaAttuale eq 'sceltapercorso.xhtml' || navigazione.paginaAttuale eq 'aziende.xhtml' || navigazione.paginaAttuale eq 'scenario.xhtml'
+                       || navigazione.paginaAttuale eq 'guida.xhtml'  || navigazione.paginaAttuale eq 'localizzazione2.xhtml'  || navigazione.paginaAttuale eq 'gruppoaziende.xhtml'
+                        || navigazione.paginaAttuale eq 'testmulti2.xhtml'     }">
+                <p>
+                  
+                    
+                   <p class="menusinistra"> Vai A :</p>
+                  <h:form>
+                   <ul>
+                      <li><h:commandLink action="home" value="Home"></h:commandLink></li>
+                     
+                   </ul>
+                       <p class="menusinistra"> Guida :</p>
+                   <ul>
+                       <li><h:commandLink action="guida" value="Help"></h:commandLink></li>
+                      
+                   </ul> 
+                    
+                       
+                   </h:form>
+                </p>
+               </c:if><!--close if page aziende.xhmtl -->
+           
+           
+           <c:if test="#{navigazione.paginaAttuale eq 'dettaglioAzienda.xhtml'}">
+                <p>
+                     Legenda Etichette : 
+                    <ul >
+                        <li >Volume:in metri cubi</li>
+                         <li >Biomassa:in metri cubi</li>
+                         <li >TKN:azoto totale in Kg</li>
+                         <li >TAN:azoto ammoniacale in Kg</li>
+                         <li >DM:sostanza secca in Kg</li>
+                         <li >SV:solidi volatili in Kg</li>
+                         <li >PO:fosforo totale in Kg</li>
+                         <li >KO:potassio totale in Kg</li>
+                    </ul>
+                    <h:form>
+                   <ul >
+                      <li><h:commandLink action="home" value="Home"></h:commandLink></li>
+                      <li><h:commandLink action="aziende" value="Aziende"></h:commandLink></li>
+                       <li><h:commandLink action="scenario" value="Scenari">
+                               
+                               <f:param  name="id" value="#{dettaglioCuaa.id}"  />  
+                               
+                               <f:param  name="id1" value="#{dettaglioCuaa.ragionesociale}" />  
+                               <f:param  name="id2" value="#{dettaglioCuaa.comune}" /> 
+                               <f:param  name="id3" value="#{dettaglioCuaa.utente}" /> 
+                           </h:commandLink>
+                       
+                       </li>
+                      <li><h:commandLink action="sceltapercorso" value="Scelta Percorso"></h:commandLink></li>
+                   </ul>
+                   <p class="menusinistra"> Inserimento :</p>   
+                    <ul>   
+                      <li><h:commandLink action="allevamento" value="Allevamento"></h:commandLink></li>
+                      <li><h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></li>
+                      <li><h:commandLink action="acquastoccaggio" value="Acqua di Stoccaggio"></h:commandLink></li>
+                   </ul>
+                        
+                   <p class="menusinistra"> Guida :</p>
+                   <ul>
+                       <li><h:commandLink action="guida" value="Help"></h:commandLink></li>
+                       
+                   </ul>             
+                        </h:form>                  
+                </p>
+                    
+               </c:if><!--close if page dettaglioAziende.xhmtl -->
+                     
+               <c:if test="#{navigazione.paginaAttuale eq 'allevamento_1.xhtml' || navigazione.paginaAttuale eq 'acquastoccaggio.xhtml' || navigazione.paginaAttuale eq 'stoccaggio.xhtml' }">
+                <p>
+                  
+                    
+                   <p class="menusinistra"> Vai A :</p>
+                  <h:form>
+                   <ul>
+                      <li><h:commandLink action="home" value="Home"></h:commandLink></li>
+                       <li><h:commandLink action="aziende" value="Aziende"></h:commandLink></li>
+                       
+                       <li><h:commandLink action="scenario" value="Scenari">
+                               <f:param  name="id" value="#{dettaglioCuaa.id}" />  
+                               <f:param  name="id1" value="#{dettaglioCuaa.ragionesociale}" />  
+                               <f:param  name="id2" value="#{dettaglioCuaa.comune}" />
+                                <f:param  name="id3" value="#{dettaglioCuaa.utente}" /> 
+                           </h:commandLink>
+                       
+                       </li>
+                         <li><h:commandLink action="dettaglioazienda" value="Dettaglio Azienda"></h:commandLink></li>
+                       
+                       <li><h:commandLink action="sceltapercorso" value="Scelta Percorso"></h:commandLink></li>
+                   </ul>
+                    
+                    <p class="menusinistra"> Inserimento :</p>   
+                    <ul> 
+                        <c:if test="#{navigazione.paginaAttuale eq 'allevamento_1.xhtml'}">
+                            <li><h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></li>
+                            <li><h:commandLink action="acquastoccaggio" value="Acqua di Stoccaggio"></h:commandLink></li>
+                        </c:if>  
+                        <c:if test="#{navigazione.paginaAttuale eq 'acquastoccaggio.xhtml'}">
+                            <li><h:commandLink action="allevamento" value="Allevamento"></h:commandLink></li>
+                            <li><h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></li>
+                        </c:if>  
+                        <c:if test="#{navigazione.paginaAttuale eq 'stoccaggio.xhtml'}">
+                            <li><h:commandLink action="allevamento" value="Allevamento"></h:commandLink></li>
+
+                            <li><h:commandLink action="acquastoccaggio" value="Acqua di Stoccaggio"></h:commandLink></li>
+                        </c:if>  
+
+                    </ul>
+                    
+                       <p class="menusinistra"> Guida :</p>
+                   <ul>
+                       <li><h:commandLink action="guida" value="Help"></h:commandLink></li>
+                       
+                   </ul> 
+                    
+                   </h:form>
+                </p>
+               </c:if><!--close if page aziende.xhmtl --> 
+               
+               <!--caso in cui mi trovo nella pagina alternative
+                    qui devo moduli di dell'alternativa nel sotto menu moduli
+                    in funzione di quale alternativa è stata fatta girare ma questo lo devo mostrare
+                    solo dopo che l'ultente ha premuto il bottone calcola ed il test che mi dice che è stato premuto
+                    il bottone calcola è verficare se la pagina di provenienza corrisponde ad alternative.xhtml
+                    oltre ad essere ovviamente anche la pagina attuale
+               -->
+               <c:if test="#{navigazione.paginaAttuale eq 'alternative.xhtml' || navigazione.paginaAttuale eq 'parametridiprogetto.xhtml'}">
+                <p>
+                  
+                    
+                   <p class="menusinistra"> Vai A :</p>
+                  <h:form>
+                   <ul>
+                      <li><h:commandLink action="home" value="Home"></h:commandLink></li>
+                       <li><h:commandLink action="aziende" value="Aziende"></h:commandLink></li>
+                       <li><h:commandLink action="dettaglioazienda" value="Dettaglio Azienda"></h:commandLink></li>
+                       <li>
+                           <h:commandLink action="scenario" value="Scenari">
+                               <f:param  name="id" value="#{dettaglioCuaa.cuaa}" />  
+                               <f:param  name="id1" value="#{dettaglioCuaa.ragionesociale}" />  
+                               <f:param  name="id2" value="#{dettaglioCuaa.comune}" /> 
+                                <f:param  name="id3" value="#{dettaglioCuaa.utente}" /> 
+                           </h:commandLink>
+                       
+                       </li>
+                       
+                       <li><h:commandLink action="sceltapercorso" value="Scelta Percorso"></h:commandLink></li>
+                   </ul>
+                   
+                    <p class="menusinistra"> Parametri di progetto :</p>   
+                    <ul>
+               
+                    <li><h:link  outcome="parametrivasca" value="Vasca"></h:link></li>
+                    <li><h:link outcome="parametriplatea" value="Platea"></h:link></li>
+                    <li><h:link outcome="parametriseparazione" value="Separazione"></h:link></li>
+                    <li><h:link outcome="parametricentrifuga" value="Centrifuga"></h:link></li>
+                    <li><h:link outcome="parametridigestione" value="Digestione"></h:link></li>
+                    <li><h:link outcome="parametriflottazione" value="Flottazione"></h:link></li>
+                    <li><h:link outcome="parametrisbrndn" value="SBR-NDN"></h:link></li>
+                    <li><h:link outcome="parametrisbrcontinuo" value="SBR-Continuo"></h:link></li>
+                    <li><h:link outcome="parametristabilizzazione" value="Stabilizzazione aerobica"></h:link></li>
+                    <li><h:link outcome="parametristrippaggiocaldo" value="Strippaggio a caldo"></h:link></li>
+                    <li><h:link outcome="parametristrippaggiofreddo" value="Strippaggio a freddo"></h:link></li>
+                     <li><h:link outcome="parametririmozioneazoto" value="Rimozione Azoto"></h:link></li>
+                     <li><h:link outcome="parametricompostaggio" value="Compostaggio"></h:link></li>
+                      <li><h:link outcome="parametrievaporazione" value="Evaporazione"></h:link></li>
+                       <li><h:link outcome="parametrifitodepurazione" value="Fitodepurazione"></h:link></li>
+                         <li><h:link outcome="parametritrasporto" value="Trasporto"></h:link></li>
+
+                    </ul>
+                   
+                       <p class="menusinistra"> Guida :</p>
+                   <ul>
+                       <li><h:commandLink action="guida" value="Help"></h:commandLink></li>
+                       
+                   </ul> 
+                    
+                   </h:form>
+                </p>
+               </c:if><!--close if page alternative.xhmtl -->
+               <c:if test="#{navigazione.paginaAttuale eq 'vasca.xhtml' || navigazione.paginaAttuale eq 'platea.xhtml' || navigazione.paginaAttuale eq 'parametricentrifuga.xhtml' 
+                             || navigazione.paginaAttuale eq 'separazione.xhtml' || navigazione.paginaAttuale eq 'parametriplatea.xhtml' || navigazione.paginaAttuale eq 'parametrivasca.xhtml'
+                                || navigazione.paginaAttuale eq 'parametriseparazione.xhtml' || navigazione.paginaAttuale eq 'parametriSBR_NDN.xhtml' 
+                                || navigazione.paginaAttuale eq 'parametriflottazione.xhtml' || navigazione.paginaAttuale eq 'parametridigestione.xhtml' || navigazione.paginaAttuale eq 'modulo.xhtml'
+                                ||  navigazione.paginaAttuale eq 'parametrisbrcontinuo.xhtml'   ||  navigazione.paginaAttuale eq 'parametriStabilizzazione.xhtml'||  navigazione.paginaAttuale eq 'parametristrippaggiocaldo.xhtml'
+||  navigazione.paginaAttuale eq 'parametristrippaggiofreddo.xhtml' ||  navigazione.paginaAttuale eq 'parametririmozioneazoto.xhtml' ||  navigazione.paginaAttuale eq 'parametricompostaggio.xhtml' 
+||  navigazione.paginaAttuale eq 'parametrievaporazione.xhtml'  ||  navigazione.paginaAttuale eq 'parametrifitodepurazione.xhtml'
+||  navigazione.paginaAttuale eq 'parametritrasporto.xhtml' }">
+                 <p class="menusinistra"> Vai A :</p>
+                  <h:form>
+                   <ul>                   
+                       <li><h:link outcome="parametridiprogetto" value="Parametri di progetto"></h:link></li>
+                   </ul>
+                  </h:form>
+               </c:if>
+            <c:if test="#{navigazione.paginaAttuale eq 'localizzazione.xhtml'}">
+                    <h:form>
+                   <ul>
+                      <li><h:commandLink action="dettaglioazienda" value="dettaglio Azienda"></h:commandLink></li>
+                   </ul>
+                  </h:form>
+                    </c:if>
+           
+                <h:outputText value="pagina di provenienza : #{navigazione.daChi }" style="display: block;"/>
+                <h:outputText value="pagina attuale : #{navigazione.paginaAttuale }" style="display: block;"/>
+         
+            </h:panelGroup> 
+        </ui:composition>
+    </h:body>
+</html>
+

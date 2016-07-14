@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    
+    
+    
+    
+    <h:head>
+        <title>Template Pagina</title>
+        
+        
+        <h:outputStylesheet  library="css" name="jsfcrud.css"/>
+            
+        <script src="resources/jquery/jquery-1.9.1.js"></script>
+     
+     
+     
+        <script type="text/javascript" src="resources/librerie/funzionicomuni.js"></script>
+               
+        <script>
+               
+               
+        </script>  
+               
+    </h:head>
+    <h:body>
+             <c:if test="#{utente.corretto}">
+             </c:if>
+                   
+            <ui:insert name="headerside" >
+		  <ui:include src="/template/headerS.xhtml" />
+	     </ui:insert> 
+        
+        <div id="leftrightcontainerout"> 
+       
+            <div id="leftrightcontainer"> 
+          
+            <ui:insert name="leftside" >
+	       <ui:include src="/template/colonnasinistra.xhtml" />
+             </ui:insert>     
+	    
+                <h:panelGroup id="rightside" >
+             
+            <ui:insert name="ulmenu" >
+		  <ui:include src="/template/nuovomenu.xhtml" />
+	    </ui:insert>      
+           
+            <f:metadata>
+                <f:viewParam name="percorso" value="#{dettaglioCuaa.percorso}" />
+            </f:metadata>
+            
+                <p>
+                   <h3>RENUWAL - Research on water pollution<br/> and aimed at a correct water resource management</h3> 
+               </p>    
+            
+             <h:outputText value="Utente :#{utente.username}  "/>
+             <br/>
+             <h:outputText value="Mail :#{utente.mail_utente}  "/>
+                 <p>
+                      Questa pagina si occuperà del lato aziendale.<br/> <b>Clicca su Dettaglio</b> per 
+                      <ul>
+                          <li>vedere lo stato dell'azienda</li>
+                          <li>modificare/vedere il numero/tipo degli allevamenti</li>
+                          <li>modificare/vedere il numero/tipo degli stoccaggi </li>
+                          <li>modificare/vedere le superfici che apportano acqua nelle vasche di pre-stoccaggio</li>
+                      </ul>         
+                 </p> 
+              
+                <f:view id="vistaRoot">
+                    <h:form id="formRoot">
+                    </h:form>
+                </f:view>
+                 
+          </h:panelGroup> 
+            
+            </div><!--<div id="leftrightcontainer"> -->
+            </div><!--<div id="leftrightcontainerout"> -->
+        
+        <div class="cleardiv">
+        </div>
+        <div style="clear:both;">
+        </div>    
+        <div id="footerside">
+                    <p>
+                        <br/>
+                        <h3>Sviluppato da :<br /><a href="http://www.disaa.unimi.it">Dipartimento di Scienze Agrarie e Ambientali</a> <br /><a href="http://www.unimi.it"> Università degli Studi di Milano </a></h3>
+                     
+                   </p>    
+        </div>
+    </h:body>
+</html>
+

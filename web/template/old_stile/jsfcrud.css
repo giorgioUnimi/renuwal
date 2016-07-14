@@ -1,0 +1,682 @@
+/*root { 
+    display: block;
+}*/
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #3a4f54;
+    background-color: /*#dfecf1*/yellow;
+    font-size: small;
+    margin-top:0px;
+    border-top:0px;
+    padding-top: 0px;
+    width: auto;
+    height: auto;
+    
+   
+}
+
+
+#headersideout {
+   
+    background-color: red;
+    /*margin-left: 0px;
+    margin-right: 0px;
+    border-width: 0px;
+    padding-left: 0px;
+    padding-right: 0px;*/
+}
+
+
+/**
+l'header è comune a tutte le pagine
+*/
+#headerside {
+    background-color: lightblue;
+   /* background-image: url('logo_ager_big.jpg');*/
+    background-repeat:no-repeat;
+    margin-left: auto;
+    margin-right: auto;
+    width: 85%;
+    /*height: auto;*/
+    margin-top: 0px;
+    border-top: 0px;
+    padding-top: 0px;
+    margin-bottom: 0px;
+    border-bottom: 0px;
+    padding-bottom: 0px;
+    text-align: center;
+    vertical-align:text-top;
+    /*border-bottom:  1px solid #21221A;*/
+   
+   
+}
+
+
+#headerside img{
+    float:right;
+}
+
+
+
+#leftrightcontainerout{
+   background-color: black;
+   display: block;
+   width: 100%;
+   
+   
+}
+
+#leftrightcontainer{
+  background-color: green;
+  margin:0 auto;
+ 
+  width:85%;
+  
+ 
+  /*float:left;*/
+ /* border-bottom:  1px solid #21221A;*/
+   
+}
+
+#leftside {
+   float:left;
+    width:15%;
+    background-color: green;
+    
+}
+#rightside {
+    float:right;
+    background-color:#CCFFCC;
+    
+    width:85%;
+    
+}
+
+
+
+#footersideout {
+    width: 100%;
+    height: 10%;
+    background-color: red;
+}
+
+/**
+*il footer della pagina 
+*/
+#footerside {
+    
+    background-color: lightblue;
+    text-align: center;
+    font-size: 8px;
+    /*
+    font-weight: bold;
+    font-style: oblique ;
+    font-family: serif;*/
+    width: 85%;
+    height: 10%;
+    margin-left: auto;
+   margin-right: auto;
+  
+    
+    /*border-top: 1px;*/
+  
+    /*vertical-align:text-top;*/
+    
+}
+/**
+parte comune a tutte le pagine : colonna di sinistra
+*/
+/*#leftside {
+    
+    background-color: #D0D0D0 ;
+    float:left;
+    width: 200px;
+    text-align: left;
+    padding-left: 5px;
+    border-left: 0px;
+    border-top: 0px;
+    
+   
+}*/
+
+
+/**
+parte comune di tutte le pagine: colonna di destra
+*/
+/*#rightside {
+    background-color: #CCFFCC;
+    float:left;
+    width:650px;
+    border-right: 5px;
+    border-bottom: 0px;
+    border-top: 0px;
+    padding-left: 5px;
+    
+    
+}*/
+
+/*select,textarea {
+    background-color:burlywood;
+}*/
+
+/**
+descalternativa è il campo testo che contiene la descrizione dell'alternativa e selalt
+è il menu a tendina che contiene i valori numerici delle alternative
+*/
+/*#formRoot\:descAlternativa,  #formRoot\:selalt{
+    background-color: burlywood;
+}*/
+#formRoot\:descAlternativa,  #formRoot\:selalt{
+    background-color: burlywood;
+}
+/**
+E la prima tabella in nella pagina dei trattamenti in alto che contiene i totali
+*/
+/*#formRoot\:tabellaAzienda td {
+    border-style: ridge;
+    text-align: right;
+    width: 60px;
+}*/
+/**
+sono le due tabella sotto tabellaAzienda che vengono nascoste e mosrtate con i bottoni nascondi e mostra 
+e contengono il dettaglio delle caratteristiche chimiche dei reflui
+*/
+#formRoot\:tabellaAziendaLiqPan td,#formRoot\:tabellaAziendaLetPan td ,#formRoot\:tabellaAzienda td  {
+    border-style:dotted ;
+    border-width:1px; 
+    width: 60px;
+    text-align: right;
+}
+
+/**
+*sono le due tabella sotto tabellaAzienda che vengono nascoste e mosrtate con i bottoni nascondi e mostra 
+*e contengono il dettaglio delle caratteristiche chimiche dei reflui. Imposta la lunghezza della prima colonna 
+*delle due tablle sotto cosi che la stringa tipologia sia su un unica linea
+*/
+#formRoot\:tabellaAziendaLiqPan td:first-child,#formRoot\:tabellaAziendaLetPan td:first-child , #formRoot\:tabellaAzienda td:first-child  {
+    width: 130px;
+}
+
+/**
+tabella flussi contiene le informazioni dei singoli passaggi di ogni singola alternativa nella pagina delle alternative
+*/
+ /*#formRoot\:tabellaFlussi td  {
+    border-width:1px; 
+    border-style:solid ;
+    text-align: right;
+   width : 100px;
+    background-color: deepskyblue;
+   
+}*/
+
+/**
+tabella flussi contiene le informazioni dei singoli passaggi di ogni singola alternativa nella pagina delle alternative
+*/
+ /*#formRoot\:tabellaFlussi tr > td:first-child ,#formRoot\:tabellaFlussi tr > td:first-child+td {
+  
+   width : 300px;
+    
+   
+}*/
+
+/**
+TotaliReteidrica,totalivendita,totaliagronomici sono nella pagina dei trattamenti mentre le altre nella pagina 
+specifica del trattamento
+*/
+/*#formRoot\:tabellaGestionali td  ,#formRoot\:tabellaEmissioni td  ,#totaliVendita td , #totaliReteIdrica td ,
+ #totaliAgronomici td ,#formRoot\:tabelladatiOutput td , #formRoot\:tabellaGesti td , #tabellaEmissioni td ,#tabellaGestionali td {
+    border-width:1px; 
+    border-style:solid ;
+    width: 120px;
+    text-align: right;
+   
+}*/
+/**
+tabellaAziendaLetOut e tabellaAziendaLiqOut sono presenti nella seconda parte della pagina
+specifica del trattamento e contengono i dati di output mentre #formRoot\:tabellaAziendaLiq e #formRoot\:tabellaAziendaLet
+i dati di input alla trattamento
+*/
+/*#formRoot\:tabellaAziendaLetOut td , #formRoot\:tabellaAziendaLiqOut td , #formRoot\:tabellaAziendaLiq td , #formRoot\:tabellaAziendaLet td,#formRoot\:tabellaCosti td , #formRoot\:tabellaEmissioni1 td , #formRoot\:tabellaEnergia td{
+    border-width:1px; 
+    border-style:solid ;
+    width: 60px;
+    text-align: right;
+}*/
+
+/**
+tabellaAziendaLetOut e tabellaAziendaLiqOut sono presenti nella seconda parte della pagina
+specifica del trattamento e contengono i dati di output mentre #formRoot\:tabellaAziendaLiq e #formRoot\:tabellaAziendaLet
+i dati di input alla trattamento
+*/
+/*#formRoot\:tabellaAziendaLetOut , #formRoot\:tabellaAziendaLet ,   #formRoot\:tabellaCosti , #formRoot\:tabellaEmissioni1  , #formRoot\:tabellaEnergia {
+    
+    
+    background-color:  lightblue;
+   
+}*/
+
+#formRoot\:tabellaAziendaLet td , #formRoot\:tabellaAziendaLiq td{
+    
+   text-align: right;
+   
+}
+
+/**
+tabellaAziendaLetOut e tabellaAziendaLiqOut sono presenti nella seconda parte della pagina
+specifica del trattamento e contengono i dati di output mentre #formRoot\:tabellaAziendaLiq e #formRoot\:tabellaAziendaLet
+i dati di input alla trattamento
+*/
+#formRoot\:tabellaAziendaLiqOut , #formRoot\:tabellaAziendaLiq {
+    
+    background-color:  lightblue;
+   
+}
+
+#formRoot\:tabellaAziendaLiqOut td , #formRoot\:tabellaAziendaLiq td{
+    
+    text-align: right;
+   
+}
+
+#formRoot\:tabellaAziendaLetOut td:first-child , #formRoot\:tabellaAziendaLiqOut td:first-child , #formRoot\:tabellaAziendaLiq td:first-child , #formRoot\:tabellaAziendaLet td:first-child{
+     width: 130px;
+     text-align: right;
+     
+}
+
+/*#formRoot\:tabellaAlt td , #formRoot\:tabellaAziendalista
+{
+     vertical-align:top;
+}
+
+#formRoot\:tabellaAziendalista , #formRoot\:risultatiDinamicigrid , #formRoot\:posizioneAziende1Table{
+border-collapse:collapse;
+}
+
+.localizzazioneTable , .localizzazioneTable1{
+    border-collapse:collapse;
+    width:100%;
+    table-layout: fixed;
+}
+
+
+
+#formRoot\:tabellaAziendalista  td ,  #formRoot\:tabellaAziendalista th , #formRoot\:risultatiDinamicigrid th , #formRoot\:risultatiDinamicigrid td 
+{
+    border:1px solid #98bf21;
+    padding:3px 7px 2px 7px;
+    text-align: center;
+}
+
+.localizzazioneTable td , .localizzazioneTable th {
+    border:1px solid #98bf21;
+   
+    text-align: center;
+    width:10%;
+}
+
+.localizzazioneTable tr th:last-child {
+     width:20%;
+}
+
+.localizzazioneTable tr td:last-child {
+     width:40%;
+}
+
+#formRoot\:risultatiDinamicigrid td
+{
+    background-color: lightyellow;
+}
+.localizzazioneTable td 
+{
+    background-color: lightyellow;
+}
+
+
+#formRoot\:tabellaAziendalista th , #formRoot\:risultatiDinamicigrid th{
+background-color:#A7C942;
+color:#ffffff;
+}
+
+
+
+#totaliVendita td{
+     border-width:1px; 
+     border-style:solid ;
+     text-align: right;
+}
+*/
+/**
+etichette delle colonne delle tabelle outputgestionali e output emissioni collocate nella pagian specifica
+del trattamento
+*/
+/*.etichettegestionali
+{
+    font-size: 12px;
+    font-weight: bold;
+    
+}
+*/
+/**
+*/
+.etichetteUL{
+    clear:left;
+    list-style: none;
+}
+
+.etichetteULli {
+    
+}
+
+
+
+
+
+
+/**
+utility per riposizinare il conteuto dopo il menu
+in modo che scenda e non venga spostato a sinistra
+*/
+.cleardiv {
+    clear: left;
+   
+}
+.cleardivR{
+     clear :right;
+}
+/**
+La seguente classe modella i campi testo contenuti in <p>
+del mennu si sinsitra cosi da renderli evidenti 
+*/
+.menusinistra{
+     background-color: skyblue;
+}
+
+/**
+*modella il bottone calcola usato per eseguire un 'alternativa
+nella pagina alternative posizionato prima della descrizione flussi
+*/
+
+#formRoot\:bottonecalcola{
+ 
+  /*color: #900;*/
+  font-weight: bold;
+  font-size: 130%;
+  text-transform: uppercase;
+  margin-top: 20px;
+  margin-left: 200px;
+  width: 240px;
+  height: 50px;
+}
+
+.bottonicomuni
+{
+  font-weight: bold;
+  font-size: 10px;
+  text-transform: uppercase;
+  margin-top: 5px;
+  margin-left: 100px;
+  width: 200px;
+  height: 25px;  
+}
+.listaparametri_primacolonna{
+    width: 500px;
+}
+
+
+/*
+in altenative la tabella che mostra i risultati
+*/
+.tabella td{
+    border-style:dotted ;
+    border-width:1px; 
+    width: 120px;
+    text-align: right;
+}
+
+
+.tabella1 td{
+    border-style:dotted ;
+    border-width:1px; 
+    width: 95px;
+    text-align: right;
+}
+/*
+.tabella td{
+     border-width:1px; 
+}
+*/
+
+/*.tabellaT td{
+    border-style:dotted ;
+    border-width:1px; 
+    width: 120px;
+    text-align: right;
+}
+
+
+.tabellaT tr > td:first-child {
+    background-color: #0292C0;
+}
+
+.tabellaT tr th
+{
+    background-color: lightseagreen;
+}
+
+
+.testgiorgio{
+    color: red/;
+      background: #000000; 
+     text-decoration: none;
+}
+
+#formRoot\:risultatiDinamici table td{
+    
+     border-width:1px; 
+     border-style:solid ;
+     text-align: right;
+}
+
+
+
+#risultati{
+    background-color: lightyellow;
+}
+
+.tabelladragdrop
+{
+    font-size: 8px;
+    
+}
+
+
+.tabelladragdrop tr td:nth-child(2) select
+{
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    
+   
+    
+}
+
+
+
+.tabelladragdrop tr td:nth-child(2) 
+{
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+ }
+ */
+/*.tabelladragdrop tr
+{
+   border-bottom: 1px solid black;
+}*/
+
+
+#listaziende
+{
+    font-size: 10px;
+}
+
+
+#listaziende li
+{
+   border:1px solid #000;
+   list-style-type: none;
+   padding: 5px 5px 5px 5px;
+}
+
+/*.localizzazioneTable2
+{
+    width:100%;
+}
+.localizzazioneTable2 td {
+    border:1px solid #98bf21;
+    padding:3px 7px 2px 7px;
+    text-align: center;
+    width:10%;
+}
+
+
+.localizzazioneTable2 th{
+    border:1px solid #98bf21;
+    padding:3px 7px 2px 7px;
+    text-align: center;
+    width:10%;
+    
+}
+
+
+
+.labellocalizzazioneTable , .labellocalizzazioneTable3{
+    
+    font-weight: bold;
+}
+*/
+.stileol{
+    
+    list-style-type:  circle;
+}
+
+/*
+.localizzazioneTable3 ,.localizzazioneTable4 ,.localizzazioneTable5
+{
+    width:100%;
+}
+.localizzazioneTable3 td ,.localizzazioneTable3 th ,.localizzazioneTable4 td ,.localizzazioneTable4 th ,.localizzazioneTable5 td ,.localizzazioneTable5 th {
+    border:1px solid #98bf21;
+    padding:3px 7px 2px 7px;
+    text-align: center;
+    width:8%;
+}
+
+.localizzazioneTable3 tr td:nth-child(2) {
+     width:30%;
+}
+
+.table-header-rotated
+{
+    padding-left: 50px;
+}
+.table-header-rotated th.row-header{
+  width: auto;
+ 
+}
+
+.table-header-rotated td{
+  width: 50px;
+  height: 30px;
+  border-top: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.table-header-rotated th.rotate-45{
+  height: 80px;
+  width: 50px;
+  min-width: 40px;
+  max-width: 40px;
+  position: relative;
+  vertical-align: bottom;
+  padding: 0px 0px 0px 0px;
+  font-size: 12px;
+  line-height: 0.8;
+}
+.norotate{
+    -ms-transform:skew(0deg,0deg) rotate(0deg);
+  -moz-transform:skew(0deg,0deg) rotate(0deg);
+  -webkit-transform:skew(0deg,0deg) rotate(0deg);
+  -o-transform:skew(0deg,0deg) rotate(0deg);
+  transform:skew(0deg,0deg) rotate(0deg); 
+    
+}
+.table-header-rotated th.rotate-45 > div:nth-child(2){
+  position: relative;
+  top: 0px;
+  left: 40px; 
+  height: 100%;
+  -ms-transform:skew(-45deg,0deg);
+  -moz-transform:skew(-45deg,0deg);
+  -webkit-transform:skew(-45deg,0deg);
+  -o-transform:skew(-45deg,0deg);
+  transform:skew(-45deg,0deg);
+  overflow: hidden;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  border-top: 1px solid #dddddd;
+}
+
+.table-header-rotated th.rotate-45 span {
+  -ms-transform:skew(45deg,0deg) rotate(315deg);
+  -moz-transform:skew(45deg,0deg) rotate(315deg);
+  -webkit-transform:skew(45deg,0deg) rotate(315deg);
+  -o-transform:skew(45deg,0deg) rotate(315deg);
+  transform:skew(45deg,0deg) rotate(315deg);
+  position: absolute;
+  bottom: 30px; 
+  left: -25px; 
+  display: inline-block;
+  
+  width: 85px; 
+  text-align: left;
+  
+}
+*/
+.messaggi{
+    
+    font-size: 16px;
+    color:red;
+}
+
+#formRoot\:listaziende1{
+    width:750px;
+}
+
+#formRoot\:listaziende1 tr {
+    /*height: 60px;*/
+}
+
+
+.tooltip-inner {
+white-space:pre-wrap;
+}
+
+/*#formRoot\:tabellaAllevamentolista thead tr th ,#formRoot\:tabellaAziendalistaStoA thead tr th{
+    font-size: 10px;
+}*/
+
+
+#formRoot\:tabellaAllevamentolista thead tr th  , #formRoot\:tabellaAziendalistaStoA thead tr th
+{
+    border: 1px solid black;
+    font-size: 10px;
+    background-color:  lightblue;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    text-align: left;
+}

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>TODO supply a title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+
+    Create item:
+
+    <h:inputText value="#{updateExtDataTableBean.item}"/>
+
+    <a4j:commandButton value="Create"
+
+                       actionListener="#{updateExtDataTableBean.addItem}"
+
+                       render="table1"
+
+                       execute="@form"/>
+
+    <a4j:commandButton value="Delete selection"
+
+                       actionListener="#{updateExtDataTableBean.deleteItem}"
+
+                       render="table1"
+
+                       execute="@form"
+
+            />
+
+ 
+
+ 
+
+    <p/>
+
+    <a4j:outputPanel id="table1" layout="block">
+
+        <rich:extendedDataTable binding="#{updateExtDataTableBean.uitable}"
+
+                                value="#{updateExtDataTableBean.items}" var="item"
+
+                                id="table"
+
+                                styleClass="stable"
+
+                                selection="#{updateExtDataTableBean.selection}"
+
+                                style="width:200px;"
+
+                                selectionMode="#{updateExtDataTableBean.selectionMode}"
+
+                >
+
+            <rich:column width="199px">
+
+                <f:facet name="header">
+
+                    <h:outputText value="Items"/>
+
+                </f:facet>
+
+                <h:outputText value="#{item}"/>
+
+            </rich:column>
+
+        </rich:extendedDataTable>
+
+    </a4j:outputPanel>
+
+</h:form>
+    </h:body>
+</html>

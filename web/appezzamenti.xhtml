@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<!--<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <title>appezzamenti_ReNuWal</title>
+             
+             
+<h:outputStylesheet library="css" name="style.css"  />
+<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/jquery.js?ver=1.11.3'></script>
+<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-content/themes/travelify/images/background.png'); background-repeat: repeat; background-position: top left; background-attachment: scroll; }
+</style>
+<style>
+   
+       
+        </style>   
+<link rel="icon" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-32x32.jpg" sizes="32x32" />
+<link rel="icon" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-192x192.jpg" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-180x180.jpg"/>
+<link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&amp;subset=Latin'/> 
+<meta name="msapplication-TileImage" content="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-270x270.jpg"/>
+    
+    </h:head>
+ 
+    <h:body class="home page page-id-12 page-template-default custom-background ecwd-theme-travelify ">
+	
+       <div class="wrapper">
+               <header id="branding" >
+                                    
+               <div class="container clearfix">
+                   <div class="hgroup-wrap clearfix">
+                       <section class="hgroup-right">
+                       </section><!-- .hgroup-right -->
+                       <div id="site-logo" class="clearfix">
+                           <!--<div   >-->
+                           <div  id="site-title"  >
+                               <div style="float:left;">
+                                   <a href="http://www.renuwal.unimi.it/it_IT/" title="ReNuWal" rel="home" style="color: #57ad68;font-size: 36px;">
+                                       ReNuWal                                                                  
+                                   </a>
+                               </div>
+                               <div>
+                                   <a href="http://www.disaa.unimi.it"><img style="padding-left: 25px;" src="http://users.unimi.it/renuwal/wp-content/uploads/2015/10/logho_DiSAA2.png" alt="logo disaa" /></a>
+                               </div>  
+                           </div>  
+                                                            
+                           <div style="clear: both;">
+                               <h2  id="site-description" >Tecniche innovative di gestione e trattamento degli effluenti per la riduzione dell’inquinamento diffuso delle acque in aree ad alta densità zootecnica</h2>
+                                                            
+                           </div><!-- #site-logo -->
+                                    
+                       </div><!-- .hgroup-wrap -->
+                   </div><!-- .container -->
+                 <!--  <img src="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-foto-6.jpg" class="header-image" width="1500" height="369" alt="ReNuWal"/>
+                   -->
+                   <ui:insert name="leftside" >
+                    <ui:include src="/template/menu_renuwal.xhtml" />
+                   </ui:insert>
+                   </div>
+               </header>
+		 <f:view id="vistaRoot">
+				<div id="main" class="container clearfix">
+
+                                    <div id="container">
+                                        <div id="secondary" class="widget no-margin-left" >
+                                            <aside style="float:left;"> 
+                                                    <header class="entry-header">
+                
+                                                    <ui:insert name="leftside" >
+                                                        <ui:include src="/resources/css/colonnasinistra.xhtml" />
+                                                    </ui:insert>
+                                                </header>
+                                                <br/>
+                                                        <br/>
+                                                        <h:form>
+                                                        <h:panelGrid columns="1" id="panelAzienda" width="100px;" >
+                                                             <a4j:outputPanel id="first"    >
+                                                                   <h:outputText id="selectaziendeLabel"  value="Azienda:"  />
+                                                                    <h:selectOneMenu id="selectaziende" value="#{listaAziende.currentTypeAz}" valueChangeListener="#{listaAziende.aziendeChanged}">
+                                                                  <!-- <h:selectOneMenu id="selectaziende" value="#{dettaglioCuaa.cuaa}" valueChangeListener="#{listaAziende.aziendeChanged}"> -->
+                                                                            <f:selectItems value="#{listaAziende.selectaziende}" />
+                                                                        <a4j:ajax event="valueChange" render="second" execute="@this"  />
+                                                                    </h:selectOneMenu>
+                                                             </a4j:outputPanel>          
+                                                                        
+                                                                    <a4j:outputPanel id="second"    >
+                                                                        
+                                                                        <h:outputText id="selectanniLabel"  value="Anno:" rendered="#{not empty listaAziende.currentTypeAn}" />
+                                                                           <br/> 
+                                                                      <h:selectOneMenu id="selectanni" value="#{listaAziende.currentTypeAn}"  valueChangeListener="#{listaAziende.anniChanged}"  rendered="#{not empty listaAziende.currentTypeAn}" >
+                                                                          <!-- <h:selectOneMenu id="selectanni" value="#{dettaglioCuaa.anno}"  valueChangeListener="#{listaAziende.anniChanged}"  rendered="#{not empty listaAziende.currentTypeAn}" >    -->
+                                                                            <f:selectItems value="#{listaAziende.selectanni}" />
+                                                                            <a4j:ajax event="valueChange" render="third" execute="@this" />
+                                                                        </h:selectOneMenu>
+                                                                            
+                                                                    </a4j:outputPanel>
+                                                                        
+                                                                    <a4j:outputPanel id="third"   >
+                                                                        
+                                                                        <h:outputText id="selectscenariLabel"  value="Scenario:" rendered="#{not empty listaAziende.currentTypeSce}" />
+                                                                          <br/>   
+                                                                        <h:selectOneMenu id="selectscenari" value="#{listaAziende.currentTypeSce}"  valueChangeListener="#{listaAziende.scenariChanged}"  rendered="#{not empty listaAziende.currentTypeSce}" >
+                                                                            <f:selectItems value="#{listaAziende.selectscenari}" />
+                                                                            <!--<a4j:ajax event="valueChange" render="table id_azienda id_anno id_scenario listExample sbtbl id_tot_aspn id_tot_aspp id_tot_aspk"  execute="@this table listExample "    />-->
+                                                                             <a4j:ajax event="valueChange" render="id_azienda id_anno id_scenario table "      />
+
+                                                                        </h:selectOneMenu>
+                                                                         
+                                                                    </a4j:outputPanel>
+                                                                  </h:panelGrid>
+                                                
+                                                </h:form>
+                                                
+                                            </aside>
+
+                                        </div>
+        
+        
+                                        <div id="primary" class="no-margin-right">
+
+                                                    <div id="content">	<section id="post-12" class="post-12 page type-page status-publish hentry">
+       
+                                                    <article>
+                    
+                    
+                                                        <header class="entry-header">
+                                                            <h2 class="entry-title">
+                                                                Appezzamenti</h2><!-- .entry-title -->
+                                                        </header>
+                            
+
+
+                                                        <div class="entry-content clearfix">
+                                                           
+                                                                
+                                                                <h:form id="form">
+                                                                    
+                                                                    <h:panelGrid columns="2" style="width: 20%; margin:-10px 0px 2px 0px;" >
+                                                                        <h:outputLabel id="id_azienda_label" for="id_azienda"
+                                                                                       value="Azienda" />
+                                                                        <h:outputText  value="#{dettaglioCuaa.cuaa}" id="id_azienda"/>      
+                                                                        <h:outputLabel id="id_anno_label" for="id_anno"
+                                                                                       value="Anno" />
+                                                                        <h:outputText value="#{dettaglioCuaa.anno}" id="id_anno"/>
+                                                                        <h:outputLabel id="id_scenario_label" for="id_scenario"
+                                                                                       value="Scenario" />
+                                                                        <h:outputText value="#{dettaglioCuaa.scenarioString}" id="id_scenario"/>
+                                                                    </h:panelGrid>
+                                                                  <br/>
+                                                                     <!--   <p>Gestione</p>   -->
+                                                                    <a4j:status onstart="#{rich:component('statPane')}.show()" onstop="#{rich:component('statPane')}.hide()" />
+                                                                    <rich:dataTable value="#{gestoreAppezzamenti.listaAppezzamenti}" var="appezzamento" iterationStatusVar="it" style="width:700px;" id="table" rows="6">
+                                                                        <rich:column>
+                                                                            <f:facet name="header">#</f:facet>
+                                                                          #{it.index}
+                                                                        </rich:column>
+                                                                        <rich:column rendered="false">
+                                                                            <f:facet name="header">Id</f:facet>
+                                                                            <h:outputText value="#{appezzamento.id}" />
+                                                                        </rich:column>
+                                                                        <rich:column>
+                                                                            <f:facet name="header">Nome</f:facet>
+                                                                            <h:outputText value="#{appezzamento.nome}" />
+                                                                        </rich:column>
+                                                                        <rich:column>
+                                                                            <f:facet name="header">Superficie</f:facet>
+                                                                            <h:outputText value="#{appezzamento.superficie}" />
+                                                                        </rich:column>
+                                                                        <rich:column>
+                                                                            <f:facet name="header">ZVN</f:facet>
+                                                                            <h:outputText value="#{appezzamento.svn}" />
+                                                                        </rich:column>
+                                                                        <rich:column>
+                                                                            <f:facet name="header">Tipo Terreno</f:facet>
+                                                                            <h:outputText value="#{appezzamento.tipoTerreno.descrizione}" />
+                                                                        </rich:column>
+                                                                        <rich:column>
+                                                                            <f:facet name="header">Tipo Irrigazione</f:facet>
+                                                                            <h:outputText value="#{appezzamento.tipoIrrigazione.descrizione}" />                                                                          
+                                                                        </rich:column>
+                                                                        <rich:column>
+                                                                            <f:facet name="header">Op</f:facet>
+                                                                            <a4j:commandLink styleClass="no-decor" execute="@this" render="@none"
+                                                                                             oncomplete="#{rich:component('confirmPane')}.show()">
+                                                                                <h:graphicImage value="/resources/css/images/delete.gif" alt="delete" />
+                                                                                <a4j:param value="#{it.index}" assignTo="#{gestoreAppezzamenti.currentAppIndex}" />
+                                                                                <a4j:param value="#{appezzamento.id}" assignTo="#{gestoreAppezzamenti.currentAppIndex1}" />
+                                                                            </a4j:commandLink>
+                                                                            <a4j:commandLink styleClass="no-decor" render="editGrid, vin, mage, price" execute="@this"
+                                                                                             oncomplete="#{rich:component('editPane')}.show()" resetValues="true" actionListener="#{gestoreAppezzamenti.resetValues()}">
+                                                                                <h:graphicImage value="/resources/css/images/edit.gif" alt="edit" />
+                                                                                <a4j:param value="#{it.index}" assignTo="#{gestoreAppezzamenti.currentAppIndex}" />
+                                                                                <f:setPropertyActionListener target="#{gestoreAppezzamenti.appezzamentoEdit}" value="#{appezzamento}" />
+                                                                            </a4j:commandLink>
+                                                                        </rich:column>
+                                                                        <f:facet name="footer">
+                                                                            <a4j:commandLink styleClass="no-decor" render="editGrid1" execute="@this"
+                                                                                             oncomplete="#{rich:component('newPane')}.show()" resetValues="true" actionListener="#{gestoreAppezzamenti.resetValues()}" style=" margin-right: 50px;">
+                                                                                <h:graphicImage value="/resources/css/images/new.jpg" alt="new" />
+                                                                                <a4j:param value="#{it.index}" assignTo="#{gestoreAppezzamenti.currentAppIndex}" />
+                                                                                <f:setPropertyActionListener target="#{gestoreAppezzamenti.appezzamento}" value="#{appezzzamento}" />
+                                                                            </a4j:commandLink>
+                                                                            
+                                                                            <rich:dataScroller page="#{gestoreAppezzamenti.page}" fastStep="3"/>
+                                                                            
+                                                                        </f:facet>
+                                                                    </rich:dataTable>
+                                                                        
+                                                                    <a4j:jsFunction name="remove" action="#{gestoreAppezzamenti.remove}" render="table" execute="@this"
+                                                                                    oncomplete="#{rich:component('confirmPane')}.hide();" />
+                                                                                        
+                                                                    <rich:popupPanel id="statPane" autosized="true">
+                                                                        <h:graphicImage value="/images/ai.gif" alt="ai" />
+                                                                        Please wait...
+                                                                    </rich:popupPanel>
+                                                                        
+                                                                    <rich:popupPanel id="confirmPane" autosized="true">
+                                                                        Sicuro di voler cancellare questo appezzamento ?
+                                                                        <a4j:commandButton value="Esci" onclick="#{rich:component('confirmPane')}.hide(); return false;" style=" text-transform: capitalize;margin-right: 10px;" />
+                                                                        <a4j:commandButton value="Cancella" onclick="remove(); return false;" style=" text-transform: capitalize;"/>
+                                                                    </rich:popupPanel>
+                                                                        
+                                                                    <rich:popupPanel header="Modifica Appezzamento" id="editPane" domElementAttachment="parent" width="180" height="230">
+                                                                        <h:panelGrid columns="2" id="editGrid">
+                                                                            <h:outputText value="Nome" />
+                                                                            <h:inputText value="#{gestoreAppezzamenti.appezzamentoEdit.nome}" />
+                                                                            
+                                                                            <h:outputText value="Superficie" />
+                                                                            <h:inputText value="#{gestoreAppezzamenti.appezzamentoEdit.superficie}" />
+                                                                            
+                                                                            <h:outputText value="ZVN" />
+                                                                            <h:selectOneMenu value="#{gestoreAppezzamenti.appezzamentoEdit.svn}" >
+                                                                                      <f:selectItem itemValue="true"  itemLabel="Si" id="svnsi" />
+                                                                                      <f:selectItem itemValue="false"  itemLabel="No" id="svnno" />
+                                                                            </h:selectOneMenu>    
+                                                                           
+                                                                            <h:outputText value="Terreno" />
+                                                                            <h:selectOneMenu id="selecttipoterreno1" required="true"  value="#{gestoreAppezzamenti.appezzamentoEdit.tipoTerreno.descrizione}"  style="width:60px;">
+                                                                                <f:selectItem itemValue="fine"  itemLabel="fine" id="tipoterreno_1" />
+                                                                                 <f:selectItem itemValue="grossolano"  itemLabel="grossolano" id="tipoterreno_2" />
+                                                                                 <f:selectItem itemValue="medio"  itemLabel="medio" id="tipoterreno_3" />
+                                                                             </h:selectOneMenu>
+                                                                           
+                                                                            <h:outputText value="Irrigazione" />
+                                                                            <h:selectOneMenu id="selecttipoirrigazione1" required="true"  value="#{gestoreAppezzamenti.appezzamentoEdit.tipoIrrigazione.descrizione}"  style="width:60px;">
+                                                                                <f:selectItem itemValue="nessuna"  itemLabel="nessuna" id="tipoirrigazione_1" />
+                                                                                  <f:selectItem itemValue="scorrimento"  itemLabel="scorrimento" id="tipoirrigazione_2" />
+                                                                                 <f:selectItem itemValue="aspersione"  itemLabel="aspersione" id="tipoirrigazione_3" />
+                                                                                 <f:selectItem itemValue="a goccia"  itemLabel="a goccia" id="tipoirrigazione_4" />
+                                                                            </h:selectOneMenu>
+                                                                           
+                                                                        </h:panelGrid>
+                                                                        <a4j:commandButton value="Modifica" action="#{gestoreAppezzamenti.store}" render="table" execute="editPane"
+                                                                                           oncomplete="if (#{facesContext.maximumSeverity==null}) {#{rich:component('editPane')}.hide();}" style=" text-transform: capitalize;margin-right: 20px;" />
+                                                                        <a4j:commandButton value="Esci" onclick="#{rich:component('editPane')}.hide(); return false;"  style=" text-transform: capitalize;" />
+                                                                    </rich:popupPanel>
+                                                                        
+                                                                    <rich:popupPanel header="Nuovo Appezzamento" id="newPane" domElementAttachment="parent" width="180" height="230">
+                                                                        <h:panelGrid columns="2" id="editGrid1">
+                                                                            <h:outputText value="Nome" />
+                                                                            <h:inputText value="#{gestoreAppezzamenti.nome}" />
+                                                                            
+                                                                            <h:outputText value="Superficie" />
+                                                                            <h:inputText value="#{gestoreAppezzamenti.superficie}" />
+                                                                           
+                                                                            <h:outputText value="ZVN" />
+                                                                            <!--<h:inputText value="#{gestoreAppezzamenti.appezzamentoNew.svn}" />-->
+                                                                            <h:selectOneMenu value="#{gestoreAppezzamenti.svn}" >
+                                                                                      <f:selectItem itemValue="true"  itemLabel="Si" id="svnsi1" />
+                                                                                      <f:selectItem itemValue="false"  itemLabel="No" id="svnno1" />
+                                                                            </h:selectOneMenu>    
+                                                                            
+                                                                            <h:outputText value="Terreno" />
+                                                                           <!-- <h:inputText value="#{gestoreAppezzamenti.tipoTerreno}"  />-->
+                                                                            <h:selectOneMenu id="selecttipoterreno" required="true"  value="#{gestoreAppezzamenti.tipoTerreno}"  style="width:60px;">
+                                                                                 <f:selectItem itemValue="1"  itemLabel="fine" id="tipoterreno" />
+                                                                                 <f:selectItem itemValue="2"  itemLabel="grossolano" id="tipoterreno1" />
+                                                                                 <f:selectItem itemValue="3"  itemLabel="medio" id="tipoterreno3" />
+                                                                            </h:selectOneMenu>
+                                                                           
+                                                                            <h:outputText value="Irrigazione" />
+                                                                            <!--<h:inputText value="#{gestoreAppezzamenti.tipoIrrigazione}" id="vin1" />-->
+                                                                            <h:selectOneMenu id="selecttipoirrigazione" required="true"  value="#{gestoreAppezzamenti.tipoIrrigazione}"  style="width:60px;">
+                                                                                 <f:selectItem itemValue="1"  itemLabel="nessuna" id="tipoirrigazione" />
+                                                                                  <f:selectItem itemValue="2"  itemLabel="scorrimento" id="tipoirrigazione1" />
+                                                                                 <f:selectItem itemValue="3"  itemLabel="aspersione" id="tipoirrigazione2" />
+                                                                                 <f:selectItem itemValue="4"  itemLabel="goccia" id="tipoirrigazione3" />
+                                                                            </h:selectOneMenu>
+                                                                               
+                                                                           
+                                                                            
+                                                                        </h:panelGrid>
+                                                                        <a4j:commandButton value=" Nuovo " action="#{gestoreAppezzamenti.add}" render="table" execute="newPane"
+                                                                                           oncomplete="if (#{facesContext.maximumSeverity==null}) {#{rich:component('newPane')}.hide();}" style=" text-transform: capitalize;margin-right: 20px;" />
+                                                                        <a4j:commandButton value=" Esci " onclick="#{rich:component('newPane')}.hide(); return false;" style=" text-transform: capitalize;" />
+                                                                    </rich:popupPanel> 
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                </h:form>   
+                                                                    
+                                                              
+                                                        </div>
+                                                    
+
+                                                        <div id="comments" class="comments-area">
+    
+    
+    
+    
+                                                        </div><!-- #comments .comments-area -->
+                                                    </article>
+                                                </section>
+                                            </div><!-- #content --></div><!-- #primary -->
+                                    </div><!-- #container -->
+
+
+	   </div><!-- #main -->
+
+	   </f:view>  
+	   
+	   <footer id="footerarea" class="clearfix">
+			
+
+
+<div id="site-generator">
+				<div class="container">
+                                    <div class="copyright" style="float:left;padding:15px 0px 0px 0px;">Sviluppato dal <a href="http://www.disaa.unimi.it">Dipartimeno di Scienze Agrarie e Ambientali    </a>
+                                    </div>
+                                    <a href="http://www.disaa.unimi.it">
+                                        <div>
+                                            <img style="vertical-align:text-top;" src="http://users.unimi.it/renuwal/wp-content/uploads/2015/10/logodisaa2.jpg" alt="logo disaa" /></div></a><div class="footer-right"></div><div style="clear:both;"></div>
+			</div><!-- .container -->
+			</div><!-- #site-generator -->
+                        <div class="back-to-top"><a href="#branding"></a></div>
+           </footer>
+
+    
+       </div><!-- .wrapper -->
+
+	        
+        
+        
+
+ 
+
+<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/ui/core.min.js?ver=1.11.4'></script>
+<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/ui/widget.min.js?ver=1.11.4'></script>
+<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/ui/mouse.min.js?ver=1.11.4'></script>
+<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/ui/draggable.min.js?ver=1.11.4'></script>
+<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/masonry.min.js?ver=3.1.2'></script>
+
+
+</h:body>
+</html>

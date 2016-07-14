@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <h:head>
+        <title>ReNuWal-home</title>
+             
+             
+<!--<link rel='stylesheet' id='mltlngg_stylesheet-css'  href='http://www.renuwal.unimi.it/wp-content/plugins/multilanguage/css/style.css?ver=4.3.1' type='text/css' media='all' />-->
+<!--<link rel='stylesheet' id='ecwd-popup-style-css'  href='http://www.renuwal.unimi.it/wp-content/plugins/event-calendar-wd/css/ecwd_popup.css?ver=1.0.20' type='text/css' media='all' />-->
+<!--<link rel='stylesheet' id='ecwd_font-awesome-css'  href='http://www.renuwal.unimi.it/wp-content/plugins/event-calendar-wd/css/font-awesome/font-awesome.css?ver=1.0.20' type='text/css' media='all' />-->
+<!--<link rel='stylesheet' id='ecwd-public-css'  href='http://www.renuwal.unimi.it/wp-content/plugins/event-calendar-wd/css/style.css?ver=1.0.20' type='text/css' media='all' />-->
+<!--<link rel='stylesheet' id='travelify_style-css'  href='http://localhost:8080/renuwal/faces/template/stile2/style.css?ver=4.3.1' type='text/css' media='all' />-->
+<h:outputStylesheet library="css" name="style.css"  />
+<!--<link rel='stylesheet' id='google_font_ubuntu-css'  href='//fonts.googleapis.com/css?family=Ubuntu&#038;ver=4.3.1' type='text/css' media='all' />-->
+<!--<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/jquery.js?ver=1.11.3'></script>
+<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>-->
+<!--<script type='text/javascript'>
+/* <![CDATA[ */
+var mltlngg_vars = {"update_post_error":"Attention!!! The changes will not be saved because Title and Content fields are empty on the current tab! It is recommended to fill in at least one field or switch to the tab with the fields that are already filled."};
+/* ]]> */
+</script>-->
+<!--<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-content/plugins/multilanguage/js/script.js?ver=4.3.1'></script>
+<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-content/themes/travelify/library/js/functions.min.js?ver=4.3.1'></script>
+    -->
+    <style type="text/css" id="custom-background-css">
+body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-content/themes/travelify/images/background.png'); background-repeat: repeat; background-position: top left; background-attachment: scroll; }
+</style>
+<style>
+            .titolo_sinistra
+            {
+                font-size: 18px;
+            }
+        </style> 
+<link rel="icon" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-32x32.jpg" sizes="32x32" />
+<link rel="icon" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-192x192.jpg" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-180x180.jpg"/>
+<!--<link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&amp;subset=Latin'/> -->
+<meta name="msapplication-TileImage" content="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-270x270.jpg"/>
+ <style>
+        .tooltip {
+       /* background-color: #{ richSkin.generalBackgroundColor};*/
+        border-width:3px;
+        }
+        .tooltip-custom-body {
+        /*background-color: orange;*/
+        }
+ 
+        .tooltip-text {
+        width: 150px;
+        height: 20px;
+        cursor: arrow;
+        border-width: 2px;
+        text-align: left;
+        display: table-cell;
+        vertical-align: middle;
+        }
+ 
+        .tooltipData {
+        font-weight: bold;
+        }
+        
+        #formRoot\:bottone_fine
+        {
+            width:150px;
+            height: 60px;
+            font-size: 16px;
+            font-weight: bold;
+            /*display: block;*/
+            text-transform:capitalize;
+        }
+        
+        /*#formRoot\:bottone_fine:first-letter
+        {
+            text-transform:uppercase;
+        }*/
+       
+        
+    </style>
+                 <f:verbatim>
+       <script language="javascript">//<![CDATA[
+            // Give $jq back to prototype.js; create new alias to jQuery.
+          /* var $jq = jQuery.noConflict();
+           $jq(document).ready(function() {*/
+               
+           /**
+            * mi serve per disabilitare l'effeto della pressione del tasto invio sulla
+            * form
+            */
+           /*$jq("form").bind("keypress", function(e) {
+              if (e.keyCode == 13) {
+                 return false;
+              }
+           });
+        });*/
+             
+          //]]></script>  
+</f:verbatim>   
+    </h:head>
+ 
+    <h:body class="home page page-id-12 page-template-default custom-background ecwd-theme-travelify ">
+	
+       <div class="wrapper">
+               <header id="branding" >
+                                    
+               <div class="container clearfix">
+                   <div class="hgroup-wrap clearfix">
+                       <section class="hgroup-right">
+                       </section><!-- .hgroup-right -->
+                       <div id="site-logo" class="clearfix">
+                           <!--<div   >-->
+                           <div  id="site-title"  >
+                               <div style="float:left;">
+                                   <a href="http://www.renuwal.unimi.it/it_IT/" title="ReNuWal" rel="home" style="color: #57ad68;font-size: 36px;">
+                                       ReNuWal                                                                  
+                                   </a>
+                               </div>
+                               <div>
+                                   <a href="http://www.disaa.unimi.it"><img style="padding-left: 25px;" src="http://users.unimi.it/renuwal/wp-content/uploads/2015/10/logho_DiSAA2.png" alt="logo disaa" /></a>
+                               </div>  
+                           </div>  
+                                                            
+                           <div style="clear: both;">
+                               <h2 id="site-description">Tecniche innovative di gestione e trattamento degli effluenti per la riduzione dell’inquinamento diffuso delle acque in aree ad alta densità zootecnica</h2>
+                                                            
+                           </div><!-- #site-logo -->
+                                    
+                       </div><!-- .hgroup-wrap -->
+                   </div><!-- .container -->
+                   <img src="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-foto-6.jpg" class="header-image" width="1500" height="369" alt="ReNuWal"/>
+                   <ui:insert name="leftside" >
+                    <ui:include src="/template/menu_renuwal.xhtml" />
+                   </ui:insert>
+                   </div>
+               </header>
+		
+				<div id="main" class="container clearfix">
+
+<div id="container">
+    <div id="secondary" class="widget no-margin-left" >
+        <aside style="float:left;"> 
+            <header class="entry-header">
+                <!--<h4 class="entry-title">
+                    Login    			</h4>--><!-- .entry-title -->
+                <ui:insert name="leftside" >
+                    <ui:include src="/template/stile2/colonnasinistra.xhtml" />
+                </ui:insert>
+            </header>
+        </aside>
+            
+    </div>
+ 
+
+<div id="primary" class="no-margin-right">
+    
+   <div id="content">	<section id="post-12" class="post-12 page type-page status-publish hentry">
+          
+		<article>
+
+			
+			<header class="entry-header">
+    			<!--<h5 class="entry-title">-->
+    			<h8>	Crea la tua azienda : completando la form sottostante</h8>		
+                        <!--</h5>--><!-- .entry-title -->
+  			</header>
+
+  			
+  			
+  			<div class="entry-content clearfix">
+                            
+
+            <f:view id="vistaRoot">
+                <h:form id="formRoot">
+                  
+                   
+                  <h5>Dati Aziendali</h5>  
+                    <h:panelGrid  columns="5">
+                       
+                        <h:outputLabel for="cuaa" id="cuaa_tip" value="Cuaa" >
+                              <rich:tooltip mode="ajax" layout="block" >
+                                      <h:outputText value="#{datatooltip.spiegaTip(4)}" />
+                                  </rich:tooltip>
+                        </h:outputLabel>    
+                     
+                        <!--<h:inputText id="cuaa"   value="#{nuovaazienda.cuaa}"  style="width: 100px;" >-->
+                            <h:inputText id="cuaa"   value="#{nuovaazienda.cuaa}"  style="width: 400px;border-bottom-color: gray;" >
+                           
+                       <!--  <f:validateLength minimum="5" />  
+                              <f:validateRequired  />
+                           -->
+                             
+                             <rich:validator  />
+                             
+                              <!--
+                               <a4j:ajax event="keyup"   render="outcuaa" />
+                            -->
+                        </h:inputText>    
+                         <rich:message for="cuaa" />
+                         <!--
+                          <h:outputText value=" #{nuovaazienda.cuaamessage} "  id="outcuaa" class="messaggi"/>
+                         -->
+                           <h:outputText value=""  /> 
+                            <h:outputText value="" />
+                           
+                            
+                        <h:outputLabel for="rag_sociale" id="rag_sociale_tip" value="Ragione Sociale" >
+                             <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(5)}" />
+                                  </rich:tooltip>
+                        </h:outputLabel>    
+                        <!--<h:inputText id="rag_sociale"   value="#{nuovaazienda.ragionesociale}"  style="width: 100px;" > -->
+                             <h:inputText id="rag_sociale"   value="#{nuovaazienda.ragionesociale}"  style="width: 400px;border-bottom-color: gray;" > 
+                        
+                          <!--  <f:validateLength minimum="5" />  
+                              <f:validateRequired />
+                        -->
+                              <rich:validator />    
+                        </h:inputText>    
+                         <rich:message for="rag_sociale" />
+                          <h:outputText value="" />
+                            <h:outputText value="" />
+                          
+                         
+                         
+                        <h:outputLabel for="comune" id="comune_tip" value="Comune" >
+                            <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(6)}" />
+                                  </rich:tooltip>
+                        </h:outputLabel>    
+                        <!--<h:inputText id="comune"   value="#{nuovaazienda.comune}"  style="width: 100px;" >-->
+                            <h:inputText id="comune"   value="#{nuovaazienda.comune}"  style="width: 400px;border-bottom-color: gray;" >
+                         <!--
+                         <f:validateLength minimum="5" />  
+                              <f:validateRequired />
+                        -->
+                              <rich:validator />    
+                        </h:inputText>    
+                         <rich:message for="comune" />
+                          <h:outputText value="" />
+                           <h:outputText value="" />
+                         
+                         
+                        <h:outputLabel for="cod_comune" id="cod_comune_tip" value="Codice Comune" >
+                            <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(7)}" />
+                                  </rich:tooltip>
+                        </h:outputLabel>    
+                           <!--<h:inputText id="cod_comune"   value="#{nuovaazienda.codice_comune}" validatorMessage="Validation Error: codice numerico"  style="width: 100px;" > -->
+                           <h:inputText id="cod_comune"   value="#{nuovaazienda.codice_comune}" validatorMessage="Validation Error: codice numerico"  style="width: 400px;border-bottom-color: gray;" > 
+                         <f:validateRegex
+                                  pattern="^[0-9]{1,8}"></f:validateRegex>
+                              <f:validateRequired />
+                              <rich:validator />    
+                        </h:inputText>    
+                         <rich:message for="cod_comune" />
+                          <h:outputText value="" />
+                           <h:outputText value="" />
+                           
+                        <h:outputLabel for="provincia" id="provincia_tip" value="Provincia" >
+                            <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(8)}" />
+                                  </rich:tooltip>
+                        </h:outputLabel>    
+                        <!--<h:inputText id="provincia"   value="#{nuovaazienda.provincia}"  style="width: 100px;" >-->
+                        <h:inputText id="provincia"   value="#{nuovaazienda.provincia}"  style="width: 400px;border-bottom-color: gray;" >
+                       <!--
+                        <f:validateLength minimum="5" />  
+                              <f:validateRequired />
+                       -->
+                              <rich:validator />    
+                        </h:inputText>    
+                         <rich:message for="provincia" />
+                          <h:outputText value="" />
+                            <h:outputText value="" />
+                         
+                         
+                        <h:outputLabel for="cod_provincia" id="cod_provincia_tip" value="Codice Provincia" >
+                            <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(9)}" />
+                                  </rich:tooltip>
+                        </h:outputLabel>    
+                        <!--<h:inputText id="cod_provincia"   value="#{nuovaazienda.codice_provincia}" validatorMessage="Codice provincia errato: valori numerici tra 0 e 9 " style="width: 100px;" >    -->
+                        <h:inputText id="cod_provincia"   value="#{nuovaazienda.codice_provincia}" validatorMessage="Codice provincia errato: valori numerici tra 0 e 9 " style="width: 400px;border-bottom-color: gray;" >    
+
+                            <f:validateRegex
+                                  pattern="^[0-9]{1,8}"></f:validateRegex>
+                              <f:validateRequired />
+                              <rich:validator />    
+                        </h:inputText>
+                         <rich:message for="cod_provincia" />
+                          <h:outputText value="" />
+                         <h:outputText value="" />
+                         
+                         <h:outputLabel for="cod_provincia" id="deroga_tip" value="Deroga" >
+                            <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(200)}" />
+                                  </rich:tooltip>
+                        </h:outputLabel>   
+                         <h:selectBooleanCheckbox value="#{nuovaazienda.deroga}">
+                         </h:selectBooleanCheckbox>
+                         <h:outputText value="" />
+                         <h:outputText value="" />
+                         
+                    </h:panelGrid>
+                    
+                     
+                       <!-- <h3>Coordinate centro aziendale</h3>
+                         <h:panelGrid  columns="5" > 
+                      
+                        
+                        
+                        
+                        <h:outputLabel for="coord_x"  id="coord_x_tip" value="Longitudine(7-14)" >
+                            <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(10)}" />
+                                  </rich:tooltip>
+                        </h:outputLabel>    
+                        <h:inputText id="coord_x"   value="#{nuovaazienda.coordinata_x}" validatorMessage="Validation Error: coordinata non valida"  style="width: 400px;border-bottom-color: gray;" >  
+
+                            <f:validateRegex
+                                  pattern="7(\.[1-9]{1,6})?|8(\.[1-9]{0,6})?|9(\.[1-9]{0,6})?|[1][0](\.[1-9]{0,6})?|[1][1](\.[1-9]{0,6})?|[1][2](\.[1-9]{0,6})?|[1][3](\.[1-9]{0,6})?|[1][4](\.[1-9]{0,6})?"></f:validateRegex>
+                       
+                              <rich:validator />
+                              <f:validateRequired />
+                              <rich:validator />    
+                        </h:inputText>
+                         <rich:message for="coord_x" />
+                          <h:outputText value="" />
+                          <h:outputText value="" />
+                          
+                        <h:outputLabel for="coord_y" id="coord_y_tip" value="Latitudine(43-46)" >
+                            <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(11)}" />
+                                  </rich:tooltip>
+                        </h:outputLabel>    
+                        <h:inputText id="coord_y"   value="#{nuovaazienda.coordinata_y}" validatorMessage="Validation Error: coordinata non valida" style="width: 400px;border-bottom-color: gray;" >  
+
+                            <f:validateRegex
+                                  pattern="^4[3-6](\.[0-9]{1,6})?"></f:validateRegex>
+                              <f:validateRequired />
+                              <rich:validator />    
+                        </h:inputText>    
+                         <rich:message for="coord_y" />
+                            <h:outputText value="" />
+                            <h:outputText value="" />
+                            
+                            
+                         </h:panelGrid>  
+                          <h3>SAU in zona vulnerabile e non </h3>
+                         <h:panelGrid  columns="5"> 
+                         <h:outputLabel for="sauzvn"  id="sauzvn_tip" value="Superficie utile zvn" >
+                             <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(12)}" />
+                                  </rich:tooltip>
+                         </h:outputLabel>    
+                         <h:inputText id="sauzvn"   value="#{nuovaazienda.sauzvn}" validatorMessage="Validation Error: valore non corretto" style="width: 400px;border-bottom-color: gray;" >  
+
+                             <f:validateRegex
+                                  pattern="^[0-9]{1,}(\.[0-9]{1,})?"></f:validateRegex>
+                              <f:validateRequired />
+                              <rich:validator />    
+                        </h:inputText>    
+                         <rich:message for="sauzvn" />
+                          <h:outputText value="" />
+                           <h:outputText value="" />
+                          
+                         <h:outputLabel for="sauzv" id="sauzv_tip" value="Superficie utile zv" >
+                             <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(13)}" />
+                                  </rich:tooltip>
+                         </h:outputLabel>    
+                         <h:inputText id="sauzv"   value="#{nuovaazienda.sazv}" validatorMessage="Validation Error: valore non corretto" style="width: 400px;border-bottom-color: gray;" >  
+
+                             <f:validateRegex
+                                  pattern="^[0-9]{1,}(\.[0-9]{1,})?"></f:validateRegex>
+                              <f:validateRequired />
+                              <rich:validator />    
+                        </h:inputText>    
+                         <rich:message for="sauzv" />
+                          <h:outputText value="" />
+                           <h:outputText value="" />
+                          
+                         
+                         
+                    </h:panelGrid>  -->  
+                          
+                          <br/>
+                     <h:commandButton value="Salva" action="#{nuovaazienda.salva()}"    style="font-size: 16px;width:140px;height: 60px;text-transform: capitalize;margin-right: 20px;" >
+                         
+
+                        </h:commandButton>
+                         
+                          
+                        <h:button value="Fine" outcome="aziende" id="bottone_fine"  >
+
+                        </h:button>     
+                          <br/>  <br/>
+                    <a4j:outputPanel id="out">
+                        <!--<h:outputText value=" #{nuovaazienda.statoOperazione} "  class="messaggi" />-->
+                        <h:outputText value="#{nuovaazienda.statoOperazione} "  class="messaggi" />
+                    </a4j:outputPanel>
+                    
+                          
+                          
+                    
+                </h:form>
+            </f:view>
+            
+      
+         </div><!-- #main -->
+
+                </article>
+       </section>
+       </div><!-- #content --></div><!-- #primary -->
+       
+</div>
+                                </div>
+	   <footer id="footerarea" class="clearfix">
+			
+
+
+<div id="site-generator">
+				<div class="container">
+                                    <div class="copyright" style="float:left;padding:15px 0px 0px 0px;">Sviluppato dal <a href="http://www.disaa.unimi.it">Dipartimeno di Scienze Agrarie e Ambientali    </a>
+                                    </div>
+                                    <a href="http://www.disaa.unimi.it">
+                                        <div>
+                                            <img style="vertical-align:text-top;" src="http://users.unimi.it/renuwal/wp-content/uploads/2015/10/logodisaa2.jpg" alt="logo disaa" /></div></a><div class="footer-right"></div><div style="clear:both;"></div>
+			</div><!-- .container -->
+			</div><!-- #site-generator -->
+                        <div class="back-to-top"><a href="#branding"></a></div>
+           </footer>  
+       </div>
+    </h:body>
+</html>

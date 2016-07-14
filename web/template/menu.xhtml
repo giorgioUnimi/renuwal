@@ -1,0 +1,372 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <c:if test="#{navigazione.paginaAttuale eq 'index.xhtml'}">
+            
+            <ul id="ulmenu">
+            <c:if test="#{utente.inseritoCorretto == true}">
+		<li class="blue">
+			<p><a href="#">Vai A</a></p>
+                        <p class="subtext"><h:form> <h:commandLink action="aziende" value="Aziende"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="guida" value="Guida"></h:commandLink></h:form></p>
+			
+		</li>
+            </c:if>	
+             <c:if test="#{utente.inseritoCorretto == false}">
+		<li class="blue">
+			<p><a href="#">Vai A</a></p>
+                      
+			
+		</li>
+            </c:if>	
+		<li class="blue">
+			<p><a href="#">Partecipanti</a></p>
+                        <p class="subtext"><a href="http://www.uniud.it">Uni Udine</a></p>
+                        <p class="subtext"><a href="http://www.unimi.it">Uni Milano</a></p>
+                        
+		</li>
+		
+	</ul>
+            
+            
+            </c:if>
+            <c:if test="#{navigazione.paginaAttuale eq 'aziende.xhtml'}">
+            <ul id="ulmenu">
+		<li class="blue">
+			<p><a href="#">Vai A</a></p>
+			<p class="subtext"><h:form> <h:commandLink action="home" value="Home"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="guida" value="Help"></h:commandLink></h:form></p>
+                        <!--
+                        <p class="subtext"><h:form> <h:commandLink action="aziende" value="Aziende"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="dettaglioazienda" value="Dettaglio Azienda"></h:commandLink></h:form></p>
+                        -->
+		</li>
+                <li class="blue">
+			<p><a href="#">Analisi</a></p>
+                        <p class="subtext"><a href="testmulti2.jsp">Multi Obiettivo</a></p>
+                              
+			
+		</li>	
+                <li class="blue">
+			<p><a href="#">Partecipanti</a></p>
+                        <p class="subtext"><a href="http://www.uniud.it">Uni Udine</a></p>
+                        <p class="subtext"><a href="http://www.unimi.it">Uni Milano</a></p>
+                        
+		</li>
+                <!--
+		<li class="blue">
+			<p><a href="#">Inserimento</a></p>
+			<p class="subtext"><h:form> <h:commandLink action="allevamento" value="Allevamento"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="acquastoccaggio" value="Acqua di Stoccaggio"></h:commandLink></h:form></p>
+		</li>
+                -->
+            
+            </ul>
+            
+            
+            </c:if>
+            <c:if test="#{navigazione.paginaAttuale eq 'dettaglioAzienda.xhtml'}">
+            <ul id="ulmenu">
+		<li class="blue">
+			<p><a href="#">Vai A</a></p>
+			<p class="subtext"><h:form> <h:commandLink action="home" value="Home"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="aziende" value="Aziende"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="scenario" value="Scenari">
+                                     <f:param  name="id" value="#{dettaglioCuaa.cuaa}" />  
+                               <f:param  name="id1" value="#{dettaglioCuaa.ragionesociale}" />  
+                               <f:param  name="id2" value="#{dettaglioCuaa.comune}" /> 
+                               <f:param  name="id3" value="#{dettaglioCuaa.utente}" /> 
+                                </h:commandLink>
+                            </h:form>
+                        </p>
+                        <p class="subtext"><h:form> <h:commandLink action="alternative" value="Alternative"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="localizzazione" value="Localizzazione"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="guida" value="Help"></h:commandLink></h:form></p>
+                        <!--
+                        <p class="subtext"><h:form> <h:commandLink action="aziende" value="Aziende"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="dettaglioazienda" value="Dettaglio Azienda"></h:commandLink></h:form></p>
+                        -->
+		</li>
+                <li class="blue">
+			<p><a href="#">Analisi</a></p>
+                        <p class="subtext"><a href="testmulti2.jsp">Multi Obiettivo</a></p>
+                              
+			
+		</li>	
+                <li class="blue">
+			<p><a href="#">Inserimento</a></p>
+                        <p class="subtext"><h:form><h:commandLink action="allevamento" value="Allevamento"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form><h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form><h:commandLink action="acquastoccaggio" value="Acqua di Stoccaggio"></h:commandLink></h:form></p>
+                        <!--
+                        <p class="subtext"><h:form> <h:commandLink action="aziende" value="Aziende"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="dettaglioazienda" value="Dettaglio Azienda"></h:commandLink></h:form></p>
+                        -->
+		</li>
+                <li class="blue">
+			<p><a href="#">Partecipanti</a></p>
+                        <p class="subtext"><a href="http://www.uniud.it">Uni Udine</a></p>
+                        <p class="subtext"><a href="http://www.unimi.it">Uni Milano</a></p>
+                        
+		</li>
+                <!--
+		<li class="blue">
+			<p><a href="#">Inserimento</a></p>
+			<p class="subtext"><h:form> <h:commandLink action="allevamento" value="Allevamento"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="acquastoccaggio" value="Acqua di Stoccaggio"></h:commandLink></h:form></p>
+		</li>
+                -->
+            
+            </ul>
+            
+            
+            
+            
+            </c:if>
+            <c:if test="#{navigazione.paginaAttuale eq 'allevamento.xhtml' || navigazione.paginaAttuale eq 'acquastoccaggio.xhtml' || navigazione.paginaAttuale eq 'stoccaggio.xhtml'}">
+            <ul id="ulmenu">
+		<li class="blue">
+			<p><a href="#">Vai A</a></p>
+			<p class="subtext"><h:form> <h:commandLink action="home" value="Home"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="aziende" value="Aziende"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="scenario" value="Scenari">
+                                     <f:param  name="id" value="#{dettaglioCuaa.cuaa}" />  
+                               <f:param  name="id1" value="#{dettaglioCuaa.ragionesociale}" />  
+                               <f:param  name="id2" value="#{dettaglioCuaa.comune}" /> 
+                               <f:param  name="id3" value="#{dettaglioCuaa.utente}" /> 
+                                </h:commandLink>
+                            </h:form>
+                        </p>
+                        <p class="subtext"><h:form> <h:commandLink action="alternative" value="Alternative"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="localizzazione" value="Localizzazione"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="guida" value="Help"></h:commandLink></h:form></p>
+                         <p class="subtext"><h:form> <h:commandLink action="guida" value="Help"></h:commandLink></h:form></p>
+                        <!--
+                        <p class="subtext"><h:form> <h:commandLink action="aziende" value="Aziende"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="dettaglioazienda" value="Dettaglio Azienda"></h:commandLink></h:form></p>
+                        -->
+		</li>
+                <li class="blue">
+			<p><a href="#">Inserimento</a></p>
+                        <c:if test="#{navigazione.paginaAttuale eq 'allevamento.xhtml'}">
+                            <!--
+                        <p class="subtext"><h:form><h:commandLink action="allevamento" value="Allevamento"></h:commandLink></h:form></p>
+                            -->
+                        <p class="subtext"><h:form><h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form><h:commandLink action="acquastoccaggio" value="Acqua di Stoccaggio"></h:commandLink></h:form></p>
+                        </c:if> 
+                         <c:if test="#{navigazione.paginaAttuale eq 'acquastoccaggio.xhtml'}">
+                         <p class="subtext"><h:form><h:commandLink action="allevamento" value="Allevamento"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form><h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></h:form></p>
+                        <!--
+                        <p class="subtext"><h:form><h:commandLink action="acquastoccaggio" value="Acqua di Stoccaggio"></h:commandLink></h:form></p>
+                        -->
+                         </c:if> 
+                          <c:if test="#{navigazione.paginaAttuale eq 'stoccaggio.xhtml'}">
+                          <p class="subtext"><h:form><h:commandLink action="allevamento" value="Allevamento"></h:commandLink></h:form></p>
+                          <!--
+                                <p class="subtext"><h:form><h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></h:form></p>
+                          -->
+                        <p class="subtext"><h:form><h:commandLink action="acquastoccaggio" value="Acqua di Stoccaggio"></h:commandLink></h:form></p>
+                          </c:if> 
+                        
+                       
+		</li>
+                <li class="blue">
+			<p><a href="#">Partecipanti</a></p>
+                        <p class="subtext"><a href="http://www.uniud.it">Uni Udine</a></p>
+                        <p class="subtext"><a href="http://www.unimi.it">Uni Milano</a></p>
+                        
+		</li>
+                <!--
+		<li class="blue">
+			<p><a href="#">Inserimento</a></p>
+			<p class="subtext"><h:form> <h:commandLink action="allevamento" value="Allevamento"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="acquastoccaggio" value="Acqua di Stoccaggio"></h:commandLink></h:form></p>
+		</li>
+                -->
+            
+            </ul>
+            
+            
+            
+            
+            </c:if>
+            <c:if test="#{navigazione.paginaAttuale eq 'alternative.xhtml'}">
+            <ul id="ulmenu">
+		<li class="blue">
+			<p><a href="#">Vai A</a></p>
+			<p class="subtext"><h:form> <h:commandLink action="home" value="Home"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="aziende" value="Aziende"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="scenario" value="Scenari">
+                                     <f:param  name="id" value="#{dettaglioCuaa.cuaa}" />  
+                               <f:param  name="id1" value="#{dettaglioCuaa.ragionesociale}" />  
+                               <f:param  name="id2" value="#{dettaglioCuaa.comune}" /> 
+                               <f:param  name="id3" value="#{dettaglioCuaa.utente}" /> 
+                                </h:commandLink>
+                            </h:form>
+                        </p>
+                        <p class="subtext"><h:form> <h:commandLink action="alternative" value="Alternative"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="localizzazione" value="Localizzazione"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="guida" value="Help"></h:commandLink></h:form></p>
+                         <p class="subtext"><h:form> <h:commandLink action="guida" value="Help"></h:commandLink></h:form></p>
+                        <!--
+                        <p class="subtext"><h:form> <h:commandLink action="aziende" value="Aziende"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="dettaglioazienda" value="Dettaglio Azienda"></h:commandLink></h:form></p>
+                        -->
+		</li>
+                <li class="blue">
+			<p><a href="#">Analisi</a></p>
+                        <p class="subtext"><a href="testmulti2.jsp">Multi Obiettivo</a></p>
+                              
+			
+		</li>	
+                <li class="blue">
+			<p><a href="#">Inserimento</a></p>
+                       
+                          
+                        <p class="subtext"><h:form><h:commandLink action="allevamento" value="Allevamento"></h:commandLink></h:form></p>
+                           
+                        <p class="subtext"><h:form><h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form><h:commandLink action="acquastoccaggio" value="Acqua di Stoccaggio"></h:commandLink></h:form></p>
+                       
+                       
+		</li>
+                
+                 <li class="blue">
+			<p><a href="#">Parametri</a></p>
+                                                 
+                        <p class="subtext"><h:form><h:commandLink action="parametrivasca" value="Vasca"></h:commandLink></h:form></p>
+                           
+                        <p class="subtext"><h:form><h:commandLink action="parametriplatea" value="Platea"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form><h:commandLink action="parametriseparazione" value="Separazione"></h:commandLink></h:form></p>
+                       <p class="subtext"><h:form><h:commandLink action="parametricentrifuga" value="Centrifuga"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form><h:commandLink action="parametridigestione" value="Digestione"></h:commandLink></h:form></p>
+                       
+		</li>
+                
+                <li class="blue">
+			<p><a href="#">Partecipanti</a></p>
+                        <p class="subtext"><a href="http://www.uniud.it">Uni Udine</a></p>
+                        <p class="subtext"><a href="http://www.unimi.it">Uni Milano</a></p>
+                        
+		</li>
+                <!--
+		<li class="blue">
+			<p><a href="#">Inserimento</a></p>
+			<p class="subtext"><h:form> <h:commandLink action="allevamento" value="Allevamento"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="acquastoccaggio" value="Acqua di Stoccaggio"></h:commandLink></h:form></p>
+		</li>
+                -->
+            
+            </ul>
+            </c:if>
+            <c:if test="#{navigazione.paginaAttuale eq 'parametricentrifuga.xhtml' || navigazione.paginaAttuale eq 'parametridigestione.xhtml' || navigazione.paginaAttuale eq 'parametriplatea.xhtml' ||navigazione.paginaAttuale eq 'parametriseparazione.xhtml' || navigazione.paginaAttuale eq 'parametrivasca.xhtml' || navigazione.paginaAttuale eq 'modulo.xhtml' 
+|| navigazione.paginaAttuale eq 'parametriSBR_NDN.xhtml'}">
+            
+             <ul id="ulmenu">
+		<li class="blue">
+			<p><a href="#">Vai A</a></p>
+			<p class="subtext"><h:form> <h:commandLink action="home" value="Home"></h:commandLink></h:form></p>
+                         <p class="subtext"><h:form> <h:commandLink action="alternative" value="Scelta Alternative"></h:commandLink></h:form></p>
+                          <p class="subtext"><h:form> <h:commandLink action="guida" value="Help"></h:commandLink></h:form></p>
+                        <!--
+                        <p class="subtext"><h:form> <h:commandLink action="aziende" value="Aziende"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="dettaglioazienda" value="Dettaglio Azienda"></h:commandLink></h:form></p>
+                        -->
+		</li>
+                <li class="blue">
+			<p><a href="#">Partecipanti</a></p>
+                        <p class="subtext"><a href="http://www.uniud.it">Uni Udine</a></p>
+                        <p class="subtext"><a href="http://www.unimi.it">Uni Milano</a></p>
+                        
+		</li>
+                <!--
+		<li class="blue">
+			<p><a href="#">Inserimento</a></p>
+			<p class="subtext"><h:form> <h:commandLink action="allevamento" value="Allevamento"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="acquastoccaggio" value="Acqua di Stoccaggio"></h:commandLink></h:form></p>
+		</li>
+                -->
+            
+            </ul>
+            </c:if>
+           
+            <c:if test="#{navigazione.paginaAttuale eq 'guida.xhtml'}">
+                 <ul id="ulmenu">
+            <li class="blue">
+			<p><a href="#">Vai A</a></p>
+			<p class="subtext"><h:form> <h:commandLink action="home" value="Home"></h:commandLink></h:form></p>
+                        <!--
+                        <p class="subtext"><h:form> <h:commandLink action="guida" value="Help"></h:commandLink></h:form></p>
+                        -->
+                        <!--
+                        <p class="subtext"><h:form> <h:commandLink action="aziende" value="Aziende"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="dettaglioazienda" value="Dettaglio Azienda"></h:commandLink></h:form></p>
+                        -->
+		</li>
+                <li class="blue">
+			<p><a href="#">Partecipanti</a></p>
+                        <p class="subtext"><a href="http://www.uniud.it">Uni Udine</a></p>
+                        <p class="subtext"><a href="http://www.unimi.it">Uni Milano</a></p>
+                        
+		</li>
+                 </ul>
+            
+            </c:if>
+            <!--
+            <ul id="ulmenu">
+		<li class="blue">
+			<p><a href="#">Vai A</a></p>
+			<p class="subtext"><h:form> <h:commandLink action="home" value="Home"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="aziende" value="Aziende"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="dettaglioazienda" value="Dettaglio Azienda"></h:commandLink></h:form></p>
+		</li>
+		<li class="blue">
+			<p><a href="#">Inserimento</a></p>
+			<p class="subtext"><h:form> <h:commandLink action="allevamento" value="Allevamento"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="acquastoccaggio" value="Acqua di Stoccaggio"></h:commandLink></h:form></p>
+		</li>
+		<li class="blue">
+			<p><a href="#">Moduli</a></p>
+                      --><!--  
+                        <c:choose>
+                            <c:when test="#{refluiAzienda.alternativa == 0}">
+                       <p class="subtext"><h:form> <h:commandLink action="platea" value="Platea"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="vasca" value="Vasca"></h:commandLink></h:form></p>
+                            </c:when>
+                            <c:when test="#{refluiAzienda.alternativa == 1}">
+                       
+                          <p class="subtext"><a href="faces/separazione.xhtml">Separazione</a></p>
+                        <p class="subtext"><a href="faces/vasca.xhtml">Vasca</a></p>
+                        <p class="subtext"><a href="faces/platea.xhtml">Platea</a></p>
+                          
+                        </c:when>
+                             </c:choose>
+                        -->
+                      
+			
+<!--
+		</li>
+		
+	</ul>
+        -->
+        </ui:composition>
+    </h:body>
+</html>
+

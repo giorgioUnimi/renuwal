@@ -1,0 +1,195 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+    <title>AziendaR</title>
+    <!--
+        <h:outputStylesheet  library="css" name="animated-menu.css"/>
+        <h:outputStylesheet  library="css" name="jsfcrud.css"/>
+	
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                      
+	<h:outputScript library="css" name="animated-menu.js" />
+       
+          <script>
+           
+            $(document).ready(function () {
+                //$('#formRoot\\:tabellaAziendalista').addClass('tabellascroll');
+              //  $("#formRoot\\:aziende").hide();
+              //  alert("ciao " );
+            });
+         </script>  
+    -->
+    </h:head>
+    <h:body>
+       <!--
+            <h:panelGroup id="headerside" layout="block">
+           
+            
+             <c:if test="#{utente.corretto}">
+                 
+            </c:if>
+            
+                     <p>
+                        <h:graphicImage  value="resources/css/images/logobianco1.jpg" />
+                      
+                        <fieldset style="border: 1px solid #21221A;margin-bottom: 0px;">
+                            <legend><h1><g>Progetto Ager</g></h1></legend>
+                  
+                            <h3>Decision<br /><br /> Support<br /><br /> Tool</h3><br /><br /><br />
+                   </fieldset> 
+                  
+                    
+                  </p>
+                  
+                  
+               
+            </h:panelGroup> 
+       -->
+         <div id="leftrightcontainer"> 
+             <!--
+             <h:panelGroup id="leftside" layout="block">
+             -->
+               
+                <!--
+                <p>
+                      
+                    <p class="menusinistra"> Vai A :</p>
+                  <h:form>
+                   <ul >
+                      <li><h:commandLink action="home" value="Home"></h:commandLink></li>
+                      <li><h:commandLink action="guida" value="Guida"></h:commandLink></li>
+                   </ul>
+                        </h:form>
+                    
+                </p>
+           
+            </h:panelGroup> 
+        -->
+        <!--
+        <ui:insert name="leftside" >
+		  <ui:include src="/template/colonnasinistra.xhtml" />
+		</ui:insert>    
+        -->
+            <h:panelGroup id="rightside" layout="block">
+                
+	<!--
+	<ul id="ulmenu">
+            
+		<li class="green">
+			<p><a href="#">Vai A</a></p>
+                        <p class="subtext"><h:form> <h:commandLink action="home" value="Home"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="guida" value="Guida"></h:commandLink></h:form></p>
+			
+		</li>
+           	
+          
+		<li class="red">
+			<p><a href="#">Partecipanti</a></p>
+                        <p class="subtext"><a href="http://www.uniud.it">Uni Udine</a></p>
+                        <p class="subtext"><a href="http://www.unimi.it">Uni Milano</a></p>
+                        
+		</li>
+		
+	</ul>
+              
+            -->
+            <!--
+            <ui:insert name="ulmenu" >
+		  <ui:include src="/template/menu.xhtml" />
+		</ui:insert>     
+            -->
+                <div class="cleardiv">
+                    </div>
+                <p>
+                   <h2>Benvenuto nel sito di prova del progetto Ager</h2>     
+               </p>    
+                 <p>
+                      Questa pagina si occuperà del lato aziendale     
+                  
+               </p> 
+                <f:view id="vistaRoot">
+                    <h:form id="formRoot">
+                        <div id="aziende" style="height:400px;overflow-y:auto;width:650px;">
+                            <h:dataTable id="tabellaAziendalista" value="#{listaAziendeJ.tabella}"  style="border-collapse:collapse; width:90%; "  var="row" >
+              
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Cuaa" />
+                    </f:facet>
+                    <h:outputText  value="#{row.cuaa}"   />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Denominazione" />
+                    </f:facet>
+                    <h:inputTextarea  value="#{row.ragioneSociale}" cols="30" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Comune" />
+                    </f:facet>
+                    <h:inputText   value="#{row.desComunePresentazione}"  >
+                        
+                    </h:inputText>
+                </h:column>
+                    <h:column>
+                  
+                   <br/>
+                    <h:commandLink value="Dettaglio" action="scenario" >
+                          <f:param  name="id" value="#{row.cuaa}" />  
+                          <f:param  name="id1" value="#{row.ragioneSociale}" />  
+                          <f:param  name="id2" value="#{row.desComunePresentazione}" />  
+                          <f:param  name="id3" value="#{utente.username}" />  
+                    </h:commandLink>
+                        
+                
+                    
+               
+
+                </h:column>
+                         <!--
+                         <h:column>
+                             <h:commandButton value="Nuovo" type="button"></h:commandButton>
+                             <h:commandButton value="Cancella" type="button"></h:commandButton>
+                             <h:commandButton value="Apri" type="button"></h:commandButton>
+                             <h:selectOneMenu value="#{user.favCoffee1}">
+                                 
+                             </h:selectOneMenu>
+                         </h:column>       
+               -->
+            
+            
+            </h:dataTable>   
+                       
+                  </div>  
+                    
+                
+                       
+                    
+                    
+                    </h:form>
+                </f:view>
+                
+             
+                
+            </h:panelGroup>  
+             </div>
+        <div class="cleardiv">
+            </div>
+        <!--
+      <div id="footerside">
+                    <p>
+                        <br/>
+                        <h3>Sviluppato da :<br /><a href="http://www.disaa.unimi.it">Dipartimento di Scienze Agrarie e Ambientali</a> <br /><a href="http://www.unimi.it"> Università degli Studi di Milano </a></h3>
+                     
+                    </p>    
+        </div>
+        -->
+    </h:body>
+</html>
+

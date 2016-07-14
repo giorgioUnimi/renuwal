@@ -1,0 +1,512 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+       <!--
+        <h:outputStylesheet  library="css" name="animated-menu.css"/>
+     -->
+      <h:outputStylesheet  library="css" name="jsfcrud.css"/>
+      <h:outputScript      name="jquery/jquery-1.9.1.js" ></h:outputScript>  
+     
+       <script>
+           // Give $jq back to prototype.js; create new alias to jQuery.
+           var $jq = jQuery.noConflict();
+       </script>
+    <!--
+      <script src="resources/jquery/jquery-1.9.1.js"></script>
+     
+        <h:outputScript library="css" name="js/jquery.easing.1.3.js" />
+                       
+	<h:outputScript library="css" name="animated-menu.js" />
+    -->
+         <title>Dettaglio Azienda</title>
+         <style>
+        .tooltip {
+       /* background-color: #{ richSkin.generalBackgroundColor};*/
+        border-width:3px;
+        }
+        .tooltip-custom-body {
+        /*background-color: orange;*/
+        }
+ 
+        .tooltip-text {
+        width: 150px;
+        height: 20px;
+        cursor: arrow;
+        border-width: 2px;
+        text-align: left;
+        display: table-cell;
+        vertical-align: middle;
+        }
+ 
+        .tooltipData {
+        font-weight: bold;
+        }
+        
+        .myButton{
+            width: 60px; 
+         }
+       
+         input {
+             width: 60px;
+         }
+        
+    </style>
+    </h:head>
+    <h:body>
+       
+            
+                
+                     <c:if test="#{utente.corretto}">
+               
+            </c:if>
+                    
+         <ui:insert name="headerside" >
+		  <ui:include src="/template/headerS.xhtml" />
+	 </ui:insert>
+         <div id="leftrightcontainer"> 
+         
+        
+          <ui:insert name="leftside" >
+		  <ui:include src="/template/colonnasinistra.xhtml" />
+		</ui:insert>           
+            <h:panelGroup id="rightside" layout="block">
+                
+              <ui:insert name="ulmenu" >
+		  <ui:include src="/template/nuovomenu.xhtml" />
+		</ui:insert>      
+	
+              
+                <div class="cleardiv">
+                    </div>
+                
+              
+               <p>
+                   <h3>RENUWAL - Research on water pollution<br/> and aimed at a correct water resource management</h3> 
+               </p>    <h4>Dettaglio Azienda</h4> 
+                   <br/>
+                   <h:outputText value="Utente :#{utente.username}  "/>
+                   <br/>
+                   <h:outputText value="Mail :#{utente.mail_utente}  "/>
+                   <br/><br/>
+                  <h:outputText value="scenario : #{param['id']}" />
+                  <br/>
+                  <h:outputText value="descrizione scenario : #{param['descrizione']}" />
+                  <br/>
+                  <h:outputText value="cuaa : #{param['cuaa']}" />
+                  <br/>
+                  <h:outputText value="alternativa : #{param['alternativa']}" />
+                  <br/>
+                   <f:metadata>
+                            <f:viewParam name="id" value="#{dettaglioCuaa.idscenario}" />
+                            <f:viewParam name="descrizione" value="#{dettaglioCuaa.descrizionescenario}" />
+                            <f:viewParam name="cuaa" value="#{dettaglioCuaa.cuaa}" />
+                            <f:viewParam name="alternativa" value="#{dettaglioCuaa.alternativaN}" />                       
+                   </f:metadata>
+                  <h:outputText id="test11" value="#{dettaglioCuaa.alternativaN}" />
+                  <h:outputLabel id="cuaalabel" for="cuaatext" value="Cuaa selezionato : " style="font-weight:bold;" />
+                 
+                   <c:choose>
+                       <c:when test="#{utente.username == 'azienda1'}">
+                        <h:outputText  id="cuaatext" value="#{dettaglioCuaa.cuaa}"  />
+                    </c:when>
+                       <c:otherwise>
+                           <h:outputText  id="cuaatext" value="#{dettaglioCuaa.cuaa_finto}"  />
+                       </c:otherwise>
+                   </c:choose>
+                   <h:outputText value="#{dettaglioCuaa.impostaScenario(dettaglioCuaa.idscenario)}"></h:outputText>
+                   <br/>
+                   <h:outputLabel id="ragionelabel" for="ragionetext" value="Ragione Sociale :" style="font-weight:bold;"/>
+                    <c:choose>
+                       <c:when test="#{utente.username == 'azienda1'}">
+                        <h:outputText id="ragionetext" value="#{dettaglioCuaa.ragionesociale}" />   
+                    </c:when>
+                       <c:otherwise>
+                           <h:outputText id="ragionetext" value="#{dettaglioCuaa.ragionesociale_finto}" />   
+                       </c:otherwise>
+                   </c:choose>
+                   
+                   <br/>
+                   <h:outputLabel id="comunelabel" for="comunetext" value="Comune :" style="font-weight:bold;" />
+                    <h:outputText id="comunetext" value="#{dettaglioCuaa.comune}" />
+                    <br/>
+                   <h:outputLabel id="scenariolabel" for="scenariotext" value ="Scenario : " style="font-weight:bold;"/>
+                   <h:outputText id ="scenariotext" value ="Scenario : #{dettaglioCuaa.idscenario}" />
+                   <br/>
+                   <h:outputText value ="Descrizione Scenario : " style="font-weight:bold;"/>
+                   <h:outputText value ="#{dettaglioCuaa.descrizionescenario}" />
+                   <br/>
+                   
+              
+            
+             <br/>
+            
+           
+                <f:view id="vistaRoot">
+                   <h:form id="formRoot" >
+                     
+                   
+          
+              <br/>
+                <br/>    
+           
+             
+               
+                        
+                       <h2>Caratterisitiche chimiche refluo zootecnico</h2> 
+                        
+                        
+                         <h:dataTable id="tabellaAzienda"  value="#{dettaglioAzienda.listaCaratteristiche}" var="row">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Tipo" />
+                            </f:facet>
+                            <h:outputText value="#{row.tipologia}" />
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Volume(m&lt;sup&gt;&#51;&lt;/sup&gt;)" escape="false" />
+                            </f:facet>
+                            <h:outputText value="#{row.metricubi}" >
+                                
+                                    <f:convertNumber maxFractionDigits="0" />
+                                
+                            </h:outputText>
+                        </h:column> 
+                       
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="TKN(kg)" id="tkn_tip">
+                                   <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(17)}" />
+                                  </rich:tooltip> 
+                                </h:outputText>   
+                            </f:facet>
+                            <h:outputText value="#{row.azotototale}" >
+                             <f:convertNumber maxFractionDigits="0" />
+
+                            </h:outputText>
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="TAN(kg)" id="tan_tip">
+                                    <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(18)}" />
+                                  </rich:tooltip> 
+                                </h:outputText>    
+                            </f:facet>
+                            <h:outputText value="#{row.azotoammoniacale}" >
+                                                                    <f:convertNumber maxFractionDigits="0" />
+
+                            </h:outputText>
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="DM(kg)" id="dm_tip">
+                                    <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(19)}" />
+                                  </rich:tooltip> 
+                                </h:outputText>    
+                            </f:facet>
+                            <h:outputText value="#{row.sostanzasecca}" >
+                                                                    <f:convertNumber maxFractionDigits="0" />
+
+                            </h:outputText>                                       
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="VS(kg)" id="vs_tip">
+                                    <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(20)}" />
+                                  </rich:tooltip> 
+                                </h:outputText>    
+                            </f:facet>
+                            <h:outputText value="#{row.solidivolatili}" >
+                                                                    <f:convertNumber maxFractionDigits="0" />
+
+                            </h:outputText>
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="PO(kg)" id="po_tip">
+                                    <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(22)}" />
+                                  </rich:tooltip> 
+                                </h:outputText>    
+                            </f:facet>
+                            <h:outputText value="#{row.potassiototale}" >
+                                                                    <f:convertNumber maxFractionDigits="0" />
+
+                            </h:outputText>                                        
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="KO(kg)" id="ko_tip">
+                                  <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(21)}" />
+                                  </rich:tooltip>  
+                                </h:outputText>     
+                            </f:facet>
+                            <h:outputText value="#{row.fosforototale}" >
+                                                                    <f:convertNumber maxFractionDigits="0" />
+
+                            </h:outputText>
+                        </h:column> 
+                          <f:facet name="footer">
+                       <h:panelGroup>
+                           
+                           
+                           <h:commandButton value="Nascondi" action="#{dettaglioAzienda.nascondiDettaglio}" />
+                            <h:commandButton value="Mostra" action="#{dettaglioAzienda.mostraDettaglio}" />
+                           
+                       </h:panelGroup>
+                        </f:facet>
+                    </h:dataTable> 
+                        
+                           
+              
+                    
+                        <h:panelGroup id="tabellaAziendaLetPan"  >
+                            <h:dataTable id="tabellaAziendaLet"  value="#{dettaglioAzienda.listaCaratteristicheLet}" var="row"  binding="#{dettaglioAzienda.dataTableLet}">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Tipo" />
+                            </f:facet>
+                            <h:outputText value="#{row.tipologia}" />
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Volume(m3)" />
+                            </f:facet>
+                            <h:inputText value="#{row.metricubi}"  >
+                                <f:convertNumber maxFractionDigits="0" />
+                            </h:inputText>  
+                            <br/><h:commandButton  styleClass="myButton" value="Modifica" action="#{dettaglioAzienda.modificaRipristina(row.metricubi,row.tipologia,1,0)}"/>
+                            <br/><h:commandButton styleClass="myButton" value="Ripristina" action="#{dettaglioAzienda.modificaRipristina(row.metricubi,row.tipologia,1,1)}"/>
+
+                        </h:column> 
+                     
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="TKN(kg)" id="tkn1_tip">
+                                <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(17)}" />
+                                  </rich:tooltip>
+                            </h:outputText>   
+                            </f:facet>
+                            <h:inputText value="#{row.azotototale}" >
+                                  <f:convertNumber maxFractionDigits="0" />
+                            </h:inputText>                                       
+                            <br/><h:commandButton styleClass="myButton" value="Modifica" action="#{dettaglioAzienda.modificaRipristina(row.azotototale,row.tipologia,2,0)}" />
+                               
+                            <br/><h:commandButton styleClass="myButton" value="Ripristina" action="#{dettaglioAzienda.modificaRipristina(row.azotototale,row.tipologia,2,1)}">
+                            </h:commandButton>
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="TAN(kg)" id="tan1_tip">
+                                    <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(18)}" />
+                                  </rich:tooltip> 
+                                </h:outputText>    
+                            </f:facet>
+                            <h:inputText value="#{row.azotoammoniacale}" >
+                                    <f:convertNumber maxFractionDigits="0" />
+                            </h:inputText>
+                            <br/><h:commandButton styleClass="myButton" value="Modifica" action="#{dettaglioAzienda.modificaRipristina(row.azotoammoniacale,row.tipologia,3,0)}"/>
+                            <br/><h:commandButton styleClass="myButton" value="Ripristina" action="#{dettaglioAzienda.modificaRipristina(row.azotoammoniacale,row.tipologia,3,1)}"/>
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="DM(kg)" id="dm1_tip">
+                                <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(19)}" />
+                                  </rich:tooltip> 
+                                </h:outputText>    
+                            </f:facet>
+                            <h:inputText value="#{row.sostanzasecca}" >
+                                    <f:convertNumber maxFractionDigits="0" />
+                            </h:inputText>
+                            <br/><h:commandButton styleClass="myButton" value="Modifica" action="#{dettaglioAzienda.modificaRipristina(row.sostanzasecca,row.tipologia,4,0)}"/>
+                            <br/><h:commandButton styleClass="myButton" value="Ripristina" action="#{dettaglioAzienda.modificaRipristina(row.sostanzasecca,row.tipologia,4,1)}"/>
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="VS(kg)" id="vs1_tip">
+                                    <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(20)}" />
+                                  </rich:tooltip> 
+                                </h:outputText>     
+                            </f:facet>
+                            <h:inputText value="#{row.solidivolatili}" >
+                                      <f:convertNumber maxFractionDigits="0" />
+                            </h:inputText>
+                            <br/><h:commandButton styleClass="myButton" value="Modifica" action="#{dettaglioAzienda.modificaRipristina(row.solidivolatili,row.tipologia,5,0)}"/>
+                            <br/><h:commandButton styleClass="myButton" value="Ripristina" action="#{dettaglioAzienda.modificaRipristina(row.solidivolatili,row.tipologia,5,1)}"/>
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="PO(kg)" id="po1_tip">
+                                    <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(22)}" />
+                                  </rich:tooltip> 
+                                </h:outputText>    
+                            </f:facet>
+                            <h:inputText value="#{row.potassiototale}" >
+                                      <f:convertNumber maxFractionDigits="0" />
+                            </h:inputText>
+                            <br/><h:commandButton styleClass="myButton" value="Modifica" action="#{dettaglioAzienda.modificaRipristina(row.potassiototale,row.tipologia,6,0)}"/>
+                            <br/><h:commandButton styleClass="myButton" value="Ripristina" action="#{dettaglioAzienda.modificaRipristina(row.potassiototale,row.tipologia,6,1)}"/>
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="KO(kg)" id="po2_tip">
+                                    <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(21)}" />
+                                  </rich:tooltip> 
+                                </h:outputText>     
+                            </f:facet>
+                            <h:inputText value="#{row.fosforototale}" >
+                                     <f:convertNumber maxFractionDigits="0" />
+                            </h:inputText>
+                            <br/><h:commandButton styleClass="myButton" value="Modifica" action="#{dettaglioAzienda.modificaRipristina(row.fosforototale,row.tipologia,7,0)}"/>
+                            <br/><h:commandButton styleClass="myButton" value="Ripristina" action="#{dettaglioAzienda.modificaRipristina(row.fosforototale,row.tipologia,7,1)}"/>
+                        </h:column> 
+                      
+                    </h:dataTable> 
+                     </h:panelGroup>   
+                     
+                        
+                        <h:panelGroup id="tabellaAziendaLiqPan"  >
+                    <h:dataTable id="tabellaAziendaLiq"  value="#{dettaglioAzienda.listaCaratteristicheLiq}" var="row" binding="#{dettaglioAzienda.dataTableLiq}">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Tipo" />
+                            </f:facet>
+                            <h:outputText value="#{row.tipologia}" />
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Volume(m3)" />
+                            </f:facet>
+                            <h:inputText value="#{row.metricubi}" >
+                                   <f:convertNumber maxFractionDigits="0" />
+                            </h:inputText>
+                            <br/><h:commandButton styleClass="myButton" value="Modifica" action="#{dettaglioAzienda.modificaRipristina(row.metricubi,row.tipologia,1,0)}"/>
+                            <br/><h:commandButton styleClass="myButton" value="Ripristina" action="#{dettaglioAzienda.modificaRipristina(row.metricubi,row.tipologia,1,1)}"/>
+                        </h:column> 
+                     
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="TKN(kg)" id="tkn2_tip">
+                                    <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(17)}" />
+                                  </rich:tooltip> 
+                                </h:outputText>    
+                            </f:facet>
+                            <h:inputText value="#{row.azotototale}" >
+                                     <f:convertNumber maxFractionDigits="0" />
+                            </h:inputText>
+                            <br/><h:commandButton styleClass="myButton" value="Modifica" action="#{dettaglioAzienda.modificaRipristina(row.azotototale,row.tipologia,2,0)}"/>
+                            <br/><h:commandButton styleClass="myButton" value="Ripristina" action="#{dettaglioAzienda.modificaRipristina(row.azotototale,row.tipologia,2,1)}"/>
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="TAN(kg)" id="tan2_tip">
+                                    <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(18)}" />
+                                  </rich:tooltip> 
+                                </h:outputText>    
+                            </f:facet>
+                            <h:inputText value="#{row.azotoammoniacale}" >
+                                     <f:convertNumber maxFractionDigits="0" />
+                            </h:inputText>
+                            <br/><h:commandButton styleClass="myButton" value="Modifica" action="#{dettaglioAzienda.modificaRipristina(row.azotoammoniacale,row.tipologia,3,0)}"/>
+                            <br/><h:commandButton styleClass="myButton" value="Ripristina" action="#{dettaglioAzienda.modificaRipristina(row.azotoammoniacale,row.tipologia,3,1)}"/>
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="DM(kg)" id="dm2_tip">
+                                    <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(19)}" />
+                                  </rich:tooltip> 
+                                </h:outputText>    
+                            </f:facet>
+                            <h:inputText value="#{row.sostanzasecca}" >
+                                          <f:convertNumber maxFractionDigits="0" />
+                            </h:inputText>
+                            <br/><h:commandButton styleClass="myButton" value="Modifica" action="#{dettaglioAzienda.modificaRipristina(row.sostanzasecca,row.tipologia,4,0)}"/>
+                            <br/><h:commandButton styleClass="myButton" value="Ripristina" action="#{dettaglioAzienda.modificaRipristina(row.sostanzasecca,row.tipologia,4,1)}"/>
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="VS(kg)" id="vs2_tip">
+                                    <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(20)}" />
+                                  </rich:tooltip> 
+                                </h:outputText>    
+                            </f:facet>
+                            <h:inputText value="#{row.solidivolatili}" >
+                                     <f:convertNumber maxFractionDigits="0" />
+                            </h:inputText>
+                            <br/><h:commandButton styleClass="myButton" value="Modifica" action="#{dettaglioAzienda.modificaRipristina(row.solidivolatili,row.tipologia,5,0)}"/>
+                            <br/><h:commandButton styleClass="myButton" value="Ripristina" action="#{dettaglioAzienda.modificaRipristina(row.solidivolatili,row.tipologia,5,1)}"/>
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="PO(kg)" id="po2_tip">
+                                    <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(22)}" />
+                                  </rich:tooltip> 
+                                </h:outputText>    
+                            </f:facet>
+                            <h:inputText value="#{row.potassiototale}" >
+                                              <f:convertNumber maxFractionDigits="0" />
+                            </h:inputText>
+                            <br/><h:commandButton styleClass="myButton" value="Modifica" action="#{dettaglioAzienda.modificaRipristina(row.potassiototale,row.tipologia,6,0)}"/>
+                            <br/><h:commandButton styleClass="myButton" value="Ripristina" action="#{dettaglioAzienda.modificaRipristina(row.potassiototale,row.tipologia,6,1)}"/>
+                        </h:column> 
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="KO(kg)" id="ko2_tip">
+                                    <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(21)}" />
+                                  </rich:tooltip> 
+                                </h:outputText>    
+                            </f:facet>
+                            <h:inputText value="#{row.fosforototale}" >
+                                         <f:convertNumber maxFractionDigits="0" />
+                            </h:inputText>
+                            <br/><h:commandButton styleClass="myButton" value="Modifica" action="#{dettaglioAzienda.modificaRipristina(row.fosforototale,row.tipologia,7,0)}"/>
+                            <br/><h:commandButton styleClass="myButton" value="Ripristina" action="#{dettaglioAzienda.modificaRipristina(row.fosforototale,row.tipologia,7,1)}"/>
+                        </h:column> 
+                    </h:dataTable> 
+                        </h:panelGroup>
+                     
+                    
+                  </h:form>
+                </f:view>
+                
+             
+                
+            </h:panelGroup>  
+             </div>
+        <div class="cleardiv">
+            </div>
+        
+     <div id="footerside">
+                    <p>
+                        <br/>
+                        <h3>Sviluppato da :<br /><a href="http://www.disaa.unimi.it">Dipartimento di Scienze Agrarie e Ambientali</a> <br /><a href="http://www.unimi.it"> Università degli Studi di Milano </a></h3>
+                     
+                    </p>    
+        </div>
+    </h:body>
+</html>
+

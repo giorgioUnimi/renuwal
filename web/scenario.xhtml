@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <title>ReNuWal-home</title>
+             
+             
+<!--<link rel='stylesheet' id='travelify_style-css'  href='http://localhost:8080/renuwal/faces/template/stile2/style.css?ver=4.3.1' type='text/css' media='all' />
+<link rel='stylesheet' id='google_font_ubuntu-css'  href='//fonts.googleapis.com/css?family=Ubuntu&#038;ver=4.3.1' type='text/css' media='all' />-->
+<h:outputStylesheet library="css" name="style.css"  />
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-content/themes/travelify/images/background.png'); background-repeat: repeat; background-position: top left; background-attachment: scroll; }
+</style>
+<style>
+           /* .titolo_sinistra
+            {
+                font-size: 18px;
+            }*/
+        </style> 
+<link rel="icon" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-32x32.jpg" sizes="32x32" />
+<link rel="icon" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-192x192.jpg" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-180x180.jpg"/>
+<!--<link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&amp;subset=Latin'/> -->
+<meta name="msapplication-TileImage" content="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-270x270.jpg"/>
+
+           <script src="resources/jquery/jquery-1.9.1.js"></script>
+           <script type="text/javascript" src="resources/css/operazioni.js"></script>
+           <script>
+              
+               function getval(sel) {
+                       //idazienda
+                       var idazienda = document.getElementById("id_azienda");
+                       //valore anno
+                       var anno = document.getElementById("selscenario:state");
+                       var annoStr = anno.options[anno.selectedIndex].text;
+                       var scenarioStr = document.getElementById('selscenario:selsce').options[document.getElementById('selscenario:selsce').selectedIndex].text;
+                       
+                       var scenarioInt = document.getElementById('selscenario:selsce').options[document.getElementById('selscenario:selsce').selectedIndex].value;
+
+                       //seleziono lalternativa
+                       var alternativa = document.getElementById("alternativa1:selalt");
+                       var alternativaStr = alternativa.options[alternativa.selectedIndex].text;
+                       var cuaa = document.getElementById("cuaa1");
+                      // alert("idazienda "+idazienda.value+" scenario " +scenarioInt + " anno " + annoStr + " scenario str " + scenarioStr + " alternativa " + alternativaStr + " cuaa " + cuaa.value);
+                       window.location.replace("dettaglioAzienda.xhtml?id="+scenarioInt+"\u0026descrizione="+scenarioStr+"\u0026alternativa="+alternativaStr+"\u0026cuaa="+cuaa.value);
+
+                   }
+      
+             
+           </script>  
+            
+           
+    </h:head>
+     <h:body class="home page page-id-12 page-template-default custom-background ecwd-theme-travelify ">
+	
+      <div class="wrapper">
+               <header id="branding" >
+                                    
+               <div class="container clearfix">
+                   <div class="hgroup-wrap clearfix">
+                       <section class="hgroup-right">
+                       </section>
+                       <div id="site-logo" class="clearfix">
+                          
+                           <div  id="site-title"  >
+                               <div style="float:left;">
+                                   <a href="http://www.renuwal.unimi.it/it_IT/" title="ReNuWal" rel="home" style="color: #57ad68;font-size: 36px;">
+                                       ReNuWal                                                                  
+                                   </a>
+                               </div>
+                               <div>
+                                   <a href="http://www.disaa.unimi.it"><img style="padding-left: 25px;" src="http://users.unimi.it/renuwal/wp-content/uploads/2015/10/logho_DiSAA2.png" alt="logo disaa" /></a>
+                               </div>  
+                           </div>  
+                                                            
+                           <div style="clear: both;">
+                               <h2 id="site-description">Tecniche innovative di gestione e trattamento degli effluenti per la riduzione dell’inquinamento diffuso delle acque in aree ad alta densità zootecnica</h2>
+                                                            
+                           </div>
+                                    
+                       </div>
+                   </div>
+                   <img src="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-foto-6.jpg" class="header-image" width="1500" height="369" alt="ReNuWal"/>
+                   <nav id="main-nav" class="clearfix">
+                       <div class="container clearfix"><ul class="root"><li id="menu-item-66" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-12 current_page_item menu-item-66"><a href="http://www.renuwal.unimi.it/it_IT/">Benvenuti</a></li>
+                               <li id="menu-item-65" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-65"><a href="http://www.renuwal.unimi.it/it_IT/progetto/">Progetto</a></li>
+                               <li id="menu-item-57" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-57"><a href="http://www.renuwal.unimi.it/it_IT/risultati-attivita-sperimentale/">Risultati</a>
+                                   <ul class="sub-menu">
+                                       <li id="menu-item-60" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-60"><a href="http://www.renuwal.unimi.it/it_IT/risultati-attivita-sperimentale/attivita-sperimentali/">Attività Sperimentali</a>
+                                           <ul class="sub-menu">
+                                               <li id="menu-item-64" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-64"><a href="http://www.renuwal.unimi.it/it_IT/risultati-attivita-sperimentale/attivita-sperimentali/test-preliminari/">Task 1: test preliminari</a></li>
+                                               <li id="menu-item-63" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-63"><a href="http://www.renuwal.unimi.it/it_IT/risultati-attivita-sperimentale/attivita-sperimentali/sviluppo-del-prototipo/">Task 2: sviluppo del prototipo</a></li>
+                                               <li id="menu-item-62" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-62"><a href="http://www.renuwal.unimi.it/it_IT/risultati-attivita-sperimentale/attivita-sperimentali/test-sperimentali/">Task 3: verifica funzionamento prototipo</a></li>
+                                               <li id="menu-item-61" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-61"><a href="http://www.renuwal.unimi.it/it_IT/risultati-attivita-sperimentale/attivita-sperimentali/task-4-valutazione-complessiva-del-prototipo/">Task 4 :valutazione complessiva del prototipo</a></li>
+                                           </ul>
+                                       </li>
+                                       <li id="menu-item-59" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-59"><a href="http://www.renuwal.unimi.it/it_IT/risultati-attivita-sperimentale/software/">Software</a>
+                                           <ul class="sub-menu">
+                                               <li id="menu-item-129" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-129"><a href="http://www.renuwal.unimi.it/it_IT/risultati-attivita-sperimentale/software/software-di-valutazione/">Software di valutazione</a></li>
+                                               <li id="menu-item-128" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-128"><a href="http://www.renuwal.unimi.it/it_IT/risultati-attivita-sperimentale/software/software-di-supporto-alle-decisioni/">Software di supporto alle decisioni</a></li>
+                                           </ul>
+                                       </li>
+                                   </ul>
+                               </li>
+                               <li id="menu-item-56" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-56"><a href="http://www.renuwal.unimi.it/it_IT/news/">News</a></li>
+                               <li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><a href="http://www.renuwal.unimi.it/it_IT/partner/">Contatti</a></li>
+                               <li class="default-menu"><a href="http://www.renuwal.unimi.it/it_IT/" title="Navigation">Navigazione</a></li></ul>
+                       </div>
+                  
+                   </nav>
+                   </div>
+               </header>
+		
+				<div id="main" class="container clearfix">
+
+<div id="container">
+    <div id="secondary" class="widget no-margin-left" >
+        <aside style="float:left;"> 
+            <header class="entry-header">
+            
+                <ui:insert name="leftside" >
+                    <ui:include src="/resources/css/colonnasinistra.xhtml" />
+                </ui:insert>
+            </header>
+        </aside>
+            
+    </div>
+ 
+
+<div id="primary" class="no-margin-right">
+    
+   <div id="content">	<section id="post-12" class="post-12 page type-page status-publish hentry">
+          
+		<article>
+
+			
+			<header class="entry-header">
+    			<h2 class="entry-title">
+    				Scenario
+                        </h2>
+  			</header>
+
+  			
+  			
+  			<div class="entry-content clearfix">
+            
+             
+                            <c:if test="#{utente.corretto}">
+                            </c:if>
+                            <f:metadata>
+                                <f:viewParam name="percorso" value="#{dettaglioCuaa.percorso}" />
+                            </f:metadata>
+                            <f:view id="vistaRoot">
+                                   <!--se il parametro id è passato lo setti in dettaglioCuaa altrimenti 
+                                   è gia in dettaglioCuaa-->
+                                    <c:if test="#{not empty param['id']}">     
+                                        <h:outputText value="#{ dettaglioCuaa.setId(param['id'])}" />
+                                    </c:if>   
+                                    
+               <h:inputHidden value="#{dettaglioCuaa.id}" id="id_azienda" />
+               <h:inputHidden value="#{dettaglioCuaa.idscenario}" id="idscenario" />    
+              
+               <div style="float:left;">
+               <h4>Dati Utente</h4>  
+           
+              <h:outputText value="Utente :#{utente.username}  "/>
+              <br/>
+              <h:outputText value="Mail :#{utente.mail_utente}  "/>
+              </div>
+               <div style="float:right;">
+                   <h4>Dati Azienda in esame</h4>  
+            
+             
+              <!-- <h:outputText value="id azienda #{ dettaglioCuaa.getId()}" />-->
+                  <c:choose>
+                            <c:when test="#{utente.username == 'azienda1'}">
+                                                  
+                              
+                                <h:outputText value="Cuaa : #{dettaglioCuaa.cuaa}" />
+                                <br/>
+                                <h:outputText value="Ragione Sociale : #{dettaglioCuaa.ragionesociale}" />
+                                  <br/> 
+                                <h:outputText value="Comune : #{dettaglioCuaa.comune}" />
+                            
+                               <br/>
+                               <h:inputHidden value="#{dettaglioCuaa.cuaa}" id="cuaa1" />
+                                 <br/>
+                            </c:when>
+                            <c:otherwise>
+                               
+                                <h:outputText value="Cuaa : #{dettaglioCuaa.cuaa_finto}" />
+                                <br/>
+                                <h:outputText value="Ragione Sociale : #{dettaglioCuaa.ragionesociale_finto}" />
+                                 <br/>
+                                <h:outputText value="Comune : #{dettaglioCuaa.comune}" />
+                              
+                                 <br/>
+                                <h:inputHidden value="#{dettaglioCuaa.cuaa_finto}" id="cuaa1" />
+                              
+                            </c:otherwise>
+                        </c:choose>    
+                  </div>   
+                  <div style="clear:both;">
+                  </div> 
+               
+                <f:view id="vistaRoot">
+                  
+               
+                        <table id="selezioni">    
+                            <tr>    
+                                <td>    
+                                    <h8 style="margin-bottom: 5px;padding-bottom: 0px;border-bottom: 0px;">      
+                                        <h:outputText value="Seleziona scenario:" id="selezionascenario_tip" />
+                                    </h8> 
+                                </td>    
+                                <td>
+                                </td>
+                                <td>
+                                    <h8 style="margin-bottom: 5px;padding-bottom: 0px;border-bottom: 0px;padding-left: 20px;">      
+                                        <h:outputText value="Elimina scenario:" id="eliminascenario_tip" />
+                                    </h8>
+                                </td>     
+                                <td>
+                                </td>      
+                            </tr>
+                                <tr>    
+                      
+                                <h:form id="selscenario">
+                                    <td>     
+                                        <h:outputLabel id="stateLabel" for="state"
+                                                       value="Anno" />
+                                        <h:selectOneMenu id="state"  value="#{dettaglioCuaa.idanno}"  >
+                                            <f:selectItem itemLabel="----"   />
+                                            <f:selectItems value="#{dettaglioCuaa.anniazienda}" var="item1" itemLabel="#{item1.idAnno.descrizione}" itemValue="#{item1.id}" />
+                                            <f:ajax  execute="state" immediate="true" event="click" render="selsce" />
+                            
+                                        </h:selectOneMenu>
+                                    </td>    
+                                    <td>    
+                                        <h:outputLabel id="selsceLabel" for="selsce"
+                                                       value="Scenario" />
+                                        <!--<h:selectOneMenu  id="selsce" value="#{dettaglioCuaa.scenarioString}" onchange="getval(this);">-->
+                                        <h:selectOneMenu  id="selsce" value="#{dettaglioCuaa.scenarioString}" >
+                                            <f:selectItem itemLabel="----"   />
+                                            <f:selectItems value="#{dettaglioCuaa.listaScenari}" var="item" itemLabel="#{item.descrizione}" itemValue="#{item.idscenario}"/>
+                                        </h:selectOneMenu>
+                                    </td>  
+                                </h:form>
+                           
+                                <h:form id="eliscenario">
+                                    <td style="padding-left: 20px;">     
+                                        <h:outputLabel id="stateLabel1" for="state1"
+                                                       value="Anno" />
+                                        <h:selectOneMenu id="state1"  value="#{dettaglioCuaa.idanno}"  >
+                                            <f:selectItem itemLabel="----"   />
+                                            <f:selectItems value="#{dettaglioCuaa.anniazienda}" var="item1" itemLabel="#{item1.idAnno.descrizione}" itemValue="#{item1.id}" />
+                                            <f:ajax  execute="state1" immediate="true" event="click" render="selsce1" />
+                            
+                                        </h:selectOneMenu>
+                                    </td>    
+                                    <td>    
+                                        <h:outputLabel id="selsceLabel1" for="selsce1"
+                                                       value="Scenario" />
+                                      
+                                      <h:selectOneMenu  id="selsce1" value="#{dettaglioCuaa.idscenario}" onchange="eliminaScenario(this);" >
+                                          <f:selectItem itemLabel="---" itemValue="---"   />
+                                            <f:selectItems value="#{dettaglioCuaa.listaScenari}" var="item" itemLabel="#{item.descrizione}" itemValue="#{item.idscenario}"/>
+                                        
+                                        </h:selectOneMenu>
+                                    </td>  
+                                </h:form>
+                            </tr>    
+                        </table>     
+                       
+                  <button type="button" id="creascenario" style="width:170px;height: 40px;font-weight: bold;font-size: 14px;text-transform: uppercase;">Nuovo Scenario</button>
+                 
+                </f:view>
+                <br/> 
+                <fieldset id="formcreazionescenario">
+                    <legend>Form Creazione Scenario:</legend>
+                    <table>
+                    <tr>
+                       <td> 
+                        <label for="descrizionescenario" id="descrizionescenario_tip">Descrizione:
+                        </label>
+                       </td>   
+                       <td> 
+                        <input type="text" id="descrizionescenario"></input>
+                       </td>
+                    </tr>
+          
+                       <tr>
+                           <td>Anno</td>
+                           <td>
+                               <h:selectOneMenu  id="anno_scenario" value="#{dettaglioCuaa.anno}" >
+                                   <f:selectItems value="#{dettaglioCuaa.anni}" var="item" itemLabel="#{item.descrizione}" itemValue="#{item.id}"/>
+                               </h:selectOneMenu>
+                           </td>
+                       </tr>    
+                    </table>
+                   
+                    <button type="button" id="creascenario1" style="width:100px;height: 30px;font-weight: bold;font-size: 12px;text-transform: uppercase;">Crea</button>
+                </fieldset>
+                
+                  <hr style="margin:0px 0px 15px 0px;padding:0px;"></hr>
+               <h4>Alternativa presente</h4>
+               
+               <h:form id="alternativa1">
+                   <h:panelGrid id="tabellaAlt" columns="3">
+                        
+                        <h:outputText    value="Alternative:" ></h:outputText>
+                        
+                        <h:selectOneMenu id="selalt"  value="#{refluiAzienda.alternativa}"  valueChangeListener="#{refluiAzienda.valueChanged}"     >
+                     
+                                <f:selectItems value="#{refluiAzienda.listaAlternativeID}"  />
+                                <f:ajax  immediate="true"  event="valueChange" render="immagineAlt"  />
+                             
+                       </h:selectOneMenu>
+                  
+                      <h:graphicImage id="immagineAlt" name="#{refluiAzienda.immagine}"  />
+                     
+                   </h:panelGrid>
+                 
+               
+               
+                   <button type="button" id="valuta"  onclick="getval(this);"  style="width:170px;height: 40px;font-weight: bold;font-size: 14px;text-transform: uppercase;">Valuta</button>
+</h:form>
+                               </f:view>
+        </div>
+
+                </article>
+       </section>
+       </div>
+     </div>
+       
+</div>
+                                </div>
+	   <footer id="footerarea" class="clearfix">
+			
+
+
+<div id="site-generator">
+				<div class="container">
+                                    <div class="copyright" style="float:left;padding:15px 0px 0px 0px;">Sviluppato dal <a href="http://www.disaa.unimi.it">Dipartimeno di Scienze Agrarie e Ambientali    </a>
+                                    </div>
+                                    <a href="http://www.disaa.unimi.it">
+                                        <div>
+                                            <img style="vertical-align:text-top;" src="http://users.unimi.it/renuwal/wp-content/uploads/2015/10/logodisaa2.jpg" alt="logo disaa" /></div></a><div class="footer-right"></div><div style="clear:both;"></div>
+			</div>
+			</div>
+                        <div class="back-to-top"><a href="#branding"></a></div>
+           </footer> 
+       </div>
+      
+    </h:body>
+</html>
+

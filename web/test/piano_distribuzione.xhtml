@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich">    
+    <!--<h:form>  -->
+         <h:panelGrid columns="2" style="width: 20%; float: left;margin:-10px 0px 2px 0px;" >
+        <h:outputLabel id="id_azienda_label" for="id_azienda"
+                       value="Azienda" />
+        <h:outputText  value="#{dettaglioCuaa.cuaa}" id="id_azienda"/>      
+        <h:outputLabel id="id_anno_label" for="id_anno"
+                       value="Anno" />
+        <h:outputText value="#{dettaglioCuaa.anno}" id="id_anno"/>
+         <h:outputLabel id="id_scenario_label" for="id_scenario"
+                       value="Scenario" />
+         <h:outputText value="#{dettaglioCuaa.scenarioString}" id="id_scenario"/>
+        </h:panelGrid>
+      
+       <div style="clear: both;"/>
+       <rich:dataTable value="#{pianoDistribuzione.appezzamenti}" var="item" rows="5" id="listExample" style="width:700px;">
+            <f:facet name="header">
+                <rich:columnGroup>  
+                    <rich:column colspan="5">
+                        <h:outputText value="Gestione" />
+                    </rich:column>
+                     <rich:column colspan="2" >
+                        <h:outputText value="Asp N" />
+                    </rich:column>  
+                    <rich:column rowspan="1" breakRowBefore="true">
+                        <h:outputText value="Appezzamento" />
+                    </rich:column>
+                    <rich:column rowspan="1">
+                        <h:outputText value="Superficie" />
+                    </rich:column>
+                    <rich:column rowspan="1">
+                        <h:outputText value="Coltura" />
+                    </rich:column>                         
+                    <rich:column rowspan="1">
+                        <h:outputText value="Rotazione" />
+                    </rich:column>
+                    <rich:column rowspan="1" >
+                        <h:outputText value="Resa Attesa" />
+                    </rich:column>  
+                     
+                    <rich:column>
+                        <h:outputText value="Kg" />
+                    </rich:column>
+                      <rich:column>
+                        <h:outputText value="Kg/h" />
+                    </rich:column>                   
+                </rich:columnGroup>
+            </f:facet>
+            <rich:column>
+                <rich:collapsibleSubTableToggler for="sbtbl"   />
+                <h:outputText value="#{item.nomeAppezzamento}"  />                
+            </rich:column>
+           <rich:column>
+               <h:outputText value="#{item.superficie}"  />   
+           </rich:column>
+            <rich:column>
+                <h:outputText value="#{item.coltura}"  />   
+           </rich:column>
+            <rich:column>
+                <h:outputText value="#{item.rotazione}"  />   
+           </rich:column>
+            <rich:column>
+                <h:outputText value="#{item.resa_attesa}"  />   
+           </rich:column>
+            <rich:column>
+                <h:outputText value="#{item.asportazioniN}"  />   
+           </rich:column>
+            <rich:column>
+                <h:outputText value="#{item.asportazioniN}"  />   
+           </rich:column>
+           <rich:collapsibleSubTable value="#{item.distribuzioni}" var="distribuzione" id="sbtbl" expandMode="client" rows="12"  rowClasses="odd-row, even-row"   expanded="#{false}"  >
+            <rich:column  style=" background-color: #58ACFA;">
+                    <f:facet name="header" >Mese</f:facet>
+            </rich:column>         
+           <rich:column  style=" background-color: #58ACFA;">
+                    <f:facet name="header" >Refluo Distribuito</f:facet>
+            </rich:column>    
+           <rich:column  style=" background-color: #58ACFA;">
+                    <f:facet name="header" >Modalita</f:facet>
+            </rich:column>        
+           <rich:column  style=" background-color: #58ACFA;">
+                    <f:facet name="header" >Efficienza N</f:facet>
+            </rich:column>        
+           <rich:column  style=" background-color: #58ACFA;">
+                    <f:facet name="header" >N netto</f:facet>
+            </rich:column>        
+           <rich:column  style=" background-color: #58ACFA;">
+                    <f:facet name="header" >N al campo</f:facet>
+            </rich:column>        
+           <rich:column  style=" background-color: #58ACFA;">
+                    <f:facet name="header" >Quantita Refluo</f:facet>
+            </rich:column>        
+           <f:facet name="footer">
+                    <h:commandButton value="Salva"   />
+           </f:facet>
+           </rich:collapsibleSubTable>    
+      </rich:dataTable>
+  <!--  </h:form>-->
+</ui:composition>
