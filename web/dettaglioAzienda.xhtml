@@ -32,7 +32,39 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                   margin: 0px;
                   padding: 0px;
                   border:0px;                  
-               } 
+               }
+               
+               
+ /*              button {
+    display: inline-block;
+    height: 134px;
+    padding: 0;
+    margin: 0;
+    vertical-align: top;
+    width: 104px;
+}
+
+#close-image img {
+    display: block;
+    height: 130px;  
+    width: 100px;
+}*/
+
+#metricubi_mod {
+    /*background-image: url( 'http://thinkingstiff.com/images/matt.jpg' );*/
+    background-image: url( ' http://localhost:8080/renuwal/resources/css/images/edit.gif');
+    background-size: 16px 16px;
+    height: 16px;  
+    width: 16px;
+}
+
+#metricubi_rip {
+    /*background-image: url( 'http://thinkingstiff.com/images/matt.jpg' );*/
+    background-image: url( ' http://localhost:8080/renuwal/resources/css/images/ripristina.jpg');
+    background-size: 16px 16px;
+    height: 16px;  
+    width: 16px;
+}
        
         </style>   
 <link rel="icon" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-32x32.jpg" sizes="32x32" />
@@ -43,11 +75,35 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
     <script>
        var $j = jQuery.noConflict();
             $j(document).ready(function() {
-            alert();
-            $j("form\\:table\\:0\\:sbtbl\\:0\\:metricubi_mod").click(function(){
+            /*alert();
+            $j("#form\\:table\\:0\\:sbtbl\\:0\\:metricubi_mod").click(function(){
                 var valore = $j("form\\:table\\:0\\:sbtbl0\\:0\\:metricubi").value();
                 alert(valore);
-    });
+               }); */
+            //letame bovino metri cubi  modifica
+            $j("#form\\:table\\:0\\:sbtbl\\:0\\:metricubi_mod").click(function(){
+                var valore = $j("#form\\:table\\:0\\:sbtbl\\:0\\:metricubi").val();
+                alert("metri cubi letame bovino modifica " + valore);
+            });
+            
+            //letame bovino metri cubi ripristina  
+            $j("#form\\:table\\:0\\:sbtbl\\:0\\:metricubi_rip").click(function(){
+                var valore = $j("#form\\:table\\:0\\:sbtbl\\:0\\:metricubi").val();
+                alert("metri cubi letame bovino ripristina " + valore);
+            });    
+            
+            //letame suino metri cubi  modifica
+            $j("#form\\:table\\:0\\:sbtbl\\:1\\:metricubi_mod").click(function(){
+                var valore = $j("#form\\:table\\:0\\:sbtbl\\:1\\:metricubi").val();
+                alert("metri cubi letame suino modifica " + valore);
+            });
+            
+            //letame suino metri cubi ripristina  
+            $j("#form\\:table\\:0\\:sbtbl\\:1\\:metricubi_rip").click(function(){
+                var valore = $j("#form\\:table\\:0\\:sbtbl\\:1\\:metricubi").val();
+                alert("metri cubi letame suino ripristina " + valore);
+            });    
+    
 }); 
     </script>    
     </h:head>
@@ -251,18 +307,20 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                             
                                                                                 <f:facet name="header" >Volume</f:facet>  
                                                                                 <h:inputText value="#{let.metricubi}" style="width:30px;" id="metricubi" >                                                                          
-                                                                                    <f:convertNumber maxFractionDigits="0" />  
-                                                                                   
-                                                                                    
-                                                                                </h:inputText>                                                                                
-                                                                               
-                                                                                <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" id="metricubi_mod"    >
+                                                                                    <f:convertNumber maxFractionDigits="0" />                                                                          
+                                                                                </h:inputText>
+                                                                               <!-- <h:commandButton id="metricubi_mod" type="button"><h:graphicImage value="/resources/css/images/edit.gif" alt="update" /></h:commandButton>-->
+                                                                              <!--<button class="edit-CSS" id="metricubi_mod"></button>
+                                                                              <button class="reload-CSS" id="metricubi_rip"></button>-->
+                                                                              <h:commandButton id="metricubi_mod" image="http://localhost:8080/renuwal/resources/css/images/edit.gif" />
+                                                                              <h:commandButton id="metricubi_rip" image="http://localhost:8080/renuwal/resources/css/images/ripristina.jpg" />
+                                                                             <!--   <a4j:commandLink styleClass="no-decor"  id="metricubi_mod"    >
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </a4j:commandLink>
                                                                                 
-                                                                                 <a4j:commandLink styleClass="no-decor" execute="@this" render="metricubi"  >
+                                                                                 <a4j:commandLink styleClass="no-decor" id="metricubi_rip"  >
                                                                                       <h:graphicImage value="/resources/css/images/ripristina.jpg" alt="ripristina" />
-                                                                                </a4j:commandLink>
+                                                                                </a4j:commandLink>-->
                                                                             
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
@@ -270,72 +328,85 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                                 <h:inputText value="#{let.azotototale}"  id="azotototale">                                                                          
                                                                                 <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
-                                                                             <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,2,0)}">
+                                                                            <!-- <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,2,0)}">
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </a4j:commandLink>
                                                                                  <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,2,1)}">
                                                                                       <h:graphicImage value="/resources/css/images/ripristina.jpg" alt="ripristina" />
-                                                                                </a4j:commandLink>    
+                                                                                </a4j:commandLink>    -->
+                                                                                <h:commandButton id="azotototale_mod" image="http://localhost:8080/renuwal/resources/css/images/edit.gif" />
+                                                                              <h:commandButton id="azotototale_rip" image="http://localhost:8080/renuwal/resources/css/images/ripristina.jpg" />
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >TAN</f:facet>  
                                                                                 <h:inputText value="#{let.azotoammoniacale}" id="azotoammoniacale">                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
-                                                                             <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,3,0)}">
+                                                                             <!--<a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,3,0)}">
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </a4j:commandLink>
                                                                                  <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,3,1)}">
                                                                                       <h:graphicImage value="/resources/css/images/ripristina.jpg" alt="ripristina" />
-                                                                                </a4j:commandLink>    
+                                                                                </a4j:commandLink>    -->
+                                                                                <h:commandButton id="azotoammoniacale_mod" image="http://localhost:8080/renuwal/resources/css/images/edit.gif" />
+                                                                              <h:commandButton id="azotoammoniacale_rip" image="http://localhost:8080/renuwal/resources/css/images/ripristina.jpg" />
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >DM</f:facet>  
                                                                                 <h:inputText value="#{let.sostanzasecca}" id="sostanzasecca" >                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
-                                                                                 <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,4,0)}">
+                                                                                <!-- <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,4,0)}">
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </a4j:commandLink>
                                                                                  <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,4,1)}">
                                                                                       <h:graphicImage value="/resources/css/images/ripristina.jpg" alt="ripristina" />
-                                                                                </a4j:commandLink>
+                                                                                </a4j:commandLink>-->
+                                                                                <h:commandButton id="sostanzasecca_mod" image="http://localhost:8080/renuwal/resources/css/images/edit.gif" />
+                                                                              <h:commandButton id="sostanzasecca_rip" image="http://localhost:8080/renuwal/resources/css/images/ripristina.jpg" />
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >SV</f:facet>  
                                                                                 <h:inputText value="#{let.solidivolatili}"  id="solidivolatili">                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
-                                                                             <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,5,0)}">
+                                                                             <!--<a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,5,0)}">
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </a4j:commandLink>
                                                                                  <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,5,1)}">
                                                                                       <h:graphicImage value="/resources/css/images/ripristina.jpg" alt="ripristina" />
-                                                                                </a4j:commandLink>    
+                                                                                </a4j:commandLink>    -->
+                                                                                <h:commandButton id="solidivolatili_mod" image="http://localhost:8080/renuwal/resources/css/images/edit.gif" />
+                                                                              <h:commandButton id="solidivolatili_rip" image="http://localhost:8080/renuwal/resources/css/images/ripristina.jpg" />
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >K</f:facet>  
                                                                                 <h:inputText value="#{let.potassiototale}" id="potassiototale">                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
-                                                                             <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,6,0)}">
+                                                                             <!--<a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,6,0)}">
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </a4j:commandLink>
                                                                                  <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,6,1)}">
                                                                                       <h:graphicImage value="/resources/css/images/ripristina.jpg" alt="ripristina" />
-                                                                                </a4j:commandLink>    
+                                                                                </a4j:commandLink>    -->
+                                                                                <h:commandButton id="potassiototale_mod" image="http://localhost:8080/renuwal/resources/css/images/edit.gif" />
+                                                                              <h:commandButton id="potassiototale_rip" image="http://localhost:8080/renuwal/resources/css/images/ripristina.jpg" />
+                                                                             
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >P</f:facet>  
                                                                                 <h:inputText value="#{let.fosforototale}" id="fosforototale" >                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
-                                                                              <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,7,0)}">
+                                                                              <!--<a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,7,0)}">
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </a4j:commandLink>
                                                                                  <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,7,1)}">
                                                                                       <h:graphicImage value="/resources/css/images/ripristina.jpg" alt="ripristina" />
-                                                                                </a4j:commandLink>   
+                                                                                </a4j:commandLink>   -->
+                                                                                <h:commandButton id="fosforototalei_mod" image="http://localhost:8080/renuwal/resources/css/images/edit.gif" />
+                                                                              <h:commandButton id="fosforototale_rip" image="http://localhost:8080/renuwal/resources/css/images/ripristina.jpg" />
                                                                             </rich:column>
                                                                         </rich:collapsibleSubTable>
                                                                          <rich:collapsibleSubTable value="#{dettaglioAzienda.listaCaratteristicheLiq}" var="liq" id="sbtbl1" expandMode="client" rows="12"  rowClasses="odd-row, even-row"   expanded="#{false}"  >
@@ -351,84 +422,98 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                                 <h:inputText value="#{liq.metricubi}" id="metricubi">                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
-                                                                                 <h:link styleClass="no-decor" execute="@this" render="@none" id="metricubi_mod">
+                                                                                 <!--<h:link styleClass="no-decor" execute="@this" render="@none" id="metricubi_mod">
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </h:link>
                                                                                  <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" id="metricubi_rip">
                                                                                       <h:graphicImage value="/resources/css/images/ripristina.jpg" alt="ripristina" />
-                                                                                </a4j:commandLink>
+                                                                                </a4j:commandLink>-->
+                                                                                 <h:commandButton id="metricubi_mod" image="http://localhost:8080/renuwal/resources/css/images/edit.gif" />
+                                                                              <h:commandButton id="metricubi_rip" image="http://localhost:8080/renuwal/resources/css/images/ripristina.jpg" />
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >TKN</f:facet>  
                                                                                 <h:inputText value="#{liq.azotototale}" id="azotototale">                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
-                                                                                 <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" id="azotototale_mod">
+                                                                                 <!--<a4j:commandLink styleClass="no-decor" execute="@this" render="@none" id="azotototale_mod">
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </a4j:commandLink>
                                                                                  <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" id="azotototale_rip">
                                                                                       <h:graphicImage value="/resources/css/images/ripristina.jpg" alt="ripristina" />
-                                                                                </a4j:commandLink>
+                                                                                </a4j:commandLink>-->
+                                                                                 <h:commandButton id="azotototale_mod" image="http://localhost:8080/renuwal/resources/css/images/edit.gif" />
+                                                                              <h:commandButton id="azotototale_rip" image="http://localhost:8080/renuwal/resources/css/images/ripristina.jpg" />
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >TAN</f:facet>  
                                                                                 <h:inputText value="#{liq.azotoammoniacale}" id="azotoammoniacale">                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
-                                                                                 <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" id="azotoammoniacale_mod">
+                                                                                 <!--<a4j:commandLink styleClass="no-decor" execute="@this" render="@none" id="azotoammoniacale_mod">
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </a4j:commandLink>
                                                                                  <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" id="azotoammoniacale_rip">
                                                                                       <h:graphicImage value="/resources/css/images/ripristina.jpg" alt="ripristina" />
-                                                                                </a4j:commandLink>
+                                                                                </a4j:commandLink>-->
+                                                                                 <h:commandButton id="azotoammoniacale_mod" image="http://localhost:8080/renuwal/resources/css/images/edit.gif" />
+                                                                              <h:commandButton id="azotoammoniacale_rip" image="http://localhost:8080/renuwal/resources/css/images/ripristina.jpg" />
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >DM</f:facet>  
                                                                                 <h:inputText value="#{liq.sostanzasecca}" id="sostanzasecca">                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
-                                                                                 <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" id="sostanzasecca_mod">
+                                                                                 <!--<a4j:commandLink styleClass="no-decor" execute="@this" render="@none" id="sostanzasecca_mod">
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </a4j:commandLink>
                                                                                  <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" id="sostanzasecca_rip">
                                                                                       <h:graphicImage value="/resources/css/images/ripristina.jpg" alt="ripristina" />
-                                                                                </a4j:commandLink>
+                                                                                </a4j:commandLink>-->
+                                                                                 <h:commandButton id="sostanzasecca_mod" image="http://localhost:8080/renuwal/resources/css/images/edit.gif" />
+                                                                              <h:commandButton id="sostanzasecca_rip" image="http://localhost:8080/renuwal/resources/css/images/ripristina.jpg" />
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >SV</f:facet>  
                                                                                 <h:inputText value="#{liq.solidivolatili}" id="solidivolatili">                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
-                                                                              <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" id="solidivolatili_mod">
+                                                                              <!--<a4j:commandLink styleClass="no-decor" execute="@this" render="@none" id="solidivolatili_mod">
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </a4j:commandLink>
                                                                                  <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(liq.metricubi,liq.tipologia,5,1)}">
                                                                                       <h:graphicImage value="/resources/css/images/ripristina.jpg" id="solidivolatili_rip" />
-                                                                                </a4j:commandLink>   
+                                                                                </a4j:commandLink>   -->
+                                                                              <h:commandButton id="solidivolatili_mod" image="http://localhost:8080/renuwal/resources/css/images/edit.gif" />
+                                                                              <h:commandButton id="solidivolatili_rip" image="http://localhost:8080/renuwal/resources/css/images/ripristina.jpg" />
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >K</f:facet>  
                                                                                 <h:inputText value="#{liq.potassiototale}" id="potassiototale">                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
-                                                                                 <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" id="potassiototale_mod">
+                                                                                 <!--<a4j:commandLink styleClass="no-decor" execute="@this" render="@none" id="potassiototale_mod">
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </a4j:commandLink>
                                                                                  <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" id="potassiototale_rip">
                                                                                       <h:graphicImage value="/resources/css/images/ripristina.jpg" alt="ripristina" />
-                                                                                </a4j:commandLink>
+                                                                                </a4j:commandLink>-->
+                                                                                 <h:commandButton id="potassiototale_mod" image="http://localhost:8080/renuwal/resources/css/images/edit.gif" />
+                                                                              <h:commandButton id="potassiototale_rip" image="http://localhost:8080/renuwal/resources/css/images/ripristina.jpg" />
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >P</f:facet>  
                                                                                 <h:inputText value="#{liq.fosforototale}" id="fosforototale">                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
-                                                                             <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" id="fosforototale_mod">
+                                                                             <!--<a4j:commandLink styleClass="no-decor" execute="@this" render="@none" id="fosforototale_mod">
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </a4j:commandLink>
                                                                                  <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" id="fosforototale_rip">
                                                                                       <h:graphicImage value="/resources/css/images/ripristina.jpg" alt="ripristina" />
-                                                                                </a4j:commandLink>    
+                                                                                </a4j:commandLink>    -->
+                                                                             <h:commandButton id="fosforototale_mod" image="http://localhost:8080/renuwal/resources/css/images/edit.gif" />
+                                                                              <h:commandButton id="fosforototale_rip" image="http://localhost:8080/renuwal/resources/css/images/ripristina.jpg" />
                                                                             </rich:column>  
                                                                         </rich:collapsibleSubTable>
                                                                     </rich:dataTable>
