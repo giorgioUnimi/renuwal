@@ -89,8 +89,8 @@
                  </h:outputText> 
             </rich:column>             
             <rich:column>               
-                <h:selectBooleanCheckbox value="#{list.svn}" >
-                    <a4j:ajax event="valueChange" execute="@this"      />
+                <h:selectBooleanCheckbox value="#{list.svn}" onclick="return #{!storicoColturaleAppezzamenti.checkboxReadOnly}"  readonly="#{storicoColturaleAppezzamenti.checkboxReadOnly}" >
+                   <!-- <a4j:ajax event="valueChange" execute="@this"      />-->
                 </h:selectBooleanCheckbox>                
             </rich:column> 
              <rich:column>               
@@ -107,7 +107,7 @@
                     <h:selectOneMenu value="#{item.idColtura}" style="margin: 0 0 0 0;padding: 0 0 0 0;" id="sel_idcoltura">
                         <f:selectItems value="#{storicoColturaleAppezzamenti.listaColture}" var="c" itemLabel="#{c.descrizione}" itemValue="#{c.id}"></f:selectItems>
                      
-                       <a4j:ajax event="valueChange"   render="id_resa id_aspn id_aspk id_aspp id_app_aspn id_app_aspp id_app_aspk id_tot_aspn id_tot_aspk id_tot_aspp "     />
+                       <a4j:ajax event="valueChange" listener="#{storicoColturaleAppezzamenti.processInputA}"  render="id_resa id_aspn id_aspk id_aspp id_app_aspn id_app_aspp id_app_aspk id_tot_aspn id_tot_aspk id_tot_aspp "     />
                        <!-- <a4j:ajax event="valueChange"    listener="#{storicoColturaleAppezzamenti.processInput}"  render="id_resa id_aspn id_aspk id_aspp" execute="@this" />   -->
                       <!--  <f:ajax event="change" render="id_resa" />-->
                                 <!--<f:attribute value="false" name="evento_resa" />-->                                               

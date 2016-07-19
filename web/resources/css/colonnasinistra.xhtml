@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <style>
+           /* .titolo_sinistra
+            {
+                font-size: 12px;
+                font: 12px 'Ubuntu', sans-serif;
+	        line-height: 1.4em;
+            }*/
+        </style>    
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+       <ui:composition>
+       <h:panelGroup id="leftside" layout="block">
+                
+           <c:if test="#{navigazione.paginaAttuale eq 'index.xhtml'|| navigazione.paginaAttuale eq 'index_1.xhtml'}">
+              
+               <c:choose>
+               <c:when test="#{utente.inseritoCorretto == false}">
+                  <!--  <h4 class="titolo_sinistra" >
+                    Login 
+               </h4>--><!-- .entry-title -->
+                   <fieldset> 
+                       <!--<legend>Info</legend>-->
+                       <p style="font-size: 10px;"><b>Registrati</b> usando il link sotto se sei un nuovo utente.Usa username: <b>guest</b> password <b>guest</b> per provare la nostra applicazione.</p>
+                   </fieldset>    
+                   <h:form id="form_login">
+                       <table columns="2"  style="padding:0px 0px 0px 2px;margin: 0px 0px 0px 0px;">
+                           <tr>
+                           <td style="width:40px;">    
+                           <h:outputLabel value="User: " id="username_label" style="color:black;font-family: verdana;font-size: 8pt;" for="username_1" />
+                           </td>
+                           <td>
+                               <h:inputText value="#{utente.username}" id="username_1" style="border:1px solid;width:100px;padding: 0px px 0px px;" />
+                          </td>
+                           </tr>    
+                           <tr>    
+                           <td>    
+                           <h:outputLabel value="Psw: " style="color:black;font-family: verdana;font-size: 8pt;" />
+                           </td>
+                           <td>   
+                           <h:inputSecret value="#{utente.password}" style="border:1px solid;width:100px;padding: 0px px 0px px"/>
+                           </td>
+                           </tr>    
+                           <tr>    
+                           <td></td>
+                           <td>
+                               <h:commandButton value="Login"  action="aziende"  class="no_class"  style="font-weight:bold;text-transform: uppercase; " >
+                                 <f:param  name="username" value="#{utente.username}" />  
+                                 <f:param  name="password" value="#{utente.password}" />  
+                           </h:commandButton>
+                          </td>
+                           </tr>
+                           </table>
+                           <ul>
+                            <li>   
+                            <h:link value="Password persa" style="font-size:12px;" outcome="vecchio" />
+                            </li>
+                            <li>   
+                            <h:link value="Registrati" style="font-size:12px;" outcome="registrati" />
+                            </li>
+                           </ul>
+                            
+
+                       <br />
+                       <c:if test="#{utente.messaggio.length() != 0}">
+                           <fieldset>
+                               <legend>Avviso</legend>
+                               <h:outputLabel value="#{utente.messaggio}" style="color: red;"/>
+                           </fieldset>
+                       </c:if> 
+                     
+                   </h:form>
+               </c:when>
+               <c:otherwise>
+                 
+              <ul>
+                  <li>
+                       <h:link value="Aziende" style="font-size:14px;" outcome="aziende" />
+                  </li>
+              </ul>      
+               </c:otherwise>    
+               </c:choose>    
+           </c:if>
+              <c:if test="#{navigazione.paginaAttuale eq 'vecchioutente.xhtml'|| navigazione.paginaAttuale eq 'nuovoutente.xhtml' || navigazione.paginaAttuale eq 'aziende.xhtml' || navigazione.paginaAttuale eq 'appezzamenti.xhtml' || navigazione.paginaAttuale eq 'piano_colturale.xhtml' || navigazione.paginaAttuale eq 'piano_distribuzione.xhtml' || navigazione.paginaAttuale eq 'stoccaggio.xhtml' || navigazione.paginaAttuale eq 'dettaglioAzienda.xhtml' || navigazione.paginaAttuale eq 'allevamento_1.xhtml' || navigazione.paginaAttuale eq 'acquastoccaggio.xhtml'}">
+            
+              <ul>
+                  <li>
+                       <h:link value="Home" style="font-size:14px;" outcome="home" />
+                  </li>
+              </ul>    
+              </c:if>      
+           <c:if test="#{navigazione.paginaAttuale eq 'nuova.xhtml'|| navigazione.paginaAttuale eq 'gestioneaziende.xhtml' || navigazione.paginaAttuale eq 'scenario.xhtml'}">
+            <ul>
+                  <li>
+                       <h:link value="Home" style="font-size:14px;" outcome="home" />
+                  </li>
+            </ul>   
+            <!--   <ul>
+                  <li>
+                       <h:link value="Home" style="font-size:14px;" outcome="home" />
+                  </li>
+                  <li>
+                       <h:link value="Aziende" style="font-size:14px;" outcome="aziende" />
+                  </li>
+              </ul>    
+              </c:if>  
+            <c:if test="#{navigazione.paginaAttuale eq 'dettaglioAzienda.xhtml' || navigazione.paginaAttuale eq 'allevamento_1.xhtml' || navigazione.paginaAttuale eq 'stoccaggio.xhtml' || navigazione.paginaAttuale eq 'acquastoccaggio.xhtml'}">
+            
+              <ul>
+                  
+                  <li>
+                       <h:link value="Home" style="font-size:14px;" outcome="home" >
+                            <f:param name="id" value="#{dettaglioCuaa.getId()}"/>
+                       </h:link>     
+                  </li>
+                  <li>
+                       <h:link value="Aziende" style="font-size:14px;" outcome="aziende" />
+                  </li>
+                  <li>
+                       <h:link value="Scenari" style="font-size:14px;" outcome="scenario"  />
+                  </li>
+              </ul>
+              
+              <ul>
+                 <c:if test="#{navigazione.paginaAttuale eq 'dettaglioAzienda.xhtml'}" >
+                    <li>
+                       <h:link value="Allevamenti" style="font-size:14px;" outcome="allevamento" />
+                  </li>  
+                   <li>
+                       <h:link value="Stoccaggi" style="font-size:14px;" outcome="stoccaggio" />
+                  </li>
+                   <li>
+                       <h:link value="Acquestoccaggio" style="font-size:14px;" outcome="acquastoccaggio" />
+                  </li>
+                 </c:if>  
+                  
+                 <c:if test="#{navigazione.paginaAttuale eq 'allevamento_1.xhtml'}" >
+                   <li>
+                       <h:link value="Dettaglio Azienda" style="font-size:14px;" outcome="dettaglioazienda" />
+                  </li>
+                   <li>
+                       <h:link value="Stoccaggi" style="font-size:14px;" outcome="stoccaggio" />
+                  </li>
+                   <li>
+                       <h:link value="Acquestoccaggio" style="font-size:14px;" outcome="acquastoccaggio" />
+                  </li>
+                 </c:if> 
+                <c:if test="#{navigazione.paginaAttuale eq 'stoccaggio.xhtml'}" >
+                 <li>
+                       <h:link value="Dettaglio Azienda" style="font-size:14px;" outcome="dettaglioazienda" />
+                  </li> 
+                  <li>
+                       <h:link value="Allevamenti" style="font-size:14px;" outcome="allevamento" />
+                  </li>
+                  <li>
+                       <h:link value="Acquestoccaggio" style="font-size:14px;" outcome="acquastoccaggio" />
+                  </li>
+                 </c:if>
+                <c:if test="#{navigazione.paginaAttuale eq 'acquastoccaggio.xhtml'}" >
+                  <li>
+                       <h:link value="Dettaglio Azienda" style="font-size:14px;" outcome="dettaglioazienda" />
+                  </li>  
+                  <li>
+                       <h:link value="Allevamenti" style="font-size:14px;" outcome="allevamento" />
+                  </li>
+                  <li>
+                       <h:link value="Stoccaggi" style="font-size:14px;" outcome="stoccaggio" />
+                  </li>
+                  </c:if>      
+              </ul>-->    
+              </c:if>  
+                <h:outputText value="pagina di provenienza : #{navigazione.daChi }" style="display: block;"/>
+                <h:outputText value="pagina attuale : #{navigazione.paginaAttuale }" style="display: block;"/>
+         
+            </h:panelGroup> 
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,100 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package db;
+
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ *
+ * @author giorgio
+ */
+@Entity
+@Table(name = "allevamento_categoria", catalog = "renuwal1", schema = "allevamento")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "AllevamentoCategoria.findAll", query = "SELECT a FROM AllevamentoCategoria a"),
+    @NamedQuery(name = "AllevamentoCategoria.findById", query = "SELECT a FROM AllevamentoCategoria a WHERE a.id = :id")})
+public class AllevamentoCategoria implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(nullable = false)
+    private Integer id;
+    @JoinColumn(name = "tipo_allevamento_b_id", referencedColumnName = "id")
+    @ManyToOne
+    private TipoallevamentoS tipoAllevamentoBId;
+    @JoinColumn(name = "categoriab_s_id", referencedColumnName = "id")
+    @ManyToOne
+    private CategoriaS categoriabSId;
+
+    public AllevamentoCategoria() {
+    }
+
+    public AllevamentoCategoria(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public TipoallevamentoS getTipoAllevamentoBId() {
+        return tipoAllevamentoBId;
+    }
+
+    public void setTipoAllevamentoBId(TipoallevamentoS tipoAllevamentoBId) {
+        this.tipoAllevamentoBId = tipoAllevamentoBId;
+    }
+
+    public CategoriaS getCategoriabSId() {
+        return categoriabSId;
+    }
+
+    public void setCategoriabSId(CategoriaS categoriabSId) {
+        this.categoriabSId = categoriabSId;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof AllevamentoCategoria)) {
+            return false;
+        }
+        AllevamentoCategoria other = (AllevamentoCategoria) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "db.AllevamentoCategoria[ id=" + id + " ]";
+    }
+    
+}

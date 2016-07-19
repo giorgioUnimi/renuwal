@@ -247,17 +247,26 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                             </h:outputText>   
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;" >
+                                                                             <h:form>
                                                                                 <f:facet name="header" >Volume</f:facet>  
-                                                                                <h:inputText value="#{let.metricubi}" style="width:30px;"  id="metricubi">                                                                          
-                                                                                <f:convertNumber maxFractionDigits="0" />
+                                                                                <h:inputText value="#{let.metricubi}" style="width:30px;"  >                                                                          
+                                                                                    <f:convertNumber maxFractionDigits="0" />  
+                                                                                    <!-- <a4j:ajax event="keyup" render="metri_mod" />-->
                                                                                 </h:inputText>                                                                                
-                                                                                <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,1,0)}" onclick="setDesc(document.getElementById('form\\:table\\:0\\:sbtbl\\:0\\:metricubi').value); this.disabled = true;" >
+                                                                                <!--<a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,1,0)}" onclick="setDesc(document.getElementById('form\\:table\\:0\\:sbtbl\\:0\\:metricubi').value); this.disabled = true;" >
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </a4j:commandLink>
                                                                                  <a4j:commandLink styleClass="no-decor" execute="@this" render="@none" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,1,1)}" >
                                                                                       <h:graphicImage value="/resources/css/images/ripristina.jpg" alt="ripristina" />
+                                                                                </a4j:commandLink>-->
+                                                                                <h:commandButton action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,1,0)}"   >
+                                                                                      <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
+                                                                                </h:commandButton>
+                                                                                
+                                                                                 <a4j:commandLink styleClass="no-decor" execute="@this" render="metricubi" action="#{dettaglioAzienda.modificaRipristina(let.metricubi,let.tipologia,1,1)}" >
+                                                                                      <h:graphicImage value="/resources/css/images/ripristina.jpg" alt="ripristina" />
                                                                                 </a4j:commandLink>
-
+                                                                             </h:form>
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >TKN</f:facet>  

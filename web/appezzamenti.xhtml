@@ -184,7 +184,10 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                         </rich:column>
                                                                         <rich:column>
                                                                             <f:facet name="header">ZVN</f:facet>
-                                                                            <h:outputText value="#{appezzamento.svn}" />
+                                                                           <!-- <h:outputText value="#{appezzamento.svn}" />-->
+                                                                            <h:selectBooleanCheckbox value="#{appezzamento.svn}" onclick="return #{!gestoreAppezzamenti.checkboxReadOnly}"  readonly="#{gestoreAppezzamenti.checkboxReadOnly}" >
+                                                                                
+                                                                            </h:selectBooleanCheckbox>    
                                                                         </rich:column>
                                                                         <rich:column>
                                                                             <f:facet name="header">Tipo Terreno</f:facet>
