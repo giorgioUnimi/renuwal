@@ -80,10 +80,42 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                 var valore = $j("form\\:table\\:0\\:sbtbl0\\:0\\:metricubi").value();
                 alert(valore);
                }); */
+           /**
+            * chiama il jsp modificaripristina.jsp in librerie per modificare il campo testo associato
+            * al bottone selezionato dall'utente
+            */
+           function eseguimodifica(valore,azione,posizione,tipologia,scenario){
+            $.ajax(
+            {
+                type:'GET',
+                url:'dajquery/modificaripristina.jsp',
+                data: {
+                    valore    : valore,
+                    azione    : azione,
+                    posizione : posizione,
+                    tipologia : tipologia,
+                    scenario  : scenario
+                    
+                },
+                success:function(data)
+                {
+                    alert(data); 
+                    
+                },
+                error: function (request, status, error) {
+                    alert(request.responseText);
+                }     
+            });//close ajax
+            
+        }//close function   
+               
+        
             //letame bovino metri cubi  modifica
             $j("#form\\:table\\:0\\:sbtbl\\:0\\:metricubi_mod").click(function(){
                 var valore = $j("#form\\:table\\:0\\:sbtbl\\:0\\:metricubi").val();
-                alert("metri cubi letame bovino modifica " + valore);
+                //alert("metri cubi letame bovino modifica " + valore);
+                eseguimodifica(valore,0,1,"Letame Bovino",399);
+                
             });
             
             //letame bovino metri cubi ripristina  

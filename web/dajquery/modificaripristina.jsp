@@ -3,7 +3,22 @@
     Created on : 19-lug-2016, 16.26.47
     Author     : giorgio
 --%>
-
+<%@page import="javax.persistence.EntityManagerFactory"%>
+<%@page import="javax.jms.ServerSession"%>
+<%@page import="javax.persistence.Persistence"%>
+<%@page import="javax.persistence.NamedQuery"%>
+<%@page import="operativo.dettaglio.Connessione"%>
+<%@page import="javax.persistence.EntityManager"%>
+<%@page import="javax.persistence.EntityManagerFactory"%>
+<%@page import="javax.persistence.TypedQuery"%>
+<%@page import="javax.persistence.Query"%>
+<%@page import="org.eclipse.persistence.jpa.JpaEntityManager"%>
+<%!
+ private EntityManagerFactory entityManagerFactory;
+    private EntityManager entityManager;
+    private JpaEntityManager jpa;
+    private ServerSession serverSession;
+    
 private void modificaRipristina(Double valore,String tipologia,int posizione,int azione,int scenario)   
    {
        if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
@@ -676,7 +691,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
    String azione = request.getParameter("azione");
    String scenario = request.getParameter("scenario");
    
-   out.println("scenario " + scenario);
+  System.out.println("+++++++++++++++scenario " + scenario);
    
    
    modificaRipristina(Double.parseDouble(valore),tipologia,Integer.parseInt(posizione),Integer.parseInt(azione),Integer.parseInt(scenario)) ;
