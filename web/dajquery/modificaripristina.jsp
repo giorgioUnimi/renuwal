@@ -13,6 +13,7 @@
 <%@page import="javax.persistence.TypedQuery"%>
 <%@page import="javax.persistence.Query"%>
 <%@page import="org.eclipse.persistence.jpa.JpaEntityManager"%>
+<%@page import="operativo.dettaglio.Connessione"%>
 <%!
  private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
@@ -34,18 +35,18 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
        db.CaratteristicheChmiche caratteristichechimiche = sce.getCaratteristicheChmiche();
        
        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" "+Thread.currentThread().getStackTrace()[1].getMethodName() + " valore passato  " +getValore());
-       
+       asa 
        /**
         * se azione è 0 modifico la caratteristica utente usando valore
         * se azione è 1 rirpistino il valore della caratteristica usando il 
         * valore della caratteristica di sistema
         */
-       switch (getTipologia()) {
+       switch (tipologia) {
            case "Liquame Bovino":
                 //setDataItemLiq((ager.Refluo) getDataTableLiq().getRowData());
-               switch (getPosizione()) {
+               switch (posizione) {
                    case 1:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setM3LBovU(getValore());
                        } else {
                            caratteristichechimiche.setM3LBovU(caratteristichechimiche.getM3LBovS());
@@ -53,7 +54,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 2:
-                        if (getAzione() == 0) {
+                        if (azione == 0) {
                            caratteristichechimiche.setTknLBovU(getValore());
                        } else {
                            caratteristichechimiche.setTknLBovU(caratteristichechimiche.getTknLBovS());
@@ -61,7 +62,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 3:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setTanLBovU(getValore());
                        } else {
                            caratteristichechimiche.setTanLBovU(caratteristichechimiche.getTanLBovS());
@@ -69,7 +70,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 4:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setDmLBovU(getValore());
                        } else {
                            caratteristichechimiche.setDmLBovU(caratteristichechimiche.getDmLBovS());
@@ -77,7 +78,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 5:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setVsLBovU(getValore());
                        } else {
                            caratteristichechimiche.setVsLBovU(caratteristichechimiche.getVsLBovS());
@@ -85,7 +86,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 6:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setKLBovU(getValore());
                        } else {
                            caratteristichechimiche.setKLBovU(caratteristichechimiche.getKLBovS());
@@ -93,7 +94,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 7:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setPLBovU(getValore());
                        } else {
                            caratteristichechimiche.setPLBovU(caratteristichechimiche.getPLBovS());
@@ -104,9 +105,9 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                break;
            case "Liquame Suino":
                 //setDataItemLiq((ager.Refluo) getDataTableLiq().getRowData());
-               switch (getPosizione()) {
+               switch (posizione) {
                    case 1:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setM3LSuiU(getValore());
                        } else {
                            caratteristichechimiche.setM3LSuiU(caratteristichechimiche.getM3LSuiS());
@@ -114,7 +115,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 2:
-                        if (getAzione() == 0) {
+                        if (azione == 0) {
                            caratteristichechimiche.setTknLSuiU(getValore());
                        } else {
                            caratteristichechimiche.setTknLSuiU(caratteristichechimiche.getTknLSuiS());
@@ -122,7 +123,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 3:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setTanLSuiU(getValore());
                        } else {
                            caratteristichechimiche.setTanLSuiU(caratteristichechimiche.getTanLSuiS());
@@ -130,7 +131,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 4:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setDmLSuiU(getValore());
                        } else {
                            caratteristichechimiche.setDmLSuiU(caratteristichechimiche.getDmLSuiS());
@@ -138,7 +139,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 5:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setVsLSuiU(getValore());
                        } else {
                            caratteristichechimiche.setVsLSuiU(caratteristichechimiche.getVsLSuiS());
@@ -146,7 +147,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 6:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setKLSuiU(getValore());
                        } else {
                            caratteristichechimiche.setKLSuiU(caratteristichechimiche.getKLSuiS());
@@ -154,7 +155,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 7:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setPLSuiU(getValore());
                        } else {
                            caratteristichechimiche.setPLSuiU(caratteristichechimiche.getPLSuiS());
@@ -165,9 +166,9 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                break;
            case "Liquame Avicolo":
                // setDataItemLiq((ager.Refluo) getDataTableLiq().getRowData());
-               switch (getPosizione()) {
+               switch (posizione) {
                    case 1:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setM3LAviU(getValore());
                        } else {
                            caratteristichechimiche.setM3LAviU(caratteristichechimiche.getM3LAviS());
@@ -175,7 +176,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 2:
-                        if (getAzione() == 0) {
+                        if (azione == 0) {
                            caratteristichechimiche.setTknLAviU(getValore());
                        } else {
                            caratteristichechimiche.setTknLAviU(caratteristichechimiche.getTknLAviS());
@@ -183,7 +184,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 3:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setTanLAviU(getValore());
                        } else {
                            caratteristichechimiche.setTanLAviU(caratteristichechimiche.getTanLAviS());
@@ -191,7 +192,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 4:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setDmLAviU(getValore());
                        } else {
                            caratteristichechimiche.setDmLAviU(caratteristichechimiche.getDmLAviS());
@@ -199,7 +200,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 5:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setVsLAviU(getValore());
                        } else {
                            caratteristichechimiche.setVsLAviU(caratteristichechimiche.getVsLAviS());
@@ -207,7 +208,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 6:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setKLAviU(getValore());
                        } else {
                            caratteristichechimiche.setKLAviU(caratteristichechimiche.getKLAviS());
@@ -215,7 +216,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 7:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setPLAviU(getValore());
                        } else {
                            caratteristichechimiche.setPLAviU(caratteristichechimiche.getPLAviS());
@@ -226,9 +227,9 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                break;
            case "Liquame Altro":
                 //setDataItemLiq((ager.Refluo) getDataTableLiq().getRowData());
-               switch (getPosizione()) {
+               switch (posizione) {
                    case 1:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setM3LAltU(getValore());
                        } else {
                            caratteristichechimiche.setM3LAltU(caratteristichechimiche.getM3LAltS());
@@ -236,7 +237,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 2:
-                        if (getAzione() == 0) {
+                        if (azione == 0) {
                            caratteristichechimiche.setTknLAltU(getValore());
                        } else {
                            caratteristichechimiche.setTknLAltU(caratteristichechimiche.getTknLAltS());
@@ -244,7 +245,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 3:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setTanLAltU(getValore());
                        } else {
                            caratteristichechimiche.setTanLAltU(caratteristichechimiche.getTanLAltS());
@@ -252,7 +253,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 4:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setDmLAltU(getValore());
                        } else {
                            caratteristichechimiche.setDmLAltU(caratteristichechimiche.getDmLAltS());
@@ -260,7 +261,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 5:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setVsLAltU(getValore());
                        } else {
                            caratteristichechimiche.setVsLAltU(caratteristichechimiche.getVsLAltS());
@@ -268,7 +269,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 6:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setKLAltU(getValore());
                        } else {
                            caratteristichechimiche.setKLAltU(caratteristichechimiche.getKLAltS());
@@ -276,7 +277,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 7:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setPLAltU(getValore());
                        } else {
                            caratteristichechimiche.setPLAltU(caratteristichechimiche.getPLAltS());
@@ -287,9 +288,9 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                break;
            case "Liquame Biomassa":
                 //setDataItemLiq((ager.Refluo) getDataTableLiq().getRowData());
-               switch (getPosizione()) {
+               switch (posizione) {
                    case 1:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setM3LBioU(getValore());
                        } else {
                            caratteristichechimiche.setM3LBioU(caratteristichechimiche.getM3LBioS());
@@ -297,7 +298,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 2:
-                        if (getAzione() == 0) {
+                        if (azione == 0) {
                            caratteristichechimiche.setTknLBioU(getValore());
                        } else {
                            caratteristichechimiche.setTknLBioU(caratteristichechimiche.getTknLBioS());
@@ -305,7 +306,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 3:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setTanLBioU(getValore());
                        } else {
                            caratteristichechimiche.setTanLBioU(caratteristichechimiche.getTanLBioS());
@@ -313,7 +314,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 4:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setDmLBioU(getValore());
                        } else {
                            caratteristichechimiche.setDmLBioU(caratteristichechimiche.getDmLBioS());
@@ -321,7 +322,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 5:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setVsLBioU(getValore());
                        } else {
                            caratteristichechimiche.setVsLBioU(caratteristichechimiche.getVsLBioS());
@@ -329,7 +330,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 6:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setKLBioU(getValore());
                        } else {
                            caratteristichechimiche.setKLBioU(caratteristichechimiche.getKLBioS());
@@ -337,7 +338,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 7:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setPLBioU(getValore());
                        } else {
                            caratteristichechimiche.setPLBioU(caratteristichechimiche.getPLBioS());
@@ -348,9 +349,9 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                break;
            case "Letame Bovino":
                 //dataItemLet =(ager.Refluo) getDataTableLet().getRowData();
-               switch (getPosizione()) {
+               switch (posizione) {
                    case 1:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setM3PBovU(getValore());
                        } else {
                            caratteristichechimiche.setM3PBovU(caratteristichechimiche.getM3PBovS());
@@ -358,7 +359,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 2:
-                        if (getAzione() == 0) {
+                        if (azione == 0) {
                            caratteristichechimiche.setTknPBovU(getValore());
                        } else {
                            caratteristichechimiche.setTknPBovU(caratteristichechimiche.getTknPBovS());
@@ -366,7 +367,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 3:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setTanPBovU(getValore());
                        } else {
                            caratteristichechimiche.setTanPBovU(caratteristichechimiche.getTanPBovS());
@@ -374,7 +375,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 4:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setDmPBovU(getValore());
                        } else {
                            caratteristichechimiche.setDmPBovU(caratteristichechimiche.getDmPBovS());
@@ -382,7 +383,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 5:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setVsPBovU(getValore());
                        } else {
                            caratteristichechimiche.setVsPBovU(caratteristichechimiche.getVsPBovS());
@@ -390,7 +391,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 6:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setKPBovU(getValore());
                        } else {
                            caratteristichechimiche.setKPBovU(caratteristichechimiche.getKPBovS());
@@ -398,7 +399,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 7:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setPPBovU(getValore());
                        } else {
                            caratteristichechimiche.setPPBovU(caratteristichechimiche.getPPBovS());
@@ -409,9 +410,9 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                break;
            case "Letame Suino":
                 //dataItemLet =(ager.Refluo) getDataTableLet().getRowData();
-               switch (getPosizione()) {
+               switch (posizione) {
                    case 1:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setM3PSuiU(getValore());
                        } else {
                            caratteristichechimiche.setM3PSuiU(caratteristichechimiche.getM3PSuiS());
@@ -419,7 +420,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 2:
-                        if (getAzione() == 0) {
+                        if (azione == 0) {
                            caratteristichechimiche.setTknPSuiU(getValore());
                        } else {
                            caratteristichechimiche.setTknPSuiU(caratteristichechimiche.getTknPSuiS());
@@ -427,7 +428,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 3:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setTanPSuiU(getValore());
                        } else {
                            caratteristichechimiche.setTanPSuiU(caratteristichechimiche.getTanPSuiS());
@@ -435,7 +436,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 4:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setDmPSuiU(getValore());
                        } else {
                            caratteristichechimiche.setDmPSuiU(caratteristichechimiche.getDmPSuiS());
@@ -443,7 +444,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 5:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setVsPSuiU(getValore());
                        } else {
                            caratteristichechimiche.setVsPSuiU(caratteristichechimiche.getVsPSuiS());
@@ -451,7 +452,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 6:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setKPSuiU(getValore());
                        } else {
                            caratteristichechimiche.setKPSuiU(caratteristichechimiche.getKPSuiS());
@@ -459,7 +460,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 7:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setPPSuiU(getValore());
                        } else {
                            caratteristichechimiche.setPPSuiU(caratteristichechimiche.getPPSuiS());
@@ -470,9 +471,9 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                break;
            case "Letame Avicolo":
               // dataItemLet =(ager.Refluo) getDataTableLet().getRowData();
-               switch (getPosizione()) {
+               switch (posizione) {
                    case 1:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setM3PAviU(getValore());
                        } else {
                            caratteristichechimiche.setM3PAviU(caratteristichechimiche.getM3PAviS());
@@ -480,7 +481,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 2:
-                        if (getAzione() == 0) {
+                        if (azione == 0) {
                            caratteristichechimiche.setTknPAviU(getValore());
                        } else {
                            caratteristichechimiche.setTknPAviU(caratteristichechimiche.getTknPAviS());
@@ -488,7 +489,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 3:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setTanPAviU(getValore());
                        } else {
                            caratteristichechimiche.setTanPAviU(caratteristichechimiche.getTanPAviS());
@@ -496,7 +497,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 4:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setDmPAviU(getValore());
                        } else {
                            caratteristichechimiche.setDmPAviU(caratteristichechimiche.getDmPAviS());
@@ -504,7 +505,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 5:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setVsPAviU(getValore());
                        } else {
                            caratteristichechimiche.setVsPAviU(caratteristichechimiche.getVsPAviS());
@@ -512,7 +513,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 6:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setKPAviU(getValore());
                        } else {
                            caratteristichechimiche.setKPAviU(caratteristichechimiche.getKPAviS());
@@ -520,7 +521,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 7:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setPPAviU(getValore());
                        } else {
                            caratteristichechimiche.setPPAviU(caratteristichechimiche.getPPAviS());
@@ -531,9 +532,9 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                break;
            case "Letame Altro":
               // dataItemLet =(ager.Refluo) getDataTableLet().getRowData();
-               switch (getPosizione()) {
+               switch (posizione) {
                    case 1:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setM3PAltU(getValore());
                        } else {
                            caratteristichechimiche.setM3PAltU(caratteristichechimiche.getM3PAltS());
@@ -541,7 +542,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 2:
-                        if (getAzione() == 0) {
+                        if (azione == 0) {
                            caratteristichechimiche.setTknPAltU(getValore());
                        } else {
                            caratteristichechimiche.setTknPAltU(caratteristichechimiche.getTknPAltS());
@@ -549,7 +550,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 3:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setTanPAltU(getValore());
                        } else {
                            caratteristichechimiche.setTanPAltU(caratteristichechimiche.getTanPAltS());
@@ -557,7 +558,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 4:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setDmPAltU(getValore());
                        } else {
                            caratteristichechimiche.setDmPAltU(caratteristichechimiche.getDmPAltS());
@@ -565,7 +566,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 5:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setVsPAltU(getValore());
                        } else {
                            caratteristichechimiche.setVsPAltU(caratteristichechimiche.getVsPAltS());
@@ -573,7 +574,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 6:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setKPAltU(getValore());
                        } else {
                            caratteristichechimiche.setKPAltU(caratteristichechimiche.getKPAltS());
@@ -581,7 +582,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 7:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setPPAltU(getValore());
                        } else {
                            caratteristichechimiche.setPPAltU(caratteristichechimiche.getPPAltS());
@@ -592,9 +593,9 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                break;
            case "Letame Biomassa":
                // dataItemLet =(ager.Refluo) getDataTableLet().getRowData();
-               switch (getPosizione()) {
+               switch (posizione) {
                    case 1:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setM3PBioU(getValore());
                        } else {
                           
@@ -604,7 +605,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 2:
-                        if (getAzione() == 0) {
+                        if (azione == 0) {
                            caratteristichechimiche.setTknPBioU(getValore());
                        } else {
                            caratteristichechimiche.setTknPBioU(caratteristichechimiche.getTknPBioS());
@@ -613,7 +614,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 3:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setTanPBioU(getValore());
                        } else {
                            caratteristichechimiche.setTanPBioU(caratteristichechimiche.getTanPBioS());
@@ -621,7 +622,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 4:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setDmPBioU(getValore());
                        } else {
                            caratteristichechimiche.setDmPBioU(caratteristichechimiche.getDmPBioS());
@@ -629,7 +630,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 5:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setVsPBioU(getValore());
                        } else {
                            caratteristichechimiche.setVsPBioU(caratteristichechimiche.getVsPBioS());
@@ -637,7 +638,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 6:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setKPBioU(getValore());
                        } else {
                            caratteristichechimiche.setKPBioU(caratteristichechimiche.getKPBioS());
@@ -645,7 +646,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        }
                        break;
                    case 7:
-                       if (getAzione() == 0) {
+                       if (azione == 0) {
                            caratteristichechimiche.setPPBioU(getValore());
                        } else {
                            caratteristichechimiche.setPPBioU(caratteristichechimiche.getPPBioS());
@@ -661,7 +662,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
       entityManager.persist(caratteristichechimiche);
       tx.commit();
        
-      System.out.println(this.getClass().getCanonicalName()+" "+Thread.currentThread().getStackTrace()[1].getMethodName()+ " valore " + getValore() +  " idscenario " +detto.getIdscenario() + "posizione " + getPosizione() + " azione " + getAzione() + " tipologia " + getTipologia());
+      System.out.println(this.getClass().getCanonicalName()+" "+Thread.currentThread().getStackTrace()[1].getMethodName()+ " valore " + getValore() +  " idscenario " +detto.getIdscenario() + "posizione " + posizione + " azione " + azione + " tipologia " + tipologia);
   
 //      if(azione == 1)
 //  {
