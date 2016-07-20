@@ -1,21 +1,7 @@
-<%-- 
-    Document   : modificaripristina
-    Created on : 19-lug-2016, 16.26.47
-    Author     : giorgio
---%>
-<%@page import="javax.persistence.EntityManagerFactory"%>
-<%@page import="javax.jms.ServerSession"%>
-<%@page import="javax.persistence.Persistence"%>
-<%@page import="javax.persistence.NamedQuery"%>
-<%@page import="operativo.dettaglio.Connessione"%>
-<%@page import="javax.persistence.EntityManager"%>
-<%@page import="javax.persistence.EntityManagerFactory"%>
-<%@page import="javax.persistence.TypedQuery"%>
-<%@page import="javax.persistence.Query"%>
-<%@page import="org.eclipse.persistence.jpa.JpaEntityManager"%>
-<%@page import="operativo.dettaglio.Connessione"%>
+
+
 <%!
- private EntityManagerFactory entityManagerFactory;
+    private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
     private JpaEntityManager jpa;
     private ServerSession serverSession;
@@ -676,6 +662,9 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
 //  }
    
    }
+%>
+
+<%
   /**
     * usato da bottoni modifica e ripristina della pagina dettaglioazienda
     * @param valore del campo inputtext inserito dall utente
@@ -695,4 +684,6 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
   System.out.println("+++++++++++++++scenario " + scenario);
    
    
-   modificaRipristina(Double.parseDouble(valore),tipologia,Integer.parseInt(posizione),Integer.parseInt(azione),Integer.parseInt(scenario)) ;
+   //modificaRipristina(Double.parseDouble(valore),tipologia,Integer.parseInt(posizione),Integer.parseInt(azione),Integer.parseInt(scenario)) ;
+  
+  %>
