@@ -7,7 +7,6 @@ package db;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,7 +40,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "AziendeI.findByRagioneSocialeFinto", query = "SELECT a FROM AziendeI a WHERE a.ragioneSocialeFinto = :ragioneSocialeFinto"),
     @NamedQuery(name = "AziendeI.findById", query = "SELECT a FROM AziendeI a WHERE a.id = :id"),
     @NamedQuery(name = "AziendeI.findByNote", query = "SELECT a FROM AziendeI a WHERE a.note = :note"),
-    @NamedQuery(name = "AziendeI.findByDeroga", query = "SELECT a FROM AziendeI a WHERE a.deroga = :deroga")})
+    @NamedQuery(name = "AziendeI.findByDeroga", query = "SELECT a FROM AziendeI a WHERE a.deroga = :deroga"),
+    @NamedQuery(name = "AziendeI.findByCentrox", query = "SELECT a FROM AziendeI a WHERE a.centrox = :centrox"),
+    @NamedQuery(name = "AziendeI.findByCentroy", query = "SELECT a FROM AziendeI a WHERE a.centroy = :centroy"),
+    @NamedQuery(name = "AziendeI.findByDesprovincia", query = "SELECT a FROM AziendeI a WHERE a.desprovincia = :desprovincia"),
+    @NamedQuery(name = "AziendeI.findByCodiceprovincia", query = "SELECT a FROM AziendeI a WHERE a.codiceprovincia = :codiceprovincia")})
 public class AziendeI implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
@@ -58,12 +61,6 @@ public class AziendeI implements Serializable {
     @Column(name = "des_comune", length = 255)
     private String desComune;
     @Size(max = 255)
-    @Column(name = "codiceprovincia",length = 255)
-    private String codiceProvincia;
-    @Size(max = 255)
-    @Column(name = "desprovincia",length = 255)
-    private String desProvincia;
-    @Size(max = 255)
     @Column(name = "cuaa_finto", length = 255)
     private String cuaaFinto;
     @Size(max = 255)
@@ -71,37 +68,41 @@ public class AziendeI implements Serializable {
     private String ragioneSocialeFinto;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
     @Column(nullable = false)
     private Integer id;
     @Size(max = 200)
     @Column(length = 200)
     private String note;
     private Boolean deroga;
-    @OneToMany(mappedBy = "idAzienda", cascade = CascadeType.ALL)
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(precision = 17, scale = 17)
+    private Double centrox;
+    @Column(precision = 17, scale = 17)
+    private Double centroy;
+    @Size(max = 2147483647)
+    @Column(length = 2147483647)
+    private String desprovincia;
+    @Size(max = 2147483647)
+    @Column(length = 2147483647)
+    private String codiceprovincia;
+    @OneToMany(mappedBy = "idAzienda")
     private Collection<AziendeAnni> aziendeAnniCollection;
     @JoinColumn(name = "id_utente", referencedColumnName = "id")
     @ManyToOne
     private Utenti idUtente;
-    //latitudine e longitudine della posizione
-    //del centro aziendale
-    @Column(name = "centrox")
-    private double centroX;
-    @Column(name = "centroy")
-    private double centroY;
-    
-    
-    
+
     public AziendeI() {
     }
 
-   /* public AziendeI(Integer id) {
+    public AziendeI(Integer id) {
         this.id = id;
     }
 
     public AziendeI(Integer id, String cuaa) {
         this.id = id;
         this.cuaa = cuaa;
-    }*/
+    }
 
     public String getCuaa() {
         return cuaa;
@@ -167,13 +168,45 @@ public class AziendeI implements Serializable {
         this.note = note;
     }
 
-    /*public Boolean getVulnerabilita() {
-        return vulnerabilita;
+    public Boolean getDeroga() {
+        return deroga;
     }
 
-    public void setVulnerabilita(Boolean vulnerabilita) {
-        this.vulnerabilita = vulnerabilita;
-    }*/
+    public void setDeroga(Boolean deroga) {
+        this.deroga = deroga;
+    }
+
+    public Double getCentrox() {
+        return centrox;
+    }
+
+    public void setCentrox(Double centrox) {
+        this.centrox = centrox;
+    }
+
+    public Double getCentroy() {
+        return centroy;
+    }
+
+    public void setCentroy(Double centroy) {
+        this.centroy = centroy;
+    }
+
+    public String getDesprovincia() {
+        return desprovincia;
+    }
+
+    public void setDesprovincia(String desprovincia) {
+        this.desprovincia = desprovincia;
+    }
+
+    public String getCodiceprovincia() {
+        return codiceprovincia;
+    }
+
+    public void setCodiceprovincia(String codiceprovincia) {
+        this.codiceprovincia = codiceprovincia;
+    }
 
     @XmlTransient
     public Collection<AziendeAnni> getAziendeAnniCollection() {
@@ -215,76 +248,6 @@ public class AziendeI implements Serializable {
     @Override
     public String toString() {
         return "db.AziendeI[ id=" + id + " ]";
-    }
-
-    /**
-     * @return the codiceProvincia
-     */
-    public String getCodiceProvincia() {
-        return codiceProvincia;
-    }
-
-    /**
-     * @param codiceProvincia the codiceProvincia to set
-     */
-    public void setCodiceProvincia(String codiceProvincia) {
-        this.codiceProvincia = codiceProvincia;
-    }
-
-    /**
-     * @return the desProvincia
-     */
-    public String getDesProvincia() {
-        return desProvincia;
-    }
-
-    /**
-     * @param desProvincia the desProvincia to set
-     */
-    public void setDesProvincia(String desProvincia) {
-        this.desProvincia = desProvincia;
-    }
-
-    /**
-     * @return the centroX
-     */
-    public double getCentroX() {
-        return centroX;
-    }
-
-    /**
-     * @param centroX the centroX to set
-     */
-    public void setCentroX(double centroX) {
-        this.centroX = centroX;
-    }
-
-    /**
-     * @return the centroY
-     */
-    public double getCentroY() {
-        return centroY;
-    }
-
-    /**
-     * @param centroY the centroY to set
-     */
-    public void setCentroY(double centroY) {
-        this.centroY = centroY;
-    }
-
-    /**
-     * @return the deroga
-     */
-    public Boolean getDeroga() {
-        return deroga;
-    }
-
-    /**
-     * @param deroga the deroga to set
-     */
-    public void setDeroga(Boolean deroga) {
-        this.deroga = deroga;
     }
     
 }

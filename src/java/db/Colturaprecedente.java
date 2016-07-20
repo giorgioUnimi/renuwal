@@ -7,7 +7,6 @@ package db;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,57 +24,58 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author giorgio
  */
 @Entity
-@Table(name = "tipo_terreno", catalog = "renuwal1", schema = "allevamento")
+@Table(catalog = "renuwal1", schema = "allevamento")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TipoTerreno.findAll", query = "SELECT t FROM TipoTerreno t"),
-    @NamedQuery(name = "TipoTerreno.findById", query = "SELECT t FROM TipoTerreno t WHERE t.id = :id"),
-    @NamedQuery(name = "TipoTerreno.findByDescrizione", query = "SELECT t FROM TipoTerreno t WHERE t.descrizione = :descrizione")})
-public class TipoTerreno implements Serializable {
+    @NamedQuery(name = "Colturaprecedente.findAll", query = "SELECT c FROM Colturaprecedente c"),
+    @NamedQuery(name = "Colturaprecedente.findById", query = "SELECT c FROM Colturaprecedente c WHERE c.id = :id"),
+    @NamedQuery(name = "Colturaprecedente.findByDescrzione", query = "SELECT c FROM Colturaprecedente c WHERE c.descrzione = :descrzione"),
+    @NamedQuery(name = "Colturaprecedente.findByRiduzione", query = "SELECT c FROM Colturaprecedente c WHERE c.riduzione = :riduzione")})
+public class Colturaprecedente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(nullable = false)
-    private Long id;
+    private Integer id;
     @Size(max = 255)
     @Column(length = 255)
-    private String descrizione;
-    @OneToMany(mappedBy = "idterrenoId")
-    private Collection<Efficienza> efficienzaCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoterreno")
+    private String descrzione;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(precision = 17, scale = 17)
+    private Double riduzione;
+    @OneToMany(mappedBy = "colturaprecedenteId")
     private Collection<Appezzamento> appezzamentoCollection;
 
-    public TipoTerreno() {
+    public Colturaprecedente() {
     }
 
-    public TipoTerreno(Long id) {
+    public Colturaprecedente(Integer id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getDescrizione() {
-        return descrizione;
+    public String getDescrzione() {
+        return descrzione;
     }
 
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
+    public void setDescrzione(String descrzione) {
+        this.descrzione = descrzione;
     }
 
-    @XmlTransient
-    public Collection<Efficienza> getEfficienzaCollection() {
-        return efficienzaCollection;
+    public Double getRiduzione() {
+        return riduzione;
     }
 
-    public void setEfficienzaCollection(Collection<Efficienza> efficienzaCollection) {
-        this.efficienzaCollection = efficienzaCollection;
+    public void setRiduzione(Double riduzione) {
+        this.riduzione = riduzione;
     }
 
     @XmlTransient
@@ -97,10 +97,10 @@ public class TipoTerreno implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TipoTerreno)) {
+        if (!(object instanceof Colturaprecedente)) {
             return false;
         }
-        TipoTerreno other = (TipoTerreno) object;
+        Colturaprecedente other = (Colturaprecedente) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -109,7 +109,7 @@ public class TipoTerreno implements Serializable {
 
     @Override
     public String toString() {
-        return "db.TipoTerreno[ id=" + id + " ]";
+        return "db.Colturaprecedente[ id=" + id + " ]";
     }
     
 }

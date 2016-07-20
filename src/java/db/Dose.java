@@ -5,35 +5,96 @@
 package db;
 
 import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author giorgio
  */
 @Entity
-@Table(name = "dose", catalog = "renuwal1", schema = "allevamento")
+@Table(catalog = "renuwal1", schema = "allevamento")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Dose.findAll", query = "SELECT d FROM Dose d"),
+    @NamedQuery(name = "Dose.findById", query = "SELECT d FROM Dose d WHERE d.id = :id"),
+    @NamedQuery(name = "Dose.findByDescrizione", query = "SELECT d FROM Dose d WHERE d.descrizione = :descrizione"),
+    @NamedQuery(name = "Dose.findByMaxDose", query = "SELECT d FROM Dose d WHERE d.maxDose = :maxDose"),
+    @NamedQuery(name = "Dose.findByMinDose", query = "SELECT d FROM Dose d WHERE d.minDose = :minDose")})
 public class Dose implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Basic(optional = false)
+    @NotNull
+    @Column(nullable = false)
     private Long id;
-    private int min_dose;
-    private int max_dose;
+    @Size(max = 255)
+    @Column(length = 255)
     private String descrizione;
-    
-    
+    @Column(name = "max_dose")
+    private Integer maxDose;
+    @Column(name = "min_dose")
+    private Integer minDose;
+    @OneToMany(mappedBy = "iddoseId")
+    private Collection<Efficienza> efficienzaCollection;
+
+    public Dose() {
+    }
+
+    public Dose(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
+    }
+
+    public Integer getMaxDose() {
+        return maxDose;
+    }
+
+    public void setMaxDose(Integer maxDose) {
+        this.maxDose = maxDose;
+    }
+
+    public Integer getMinDose() {
+        return minDose;
+    }
+
+    public void setMinDose(Integer minDose) {
+        this.minDose = minDose;
+    }
+
+    @XmlTransient
+    public Collection<Efficienza> getEfficienzaCollection() {
+        return efficienzaCollection;
+    }
+
+    public void setEfficienzaCollection(Collection<Efficienza> efficienzaCollection) {
+        this.efficienzaCollection = efficienzaCollection;
     }
 
     @Override
@@ -60,49 +121,5 @@ public class Dose implements Serializable {
     public String toString() {
         return "db.Dose[ id=" + id + " ]";
     }
-
-    /**
-     * @return the min_dose
-     */
-    public int getMin_dose() {
-        return min_dose;
-    }
-
-    /**
-     * @param min_dose the min_dose to set
-     */
-    public void setMin_dose(int min_dose) {
-        this.min_dose = min_dose;
-    }
-
-    /**
-     * @return the max_dose
-     */
-    public int getMax_dose() {
-        return max_dose;
-    }
-
-    /**
-     * @param max_dose the max_dose to set
-     */
-    public void setMax_dose(int max_dose) {
-        this.max_dose = max_dose;
-    }
-
-    /**
-     * @return the descrizione
-     */
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    /**
-     * @param descrizione the descrizione to set
-     */
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-
-   
     
 }

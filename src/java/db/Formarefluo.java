@@ -10,7 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -41,12 +40,11 @@ public class Formarefluo implements Serializable {
     @Size(max = 255)
     @Column(length = 255)
     private String tipo;
+    @OneToMany(mappedBy = "idformarefluoId")
+    private Collection<Efficienza> efficienzaCollection;
     @OneToMany(mappedBy = "forma")
     private Collection<TipostoccaggioS> tipostoccaggioSCollection;
-    /*@ManyToOne
-    private Efficienza efficienze;*/
-    
-    
+
     public Formarefluo() {
     }
 
@@ -68,6 +66,15 @@ public class Formarefluo implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    @XmlTransient
+    public Collection<Efficienza> getEfficienzaCollection() {
+        return efficienzaCollection;
+    }
+
+    public void setEfficienzaCollection(Collection<Efficienza> efficienzaCollection) {
+        this.efficienzaCollection = efficienzaCollection;
     }
 
     @XmlTransient
@@ -103,19 +110,5 @@ public class Formarefluo implements Serializable {
     public String toString() {
         return "db.Formarefluo[ id=" + id + " ]";
     }
-
-    /**
-     * @return the efficienze
-     */
-   /* public Efficienza getEfficienze() {
-        return efficienze;
-    }*/
-
-    /**
-     * @param efficienze the efficienze to set
-     */
-  /*  public void setEfficienze(Efficienza efficienze) {
-        this.efficienze = efficienze;
-    }*/
     
 }

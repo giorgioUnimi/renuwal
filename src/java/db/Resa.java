@@ -5,34 +5,74 @@
 package db;
 
 import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author giorgio
  */
 @Entity
-@Table(name = "resa", catalog = "renuwal1", schema = "allevamento")
+@Table(catalog = "renuwal1", schema = "allevamento")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Resa.findAll", query = "SELECT r FROM Resa r"),
+    @NamedQuery(name = "Resa.findByQuantita", query = "SELECT r FROM Resa r WHERE r.quantita = :quantita"),
+    @NamedQuery(name = "Resa.findById", query = "SELECT r FROM Resa r WHERE r.id = :id")})
 public class Resa implements Serializable {
     private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(precision = 17, scale = 17)
+    private Double quantita;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private double quantita;
-   /*@OneToOne
-    private Coltura idColtura;*/
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private Integer id;
+    @OneToMany(mappedBy = "resaId")
+    private Collection<Coltura> colturaCollection;
 
-    public Long getId() {
+    public Resa() {
+    }
+
+    public Resa(Integer id) {
+        this.id = id;
+    }
+
+    public Double getQuantita() {
+        return quantita;
+    }
+
+    public void setQuantita(Double quantita) {
+        this.quantita = quantita;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    @XmlTransient
+    public Collection<Coltura> getColturaCollection() {
+        return colturaCollection;
+    }
+
+    public void setColturaCollection(Collection<Coltura> colturaCollection) {
+        this.colturaCollection = colturaCollection;
     }
 
     @Override
@@ -59,34 +99,5 @@ public class Resa implements Serializable {
     public String toString() {
         return "db.Resa[ id=" + id + " ]";
     }
-
-    /**
-     * @return the quantita
-     */
-    public double getQuantita() {
-        return quantita;
-    }
-
-    /**
-     * @param quantita the quantita to set
-     */
-    public void setQuantita(double quantita) {
-        this.quantita = quantita;
-    }
-
-    /**
-     * @return the idColtura
-     */
-    /*public Coltura getIdColtura() {
-        return idColtura;
-    }*/
-
-    /**
-     * @param idColtura the idColtura to set
-     */
-   /* public void setIdColtura(Coltura idColtura) {
-        this.idColtura = idColtura;
-    }*/
-
     
 }

@@ -7,7 +7,6 @@ package db;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -37,15 +35,16 @@ public class AziendeAnni implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
     @Column(nullable = false)
     private Long id;
     @JoinColumn(name = "id_azienda", referencedColumnName = "id")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private AziendeI idAzienda;
     @JoinColumn(name = "id_anno", referencedColumnName = "id")
-    @OneToOne
+    @ManyToOne
     private Anni idAnno;
-    @OneToMany(mappedBy = "idAziendeanni",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "idAziendeanni")
     private Collection<ScenarioI> scenarioICollection;
 
     public AziendeAnni() {

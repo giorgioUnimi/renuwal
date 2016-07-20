@@ -5,33 +5,75 @@
 package db;
 
 import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author giorgio
  */
 @Entity
-@Table(name = "modalitadistribuzione", catalog = "renuwal1", schema = "allevamento")
+@Table(catalog = "renuwal1", schema = "allevamento")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Modalitadistribuzione.findAll", query = "SELECT m FROM Modalitadistribuzione m"),
+    @NamedQuery(name = "Modalitadistribuzione.findById", query = "SELECT m FROM Modalitadistribuzione m WHERE m.id = :id"),
+    @NamedQuery(name = "Modalitadistribuzione.findByDescrizione", query = "SELECT m FROM Modalitadistribuzione m WHERE m.descrizione = :descrizione")})
 public class Modalitadistribuzione implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; 
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private Integer id;
+    @Size(max = 255)
+    @Column(length = 255)
     private String descrizione;
-   
-      
-    
-    public Long getId() {
+    @OneToMany(mappedBy = "idmodalitadistribuzioneId")
+    private Collection<Efficienza> efficienzaCollection;
+
+    public Modalitadistribuzione() {
+    }
+
+    public Modalitadistribuzione(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
+    }
+
+    @XmlTransient
+    public Collection<Efficienza> getEfficienzaCollection() {
+        return efficienzaCollection;
+    }
+
+    public void setEfficienzaCollection(Collection<Efficienza> efficienzaCollection) {
+        this.efficienzaCollection = efficienzaCollection;
     }
 
     @Override
@@ -58,21 +100,5 @@ public class Modalitadistribuzione implements Serializable {
     public String toString() {
         return "db.Modalitadistribuzione[ id=" + id + " ]";
     }
-
-    /**
-     * @return the descrizione
-     */
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    /**
-     * @param descrizione the descrizione to set
-     */
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-
-   
     
 }

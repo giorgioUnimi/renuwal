@@ -9,13 +9,12 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -28,36 +27,36 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(catalog = "renuwal1", schema = "allevamento")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Rotazione.findAll", query = "SELECT r FROM Rotazione r"),
-    @NamedQuery(name = "Rotazione.findById", query = "SELECT r FROM Rotazione r WHERE r.id = :id"),
-    @NamedQuery(name = "Rotazione.findByDescrizione", query = "SELECT r FROM Rotazione r WHERE r.descrizione = :descrizione")})
-public class Rotazione implements Serializable {
+    @NamedQuery(name = "Gruppocolturale.findAll", query = "SELECT g FROM Gruppocolturale g"),
+    @NamedQuery(name = "Gruppocolturale.findById", query = "SELECT g FROM Gruppocolturale g WHERE g.id = :id"),
+    @NamedQuery(name = "Gruppocolturale.findByDescrizione", query = "SELECT g FROM Gruppocolturale g WHERE g.descrizione = :descrizione")})
+public class Gruppocolturale implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
     @Column(nullable = false)
-    private Integer id;
+    private Long id;
     @Size(max = 255)
     @Column(length = 255)
     private String descrizione;
-    @OneToMany(mappedBy = "rotazioneId")
+    @OneToMany(mappedBy = "gruppocolturaleId")
     private Collection<ColturaleColturaRotazione> colturaleColturaRotazioneCollection;
-    @OneToMany(mappedBy = "rotazioneId")
+    @OneToMany(mappedBy = "idgruppocolturaleId")
     private Collection<Storicocolturaappezzamento> storicocolturaappezzamentoCollection;
 
-    public Rotazione() {
+    public Gruppocolturale() {
     }
 
-    public Rotazione(Integer id) {
+    public Gruppocolturale(Long id) {
         this.id = id;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -97,10 +96,10 @@ public class Rotazione implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Rotazione)) {
+        if (!(object instanceof Gruppocolturale)) {
             return false;
         }
-        Rotazione other = (Rotazione) object;
+        Gruppocolturale other = (Gruppocolturale) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -109,7 +108,7 @@ public class Rotazione implements Serializable {
 
     @Override
     public String toString() {
-        return "db.Rotazione[ id=" + id + " ]";
+        return "db.Gruppocolturale[ id=" + id + " ]";
     }
     
 }

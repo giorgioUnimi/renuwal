@@ -14,7 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -46,26 +46,27 @@ public class ScenarioI implements Serializable {
     @Size(max = 2147483647)
     @Column(length = 2147483647)
     private String descrizione;
+    @ManyToMany(mappedBy = "scenarioICollection")
+    private Collection<Appezzamento> appezzamentoCollection;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "scenarioI")
     private DatiRimozioneazoto datiRimozioneazoto;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "scenarioI")
     private CaratteristicheChmiche caratteristicheChmiche;
-    @OneToMany(mappedBy = "idScenario",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "idScenario")
     private Collection<ParametridiprogettoS> parametridiprogettoSCollection;
-    @OneToMany(mappedBy = "idscenario",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "idscenario")
     private Collection<Particellescenario> particellescenarioCollection;
-    @OneToMany(mappedBy = "idscenario",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "idscenario")
     private Collection<StoccaggioI> stoccaggioICollection;
-    @OneToMany(mappedBy = "idscenario",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "scenarioIdscenario")
+    private Collection<Appezzamento> appezzamentoCollection1;
+    @OneToMany(mappedBy = "idscenario")
     private Collection<AllevamentoI> allevamentoICollection;
     @JoinColumn(name = "id_aziendeanni", referencedColumnName = "id")
     @ManyToOne
-    private AziendeAnni idAziendeanni; 
+    private AziendeAnni idAziendeanni;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "scenarioI")
     private AcquastoccaggioI acquastoccaggioI;
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval=true)
-    @JoinTable(schema="allevamento")
-    private Collection<Appezzamento> appezzamentiCollection;
 
     public ScenarioI() {
     }
@@ -88,6 +89,15 @@ public class ScenarioI implements Serializable {
 
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
+    }
+
+    @XmlTransient
+    public Collection<Appezzamento> getAppezzamentoCollection() {
+        return appezzamentoCollection;
+    }
+
+    public void setAppezzamentoCollection(Collection<Appezzamento> appezzamentoCollection) {
+        this.appezzamentoCollection = appezzamentoCollection;
     }
 
     public DatiRimozioneazoto getDatiRimozioneazoto() {
@@ -131,6 +141,15 @@ public class ScenarioI implements Serializable {
 
     public void setStoccaggioICollection(Collection<StoccaggioI> stoccaggioICollection) {
         this.stoccaggioICollection = stoccaggioICollection;
+    }
+
+    @XmlTransient
+    public Collection<Appezzamento> getAppezzamentoCollection1() {
+        return appezzamentoCollection1;
+    }
+
+    public void setAppezzamentoCollection1(Collection<Appezzamento> appezzamentoCollection1) {
+        this.appezzamentoCollection1 = appezzamentoCollection1;
     }
 
     @XmlTransient
@@ -181,20 +200,6 @@ public class ScenarioI implements Serializable {
     @Override
     public String toString() {
         return "db.ScenarioI[ idscenario=" + idscenario + " ]";
-    }
-
-    /**
-     * @return the appezzamentiCollection
-     */
-    public Collection<Appezzamento> getAppezzamentiCollection() {
-        return appezzamentiCollection;
-    }
-
-    /**
-     * @param appezzamentiCollection the appezzamentiCollection to set
-     */
-    public void setAppezzamentiCollection(Collection<Appezzamento> appezzamentiCollection) {
-        this.appezzamentiCollection = appezzamentiCollection;
     }
     
 }

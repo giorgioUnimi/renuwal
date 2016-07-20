@@ -5,20 +5,18 @@
 package db;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,26 +26,27 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(catalog = "renuwal1", schema = "allevamento")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tecnicadistribuzione.findAll", query = "SELECT t FROM Tecnicadistribuzione t"),
-    @NamedQuery(name = "Tecnicadistribuzione.findById", query = "SELECT t FROM Tecnicadistribuzione t WHERE t.id = :id"),
-    @NamedQuery(name = "Tecnicadistribuzione.findByDescrizione", query = "SELECT t FROM Tecnicadistribuzione t WHERE t.descrizione = :descrizione")})
-public class Tecnicadistribuzione implements Serializable {
+    @NamedQuery(name = "Residuoprecessione.findAll", query = "SELECT r FROM Residuoprecessione r"),
+    @NamedQuery(name = "Residuoprecessione.findById", query = "SELECT r FROM Residuoprecessione r WHERE r.id = :id"),
+    @NamedQuery(name = "Residuoprecessione.findByQuantita", query = "SELECT r FROM Residuoprecessione r WHERE r.quantita = :quantita")})
+public class Residuoprecessione implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer id;
-    @Size(max = 255)
-    @Column(length = 255)
-    private String descrizione;
-    @OneToMany(mappedBy = "idtecnicadistribuzioneId")
-    private Collection<Efficienza> efficienzaCollection;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(precision = 17, scale = 17)
+    private Double quantita;
+    @JoinColumn(name = "idcoltura_id", referencedColumnName = "id")
+    @ManyToOne
+    private Coltura idcolturaId;
 
-    public Tecnicadistribuzione() {
+    public Residuoprecessione() {
     }
 
-    public Tecnicadistribuzione(Integer id) {
+    public Residuoprecessione(Integer id) {
         this.id = id;
     }
 
@@ -59,21 +58,20 @@ public class Tecnicadistribuzione implements Serializable {
         this.id = id;
     }
 
-    public String getDescrizione() {
-        return descrizione;
+    public Double getQuantita() {
+        return quantita;
     }
 
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
+    public void setQuantita(Double quantita) {
+        this.quantita = quantita;
     }
 
-    @XmlTransient
-    public Collection<Efficienza> getEfficienzaCollection() {
-        return efficienzaCollection;
+    public Coltura getIdcolturaId() {
+        return idcolturaId;
     }
 
-    public void setEfficienzaCollection(Collection<Efficienza> efficienzaCollection) {
-        this.efficienzaCollection = efficienzaCollection;
+    public void setIdcolturaId(Coltura idcolturaId) {
+        this.idcolturaId = idcolturaId;
     }
 
     @Override
@@ -86,10 +84,10 @@ public class Tecnicadistribuzione implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tecnicadistribuzione)) {
+        if (!(object instanceof Residuoprecessione)) {
             return false;
         }
-        Tecnicadistribuzione other = (Tecnicadistribuzione) object;
+        Residuoprecessione other = (Residuoprecessione) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -98,7 +96,7 @@ public class Tecnicadistribuzione implements Serializable {
 
     @Override
     public String toString() {
-        return "db.Tecnicadistribuzione[ id=" + id + " ]";
+        return "db.Residuoprecessione[ id=" + id + " ]";
     }
     
 }

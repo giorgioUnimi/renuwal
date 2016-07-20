@@ -6,69 +6,158 @@ package db;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.CascadeType;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * appezzamento di una data azienda . Un azienda ha piu anni ed ogni anno
- * ha piu scenari ed ogni scenario ha piu appezzamenti.
+ *
  * @author giorgio
  */
 @Entity
-@Table(name="appezzamento", catalog = "renuwal1", schema = "allevamento")
+@Table(catalog = "renuwal1", schema = "allevamento")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Appezzamento.findAll", query = "SELECT a FROM Appezzamento a"),
-    @NamedQuery(name = "Appezzamento.findById", query = "SELECT a FROM Appezzamento a where a.id = :id")
-    })
+    @NamedQuery(name = "Appezzamento.findById", query = "SELECT a FROM Appezzamento a WHERE a.id = :id"),
+    @NamedQuery(name = "Appezzamento.findByNome", query = "SELECT a FROM Appezzamento a WHERE a.nome = :nome"),
+    @NamedQuery(name = "Appezzamento.findBySuperficie", query = "SELECT a FROM Appezzamento a WHERE a.superficie = :superficie"),
+    @NamedQuery(name = "Appezzamento.findBySvz", query = "SELECT a FROM Appezzamento a WHERE a.svz = :svz")})
 public class Appezzamento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private Integer id;
+    @Size(max = 255)
+    @Column(length = 255)
     private String nome;
-    private boolean svz;
-    private double superficie;
-    //@OneToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name= "add_fk_tipoterreno" , nullable = false)
-    @OneToOne
-    @JoinColumn(name= "tipoterreno" , nullable = false)
-    private TipoTerreno tipoTerreno;
-    //@OneToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name= "add_fk_tipoirrigazione" , nullable = false)
-    @OneToOne
-    @JoinColumn(name= "tipoirrigazione" , nullable = false)
-    private TipoIrrigazione tipoIrrigazione;
-    //@OneToMany(mappedBy="idAppezzamento",cascade=CascadeType.PERSIST)
-    @OneToMany(mappedBy="idAppezzamento",cascade=CascadeType.ALL)
-    private Collection<StoricoColturaAppezzamento> storicoColturaAppezzamento;
-    /*@OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(schema = "allevamento")
-    private Collection<db.Efficienza> listaEfficienze ;*/
-    /*@ManyToOne(cascade=CascadeType.REMOVE)
-    private ScenarioI scenario; */
-    @OneToOne
-    private ColturaPrecedente colturaPrecedente;
-            
-    public Long getId() {
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(precision = 17, scale = 17)
+    private Double superficie;
+    private Boolean svz;
+    @JoinTable(name = "scenario_i_appezzamento", joinColumns = {
+        @JoinColumn(name = "appezzamenticollection_id", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "scenarioi_idscenario", referencedColumnName = "idscenario", nullable = false)})
+    @ManyToMany
+    private Collection<ScenarioI> scenarioICollection;
+    @JoinColumn(name = "tipoterreno", referencedColumnName = "id", nullable = false)
+    @ManyToOne(optional = false)
+    private TipoTerreno tipoterreno;
+    @JoinColumn(name = "tipoirrigazione", referencedColumnName = "id", nullable = false)
+    @ManyToOne(optional = false)
+    private TipoIrrigazione tipoirrigazione;
+    @JoinColumn(name = "scenario_idscenario", referencedColumnName = "idscenario")
+    @ManyToOne
+    private ScenarioI scenarioIdscenario;
+    @JoinColumn(name = "colturaprecedente_id", referencedColumnName = "id")
+    @ManyToOne
+    private Colturaprecedente colturaprecedenteId;
+    @OneToMany(mappedBy = "idappezzamentoId")
+    private Collection<Storicocolturaappezzamento> storicocolturaappezzamentoCollection;
+
+    public Appezzamento() {
+    }
+
+    public Appezzamento(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Double getSuperficie() {
+        return superficie;
+    }
+
+    public void setSuperficie(Double superficie) {
+        this.superficie = superficie;
+    }
+
+    public Boolean getSvz() {
+        return svz;
+    }
+
+    public void setSvz(Boolean svz) {
+        this.svz = svz;
+    }
+
+    @XmlTransient
+    public Collection<ScenarioI> getScenarioICollection() {
+        return scenarioICollection;
+    }
+
+    public void setScenarioICollection(Collection<ScenarioI> scenarioICollection) {
+        this.scenarioICollection = scenarioICollection;
+    }
+
+    public TipoTerreno getTipoterreno() {
+        return tipoterreno;
+    }
+
+    public void setTipoterreno(TipoTerreno tipoterreno) {
+        this.tipoterreno = tipoterreno;
+    }
+
+    public TipoIrrigazione getTipoirrigazione() {
+        return tipoirrigazione;
+    }
+
+    public void setTipoirrigazione(TipoIrrigazione tipoirrigazione) {
+        this.tipoirrigazione = tipoirrigazione;
+    }
+
+    public ScenarioI getScenarioIdscenario() {
+        return scenarioIdscenario;
+    }
+
+    public void setScenarioIdscenario(ScenarioI scenarioIdscenario) {
+        this.scenarioIdscenario = scenarioIdscenario;
+    }
+
+    public Colturaprecedente getColturaprecedenteId() {
+        return colturaprecedenteId;
+    }
+
+    public void setColturaprecedenteId(Colturaprecedente colturaprecedenteId) {
+        this.colturaprecedenteId = colturaprecedenteId;
+    }
+
+    @XmlTransient
+    public Collection<Storicocolturaappezzamento> getStoricocolturaappezzamentoCollection() {
+        return storicocolturaappezzamentoCollection;
+    }
+
+    public void setStoricocolturaappezzamentoCollection(Collection<Storicocolturaappezzamento> storicocolturaappezzamentoCollection) {
+        this.storicocolturaappezzamentoCollection = storicocolturaappezzamentoCollection;
     }
 
     @Override
@@ -93,148 +182,7 @@ public class Appezzamento implements Serializable {
 
     @Override
     public String toString() {
-        //return "db.Appezzamento[ id=" + id + " ]";
-        return id.toString();
+        return "db.Appezzamento[ id=" + id + " ]";
     }
-
-    /**
-     * @return the nome
-     */
-    public String getNome() {
-        return nome;
-    }
-
-    /**
-     * @param nome the nome to set
-     */
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    /**
-     * @return the svz
-     */
-    public boolean isSvz() {
-        return svz;
-    }
-
-    /**
-     * @param svz the svz to set
-     */
-    public void setSvz(boolean svz) {
-        this.svz = svz;
-    }
-
-    /**
-     * @return the superficie
-     */
-    public double getSuperficie() {
-        return superficie;
-    }
-
-    /**
-     * @param superficie the superficie to set
-     */
-    public void setSuperficie(double superficie) {
-        this.superficie = superficie;
-    }
-
-    /**
-     * @return the tipoTerreno
-     */
-    public TipoTerreno getTipoTerreno() {
-        return tipoTerreno;
-    }
-
-    /**
-     * @param tipoTerreno the tipoTerreno to set
-     */
-    public void setTipoTerreno(TipoTerreno tipoTerreno) {
-        this.tipoTerreno = tipoTerreno;
-    }
-
-    /**
-     * @return the tipoIrrigazione
-     */
-    public TipoIrrigazione getTipoIrrigazione() {
-        return tipoIrrigazione;
-    }
-
-    /**
-     * @param tipoIrrigazione the tipoIrrigazione to set
-     */
-    public void setTipoIrrigazione(TipoIrrigazione tipoIrrigazione) {
-        this.tipoIrrigazione = tipoIrrigazione;
-    }
-
-    /**
-     * @return the storicoColturaAppezzamento
-     */
-    public Collection<StoricoColturaAppezzamento> getStoricoColturaAppezzamento() {
-        return storicoColturaAppezzamento;
-    }
-
-    /**
-     * @param storicoColturaAppezzamento the storicoColturaAppezzamento to set
-     */
-    public void setStoricoColturaAppezzamento(Collection<StoricoColturaAppezzamento> storicoColturaAppezzamento) {
-        this.storicoColturaAppezzamento = storicoColturaAppezzamento;
-    }
-
-    /**
-     * @return the colturaPrecedente
-     */
-    public ColturaPrecedente getColturaPrecedente() {
-        return colturaPrecedente;
-    }
-
-    /**
-     * @param colturaPrecedente the colturaPrecedente to set
-     */
-    public void setColturaPrecedente(ColturaPrecedente colturaPrecedente) {
-        this.colturaPrecedente = colturaPrecedente;
-    }
-
-    /**
-     * @return the scenario
-     */
-    /*public ScenarioI getScenario() {
-        return scenario;
-    }
-*/
-    /**
-     * @param scenario the scenario to set
-     */
-    /*public void setScenario(ScenarioI scenario) {
-        this.scenario = scenario;
-    }*/
-
-    /**
-     * @return the listaEfficienze
-     */
-   /* public Collection<db.Efficienza> getListaEfficienze() {
-        return listaEfficienze;
-    }*/
-
-    /**
-     * @param listaEfficienze the listaEfficienze to set
-     */
-   /* public void setListaEfficienze(Collection<db.Efficienza> listaEfficienze) {
-        this.listaEfficienze = listaEfficienze;
-    }
-*/
-    /**
-     * @return the scenario
-     */
-   /* public ScenarioI getScenario() {
-        return scenario;
-    }*/
-
-    /**
-     * @param scenario the scenario to set
-     */
-    /*public void setScenario(ScenarioI scenario) {
-        this.scenario = scenario;
-    }*/
     
 }

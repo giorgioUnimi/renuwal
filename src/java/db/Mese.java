@@ -5,37 +5,80 @@
 package db;
 
 import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author giorgio
  */
 @Entity
-@Table(name = "mese", catalog = "renuwal1", schema = "allevamento")
+@Table(catalog = "renuwal1", schema = "allevamento")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Mese.findAll", query = "SELECT m FROM Mese m"),
+    @NamedQuery(name = "Mese.findById", query = "SELECT m FROM Mese m WHERE m.id = :id"),
+    @NamedQuery(name = "Mese.findByDescrizione", query = "SELECT m FROM Mese m WHERE m.descrizione = :descrizione")})
 public class Mese implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @Basic(optional = false)
+    @NotNull
+    @Column(nullable = false)
+    private Integer id;
+    @Size(max = 255)
+    @Column(length = 255)
     private String descrizione;
-    
-    public int getId() {
+    @ManyToMany(mappedBy = "meseCollection")
+    private Collection<Epoca> epocaCollection;
+
+    public Mese() {
+    }
+
+    public Mese(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
+    }
+
+    @XmlTransient
+    public Collection<Epoca> getEpocaCollection() {
+        return epocaCollection;
+    }
+
+    public void setEpocaCollection(Collection<Epoca> epocaCollection) {
+        this.epocaCollection = epocaCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) id;
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -46,7 +89,7 @@ public class Mese implements Serializable {
             return false;
         }
         Mese other = (Mese) object;
-        if (this.id != other.id) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -55,20 +98,6 @@ public class Mese implements Serializable {
     @Override
     public String toString() {
         return "db.Mese[ id=" + id + " ]";
-    }
-
-    /**
-     * @return the descrizione
-     */
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    /**
-     * @param descrizione the descrizione to set
-     */
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
     }
     
 }

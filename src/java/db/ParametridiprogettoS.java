@@ -67,18 +67,18 @@ public class ParametridiprogettoS implements Serializable {
     @JoinColumn(name = "id_nomeparametro", referencedColumnName = "id")
     @ManyToOne
     private NomeparametrdiprogettoS idNomeparametro;
-    @JoinColumn(name = "id_entita", referencedColumnName = "id")
-    @ManyToOne
-    private NomeentitaattributiS idEntita;
     @JoinColumn(name = "id_entita1", referencedColumnName = "id")
     @ManyToOne
     private NomeentitaattributiS idEntita1;
-    @JoinColumn(name = "id_attributo", referencedColumnName = "id")
+    @JoinColumn(name = "id_entita", referencedColumnName = "id")
     @ManyToOne
-    private NomeentitaattributiS idAttributo;
+    private NomeentitaattributiS idEntita;
     @JoinColumn(name = "id_attributo1", referencedColumnName = "id")
     @ManyToOne
     private NomeentitaattributiS idAttributo1;
+    @JoinColumn(name = "id_attributo", referencedColumnName = "id")
+    @ManyToOne
+    private NomeentitaattributiS idAttributo;
 
     public ParametridiprogettoS() {
     }
@@ -167,14 +167,6 @@ public class ParametridiprogettoS implements Serializable {
         this.idNomeparametro = idNomeparametro;
     }
 
-    public NomeentitaattributiS getIdEntita() {
-        return idEntita;
-    }
-
-    public void setIdEntita(NomeentitaattributiS idEntita) {
-        this.idEntita = idEntita;
-    }
-
     public NomeentitaattributiS getIdEntita1() {
         return idEntita1;
     }
@@ -183,12 +175,12 @@ public class ParametridiprogettoS implements Serializable {
         this.idEntita1 = idEntita1;
     }
 
-    public NomeentitaattributiS getIdAttributo() {
-        return idAttributo;
+    public NomeentitaattributiS getIdEntita() {
+        return idEntita;
     }
 
-    public void setIdAttributo(NomeentitaattributiS idAttributo) {
-        this.idAttributo = idAttributo;
+    public void setIdEntita(NomeentitaattributiS idEntita) {
+        this.idEntita = idEntita;
     }
 
     public NomeentitaattributiS getIdAttributo1() {
@@ -197,6 +189,14 @@ public class ParametridiprogettoS implements Serializable {
 
     public void setIdAttributo1(NomeentitaattributiS idAttributo1) {
         this.idAttributo1 = idAttributo1;
+    }
+
+    public NomeentitaattributiS getIdAttributo() {
+        return idAttributo;
+    }
+
+    public void setIdAttributo(NomeentitaattributiS idAttributo) {
+        this.idAttributo = idAttributo;
     }
 
     @Override

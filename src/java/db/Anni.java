@@ -7,7 +7,6 @@ package db;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -41,7 +40,7 @@ public class Anni implements Serializable {
     @Size(max = 2147483647)
     @Column(length = 2147483647)
     private String descrizione;
-    @OneToMany(mappedBy = "idAnno",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "idAnno")
     private Collection<AziendeAnni> aziendeAnniCollection;
 
     public Anni() {

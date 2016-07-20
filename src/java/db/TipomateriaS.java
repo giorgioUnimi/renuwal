@@ -9,10 +9,7 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -37,19 +34,18 @@ import javax.xml.bind.annotation.XmlTransient;
 public class TipomateriaS implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    //@Basic(optional = false)
-    //@NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @NotNull
     @Column(nullable = false)
     private Integer id;
-    //@Size(max = 2147483647)
-    //@Column(length = 2147483647)
+    @Size(max = 255)
+    @Column(length = 255)
     private String nome;
     private Boolean animale;
+    @OneToMany(mappedBy = "idtipomateriaId")
+    private Collection<Efficienza> efficienzaCollection;
     @OneToMany(mappedBy = "tipologiaanimaleId")
     private Collection<SpecieS> specieSCollection;
-    /*@ManyToOne
-    private Efficienza efficienze;*/
 
     public TipomateriaS() {
     }
@@ -80,6 +76,15 @@ public class TipomateriaS implements Serializable {
 
     public void setAnimale(Boolean animale) {
         this.animale = animale;
+    }
+
+    @XmlTransient
+    public Collection<Efficienza> getEfficienzaCollection() {
+        return efficienzaCollection;
+    }
+
+    public void setEfficienzaCollection(Collection<Efficienza> efficienzaCollection) {
+        this.efficienzaCollection = efficienzaCollection;
     }
 
     @XmlTransient
@@ -115,19 +120,5 @@ public class TipomateriaS implements Serializable {
     public String toString() {
         return "db.TipomateriaS[ id=" + id + " ]";
     }
-
-    /**
-     * @return the efficienze
-     */
-    /*public Efficienza getEfficienze() {
-        return efficienze;
-    }*/
-
-    /**
-     * @param efficienze the efficienze to set
-     */
-    /*public void setEfficienze(Efficienza efficienze) {
-        this.efficienze = efficienze;
-    }*/
     
 }

@@ -166,7 +166,77 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CaratteristicheChmiche.findByDmPBioS", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.dmPBioS = :dmPBioS"),
     @NamedQuery(name = "CaratteristicheChmiche.findByVsPBioS", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.vsPBioS = :vsPBioS"),
     @NamedQuery(name = "CaratteristicheChmiche.findByPPBioS", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.pPBioS = :pPBioS"),
-    @NamedQuery(name = "CaratteristicheChmiche.findByKPBioS", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.kPBioS = :kPBioS")})
+    @NamedQuery(name = "CaratteristicheChmiche.findByKPBioS", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.kPBioS = :kPBioS"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByM3LBovM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.m3LBovM = :m3LBovM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTknLBovM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tknLBovM = :tknLBovM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTanLBovM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tanLBovM = :tanLBovM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByDmLBovM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.dmLBovM = :dmLBovM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByVsLBovM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.vsLBovM = :vsLBovM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByPLBovM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.pLBovM = :pLBovM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByKLBovM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.kLBovM = :kLBovM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByM3PBovM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.m3PBovM = :m3PBovM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTknPBovM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tknPBovM = :tknPBovM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTanPBovM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tanPBovM = :tanPBovM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByDmPBovM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.dmPBovM = :dmPBovM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByVsPBovM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.vsPBovM = :vsPBovM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByPPBovM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.pPBovM = :pPBovM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByKPBovM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.kPBovM = :kPBovM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByM3LSuiM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.m3LSuiM = :m3LSuiM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTknLSuiM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tknLSuiM = :tknLSuiM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTanLSuiM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tanLSuiM = :tanLSuiM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByDmLSuiM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.dmLSuiM = :dmLSuiM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByVsLSuiM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.vsLSuiM = :vsLSuiM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByPLSuiM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.pLSuiM = :pLSuiM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByKLSuiM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.kLSuiM = :kLSuiM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByM3PSuiM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.m3PSuiM = :m3PSuiM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTknPSuiM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tknPSuiM = :tknPSuiM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTanPSuiM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tanPSuiM = :tanPSuiM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByDmPSuiM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.dmPSuiM = :dmPSuiM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByVsPSuiM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.vsPSuiM = :vsPSuiM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByPPSuiM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.pPSuiM = :pPSuiM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByKPSuiM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.kPSuiM = :kPSuiM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByM3LAviM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.m3LAviM = :m3LAviM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTknLAviM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tknLAviM = :tknLAviM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTanLAviM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tanLAviM = :tanLAviM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByDmLAviM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.dmLAviM = :dmLAviM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByVsLAviM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.vsLAviM = :vsLAviM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByPLAviM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.pLAviM = :pLAviM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByKLAviM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.kLAviM = :kLAviM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByM3PAviM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.m3PAviM = :m3PAviM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTknPAviM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tknPAviM = :tknPAviM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTanPAviM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tanPAviM = :tanPAviM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByDmPAviM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.dmPAviM = :dmPAviM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByVsPAviM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.vsPAviM = :vsPAviM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByPPAviM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.pPAviM = :pPAviM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByKPAviM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.kPAviM = :kPAviM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByM3LAltM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.m3LAltM = :m3LAltM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTknLAltM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tknLAltM = :tknLAltM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTanLAltM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tanLAltM = :tanLAltM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByDmLAltM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.dmLAltM = :dmLAltM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByVsLAltM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.vsLAltM = :vsLAltM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByPLAltM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.pLAltM = :pLAltM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByKLAltM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.kLAltM = :kLAltM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByM3PAltM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.m3PAltM = :m3PAltM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTknPAltM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tknPAltM = :tknPAltM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTanPAltM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tanPAltM = :tanPAltM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByDmPAltM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.dmPAltM = :dmPAltM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByVsPAltM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.vsPAltM = :vsPAltM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByPPAltM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.pPAltM = :pPAltM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByKPAltM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.kPAltM = :kPAltM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByM3LBioM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.m3LBioM = :m3LBioM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTknLBioM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tknLBioM = :tknLBioM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTanLBioM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tanLBioM = :tanLBioM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByDmLBioM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.dmLBioM = :dmLBioM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByVsLBioM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.vsLBioM = :vsLBioM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByPLBioM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.pLBioM = :pLBioM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByKLBioM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.kLBioM = :kLBioM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByM3PBioM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.m3PBioM = :m3PBioM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTknPBioM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tknPBioM = :tknPBioM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByTanPBioM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.tanPBioM = :tanPBioM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByDmPBioM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.dmPBioM = :dmPBioM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByVsPBioM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.vsPBioM = :vsPBioM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByPPBioM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.pPBioM = :pPBioM"),
+    @NamedQuery(name = "CaratteristicheChmiche.findByKPBioM", query = "SELECT c FROM CaratteristicheChmiche c WHERE c.kPBioM = :kPBioM")})
 public class CaratteristicheChmiche implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -455,6 +525,146 @@ public class CaratteristicheChmiche implements Serializable {
     private Double pPBioS;
     @Column(name = "k_p_bio_s", precision = 17, scale = 17)
     private Double kPBioS;
+    @Column(name = "m3_l_bov_m")
+    private Boolean m3LBovM;
+    @Column(name = "tkn_l_bov_m")
+    private Boolean tknLBovM;
+    @Column(name = "tan_l_bov_m")
+    private Boolean tanLBovM;
+    @Column(name = "dm_l_bov_m")
+    private Boolean dmLBovM;
+    @Column(name = "vs_l_bov_m")
+    private Boolean vsLBovM;
+    @Column(name = "p_l_bov_m")
+    private Boolean pLBovM;
+    @Column(name = "k_l_bov_m")
+    private Boolean kLBovM;
+    @Column(name = "m3_p_bov_m")
+    private Boolean m3PBovM;
+    @Column(name = "tkn_p_bov_m")
+    private Boolean tknPBovM;
+    @Column(name = "tan_p_bov_m")
+    private Boolean tanPBovM;
+    @Column(name = "dm_p_bov_m")
+    private Boolean dmPBovM;
+    @Column(name = "vs_p_bov_m")
+    private Boolean vsPBovM;
+    @Column(name = "p_p_bov_m")
+    private Boolean pPBovM;
+    @Column(name = "k_p_bov_m")
+    private Boolean kPBovM;
+    @Column(name = "m3_l_sui_m")
+    private Boolean m3LSuiM;
+    @Column(name = "tkn_l_sui_m")
+    private Boolean tknLSuiM;
+    @Column(name = "tan_l_sui_m")
+    private Boolean tanLSuiM;
+    @Column(name = "dm_l_sui_m")
+    private Boolean dmLSuiM;
+    @Column(name = "vs_l_sui_m")
+    private Boolean vsLSuiM;
+    @Column(name = "p_l_sui_m")
+    private Boolean pLSuiM;
+    @Column(name = "k_l_sui_m")
+    private Boolean kLSuiM;
+    @Column(name = "m3_p_sui_m")
+    private Boolean m3PSuiM;
+    @Column(name = "tkn_p_sui_m")
+    private Boolean tknPSuiM;
+    @Column(name = "tan_p_sui_m")
+    private Boolean tanPSuiM;
+    @Column(name = "dm_p_sui_m")
+    private Boolean dmPSuiM;
+    @Column(name = "vs_p_sui_m")
+    private Boolean vsPSuiM;
+    @Column(name = "p_p_sui_m")
+    private Boolean pPSuiM;
+    @Column(name = "k_p_sui_m")
+    private Boolean kPSuiM;
+    @Column(name = "m3_l_avi_m")
+    private Boolean m3LAviM;
+    @Column(name = "tkn_l_avi_m")
+    private Boolean tknLAviM;
+    @Column(name = "tan_l_avi_m")
+    private Boolean tanLAviM;
+    @Column(name = "dm_l_avi_m")
+    private Boolean dmLAviM;
+    @Column(name = "vs_l_avi_m")
+    private Boolean vsLAviM;
+    @Column(name = "p_l_avi_m")
+    private Boolean pLAviM;
+    @Column(name = "k_l_avi_m")
+    private Boolean kLAviM;
+    @Column(name = "m3_p_avi_m")
+    private Boolean m3PAviM;
+    @Column(name = "tkn_p_avi_m")
+    private Boolean tknPAviM;
+    @Column(name = "tan_p_avi_m")
+    private Boolean tanPAviM;
+    @Column(name = "dm_p_avi_m")
+    private Boolean dmPAviM;
+    @Column(name = "vs_p_avi_m")
+    private Boolean vsPAviM;
+    @Column(name = "p_p_avi_m")
+    private Boolean pPAviM;
+    @Column(name = "k_p_avi_m")
+    private Boolean kPAviM;
+    @Column(name = "m3_l_alt_m")
+    private Boolean m3LAltM;
+    @Column(name = "tkn_l_alt_m")
+    private Boolean tknLAltM;
+    @Column(name = "tan_l_alt_m")
+    private Boolean tanLAltM;
+    @Column(name = "dm_l_alt_m")
+    private Boolean dmLAltM;
+    @Column(name = "vs_l_alt_m")
+    private Boolean vsLAltM;
+    @Column(name = "p_l_alt_m")
+    private Boolean pLAltM;
+    @Column(name = "k_l_alt_m")
+    private Boolean kLAltM;
+    @Column(name = "m3_p_alt_m")
+    private Boolean m3PAltM;
+    @Column(name = "tkn_p_alt_m")
+    private Boolean tknPAltM;
+    @Column(name = "tan_p_alt_m")
+    private Boolean tanPAltM;
+    @Column(name = "dm_p_alt_m")
+    private Boolean dmPAltM;
+    @Column(name = "vs_p_alt_m")
+    private Boolean vsPAltM;
+    @Column(name = "p_p_alt_m")
+    private Boolean pPAltM;
+    @Column(name = "k_p_alt_m")
+    private Boolean kPAltM;
+    @Column(name = "m3_l_bio_m")
+    private Boolean m3LBioM;
+    @Column(name = "tkn_l_bio_m")
+    private Boolean tknLBioM;
+    @Column(name = "tan_l_bio_m")
+    private Boolean tanLBioM;
+    @Column(name = "dm_l_bio_m")
+    private Boolean dmLBioM;
+    @Column(name = "vs_l_bio_m")
+    private Boolean vsLBioM;
+    @Column(name = "p_l_bio_m")
+    private Boolean pLBioM;
+    @Column(name = "k_l_bio_m")
+    private Boolean kLBioM;
+    @Column(name = "m3_p_bio_m")
+    private Boolean m3PBioM;
+    @Column(name = "tkn_p_bio_m")
+    private Boolean tknPBioM;
+    @Column(name = "tan_p_bio_m")
+    private Boolean tanPBioM;
+    @Column(name = "dm_p_bio_m")
+    private Boolean dmPBioM;
+    @Column(name = "vs_p_bio_m")
+    private Boolean vsPBioM;
+    @Column(name = "p_p_bio_m")
+    private Boolean pPBioM;
+    @Column(name = "k_p_bio_m")
+    private Boolean kPBioM;
     @JoinColumn(name = "id_scenario", referencedColumnName = "idscenario", nullable = false, insertable = false, updatable = false)
     @OneToOne(optional = false)
     private ScenarioI scenarioI;
@@ -1592,6 +1802,566 @@ public class CaratteristicheChmiche implements Serializable {
 
     public void setKPBioS(Double kPBioS) {
         this.kPBioS = kPBioS;
+    }
+
+    public Boolean getM3LBovM() {
+        return m3LBovM;
+    }
+
+    public void setM3LBovM(Boolean m3LBovM) {
+        this.m3LBovM = m3LBovM;
+    }
+
+    public Boolean getTknLBovM() {
+        return tknLBovM;
+    }
+
+    public void setTknLBovM(Boolean tknLBovM) {
+        this.tknLBovM = tknLBovM;
+    }
+
+    public Boolean getTanLBovM() {
+        return tanLBovM;
+    }
+
+    public void setTanLBovM(Boolean tanLBovM) {
+        this.tanLBovM = tanLBovM;
+    }
+
+    public Boolean getDmLBovM() {
+        return dmLBovM;
+    }
+
+    public void setDmLBovM(Boolean dmLBovM) {
+        this.dmLBovM = dmLBovM;
+    }
+
+    public Boolean getVsLBovM() {
+        return vsLBovM;
+    }
+
+    public void setVsLBovM(Boolean vsLBovM) {
+        this.vsLBovM = vsLBovM;
+    }
+
+    public Boolean getPLBovM() {
+        return pLBovM;
+    }
+
+    public void setPLBovM(Boolean pLBovM) {
+        this.pLBovM = pLBovM;
+    }
+
+    public Boolean getKLBovM() {
+        return kLBovM;
+    }
+
+    public void setKLBovM(Boolean kLBovM) {
+        this.kLBovM = kLBovM;
+    }
+
+    public Boolean getM3PBovM() {
+        return m3PBovM;
+    }
+
+    public void setM3PBovM(Boolean m3PBovM) {
+        this.m3PBovM = m3PBovM;
+    }
+
+    public Boolean getTknPBovM() {
+        return tknPBovM;
+    }
+
+    public void setTknPBovM(Boolean tknPBovM) {
+        this.tknPBovM = tknPBovM;
+    }
+
+    public Boolean getTanPBovM() {
+        return tanPBovM;
+    }
+
+    public void setTanPBovM(Boolean tanPBovM) {
+        this.tanPBovM = tanPBovM;
+    }
+
+    public Boolean getDmPBovM() {
+        return dmPBovM;
+    }
+
+    public void setDmPBovM(Boolean dmPBovM) {
+        this.dmPBovM = dmPBovM;
+    }
+
+    public Boolean getVsPBovM() {
+        return vsPBovM;
+    }
+
+    public void setVsPBovM(Boolean vsPBovM) {
+        this.vsPBovM = vsPBovM;
+    }
+
+    public Boolean getPPBovM() {
+        return pPBovM;
+    }
+
+    public void setPPBovM(Boolean pPBovM) {
+        this.pPBovM = pPBovM;
+    }
+
+    public Boolean getKPBovM() {
+        return kPBovM;
+    }
+
+    public void setKPBovM(Boolean kPBovM) {
+        this.kPBovM = kPBovM;
+    }
+
+    public Boolean getM3LSuiM() {
+        return m3LSuiM;
+    }
+
+    public void setM3LSuiM(Boolean m3LSuiM) {
+        this.m3LSuiM = m3LSuiM;
+    }
+
+    public Boolean getTknLSuiM() {
+        return tknLSuiM;
+    }
+
+    public void setTknLSuiM(Boolean tknLSuiM) {
+        this.tknLSuiM = tknLSuiM;
+    }
+
+    public Boolean getTanLSuiM() {
+        return tanLSuiM;
+    }
+
+    public void setTanLSuiM(Boolean tanLSuiM) {
+        this.tanLSuiM = tanLSuiM;
+    }
+
+    public Boolean getDmLSuiM() {
+        return dmLSuiM;
+    }
+
+    public void setDmLSuiM(Boolean dmLSuiM) {
+        this.dmLSuiM = dmLSuiM;
+    }
+
+    public Boolean getVsLSuiM() {
+        return vsLSuiM;
+    }
+
+    public void setVsLSuiM(Boolean vsLSuiM) {
+        this.vsLSuiM = vsLSuiM;
+    }
+
+    public Boolean getPLSuiM() {
+        return pLSuiM;
+    }
+
+    public void setPLSuiM(Boolean pLSuiM) {
+        this.pLSuiM = pLSuiM;
+    }
+
+    public Boolean getKLSuiM() {
+        return kLSuiM;
+    }
+
+    public void setKLSuiM(Boolean kLSuiM) {
+        this.kLSuiM = kLSuiM;
+    }
+
+    public Boolean getM3PSuiM() {
+        return m3PSuiM;
+    }
+
+    public void setM3PSuiM(Boolean m3PSuiM) {
+        this.m3PSuiM = m3PSuiM;
+    }
+
+    public Boolean getTknPSuiM() {
+        return tknPSuiM;
+    }
+
+    public void setTknPSuiM(Boolean tknPSuiM) {
+        this.tknPSuiM = tknPSuiM;
+    }
+
+    public Boolean getTanPSuiM() {
+        return tanPSuiM;
+    }
+
+    public void setTanPSuiM(Boolean tanPSuiM) {
+        this.tanPSuiM = tanPSuiM;
+    }
+
+    public Boolean getDmPSuiM() {
+        return dmPSuiM;
+    }
+
+    public void setDmPSuiM(Boolean dmPSuiM) {
+        this.dmPSuiM = dmPSuiM;
+    }
+
+    public Boolean getVsPSuiM() {
+        return vsPSuiM;
+    }
+
+    public void setVsPSuiM(Boolean vsPSuiM) {
+        this.vsPSuiM = vsPSuiM;
+    }
+
+    public Boolean getPPSuiM() {
+        return pPSuiM;
+    }
+
+    public void setPPSuiM(Boolean pPSuiM) {
+        this.pPSuiM = pPSuiM;
+    }
+
+    public Boolean getKPSuiM() {
+        return kPSuiM;
+    }
+
+    public void setKPSuiM(Boolean kPSuiM) {
+        this.kPSuiM = kPSuiM;
+    }
+
+    public Boolean getM3LAviM() {
+        return m3LAviM;
+    }
+
+    public void setM3LAviM(Boolean m3LAviM) {
+        this.m3LAviM = m3LAviM;
+    }
+
+    public Boolean getTknLAviM() {
+        return tknLAviM;
+    }
+
+    public void setTknLAviM(Boolean tknLAviM) {
+        this.tknLAviM = tknLAviM;
+    }
+
+    public Boolean getTanLAviM() {
+        return tanLAviM;
+    }
+
+    public void setTanLAviM(Boolean tanLAviM) {
+        this.tanLAviM = tanLAviM;
+    }
+
+    public Boolean getDmLAviM() {
+        return dmLAviM;
+    }
+
+    public void setDmLAviM(Boolean dmLAviM) {
+        this.dmLAviM = dmLAviM;
+    }
+
+    public Boolean getVsLAviM() {
+        return vsLAviM;
+    }
+
+    public void setVsLAviM(Boolean vsLAviM) {
+        this.vsLAviM = vsLAviM;
+    }
+
+    public Boolean getPLAviM() {
+        return pLAviM;
+    }
+
+    public void setPLAviM(Boolean pLAviM) {
+        this.pLAviM = pLAviM;
+    }
+
+    public Boolean getKLAviM() {
+        return kLAviM;
+    }
+
+    public void setKLAviM(Boolean kLAviM) {
+        this.kLAviM = kLAviM;
+    }
+
+    public Boolean getM3PAviM() {
+        return m3PAviM;
+    }
+
+    public void setM3PAviM(Boolean m3PAviM) {
+        this.m3PAviM = m3PAviM;
+    }
+
+    public Boolean getTknPAviM() {
+        return tknPAviM;
+    }
+
+    public void setTknPAviM(Boolean tknPAviM) {
+        this.tknPAviM = tknPAviM;
+    }
+
+    public Boolean getTanPAviM() {
+        return tanPAviM;
+    }
+
+    public void setTanPAviM(Boolean tanPAviM) {
+        this.tanPAviM = tanPAviM;
+    }
+
+    public Boolean getDmPAviM() {
+        return dmPAviM;
+    }
+
+    public void setDmPAviM(Boolean dmPAviM) {
+        this.dmPAviM = dmPAviM;
+    }
+
+    public Boolean getVsPAviM() {
+        return vsPAviM;
+    }
+
+    public void setVsPAviM(Boolean vsPAviM) {
+        this.vsPAviM = vsPAviM;
+    }
+
+    public Boolean getPPAviM() {
+        return pPAviM;
+    }
+
+    public void setPPAviM(Boolean pPAviM) {
+        this.pPAviM = pPAviM;
+    }
+
+    public Boolean getKPAviM() {
+        return kPAviM;
+    }
+
+    public void setKPAviM(Boolean kPAviM) {
+        this.kPAviM = kPAviM;
+    }
+
+    public Boolean getM3LAltM() {
+        return m3LAltM;
+    }
+
+    public void setM3LAltM(Boolean m3LAltM) {
+        this.m3LAltM = m3LAltM;
+    }
+
+    public Boolean getTknLAltM() {
+        return tknLAltM;
+    }
+
+    public void setTknLAltM(Boolean tknLAltM) {
+        this.tknLAltM = tknLAltM;
+    }
+
+    public Boolean getTanLAltM() {
+        return tanLAltM;
+    }
+
+    public void setTanLAltM(Boolean tanLAltM) {
+        this.tanLAltM = tanLAltM;
+    }
+
+    public Boolean getDmLAltM() {
+        return dmLAltM;
+    }
+
+    public void setDmLAltM(Boolean dmLAltM) {
+        this.dmLAltM = dmLAltM;
+    }
+
+    public Boolean getVsLAltM() {
+        return vsLAltM;
+    }
+
+    public void setVsLAltM(Boolean vsLAltM) {
+        this.vsLAltM = vsLAltM;
+    }
+
+    public Boolean getPLAltM() {
+        return pLAltM;
+    }
+
+    public void setPLAltM(Boolean pLAltM) {
+        this.pLAltM = pLAltM;
+    }
+
+    public Boolean getKLAltM() {
+        return kLAltM;
+    }
+
+    public void setKLAltM(Boolean kLAltM) {
+        this.kLAltM = kLAltM;
+    }
+
+    public Boolean getM3PAltM() {
+        return m3PAltM;
+    }
+
+    public void setM3PAltM(Boolean m3PAltM) {
+        this.m3PAltM = m3PAltM;
+    }
+
+    public Boolean getTknPAltM() {
+        return tknPAltM;
+    }
+
+    public void setTknPAltM(Boolean tknPAltM) {
+        this.tknPAltM = tknPAltM;
+    }
+
+    public Boolean getTanPAltM() {
+        return tanPAltM;
+    }
+
+    public void setTanPAltM(Boolean tanPAltM) {
+        this.tanPAltM = tanPAltM;
+    }
+
+    public Boolean getDmPAltM() {
+        return dmPAltM;
+    }
+
+    public void setDmPAltM(Boolean dmPAltM) {
+        this.dmPAltM = dmPAltM;
+    }
+
+    public Boolean getVsPAltM() {
+        return vsPAltM;
+    }
+
+    public void setVsPAltM(Boolean vsPAltM) {
+        this.vsPAltM = vsPAltM;
+    }
+
+    public Boolean getPPAltM() {
+        return pPAltM;
+    }
+
+    public void setPPAltM(Boolean pPAltM) {
+        this.pPAltM = pPAltM;
+    }
+
+    public Boolean getKPAltM() {
+        return kPAltM;
+    }
+
+    public void setKPAltM(Boolean kPAltM) {
+        this.kPAltM = kPAltM;
+    }
+
+    public Boolean getM3LBioM() {
+        return m3LBioM;
+    }
+
+    public void setM3LBioM(Boolean m3LBioM) {
+        this.m3LBioM = m3LBioM;
+    }
+
+    public Boolean getTknLBioM() {
+        return tknLBioM;
+    }
+
+    public void setTknLBioM(Boolean tknLBioM) {
+        this.tknLBioM = tknLBioM;
+    }
+
+    public Boolean getTanLBioM() {
+        return tanLBioM;
+    }
+
+    public void setTanLBioM(Boolean tanLBioM) {
+        this.tanLBioM = tanLBioM;
+    }
+
+    public Boolean getDmLBioM() {
+        return dmLBioM;
+    }
+
+    public void setDmLBioM(Boolean dmLBioM) {
+        this.dmLBioM = dmLBioM;
+    }
+
+    public Boolean getVsLBioM() {
+        return vsLBioM;
+    }
+
+    public void setVsLBioM(Boolean vsLBioM) {
+        this.vsLBioM = vsLBioM;
+    }
+
+    public Boolean getPLBioM() {
+        return pLBioM;
+    }
+
+    public void setPLBioM(Boolean pLBioM) {
+        this.pLBioM = pLBioM;
+    }
+
+    public Boolean getKLBioM() {
+        return kLBioM;
+    }
+
+    public void setKLBioM(Boolean kLBioM) {
+        this.kLBioM = kLBioM;
+    }
+
+    public Boolean getM3PBioM() {
+        return m3PBioM;
+    }
+
+    public void setM3PBioM(Boolean m3PBioM) {
+        this.m3PBioM = m3PBioM;
+    }
+
+    public Boolean getTknPBioM() {
+        return tknPBioM;
+    }
+
+    public void setTknPBioM(Boolean tknPBioM) {
+        this.tknPBioM = tknPBioM;
+    }
+
+    public Boolean getTanPBioM() {
+        return tanPBioM;
+    }
+
+    public void setTanPBioM(Boolean tanPBioM) {
+        this.tanPBioM = tanPBioM;
+    }
+
+    public Boolean getDmPBioM() {
+        return dmPBioM;
+    }
+
+    public void setDmPBioM(Boolean dmPBioM) {
+        this.dmPBioM = dmPBioM;
+    }
+
+    public Boolean getVsPBioM() {
+        return vsPBioM;
+    }
+
+    public void setVsPBioM(Boolean vsPBioM) {
+        this.vsPBioM = vsPBioM;
+    }
+
+    public Boolean getPPBioM() {
+        return pPBioM;
+    }
+
+    public void setPPBioM(Boolean pPBioM) {
+        this.pPBioM = pPBioM;
+    }
+
+    public Boolean getKPBioM() {
+        return kPBioM;
+    }
+
+    public void setKPBioM(Boolean kPBioM) {
+        this.kPBioM = kPBioM;
     }
 
     public ScenarioI getScenarioI() {

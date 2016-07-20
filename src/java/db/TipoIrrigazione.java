@@ -5,40 +5,75 @@
 package db;
 
 import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *Descrive i tipi di irrgazione possibili. Ha un legame 1 a 1 con appezzamento.
+ *
  * @author giorgio
  */
 @Entity
-@Table(name="tipo_irrigazione", catalog = "renuwal1", schema = "allevamento")
+@Table(name = "tipo_irrigazione", catalog = "renuwal1", schema = "allevamento")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TipoIrrigazione.findAll", query = "SELECT t FROM TipoIrrigazione t"),
-    @NamedQuery(name = "TipoIrrigazione.findById", query = "SELECT t FROM TipoIrrigazione t where t.id = :id"),
-     @NamedQuery(name = "TipoIrrigazione.findByDescrizione", query = "SELECT t FROM TipoIrrigazione t where t.descrizione = :descrizione")
-    })
+    @NamedQuery(name = "TipoIrrigazione.findById", query = "SELECT t FROM TipoIrrigazione t WHERE t.id = :id"),
+    @NamedQuery(name = "TipoIrrigazione.findByDescrizione", query = "SELECT t FROM TipoIrrigazione t WHERE t.descrizione = :descrizione")})
 public class TipoIrrigazione implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Basic(optional = false)
+    @NotNull
+    @Column(nullable = false)
     private Long id;
+    @Size(max = 255)
+    @Column(length = 255)
     private String descrizione;
-    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoirrigazione")
+    private Collection<Appezzamento> appezzamentoCollection;
+
+    public TipoIrrigazione() {
+    }
+
+    public TipoIrrigazione(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
+    }
+
+    @XmlTransient
+    public Collection<Appezzamento> getAppezzamentoCollection() {
+        return appezzamentoCollection;
+    }
+
+    public void setAppezzamentoCollection(Collection<Appezzamento> appezzamentoCollection) {
+        this.appezzamentoCollection = appezzamentoCollection;
     }
 
     @Override
@@ -63,22 +98,7 @@ public class TipoIrrigazione implements Serializable {
 
     @Override
     public String toString() {
-        //return "db.TipoIrrigazione[ id=" + id + " ]";
-        return id.toString();
-    }
-
-    /**
-     * @return the descrizione
-     */
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    /**
-     * @param descrizione the descrizione to set
-     */
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
+        return "db.TipoIrrigazione[ id=" + id + " ]";
     }
     
 }
