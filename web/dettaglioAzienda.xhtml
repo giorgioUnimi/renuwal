@@ -84,11 +84,15 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
             * chiama il jsp modificaripristina.jsp in librerie per modificare il campo testo associato
             * al bottone selezionato dall'utente
             */
-           function eseguimodifica(valore,azione,posizione,tipologia,scenario){
-            $.ajax(
+           function eseguimodifica(valore,azione,posizione,tipologia,scenario){              
+               
+            alert("eseguimodifica " + valore);  
+               
+            $j.ajax(
             {
                 type:'GET',
-                url:'dajquery/modificaripristina.jsp',
+                url:'http://localhost:8080/renuwal/faces/modificaripristina.jsp',
+                async : false,
                 data: {
                     valore    : valore,
                     azione    : azione,
@@ -114,7 +118,10 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
             $j("#form\\:table\\:0\\:sbtbl\\:0\\:metricubi_mod").click(function(){
                 var valore = $j("#form\\:table\\:0\\:sbtbl\\:0\\:metricubi").val();
                 //alert("metri cubi letame bovino modifica " + valore);
-                eseguimodifica(valore,0,1,"Letame Bovino",399);
+                //eseguimodifica(valore,0,1,"Letame Bovino",399);
+                
+                var scenario = $j("#scenario_ajax").val();
+                alert("scenario " + scenario);
                 
             });
             
@@ -265,7 +272,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                   <br/>
                                                                  
                                                               
-                                                                 
+                                                                  <h:inputHidden value="#{dettaglioCuaa.idscenario}" id="scenario_ajax"/>
                                                                   
                                                                  <!-- <rich:extendedDataTable value="#{dettaglioAzienda.listaCaratteristiche}" var="lista"  id="table" style="width:700px;"  selectionMode="#{dettaglioAzienda.selectionMode}" selection="#{dettaglioAzienda.selection}">-->
                                                                   <rich:dataTable value="#{dettaglioAzienda.listaCaratteristiche}" var="lista"  id="table" style="width:700px;" >

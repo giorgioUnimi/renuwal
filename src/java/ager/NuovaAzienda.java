@@ -115,10 +115,10 @@ public class NuovaAzienda implements Serializable{
          newazienda.setCuaa(cuaa);
          newazienda.setCodComune(Integer.parseInt(this.codice_comune));
          newazienda.setDesComune(this.comune);
-         newazienda.setCodiceProvincia(this.codice_provincia);
-         newazienda.setDesProvincia(this.provincia);
-         newazienda.setCentroX(0.0);
-         newazienda.setCentroY(0.0);
+         newazienda.setCodiceprovincia(this.codice_provincia);
+         newazienda.setDesprovincia(this.provincia);
+         newazienda.setCentrox(0.0);
+         newazienda.setCentroy(0.0);
          
          newazienda.setDeroga(this.deroga);
          //newazienda.setCodComunePresentazione(Integer.parseInt(this.codice_comune));

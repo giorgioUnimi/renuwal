@@ -6,7 +6,7 @@ package bean_entity;
 
 import db.Appezzamento;
 import db.Coltura;
-import db.GruppoColturale;
+import db.Gruppocolturale;
 import db.Rotazione;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -28,7 +28,7 @@ public class StoricoColturaAppezzamentoE {
     private long idColtura  = 1;   
     private Appezzamento idAppezzamento;   
     private Rotazione rotazione;   
-    private GruppoColturale idGruppoColturale;
+    private Gruppocolturale idGruppoColturale;
     private double asportazioneAzoto;
     private double asportazioneFosforo;
     private double asportazionePotassio;
@@ -123,14 +123,14 @@ public class StoricoColturaAppezzamentoE {
     /**
      * @return the idGruppoColturale
      */
-    public GruppoColturale getIdGruppoColturale() {
+    public Gruppocolturale getIdGruppoColturale() {
         return idGruppoColturale;
     }
 
     /**
      * @param idGruppoColturale the idGruppoColturale to set
      */
-    public void setIdGruppoColturale(GruppoColturale idGruppoColturale) {
+    public void setIdGruppoColturale(Gruppocolturale idGruppoColturale) {
         this.idGruppoColturale = idGruppoColturale;
     }
     
@@ -162,7 +162,7 @@ public class StoricoColturaAppezzamentoE {
         db.Appezzamento app = entityManager.find(db.Appezzamento.class,this.idAppezzamento.getId());
         double azoto_precedente = 0;
         if (this.rotazione.getId() != null && this.rotazione.getId() == 1) {
-            switch (app.getColturaPrecedente().getId()) {
+            switch (app.getColturaprecedenteId().getId()) {
                 case 2:
                     azoto_precedente = -40;
                     break;
@@ -178,12 +178,12 @@ public class StoricoColturaAppezzamentoE {
           * della resa nella pagina piano_colturale
           */
          db.Coltura colt = entityManager.find(db.Coltura.class,this.idColtura);
-         db.Asportazione asp = colt.getAsportazione();
-         double fattoreCorrettivo = asp.getFattoreCorrettivo();
-         double resadb = colt.getResa().getQuantita();
-         double aspP = asp.getAspP2O5();
-         double aspK = asp.getK2O();
-         this.mas =colt.getAsportazione().getMasN();
+         db.Asportazione asp = colt.getAsportazioneId();
+         double fattoreCorrettivo = asp.getFattorecorrettivo();
+         double resadb = colt.getResaId().getQuantita();
+         double aspP = asp.getAspp2o5();
+         double aspK = asp.getK2o();
+         this.mas =colt.getAsportazioneId().getMasn();
           
          
          this.asportazioneAzoto = mas +(this.resa_attesa - resadb ) *fattoreCorrettivo + azoto_precedente;
@@ -264,7 +264,7 @@ public class StoricoColturaAppezzamentoE {
          
         db.Coltura colturaScelta=entityManager.find(db.Coltura.class, this.idColtura);
     
-        this.resa_attesa =  colturaScelta.getResa().getQuantita();
+        this.resa_attesa =  colturaScelta.getResaId().getQuantita();
         
        
         

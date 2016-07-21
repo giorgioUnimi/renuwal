@@ -173,7 +173,7 @@ public class ListaAziende implements Serializable {
      * nel caso del modifica azienda
      */
      public void store() {              
-        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " +Thread.currentThread().getStackTrace()[1].getMethodName() + " id " + this.aziendaEdit.getId() + " cuaa " + this.aziendaEdit.getCuaa() + " comune " + this.aziendaEdit.getDesComune() + " provincia " +this.aziendaEdit.getDesProvincia() + " deroga " + this.aziendaEdit.getDeroga());
+        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " +Thread.currentThread().getStackTrace()[1].getMethodName() + " id " + this.aziendaEdit.getId() + " cuaa " + this.aziendaEdit.getCuaa() + " comune " + this.aziendaEdit.getDesComune() + " provincia " +this.aziendaEdit.getDesprovincia() + " deroga " + this.aziendaEdit.getDeroga());
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
@@ -185,8 +185,8 @@ public class ListaAziende implements Serializable {
              entityManager.getTransaction().begin();
              editAzienda.setCodComune(this.aziendaEdit.getCodComune());
              editAzienda.setDesComune(this.aziendaEdit.getDesComune());
-             editAzienda.setCodiceProvincia(this.aziendaEdit.getCodiceProvincia());
-             editAzienda.setDesProvincia(this.aziendaEdit.getDesProvincia());
+             editAzienda.setCodiceprovincia(this.aziendaEdit.getCodiceprovincia());
+             editAzienda.setDesprovincia(this.aziendaEdit.getDesprovincia());
              editAzienda.setRagioneSociale(this.aziendaEdit.getRagioneSociale());
              editAzienda.setDeroga(this.aziendaEdit.getDeroga());
              editAzienda.setCuaa(this.aziendaEdit.getCuaa());

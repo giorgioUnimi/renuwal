@@ -94,7 +94,7 @@ public class RecordAppezzamento {
        /**
         * recupero lo storico del db storicolturaappezzamento
         */
-       Iterator<db.StoricoColturaAppezzamento> iterSto =   app.getStoricoColturaAppezzamento().iterator();       
+       Iterator<db.Storicocolturaappezzamento> iterSto =   app.getStoricocolturaappezzamentoCollection().iterator();       
        
        StoricoColturaAppezzamentoE[] temp = new  StoricoColturaAppezzamentoE[3];
        
@@ -103,22 +103,22 @@ public class RecordAppezzamento {
         }
        
        
-        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " + Thread.currentThread().getStackTrace()[1].getMethodName() +" 3 id appezzamento " + appezzamento.getId() + " numero storico  " +app.getStoricoColturaAppezzamento().size());
+        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " + Thread.currentThread().getStackTrace()[1].getMethodName() +" 3 id appezzamento " + appezzamento.getId() + " numero storico  " +app.getStoricocolturaappezzamentoCollection().size());
 
        
        int i = 0;
        while(iterSto.hasNext())
        {
-           db.StoricoColturaAppezzamento temp1 = iterSto.next();
+           db.Storicocolturaappezzamento temp1 = iterSto.next();
            
-           temp[i].setAsportazioneAzoto(temp1.getAsportazioneAzoto());
-           temp[i].setAsportazioneFosforo(temp1.getAsportazioneFosforo());
-           temp[i].setAsportazionePotassio(temp1.getAsportazionePotassio());
-           temp[i].setIdAppezzamento(temp1.getIdAppezzamento());
-           temp[i].setIdColtura(temp1.getIdColtura().getId());
+           temp[i].setAsportazioneAzoto(temp1.getAsportazioneazoto());
+           temp[i].setAsportazioneFosforo(temp1.getAsportazionefosforo());
+           temp[i].setAsportazionePotassio(temp1.getAsportazionepotassio());
+           temp[i].setIdAppezzamento(temp1.getIdappezzamentoId());
+           temp[i].setIdColtura(temp1.getIdcolturaId().getId());
            temp[i].setMas(temp1.getMas());
-           temp[i].setResa_attesa(temp1.getResa_attesa());
-           temp[i].setRotazione(temp1.getRotazione());
+           temp[i].setResa_attesa(temp1.getResaAttesa());
+           temp[i].setRotazione(temp1.getRotazioneId());
            
            
            
@@ -424,12 +424,12 @@ public class RecordAppezzamento {
          } 
         
          if (this.appezzamento != null) {
-            db.ColturaPrecedente colturaPrecedente = entityManager.find(db.ColturaPrecedente.class, coltura_precedente);
+            db.Colturaprecedente colturaPrecedente = entityManager.find(db.Colturaprecedente.class, coltura_precedente);
             db.Appezzamento modifyAppezzamento = entityManager.find(db.Appezzamento.class, this.appezzamento.getId());
 
             entityManager.getTransaction().begin();
 
-            modifyAppezzamento.setColturaPrecedente(colturaPrecedente);
+            modifyAppezzamento.setColturaprecedenteId(colturaPrecedente);
 
             entityManager.getTransaction().commit();
             

@@ -112,7 +112,7 @@ public class ListaAppezzamenti {
        //il tipo di terreno , il tipo di irrigazione
        Query q = entityManager.createNamedQuery("ScenarioI.findByIdscenario").setParameter("idscenario", getDettaglioCuaa().getIdscenario());
                 setSceT((db.ScenarioI)q.getResultList().get(0));
-       Iterator<db.Appezzamento> iterAppezzamenti=getSceT().getAppezzamentiCollection().iterator();
+       Iterator<db.Appezzamento> iterAppezzamenti=getSceT().getAppezzamentoCollection().iterator();
           
        //         getListaAppezzamenti().clear();
        
@@ -123,11 +123,11 @@ public class ListaAppezzamenti {
            reT.popolaRotazioni();
            reT.setNome(apptemp.getNome());
            reT.setSuperficie(apptemp.getSuperficie());
-           reT.setSvn(apptemp.isSvz());
-           reT.setTipoIrrigazione(apptemp.getTipoIrrigazione());
-           reT.setTipoTerreno(apptemp.getTipoTerreno());
-           reT.setId(apptemp.getId());
-           reT.setColtura_precedente(apptemp.getColturaPrecedente().getId());
+           reT.setSvn(apptemp.getSvz());
+           reT.setTipoIrrigazione(apptemp.getTipoirrigazione());
+           reT.setTipoTerreno(apptemp.getTipoterreno());
+           reT.setId((long)apptemp.getId());
+           reT.setColtura_precedente(apptemp.getColturaprecedenteId().getId());
            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " + Thread.currentThread().getStackTrace()[1].getMethodName() +" idappezzamento " + reT.getId() + " aggiunto" + " nome: " + reT.getNome());
            
            this.listaAppezzamenti.add(reT);

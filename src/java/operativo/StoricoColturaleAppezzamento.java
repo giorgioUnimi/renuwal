@@ -152,7 +152,7 @@ public class StoricoColturaleAppezzamento extends ListaAppezzamenti implements S
          */    
         Iterator<StoricoColturaAppezzamentoE> iter = storico.iterator();
         db.Appezzamento appT = null;
-        db.StoricoColturaAppezzamento stoT = null;
+        db.Storicocolturaappezzamento stoT = null;
         StoricoColturaAppezzamentoE sto = iter.next();
         //prendo il primo record dello storico per avere l'id dell'appezzamento
         appT = entityManager.find(db.Appezzamento.class, sto.getIdAppezzamento().getId());
@@ -175,18 +175,18 @@ public class StoricoColturaleAppezzamento extends ListaAppezzamenti implements S
            
             //if (sto.getIdColtura() != 1) {
                 
-                stoT = new db.StoricoColturaAppezzamento();
-                stoT.setAsportazioneAzoto(sto.getAsportazioneAzoto());
-                stoT.setAsportazioneFosforo(sto.getAsportazioneFosforo());
-                stoT.setAsportazionePotassio(sto.getAsportazionePotassio());
-                stoT.setIdAppezzamento(sto.getIdAppezzamento());
+                stoT = new db.Storicocolturaappezzamento();
+                stoT.setAsportazioneazoto(sto.getAsportazioneAzoto());
+                stoT.setAsportazionefosforo(sto.getAsportazioneFosforo());
+                stoT.setAsportazionepotassio(sto.getAsportazionePotassio());
+                stoT.setIdappezzamentoId(sto.getIdAppezzamento());
                 db.Coltura colT = entityManager.find(db.Coltura.class, sto.getIdColtura());
                 db.Rotazione rota = entityManager.find(db.Rotazione.class,rotaz);
-                stoT.setIdColtura(colT);
+                stoT.setIdcolturaId(colT);
                 stoT.setMas(sto.getMas());
-                stoT.setRotazione(rota);
+                stoT.setRotazioneId(rota);
                 rotaz++;
-                stoT.setResa_attesa(sto.getResa_attesa());
+                stoT.setResaAttesa(sto.getResa_attesa());
                 System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " + Thread.currentThread().getStackTrace()[1].getMethodName() + " dimensione storico " + storico.size() + " add item alla lista id appezzamento " + storico.get(1).getIdAppezzamento().getId() + " idcoltura " + sto.getIdColtura() + " mas " + sto.getMas() + " resa attesa" + sto.getResa_attesa());
 
                 //appT.getStoricoColturaAppezzamento().add(stoT);

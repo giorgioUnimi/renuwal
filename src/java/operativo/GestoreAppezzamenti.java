@@ -6,8 +6,8 @@ package operativo;
 
 import operativo.*;
 import db.Appezzamento;
-import db.ColturaPrecedente;
-import db.StoricoColturaAppezzamento;
+import db.Colturaprecedente;
+import db.Storicocolturaappezzamento;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -122,8 +122,8 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
              appT.setNome(this.appezzamentoEdit.getNome());
              appT.setSuperficie(this.appezzamentoEdit.getSuperficie());
              appT.setSvz(this.appezzamentoEdit.isSvn());
-             appT.setTipoIrrigazione(tipoIrrigazione);
-             appT.setTipoTerreno(tipoTerreno);
+             appT.setTipoirrigazione(tipoIrrigazione);
+             appT.setTipoterreno(tipoTerreno);
          }
          
          entityManager.getTransaction().begin();
@@ -182,7 +182,7 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
             entityManager = connessione.apri("renuwal1");
          }
         db.ScenarioI sceT = entityManager.find(db.ScenarioI.class,this.getDettaglioCuaa().getIdscenario());
-        Iterator<db.Appezzamento> iterApp = sceT.getAppezzamentiCollection().iterator();
+        Iterator<db.Appezzamento> iterApp = sceT.getAppezzamentoCollection().iterator();
         db.Appezzamento app = null;
         while(iterApp.hasNext())
         {
@@ -195,7 +195,7 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
         
         if(app != null)
         {
-           sceT.getAppezzamentiCollection().remove(app); 
+           sceT.getAppezzamentoCollection().remove(app); 
         }
         
         entityManager.getTransaction().begin();
@@ -404,7 +404,7 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
           return -1;
        }
        
-       ColturaPrecedente colturaPrecedente = entityManager.find(db.ColturaPrecedente.class,1);
+       Colturaprecedente colturaPrecedente = entityManager.find(db.Colturaprecedente.class,1);
        
        
         entityManager.getTransaction().begin();
@@ -412,16 +412,16 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
         nuovoappezzamento.setNome(this.getNome());
         nuovoappezzamento.setSuperficie(this.getSuperficie());
         //nuovoappezzamento.setScenario(scenT);
-        nuovoappezzamento.setTipoIrrigazione(tipoIrr);
-        nuovoappezzamento.setTipoTerreno(tipoTer);
+        nuovoappezzamento.setTipoirrigazione(tipoIrr);
+        nuovoappezzamento.setTipoterreno(tipoTer);
         nuovoappezzamento.setSvz(this.isSvn());
-        nuovoappezzamento.setColturaPrecedente(colturaPrecedente);
+        nuovoappezzamento.setColturaprecedenteId(colturaPrecedente);
         
        //List<StoricoColturaAppezzamento> storicoColtura = nuovoappezzamento.getStoricoColturaAppezzamento();
      
         
         //entityManager.persist(nuovoappezzamento);
-        scenT.getAppezzamentiCollection().add(nuovoappezzamento);
+        scenT.getAppezzamentoCollection().add(nuovoappezzamento);
         entityManager.persist(scenT);
         entityManager.getTransaction().commit();
         entityManager.close();
@@ -438,44 +438,44 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
 
         db.Appezzamento app1 = entityManager.find(db.Appezzamento.class,nuovoappezzamento.getId());
         db.Coltura coltura = entityManager.find(db.Coltura.class, 1L);
-        db.GruppoColturale gruppoColturale = entityManager.find(db.GruppoColturale.class, 6L);
+        db.Gruppocolturale gruppoColturale = entityManager.find(db.Gruppocolturale.class, 6L);
         db.Rotazione rot1 = entityManager.find(db.Rotazione.class, 1);
         db.Rotazione rot2 = entityManager.find(db.Rotazione.class, 2);
         db.Rotazione rot3 = entityManager.find(db.Rotazione.class, 3);
         
-        db.StoricoColturaAppezzamento sto1 = new db.StoricoColturaAppezzamento();
-        sto1.setIdAppezzamento(app1);
-        sto1.setAsportazioneAzoto(0);
-        sto1.setAsportazioneFosforo(0);
-        sto1.setMas(0);      
-        sto1.setResa_attesa(0);
-        sto1.setIdColtura(coltura);
-        sto1.setIdGruppoColturale(gruppoColturale);
-        sto1.setRotazione(rot1);
+        db.Storicocolturaappezzamento sto1 = new db.Storicocolturaappezzamento();
+        sto1.setIdappezzamentoId(app1);
+        sto1.setAsportazioneazoto(0d);
+        sto1.setAsportazionefosforo(0d);
+        sto1.setMas(0d);      
+        sto1.setResaAttesa(0d);
+        sto1.setIdcolturaId(coltura);
+        sto1.setIdgruppocolturaleId(gruppoColturale);
+        sto1.setRotazioneId(rot1);
         
-         db.StoricoColturaAppezzamento sto2 = new db.StoricoColturaAppezzamento();
-        sto2.setIdAppezzamento(app1);
-        sto2.setAsportazioneAzoto(0);
-        sto2.setAsportazioneFosforo(0);
-        sto2.setMas(0);      
-        sto2.setResa_attesa(0);
-        sto2.setIdColtura(coltura);
-        sto2.setIdGruppoColturale(gruppoColturale);
-        sto2.setRotazione(rot2);
+         db.Storicocolturaappezzamento sto2 = new db.Storicocolturaappezzamento();
+        sto2.setIdappezzamentoId(app1);
+        sto2.setAsportazioneazoto(0d);
+        sto2.setAsportazionefosforo(0d);
+        sto2.setMas(0d);      
+        sto2.setResaAttesa(0d);
+        sto2.setIdcolturaId(coltura);
+        sto2.setIdgruppocolturaleId(gruppoColturale);
+        sto2.setRotazioneId(rot2);
         
-         db.StoricoColturaAppezzamento sto3 = new db.StoricoColturaAppezzamento();
-        sto3.setIdAppezzamento(app1);
-        sto3.setAsportazioneAzoto(0);
-        sto3.setAsportazioneFosforo(0);
-        sto3.setMas(0);      
-        sto3.setResa_attesa(0);
-        sto3.setIdColtura(coltura);
-        sto3.setIdGruppoColturale(gruppoColturale);
-        sto3.setRotazione(rot3);
+         db.Storicocolturaappezzamento sto3 = new db.Storicocolturaappezzamento();
+        sto3.setIdappezzamentoId(app1);
+        sto3.setAsportazioneazoto(0d);
+        sto3.setAsportazionefosforo(0d);
+        sto3.setMas(0d);      
+        sto3.setResaAttesa(0d);
+        sto3.setIdcolturaId(coltura);
+        sto3.setIdgruppocolturaleId(gruppoColturale);
+        sto3.setRotazioneId(rot3);
         
-        app1.getStoricoColturaAppezzamento().add(sto1);
-          app1.getStoricoColturaAppezzamento().add(sto2);
-            app1.getStoricoColturaAppezzamento().add(sto3);
+        app1.getStoricocolturaappezzamentoCollection().add(sto1);
+          app1.getStoricocolturaappezzamentoCollection().add(sto2);
+            app1.getStoricocolturaappezzamentoCollection().add(sto3);
        
         entityManager.persist(app1);
         entityManager.persist(sto1);

@@ -62,23 +62,23 @@ public class PianoDistribuzione {
          
        Query q = entityManager.createNamedQuery("ScenarioI.findByIdscenario").setParameter("idscenario", getDettaglioCuaa().getScenario());
        db.ScenarioI sceT = (db.ScenarioI)q.getResultList().get(0);         
-       Iterator<db.Appezzamento> iterAppezzamento = sceT.getAppezzamentiCollection().iterator();
+       Iterator<db.Appezzamento> iterAppezzamento = sceT.getAppezzamentoCollection().iterator();
        
        
        while(iterAppezzamento.hasNext())
        {
            db.Appezzamento appT = iterAppezzamento.next();
-           Iterator<db.StoricoColturaAppezzamento> storicoTemp = appT.getStoricoColturaAppezzamento().iterator();
+           Iterator<db.Storicocolturaappezzamento> storicoTemp = appT.getStoricocolturaappezzamentoCollection().iterator();
            while(storicoTemp.hasNext())
            {
-               db.StoricoColturaAppezzamento storicoT = storicoTemp.next();
+               db.Storicocolturaappezzamento storicoT = storicoTemp.next();
                RecordDistribuzione recordDistribuzione = new RecordDistribuzione();
                recordDistribuzione.setNomeAppezzamento(appT.getNome());
                recordDistribuzione.setSuperficie(appT.getSuperficie());
-               recordDistribuzione.setColtura(storicoT.getIdColtura().getDescrizione());
-               recordDistribuzione.setResa_attesa(storicoT.getResa_attesa());
-               recordDistribuzione.setAsportazioniN(storicoT.getAsportazioneAzoto());
-               recordDistribuzione.setRotazione(storicoT.getRotazione().getId());
+               recordDistribuzione.setColtura(storicoT.getIdcolturaId().getDescrizione());
+               recordDistribuzione.setResa_attesa(storicoT.getResaAttesa());
+               recordDistribuzione.setAsportazioniN(storicoT.getAsportazioneazoto());
+               recordDistribuzione.setRotazione(storicoT.getRotazioneId().getId());
                this.appezzamenti.add(recordDistribuzione);
            }
        }
