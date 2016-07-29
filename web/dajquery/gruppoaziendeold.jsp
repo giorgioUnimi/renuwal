@@ -41,7 +41,7 @@
   /*
  * stampa sul web il contenitore iniziale e totale di tutte le aziende di un gruppo
  * */
-  /*private void tabellaIniziale(ContenitoreReflui contenitoreReflui,javax.servlet.jsp.JspWriter dinamicOut)
+  private void tabellaIniziale(ContenitoreReflui contenitoreReflui,javax.servlet.jsp.JspWriter dinamicOut)
                    {
       
                            try{
@@ -81,7 +81,7 @@
                            }
                                    
                                    
-                       }*/
+                       }
 
         
 %>
@@ -89,15 +89,15 @@
 <%
 
     
-    System.out.println("sono qui");
+
 
     //recupero il numero random 
       String numerorandom1 = request.getParameter("numerorandom");
-     // String numerorandom1 = getRandomNumber(5);
+      
       System.out.println("dajquery/gruppoaziende.jsp " + numerorandom1 );
       
       
-      EntityManagerFactory entityManagerFactory = null;
+       EntityManagerFactory entityManagerFactory = null;
       EntityManager entityManager = null;
       JpaEntityManager jpa = null;
      
@@ -121,8 +121,8 @@
         Element elemento = inputoutputxml.generaXml();
         
         inputoutputxml.inserisciData(elemento);
-        //inputoutputxml.inserisciUtente(elemento,dettaglioCuaa.getUtente());
-        inputoutputxml.inserisciUtente(elemento,"azienda1");
+        inputoutputxml.inserisciUtente(elemento,dettaglioCuaa.getUtente());
+         //inputoutputxml.inserisciUtente(elemento,"azienda1");
         
          
        String operazione = request.getParameter("operazionescelta");
@@ -197,7 +197,7 @@
          */
          if (entityManagerFactory == null || !(entityManagerFactory.isOpen())) {
                  Connessione connessione = Connessione.getInstance();
-                 entityManager = connessione.apri("renuwal1");
+                 entityManager = connessione.apri("provagiorgio13");
                  entityManagerFactory = connessione.getEntityManagerFactory();
              }
              //lo scenario mi arriva nella forma "scenario : 0" per cui nella posizione modulo 3 devo togliere la scritta scenario :
@@ -215,24 +215,24 @@
              boolean utenteospite = false;
              Query azQ1 ;
              
-             //if(dettaglioCuaa.getUtente().equals("azienda1"))
-               // { 
+             if(dettaglioCuaa.getUtente().equals("azienda1"))
+                { 
                  azQ1 = entityManager.createNamedQuery("AziendeI.findByCuaa").setParameter("cuaa", aziende[1]);
                  System.out.println("query con cuaa azienda1 " + aziende[1]); 
-                /*}
+                }
              else
               {
                  System.out.println("query con cuaa finto  azienda1 "  + aziende[1]);
                 azQ1 = entityManager.createNamedQuery("AziendeI.findByCuaaFinto").setParameter("cuaaFinto", aziende[1]);
                 utenteospite = true ;
-              }  */
+              }  
              
              db.AziendeI az1 = (db.AziendeI) azQ1.getSingleResult();
 
              System.out.println("scen1 " + scen1 + " azienda " + az1.getCuaa());
 
-             TypedQuery<db.ScenarioI> q1 = entityManager.createQuery("SELECT a FROM ScenarioI a WHERE a.idscenario=?1 ", db.ScenarioI.class);
-             //q1.setParameter(2, az1);
+             TypedQuery<db.ScenarioI> q1 = entityManager.createQuery("SELECT a FROM ScenarioI a WHERE a.id=?1 AND a.cuaa=?2", db.ScenarioI.class);
+             q1.setParameter(2, az1);
              q1.setParameter(1, scen1);
              long idscenario1 = q1.getSingleResult().getIdscenario();
          
@@ -293,14 +293,14 @@
                  cuaaString.add(aziende[i]);
                  Element azienda = null;
                  
-                 //if(utenteospite)
+                 if(utenteospite)
                      azienda = inputoutputxml.aggiungiAzienda(elemento, aziende[i], String.valueOf(scen),true);
-                /* else
-                     azienda = inputoutputxml.aggiungiAzienda(elemento, aziende[i], String.valueOf(scen),false);*/
+                 else
+                     azienda = inputoutputxml.aggiungiAzienda(elemento, aziende[i], String.valueOf(scen),false);
                  
                  
                  ContenitoreAziendale contenitore = ContenitoreAziendale.getInstance(aziende[i], scen);
-                 contenitore.getData(scen);
+                 contenitore.getData(aziende[i],scen);
                  contenitoreIniziale = contenitore.getContenitore();
                  
                  //aggiungo il contenuto delle varie tipolgie di refluo di ogni azianda
@@ -332,7 +332,7 @@
                  if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
                             {
                                Connessione connessione = Connessione.getInstance();
-                               entityManager = connessione.apri("renuwal1");
+                               entityManager = connessione.apri("provagiorgio13");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                             }
                  
@@ -343,18 +343,18 @@
                 Query azQ;
                  
                 //if(dettaglioCuaa.getUtente().equals("azienda1"))
-               // if(!utenteospite)
-               // {
+                if(!utenteospite)
+                {
                     //System.out.println("query con cuaa");
                     azQ = entityManager.createNamedQuery("AziendeI.findByCuaa").setParameter("cuaa", aziende[i]);
                     
-              /*  }
+                }
                 else
                 {
                      //System.out.println("query con cuaa finto");
                     azQ = entityManager.createNamedQuery("AziendeI.findByCuaaFinto").setParameter("cuaaFinto", aziende[i]);
                    
-                }*/
+                }
                  
                 db.AziendeI az =(db.AziendeI)azQ.getSingleResult();
                  
@@ -363,8 +363,8 @@
                  */
                  //listaAziende.add(az);
                  
-                 TypedQuery<db.ScenarioI> q = entityManager.createQuery("SELECT a FROM ScenarioI a WHERE a.idscenario=?1 ",db.ScenarioI.class);                 
-                 //q.setParameter(2, az);
+                 TypedQuery<db.ScenarioI> q = entityManager.createQuery("SELECT a FROM ScenarioI a WHERE a.id=?1 AND a.cuaa=?2",db.ScenarioI.class);                 
+                 q.setParameter(2, az);
                  q.setParameter(1, scen);
                  long idscenario = q.getSingleResult().getIdscenario();
                  
@@ -373,8 +373,7 @@
                  
                  inputoutputxml.aggiungiAcquaStoccaggio(azienda,(int)idscenario);
                  
-                 //fa solo da tampone per far funzionare il solutore
-                 inputoutputxml.aggiungiDatiAgronomici1(azienda);
+                  //inputoutputxml.aggiungiDatiAgronomici(azienda, az);
                  
              }
          
@@ -454,7 +453,7 @@
          
          if(System.getProperty("os.name").contains("Windows"))
          {
-             modello = new Modello("F:\\netbeansproject\\renuwal","seespig1.exe",numerorandom1,false);
+             modello = new Modello("C:\\Users\\giorgio\\Documents\\NetBeansProjects\\seespig\\","seespig1.exe",numerorandom1,false);
          }else
          {
              modello = new Modello("/home/giorgiogalassi/Documenti/solutorec/","./solutore1.out",numerorandom1,true); 
@@ -462,7 +461,7 @@
          
                 
        
-          modello.run1();
+          modello.run();
           
           //tabellaIniziale(contenitoreTotale,out);
      
@@ -471,7 +470,7 @@
       InputOutputXml leggiXml = new InputOutputXml();
       LetturaRisultati test1 = new LetturaRisultati(leggiXml,numerorandom1,out,modello,operazione);
       test1.setContenitoreflui(contenitoreTotale);
-      test1.run1();
+      test1.run();
         
      
         

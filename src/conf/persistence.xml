@@ -38,9 +38,8 @@
       <property name="javax.persistence.logging.level" value="false"/>
       <property name="toplink.logging.level" value="false"/>
       <!--  modifiche inserite il 19-09-2013 -->
-      <!--<property name="eclipselink.ddl-generation" value="none"/>-->
+      <property name="eclipselink.ddl-generation" value="none"/>
       <!-- modifica fatta il 17-02-2016 -->
-      <property name="eclipselink.ddl-generation" value="create-tables" />
       <property name="eclipselink.logging.level" value="OFF"/>
       <property name="eclipselink.logging.level.sql" value="OFF"/>
       <property name="eclipselink.logging.level.cache" value="OFF"/>

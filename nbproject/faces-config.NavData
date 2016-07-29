@@ -4,57 +4,65 @@
     <Scope Scope="Project">
         <Node id="test.html" x="650" y="900" zoom="true"/>
         <Node id="scenario.xhtml" x="52" y="107" zoom="true"/>
-        <Node id="template/stile1/body_renuwal.xhtml" x="1650" y="150" zoom="true"/>
         <Node id="template/footerS.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="template/stile1/body_renuwal.xhtml" x="1650" y="150" zoom="true"/>
         <Node id="template/stile2/colonnasinistra.xhtml" x="526" y="322" zoom="true"/>
-        <Node id="joomla/acquastoccaggio.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="joomla/acquastoccaggio.xhtml" x="1151" y="123" zoom="true"/>
         <Node id="nuovoutente.xhtml" x="326" y="399" zoom="true"/>
+        <Node id="test/testrich.xhtml" x="1400" y="450" zoom="true"/>
         <Node id="template/colonnasinistra_1.xhtml" x="150" y="300" zoom="true"/>
         <Node id="template/stile1/template_pagina.html" x="2070" y="576" zoom="true"/>
-        <Node id="acquastoccaggio.xhtml" x="970" y="382" zoom="true"/>
+        <Node id="acquastoccaggio.xhtml" x="941" y="390" zoom="true"/>
         <Node id="dettaglioAzienda.xhtml" x="679" y="449" zoom="true"/>
         <Node id="sceltapercorso.xhtml" x="632" y="192" zoom="true"/>
         <Node id="template/menu.xhtml" x="1900" y="150" zoom="true"/>
+        <Node id="acquastoccaggio_1.xhtml" x="1400" y="300" zoom="true"/>
         <Node id="stoccaggio.xhtml" x="922" y="251" zoom="true"/>
         <Node id="scenario1.xhtml" x="2093" y="472" zoom="true"/>
+        <Node id="template/headerS.xhtml" x="400" y="150" zoom="true"/>
         <Node id="template/stile1/sotto_header_renuwal.xhtml" x="2013" y="698" zoom="true"/>
         <Node id="vecchioutente.xhtml" x="69" y="357" zoom="true"/>
-        <Node id="template/headerS.xhtml" x="400" y="150" zoom="true"/>
         <Node id="gestioneaziende.xhtml" x="1994" y="211" zoom="true"/>
         <Node id="template/stile1/template_home.html" x="1965" y="181" zoom="true"/>
         <Node id="guida.xhtml" x="1150" y="300" zoom="true"/>
         <Node id="resources/css/index.xhtml" x="1400" y="150" zoom="true"/>
-        <Node id="template/menu_renuwal.xhtml" x="400" y="900" zoom="true"/>
-        <Node id="test_1.html" x="400" y="600" zoom="true"/>
-        <Node id="piano_colturale.xhtml" x="1621" y="350" zoom="true"/>
+        <Node id="template/menu_renuwal.xhtml" x="387" y="941" zoom="true"/>
+        <Node id="allevamento_1_1.xhtml" x="1900" y="300" zoom="true"/>
+        <Node id="test_1.html" x="381" y="648" zoom="true"/>
+        <Node id="piano_colturale.xhtml" x="1690" y="365" zoom="true"/>
         <Node id="nuova.xhtml" x="1242" y="41" zoom="true"/>
+        <Node id="test/piano_colturale.xhtml" x="393" y="1084" zoom="true"/>
         <Node id="template/stile2/index.xhtml" x="150" y="1200" zoom="true"/>
-        <Node id="test/piano_colturale.xhtml" x="400" y="1050" zoom="true"/>
         <Node id="dajquery/calcoladistanze1.jsp" x="1150" y="450" zoom="true"/>
-        <Node id="template/stile1/template_pagina.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="template/stile1/template_pagina.xhtml" x="58" y="475" zoom="true"/>
         <Node id="piano_distribuzione.xhtml" x="1587" y="568" zoom="true"/>
         <Node id="joomla/aziende.xhtml" x="150" y="900" zoom="true"/>
-        <Node id="template/stile1/header_renuwal.xhtml" x="2019" y="358" zoom="true"/>
+        <Node id="test/richtable.xhtml" x="400" y="300" zoom="true"/>
         <Node id="test/testpop.xhtml" x="2075" y="463" zoom="true"/>
+        <Node id="template/stile1/header_renuwal.xhtml" x="2019" y="358" zoom="true"/>
         <Node id="template/colonnasinistra.xhtml" x="2025" y="742" zoom="true"/>
-        <Node id="test/piano_distribuzione.xhtml" x="400" y="450" zoom="true"/>
         <Node id="template/stile1/template_home.xhtml" x="2150" y="150" zoom="true"/>
+        <Node id="test/piano_distribuzione.xhtml" x="370" y="500" zoom="true"/>
         <Node id="template_pagina.xhtml" x="650" y="750" zoom="true"/>
         <Node id="appezzamenti.xhtml" x="1245" y="603" zoom="true"/>
         <Node id="regressioni/regressioni.xhtml" x="650" y="150" zoom="true"/>
         <Node id="joomla/stoccaggio.xhtml" x="2027" y="423" zoom="true"/>
+        <Node id="dajquery/test.jsp" x="650" y="450" zoom="true"/>
         <Node id="template/nuovomenu.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="modificaripristina.jsp" x="900" y="600" zoom="true"/>
         <Node id="allevamento_1.xhtml" x="904" y="543" zoom="true"/>
         <Node id="dajquery/operazioni.jsp" x="150" y="150" zoom="true"/>
         <Node id="joomla/allevamento_1.xhtml" x="150" y="750" zoom="true"/>
         <Node id="template/stile1/barra_menu_renuwal.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="test/allevamento.xhtml" x="1650" y="300" zoom="true"/>
         <Node id="template_renuwal.xhtml" x="2019" y="544" zoom="true"/>
-        <Node id="aziende.xhtml" x="1367" y="326" zoom="true"/>
-        <Node id="resources/css/colonnasinistra.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="aziende.xhtml" x="1204" y="217" zoom="true"/>
+        <Node id="resources/css/colonnasinistra.xhtml" x="571" y="645" zoom="true"/>
         <Node id="dettaglioAzienda_1.xhtml" x="2012" y="296" zoom="true"/>
-        <Node id="index.xhtml" x="1486" y="38" zoom="true"/>
+        <Node id="index.xhtml" x="1509" y="21" zoom="true"/>
         <Node id="dajquery/gruppoaziende.jsp" x="626" y="251" zoom="true"/>
         <Node id="infoautenticazione.xhtml" x="57" y="250" zoom="true"/>
+        <Node id="confronto.xhtml" x="664" y="-18" zoom="true"/>
         <Node id="template/stile1/footer_renuwal.xhtml" x="1987" y="630" zoom="true"/>
         <Node id="template/sinistraS.xhtml" x="900" y="750" zoom="true"/>
     </Scope>

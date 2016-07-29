@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -46,20 +45,14 @@ public class ScenarioI implements Serializable {
     @Size(max = 2147483647)
     @Column(length = 2147483647)
     private String descrizione;
-    @ManyToMany(mappedBy = "scenarioICollection")
-    private Collection<Appezzamento> appezzamentoCollection;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "scenarioI")
-    private DatiRimozioneazoto datiRimozioneazoto;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "scenarioI")
     private CaratteristicheChmiche caratteristicheChmiche;
     @OneToMany(mappedBy = "idScenario")
     private Collection<ParametridiprogettoS> parametridiprogettoSCollection;
     @OneToMany(mappedBy = "idscenario")
-    private Collection<Particellescenario> particellescenarioCollection;
-    @OneToMany(mappedBy = "idscenario")
     private Collection<StoccaggioI> stoccaggioICollection;
     @OneToMany(mappedBy = "scenarioIdscenario")
-    private Collection<Appezzamento> appezzamentoCollection1;
+    private Collection<Appezzamento> appezzamentoCollection;
     @OneToMany(mappedBy = "idscenario")
     private Collection<AllevamentoI> allevamentoICollection;
     @JoinColumn(name = "id_aziendeanni", referencedColumnName = "id")
@@ -91,23 +84,6 @@ public class ScenarioI implements Serializable {
         this.descrizione = descrizione;
     }
 
-    @XmlTransient
-    public Collection<Appezzamento> getAppezzamentoCollection() {
-        return appezzamentoCollection;
-    }
-
-    public void setAppezzamentoCollection(Collection<Appezzamento> appezzamentoCollection) {
-        this.appezzamentoCollection = appezzamentoCollection;
-    }
-
-    public DatiRimozioneazoto getDatiRimozioneazoto() {
-        return datiRimozioneazoto;
-    }
-
-    public void setDatiRimozioneazoto(DatiRimozioneazoto datiRimozioneazoto) {
-        this.datiRimozioneazoto = datiRimozioneazoto;
-    }
-
     public CaratteristicheChmiche getCaratteristicheChmiche() {
         return caratteristicheChmiche;
     }
@@ -126,15 +102,6 @@ public class ScenarioI implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Particellescenario> getParticellescenarioCollection() {
-        return particellescenarioCollection;
-    }
-
-    public void setParticellescenarioCollection(Collection<Particellescenario> particellescenarioCollection) {
-        this.particellescenarioCollection = particellescenarioCollection;
-    }
-
-    @XmlTransient
     public Collection<StoccaggioI> getStoccaggioICollection() {
         return stoccaggioICollection;
     }
@@ -144,12 +111,12 @@ public class ScenarioI implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Appezzamento> getAppezzamentoCollection1() {
-        return appezzamentoCollection1;
+    public Collection<Appezzamento> getAppezzamentoCollection() {
+        return appezzamentoCollection;
     }
 
-    public void setAppezzamentoCollection1(Collection<Appezzamento> appezzamentoCollection1) {
-        this.appezzamentoCollection1 = appezzamentoCollection1;
+    public void setAppezzamentoCollection(Collection<Appezzamento> appezzamentoCollection) {
+        this.appezzamentoCollection = appezzamentoCollection;
     }
 
     @XmlTransient

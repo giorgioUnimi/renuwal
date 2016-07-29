@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      >
+   
+    <h:head>
+        <title>dettaglioAzienda_ReNuWal</title>
+             
+             
+<h:outputStylesheet library="css" name="style.css"  />
+<!--script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/jquery.js?ver=1.11.3'></script>-->
+<!--<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>-->
+<!--<script type='text/javascript' src="http://localhost:8080/renuwal/resources/jquery/jquery-1.9.1.js" />-->
+<h:outputScript name="jquery.js" target="head"/>
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-content/themes/travelify/images/background.png'); background-repeat: repeat; background-position: top left; background-attachment: scroll; }
+</style>
+
+<link rel="icon" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-32x32.jpg" sizes="32x32" />
+<link rel="icon" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-192x192.jpg" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-180x180.jpg"/>
+<link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&amp;subset=Latin'/> 
+<meta name="msapplication-TileImage" content="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-270x270.jpg"/>
+ <script>
+           // Give $jq back to prototype.js; create new alias to jQuery.
+          // var $jq = jQuery.noConflict();
+       </script>
+</h:head>
+ 
+    <h:body class="home page page-id-12 page-template-default custom-background ecwd-theme-travelify ">
+<f:verbatim>
+       <script language="javascript">//<![CDATA[
+    $(document).ready(function(){   
+        
+        
+        
+        
+        
+        /**
+         * select delle alternative che deve aggiornare l'immagine a fianco
+         */
+        $('#alternativaid').change(function(){
+                 
+                 
+            var selezione = $('#alternativaid').find(":selected").val();
+                 
+            $('#immaginealternativa').attr('src', 'images/alt'+selezione+'.gif');
+                 
+            //alert("seleizone " + selezione);
+                 
+            $('#risultati').empty();
+                 
+        });//close change alternativaid
+        
+         /**
+                 * quando l'utente clicca su calcola parte una richiesta ajax collocata
+                 * nella cartella dajquery
+                 */
+                $('#bottonecalcola').click(function(){
+                    var numeroR = Math.floor(10000 + Math.random() * 90000);  
+                $('#numerorandomhidden').val(numeroR);  
+                
+                $('#risultati').empty();
+                
+                // alert("calcola");
+                 $('html, body').css("cursor", "wait");  
+                
+                 var mincosto = 0.25;
+                 var minenergia = 0.25;
+                 var minemissionia = 0.25;
+                 var minemissionig = 0.25;
+                 //var numerorandom =$('#numerorandomhidden').val();
+                 var scenario=$('#form\\:id_scenario1').text();
+                 var alternativa = $("#alternativaid").find(":selected").val();
+                 var operazione ="singolamulti";
+                 var azienda = $('#form\\:id_azienda').text(); 
+                 azienda = "-"+azienda+"-"+azienda+"-"+scenario;
+                 //alert("numero random " +numeroR);
+                 $.ajax(
+                            {
+                                type:'GET',
+                                url:'dajquery/gruppoaziende.jsp',
+                                data: {
+                                            aziende           : azienda,
+                                            costo             : mincosto,
+                                            energia           : minenergia,
+                                            emissionia        : minemissionia,
+                                            emissionig        : minemissionig,
+                                            operazionescelta  : operazione,
+                                            numerorandom      : numeroR,
+                                            alternativa       : alternativa,
+                                            scenario          : scenario
+                                        },
+                                success:function(data)
+                                    {
+                                        
+                                          $('#risultati').append("<br/><br/>");
+                                             //aggiungo un bottone che permette di mostrare in modalita toggle i risultai delle caratteristiche chimiche ed emissioni energia e csoti
+                                                var element  = document.createElement("input");
+                                                element.setAttribute("type","button");
+                                                element.setAttribute("value","Mostra dettaglio");
+                                                element.setAttribute("id","mostratutto1");
+                                                element.style.width ="200px";
+                                                element.style.height = "60px";
+                                                element.style.margin ="0px 300px 0px 300px";
+                                                
+                                         $('#risultati').append(element);
+                                        
+                                         $('#risultati').append(data);
+                                         
+                                         $('html, body').css("cursor", "default");
+                                         $('.localizzazioneTable2').hide();
+                                         $('#labellocalizzazioneTable2').hide();
+                                         $('.labellocalizzazioneTable').hide();
+                                         
+                                         
+                                          $('#mostratutto1').click(function(){                                           
+                                                  
+                                                  $('.localizzazioneTable2').toggle();
+                                                  $('#labellocalizzazioneTable2').toggle();
+                                                  $('.labellocalizzazioneTable').toggle();
+                                                    //$('hr').toggle();
+                                                    /*alert($jq(this).attr("value"));*/
+                                                    var valorebottone = $(this).attr("value");
+                                                    //alert("valore bottone " + valorebottone);
+                                                    if(valorebottone.valueOf() == "Mostra dettaglio")
+                                                        {                                                  
+                                                            $('#mostratutto1').attr("value","Nascondi dettaglio");
+                                                        // $jq('#mostratutto1'  ).button( "option", "label", "new text" );
+                                                        }                                                        
+                                                        
+                                                     if(valorebottone.valueOf() == "Nascondi dettaglio")
+                                                        {                                                
+                                                            $('#mostratutto1').attr("value","Mostra dettaglio");
+                                                        // $jq('#mostratutto1'  ).button( "option", "label", "new text" );
+                                                        }   
+                                                        
+                                              });  
+                                              
+                                               if(operazione != "rankmulti")
+                                                      window.open('tuttimoduli.jsp?numero='+numeroR, '','height=400,width=1000,status=yes,resizable=no,scrollbars=yes');
+                                         
+                                         
+                                    }                
+                                   
+                            });                 
+                
+                });
+        
+    });
+         
+//]]></script>  
+</f:verbatim> 
+    
+	
+       <div class="wrapper">
+               <header id="branding" >
+                                    
+               <div class="container clearfix">
+                   <div class="hgroup-wrap clearfix">
+                       <section class="hgroup-right">
+                       </section><!-- .hgroup-right -->
+                       <div id="site-logo" class="clearfix">
+                           <!--<div   >-->
+                           <div  id="site-title"  >
+                               <div style="float:left;">
+                                   <a href="http://www.renuwal.unimi.it/it_IT/" title="ReNuWal" rel="home" style="color: #57ad68;font-size: 36px;">
+                                       ReNuWal                                                                  
+                                   </a>
+                               </div>
+                               <div>
+                                   <a href="http://www.disaa.unimi.it"><img style="padding-left: 25px;" src="http://users.unimi.it/renuwal/wp-content/uploads/2015/10/logho_DiSAA2.png" alt="logo disaa" /></a>
+                               </div>  
+                           </div>  
+                                                            
+                           <div style="clear: both;">
+                               <h2  id="site-description" >Tecniche innovative di gestione e trattamento degli effluenti per la riduzione dell’inquinamento diffuso delle acque in aree ad alta densità zootecnica</h2>
+                                                            
+                           </div><!-- #site-logo -->
+                                    
+                       </div><!-- .hgroup-wrap -->
+                   </div><!-- .container -->
+                 <!--  <img src="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-foto-6.jpg" class="header-image" width="1500" height="369" alt="ReNuWal"/>
+                   -->
+                   <ui:insert name="leftside" >
+                    <ui:include src="/template/menu_renuwal.xhtml" />
+                   </ui:insert>
+                   </div>
+               </header>
+		 <f:view id="vistaRoot">
+				<div id="main" class="container clearfix">
+
+                                    <div id="container">
+                                        <div id="secondary" class="widget no-margin-left" >
+                                            <aside style="float:left;"> 
+                                                    <header class="entry-header">
+                
+                                                    <ui:insert name="leftside" >
+                                                        <ui:include src="/resources/css/colonnasinistra.xhtml" />
+                                                    </ui:insert>
+                                                </header>
+                                                <br/>
+                                                        <br/>
+                                                        <h:form>
+                                                        <h:panelGrid columns="1" id="panelAzienda" width="100px;" >
+                                                             <a4j:outputPanel id="first"    >
+                                                                   <h:outputText id="selectaziendeLabel"  value="Azienda:"  /><br/> 
+                                                                    <h:selectOneMenu id="selectaziende" value="#{listaAziende.currentTypeAz}" valueChangeListener="#{listaAziende.aziendeChanged}">
+                                                                        <f:selectItems value="#{listaAziende.selectaziende}" />
+                                                                        <a4j:ajax event="valueChange" render="second" execute="@this"  />
+                                                                    </h:selectOneMenu>
+                                                             </a4j:outputPanel>          
+                                                                       
+                                                                    <a4j:outputPanel id="second"    >
+                                                                        
+                                                                        <h:outputText id="selectanniLabel"  value="Anno:" rendered="#{not empty listaAziende.currentTypeAn}" />
+                                                                           <br/> 
+                                                                        <h:selectOneMenu id="selectanni" value="#{listaAziende.currentTypeAn}"  valueChangeListener="#{listaAziende.anniChanged}"  rendered="#{not empty listaAziende.currentTypeAn}" >
+                                                                            <f:selectItems value="#{listaAziende.selectanni}" />
+                                                                            <a4j:ajax event="valueChange" render="third" execute="@this" />
+                                                                        </h:selectOneMenu>
+                                                                            
+                                                                    </a4j:outputPanel>
+                                                                        
+                                                                    <a4j:outputPanel id="third"   >
+                                                                        
+                                                                        <h:outputText id="selectscenariLabel"  value="Scenario:" rendered="#{not empty listaAziende.currentTypeSce}" />
+                                                                          <br/>   
+                                                                        <h:selectOneMenu id="selectscenari" value="#{listaAziende.currentTypeSce}"  valueChangeListener="#{listaAziende.scenariChanged}"  rendered="#{not empty listaAziende.currentTypeSce}" >
+                                                                            <f:selectItems value="#{listaAziende.selectscenari}" />
+                                                                             <a4j:ajax event="valueChange" render="table id_azienda id_anno id_scenario id_scenario1"    execute="@this"  />
+
+                                                                        </h:selectOneMenu>
+                                                                         
+                                                                    </a4j:outputPanel>
+                                                                  </h:panelGrid>
+                                                
+                                                </h:form>
+                                                
+                                            </aside>
+
+                                        </div>
+        
+        
+                                        <div id="primary" class="no-margin-right">
+
+                                                    <div id="content">	<section id="post-12" class="post-12 page type-page status-publish hentry">
+       
+                                                    <article>
+                    
+                    
+                                                        <header class="entry-header">
+                                                            <h2 class="entry-title">
+                                                                Confronto </h2><!-- .entry-title -->
+                                                        </header>
+                            
+
+
+                                                            <div class="entry-content clearfix">
+                                                            
+                                                            
+                                                            <h:form id="form">
+
+                                                                <h:panelGrid columns="2" style="width: 20%; margin:-10px 0px 2px 0px;" >
+                                                                    <h:outputLabel id="id_azienda_label" for="id_azienda"
+                                                                                   value="Azienda" />
+                                                                    <h:outputText  value="#{dettaglioCuaa.cuaa}" id="id_azienda"/>      
+                                                                    <h:outputLabel id="id_anno_label" for="id_anno"
+                                                                                   value="Anno" />
+                                                                    <h:outputText value="#{dettaglioCuaa.anno}" id="id_anno"/>
+                                                                    <h:outputLabel id="id_scenario_label" for="id_scenario"
+                                                                                   value="Scenario" />
+                                                                    <h:outputText value="#{dettaglioCuaa.scenarioString}" id="id_scenario"/>
+                                                                    <h:outputLabel id="id_scenario_label1" for="id_scenario1"
+                                                                                   value="Scenario1" />
+                                                                    <h:outputText value="#{dettaglioCuaa.idscenario}" id="id_scenario1"/>
+                                                                </h:panelGrid>
+                                                                <br/>
+                                                                <br/>
+                                                                <h:inputHidden value="00000" id="numerorandomhidden" />
+                                                                <rich:dataTable value="#{dettaglioAzienda.listaCaratteristiche}" var="lista"  id="table" style="width:700px;" >
+                                              
+                                              
+                                              
+                                                                    <rich:column>                                                                           
+                                                                        <f:facet name="header">Tipo</f:facet>                                                                            
+                                                                                
+                                                                        <h:outputText value="Liquame" rendered="#{lista.tipologia eq 'Liquame'}"> 
+                                                                            <rich:collapsibleSubTableToggler  for="sbtbl1"   />
+                                                                        </h:outputText>    
+                                                                        <h:outputText value="Letame"  rendered="#{lista.tipologia eq 'Letame'}">  
+                                                                            <rich:collapsibleSubTableToggler  for="sbtbl"   />
+                                                                        </h:outputText>    
+                                                                        <h:outputText value="ToTali"  rendered="#{lista.tipologia eq 'Totale'}">  
+                                                                        </h:outputText>     
+                                                                                    
+                                                                    </rich:column>
+                                                                    <rich:column >
+                                                                        <f:facet name="header">Volume</f:facet>
+                                                                        <h:outputText value="#{lista.metricubi}" >
+                                                                            <f:convertNumber maxFractionDigits="0" />
+                                                                        </h:outputText>    
+                                                                    </rich:column>
+                                                                    <rich:column>
+                                                                        <f:facet name="header">TKN</f:facet>
+                                                                        <h:outputText value="#{lista.azotototale}" >
+                                                                            <f:convertNumber maxFractionDigits="0" />
+                                                                        </h:outputText>    
+                                                                    </rich:column>
+                                                                    <rich:column>
+                                                                        <f:facet name="header">TAN</f:facet>
+                                                                        <h:outputText value="#{lista.azotoammoniacale}" >
+                                                                            <f:convertNumber maxFractionDigits="0" />
+                                                                        </h:outputText>    
+                                                                    </rich:column>
+                                                                    <rich:column>
+                                                                        <f:facet name="header">DM</f:facet>
+                                                                        <h:outputText value="#{lista.sostanzasecca}" >
+                                                                            <f:convertNumber maxFractionDigits="0" />
+                                                                        </h:outputText>    
+                                                                    </rich:column>
+                                                                    <rich:column>
+                                                                        <f:facet name="header">VS</f:facet>
+                                                                        <h:outputText value="#{lista.solidivolatili}" >
+                                                                            <f:convertNumber maxFractionDigits="0" />
+                                                                        </h:outputText>    
+                                                                    </rich:column>
+                                                                    <rich:column>
+                                                                        <f:facet name="header">K</f:facet>
+                                                                        <h:outputText value="#{lista.potassiototale}" >                                                                          
+                                                                            <f:convertNumber maxFractionDigits="0" />
+                                                                        </h:outputText>    
+                                                                    </rich:column>
+                                                                    <rich:column>
+                                                                        <f:facet name="header">P</f:facet>
+                                                                        <h:outputText value="#{lista.fosforototale}" >                                                                          
+                                                                            <f:convertNumber maxFractionDigits="0" />
+                                                                        </h:outputText>     
+                                                                    </rich:column>
+                                                                    <rich:collapsibleSubTable value="#{dettaglioAzienda.listaCaratteristicheLet}" var="let" id="sbtbl" expandMode="client" rows="12"  rowClasses="odd-row, even-row"   expanded="#{false}"   >
+                                                                        <rich:column  style=" background-color: #58ACFA;">
+                                                                            <f:facet name="header" >Tipo</f:facet>  
+                                                                                <h:outputText value="#{let.tipologia}" >                                                                          
+                                                                                    
+                                                                            </h:outputText>   
+                                                                        </rich:column>
+                                                                            <rich:column  style=" background-color: #58ACFA;" >
+                                                                                
+                                                                            <f:facet name="header" >Volume</f:facet>  
+                                                                            <h:outputText value="#{let.metricubi}" style="width:30px;"   onchange="mostra(this,'#{let.tipologia}','1','#{dettaglioCuaa.idscenario}', '0')" > 
+                                                                                <f:convertNumber maxFractionDigits="0" />                                                                          
+                                                                            </h:outputText>
+                                                                                    
+                                                                                    
+                                                                        </rich:column>
+                                                                        <rich:column  style=" background-color: #58ACFA;">
+                                                                            <f:facet name="header" >TKN</f:facet>  
+                                                                            <h:outputText value="#{let.azotototale}"  onchange="mostra(this,'#{let.tipologia}','2','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <f:convertNumber maxFractionDigits="0" />
+                                                                            </h:outputText>   
+                                                                                
+                                                                                
+                                                                        </rich:column>
+                                                                        <rich:column  style=" background-color: #58ACFA;">
+                                                                            <f:facet name="header" >TAN</f:facet>  
+                                                                            <h:outputText value="#{let.azotoammoniacale}" onchange="mostra(this,'#{let.tipologia}','3','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <f:convertNumber maxFractionDigits="0" />
+                                                                            </h:outputText>   
+                                                                                
+                                                                                
+                                                                        </rich:column>
+                                                                        <rich:column  style=" background-color: #58ACFA;">
+                                                                            <f:facet name="header" >DM</f:facet>  
+                                                                            <h:outputText value="#{let.sostanzasecca}" onchange="mostra(this,'#{let.tipologia}','4','#{dettaglioCuaa.idscenario}', '0')" >                                                                          
+                                                                                <f:convertNumber maxFractionDigits="0" />
+                                                                            </h:outputText>   
+                                                                                
+                                                                                
+                                                                        </rich:column>
+                                                                        <rich:column  style=" background-color: #58ACFA;">
+                                                                            <f:facet name="header" >SV</f:facet>  
+                                                                            <h:outputText value="#{let.solidivolatili}"  onchange="mostra(this,'#{let.tipologia}','5','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <f:convertNumber maxFractionDigits="0" />
+                                                                            </h:outputText>   
+                                                                                
+                                                                                
+                                                                        </rich:column>
+                                                                        <rich:column  style=" background-color: #58ACFA;">
+                                                                            <f:facet name="header" >K</f:facet>  
+                                                                            <h:outputText value="#{let.potassiototale}" onchange="mostra(this,'#{let.tipologia}','6','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <f:convertNumber maxFractionDigits="0" />
+                                                                            </h:outputText>   
+                                                                                
+                                                                                
+                                                                        </rich:column>
+                                                                        <rich:column  style=" background-color: #58ACFA;">
+                                                                            <f:facet name="header" >P</f:facet>  
+                                                                            <h:outputText value="#{let.fosforototale}" onchange="mostra(this,'#{let.tipologia}','7','#{dettaglioCuaa.idscenario}', '0')" >                                                                          
+                                                                                <f:convertNumber maxFractionDigits="0" />
+                                                                            </h:outputText>   
+                                                                                
+                                                                        </rich:column>
+                                                                    </rich:collapsibleSubTable>
+                                                                    <rich:collapsibleSubTable value="#{dettaglioAzienda.listaCaratteristicheLiq}" var="liq" id="sbtbl1" expandMode="client" rows="12"  rowClasses="odd-row, even-row"   expanded="#{false}"  >
+                                                                        <rich:column  style=" background-color: #58ACFA;">
+                                                                            <f:facet name="header" >Tipo</f:facet>  
+                                                                                <h:outputText value="#{liq.tipologia}" >                                                                          
+                                                                                    
+                                                                            </h:outputText>  
+
+                                                                        </rich:column>
+                                                                        <rich:column  style=" background-color: #58ACFA;">
+                                                                            <f:facet name="header" >Volume</f:facet>  
+                                                                            <h:outputText value="#{liq.metricubi}"  onchange="mostra(this,'#{liq.tipologia}','1','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <f:convertNumber maxFractionDigits="0" />
+                                                                            </h:outputText>   
+                                                                                
+                                                                                
+                                                                        </rich:column>
+                                                                        <rich:column  style=" background-color: #58ACFA;">
+                                                                            <f:facet name="header" >TKN</f:facet>  
+                                                                            <h:outputText value="#{liq.azotototale}" onchange="mostra(this,'#{liq.tipologia}','2','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <f:convertNumber maxFractionDigits="0" />
+                                                                            </h:outputText>   
+                                                                                
+                                                                                
+                                                                        </rich:column>
+                                                                        <rich:column  style=" background-color: #58ACFA;">
+                                                                            <f:facet name="header" >TAN</f:facet>  
+                                                                            <h:outputText value="#{liq.azotoammoniacale}" onchange="mostra(this,'#{liq.tipologia}','3','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <f:convertNumber maxFractionDigits="0" />
+                                                                            </h:outputText>   
+                                                                                
+                                                                                
+                                                                        </rich:column>
+                                                                        <rich:column  style=" background-color: #58ACFA;">
+                                                                            <f:facet name="header" >DM</f:facet>  
+                                                                            <h:outputText value="#{liq.sostanzasecca}" onchange="mostra(this,'#{liq.tipologia}','4','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <f:convertNumber maxFractionDigits="0" />
+                                                                            </h:outputText>   
+
+
+                                                                        </rich:column>
+                                                                        <rich:column  style=" background-color: #58ACFA;">
+                                                                            <f:facet name="header" >SV</f:facet>  
+                                                                            <h:outputText value="#{liq.solidivolatili}" onchange="mostra(this,'#{liq.tipologia}','5','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <f:convertNumber maxFractionDigits="0" />
+                                                                            </h:outputText>   
+                                                                                
+                                                                                
+                                                                        </rich:column>
+                                                                        <rich:column  style=" background-color: #58ACFA;">
+                                                                            <f:facet name="header" >K</f:facet>  
+                                                                            <h:outputText value="#{liq.potassiototale}" onchange="mostra(this,'#{liq.tipologia}','6','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <f:convertNumber maxFractionDigits="0" />
+                                                                            </h:outputText>   
+                                                                                
+
+                                                                        </rich:column>
+                                                                        <rich:column  style=" background-color: #58ACFA;">
+                                                                            <f:facet name="header" >P</f:facet>  
+                                                                            <h:outputText value="#{liq.fosforototale}" onchange="mostra(this,'#{liq.tipologia}','7','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <f:convertNumber maxFractionDigits="0" />
+                                                                            </h:outputText>   
+                                                                                
+                                                                                
+                                                                        </rich:column>  
+                                                                    </rich:collapsibleSubTable>
+                                                                </rich:dataTable>
+                                                                        
+                                                                <div id ="divalternativa">
+                                                                    <label for="alternativa"><b>Alternativa : </b></label>
+                                                                    <select name="alternativa" id="alternativaid">
+                                                                        <option value="0" selected="true">0</option>
+                                                                        <option value="1">1</option>
+                                                                        <option value="2">2</option>
+                                                                        <option value="3">3</option>
+                                                                        <option value="4">4</option>
+                                                                        <option value="5">5</option>
+                                                                        <option value="6">6</option>
+                                                                        <option value="7">7</option>
+                                                                        <option value="8">8</option>
+                                                                        <option value="9">9</option>
+                                                                        <option value="10">10</option>
+                                                                        <option value="11">11</option>
+                                                                        <option value="12">12</option>
+                                                                        <option value="13">13</option>
+                                                                        <option value="14">14</option>
+                                                                        <option value="15">15</option>
+                                                                        <option value="16">16</option>
+                                                                    </select> 
+                                                                    <img style="float:right;padding-right: 300px;" src="images/alt0.gif" alt="alternativa" id="immaginealternativa"></img> 
+                                                                </div><!-- close divalternativa-->
+                                                                <div id="containerrisultati" style="clear:right;padding-top: 30px;">
+                                                                    <button id="bottonecalcola" type="button" value="Calcola" style="width: 100px;height: 40px;">Calcola</button>
+                                                                    <button id="bottonesvuota" value="Svuota Contenitori"  style="width: 100px;height: 40px;">Svuota</button>
+                                                            
+                                                                    <div id="risultati">
+                                                                    </div><!-- close risultati-->       
+                                                                    </div><!-- close containerrisultati-->
+                                                            </h:form>   
+
+                                                                    
+                                                        </div>
+                                                    
+
+                                                        <div id="comments" class="comments-area">
+    
+    
+    
+    
+                                                        </div><!-- #comments .comments-area -->
+                                                    </article>
+                                                </section>
+                                            </div><!-- #content --></div><!-- #primary -->
+                                    </div><!-- #container -->
+
+
+	   </div><!-- #main -->
+
+	   </f:view>  
+	   
+	   <footer id="footerarea" class="clearfix">
+			
+
+
+<div id="site-generator">
+				<div class="container">
+                                    <div class="copyright" style="float:left;padding:15px 0px 0px 0px;">Sviluppato dal <a href="http://www.disaa.unimi.it">Dipartimeno di Scienze Agrarie e Ambientali    </a>
+                                    </div>
+                                    <a href="http://www.disaa.unimi.it">
+                                        <div>
+                                            <img style="vertical-align:text-top;" src="http://users.unimi.it/renuwal/wp-content/uploads/2015/10/logodisaa2.jpg" alt="logo disaa" /></div></a><div class="footer-right"></div><div style="clear:both;"></div>
+			</div><!-- .container -->
+			</div><!-- #site-generator -->
+                        <div class="back-to-top"><a href="#branding"></a></div>
+           </footer>
+
+    
+       </div><!-- .wrapper -->
+
+	        
+        
+        
+
+ 
+
+<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/ui/core.min.js?ver=1.11.4'></script>
+<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/ui/widget.min.js?ver=1.11.4'></script>
+<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/ui/mouse.min.js?ver=1.11.4'></script>
+<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/ui/draggable.min.js?ver=1.11.4'></script>
+<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/masonry.min.js?ver=3.1.2'></script>
+
+
+</h:body>
+</html>

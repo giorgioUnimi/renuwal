@@ -1584,7 +1584,7 @@ public class LetturaRisultati extends Thread {
         if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
                             {
                                Connessione connessione = Connessione.getInstance();
-                               entityManager = connessione.apri("provagiorgio13");
+                               entityManager = connessione.apri("renuwal1");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                             }
          
@@ -1628,7 +1628,7 @@ public class LetturaRisultati extends Thread {
           if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
                             {
                                Connessione connessione = Connessione.getInstance();
-                               entityManager = connessione.apri("provagiorgio13");
+                               entityManager = connessione.apri("renuwal1");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                             }
          
@@ -1668,7 +1668,7 @@ public class LetturaRisultati extends Thread {
           if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
                             {
                                Connessione connessione = Connessione.getInstance();
-                               entityManager = connessione.apri("provagiorgio13");
+                               entityManager = connessione.apri("renuwal1");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                             }
          
@@ -1695,7 +1695,7 @@ public class LetturaRisultati extends Thread {
           if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
                             {
                                Connessione connessione = Connessione.getInstance();
-                               entityManager = connessione.apri("provagiorgio13");
+                               entityManager = connessione.apri("renuwal1");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                             }
          
@@ -2085,7 +2085,7 @@ public class LetturaRisultati extends Thread {
              
               temp = leggi.cerca1(padre+"/scelta",true);
           
-           
+           System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " + Thread.currentThread().getStackTrace()[1].getMethodName() +" quiiiiiiii");
              
               //recupero la composizione dell'alternativa inteso come moduli che la compongono
               Iterator<db.AlternativaTrattamento> tratt = this.composizioneAlternative1(Integer.parseInt(temp.item(0).getNodeValue()));

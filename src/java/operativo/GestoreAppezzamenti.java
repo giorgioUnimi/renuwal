@@ -246,7 +246,11 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
         re.setTipoIrrigazione(this.getTipiIrrigazione().get(Integer.parseInt(this.getTipoIrrigazione())-1));
         re.setId(id);
         this.getListaAppezzamenti().add(re);*/
-        
+       /* db.Appezzamento nuovo = new db.Appezzamento();
+        nuovo.setNome(super.getNome());
+        nuovo.setSuperficie(super.getSuperficie());
+        nuovo.setSvz(super.isSvn());
+        //nuovo.setTipoirrigazione();*/
         
         super.getListaAppezzamenti().clear();
         this.popolaAppezzamenti(); 
@@ -354,7 +358,7 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
      */
     public long addRecord()
     {
-      System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() +" " +Thread.currentThread().getStackTrace()[1].getMethodName()+ " id appezzamento " + this.currentAppIndex + " nome " + this.getNome() + " superficie " +this.getSuperficie() + " svn " + this.isSvn() + " terreno " + this.getTipoTerreno() + " irrigazione " + this.getTipoIrrigazione() + " scenario "  + this.getDettaglioCuaa().getScenarioString());
+      //System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() +" " +Thread.currentThread().getStackTrace()[1].getMethodName()+ " id appezzamento " + this.currentAppIndex + " nome " + this.getNome() + " superficie " +this.getSuperficie() + " svn " + this.isSvn() + " terreno " + this.getTipoTerreno() + " irrigazione " + this.getTipoIrrigazione() + " scenario "  + this.getDettaglioCuaa().getScenarioString());
       
       if(this.getNome() == null)
           return -1;
@@ -411,7 +415,7 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
         db.Appezzamento nuovoappezzamento = new db.Appezzamento();
         nuovoappezzamento.setNome(this.getNome());
         nuovoappezzamento.setSuperficie(this.getSuperficie());
-        //nuovoappezzamento.setScenario(scenT);
+        nuovoappezzamento.setScenarioIdscenario(scenT);
         nuovoappezzamento.setTipoirrigazione(tipoIrr);
         nuovoappezzamento.setTipoterreno(tipoTer);
         nuovoappezzamento.setSvz(this.isSvn());
@@ -419,10 +423,10 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
         
        //List<StoricoColturaAppezzamento> storicoColtura = nuovoappezzamento.getStoricoColturaAppezzamento();
      
-        
+         
         //entityManager.persist(nuovoappezzamento);
         scenT.getAppezzamentoCollection().add(nuovoappezzamento);
-        entityManager.persist(scenT);
+        entityManager.persist(nuovoappezzamento);
         entityManager.getTransaction().commit();
         entityManager.close();
         
@@ -437,7 +441,7 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " + Thread.currentThread().getStackTrace()[1].getMethodName() +" id appezzamento " + nuovoappezzamento.getId() );
 
         db.Appezzamento app1 = entityManager.find(db.Appezzamento.class,nuovoappezzamento.getId());
-        db.Coltura coltura = entityManager.find(db.Coltura.class, 1L);
+        db.Coltura coltura = entityManager.find(db.Coltura.class, 1);
         db.Gruppocolturale gruppoColturale = entityManager.find(db.Gruppocolturale.class, 6L);
         db.Rotazione rot1 = entityManager.find(db.Rotazione.class, 1);
         db.Rotazione rot2 = entityManager.find(db.Rotazione.class, 2);
@@ -447,6 +451,7 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
         sto1.setIdappezzamentoId(app1);
         sto1.setAsportazioneazoto(0d);
         sto1.setAsportazionefosforo(0d);
+        sto1.setAsportazionepotassio(0d);
         sto1.setMas(0d);      
         sto1.setResaAttesa(0d);
         sto1.setIdcolturaId(coltura);
@@ -457,6 +462,7 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
         sto2.setIdappezzamentoId(app1);
         sto2.setAsportazioneazoto(0d);
         sto2.setAsportazionefosforo(0d);
+        sto2.setAsportazionepotassio(0d);
         sto2.setMas(0d);      
         sto2.setResaAttesa(0d);
         sto2.setIdcolturaId(coltura);
@@ -467,6 +473,7 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
         sto3.setIdappezzamentoId(app1);
         sto3.setAsportazioneazoto(0d);
         sto3.setAsportazionefosforo(0d);
+        sto3.setAsportazionepotassio(0d);
         sto3.setMas(0d);      
         sto3.setResaAttesa(0d);
         sto3.setIdcolturaId(coltura);

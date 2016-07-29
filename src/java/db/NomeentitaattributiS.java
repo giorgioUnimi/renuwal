@@ -40,13 +40,13 @@ public class NomeentitaattributiS implements Serializable {
     @Size(max = 255)
     @Column(length = 255)
     private String nome;
-    @OneToMany(mappedBy = "idEntita1")
-    private Collection<ParametridiprogettoS> parametridiprogettoSCollection;
     @OneToMany(mappedBy = "idEntita")
+    private Collection<ParametridiprogettoS> parametridiprogettoSCollection;
+    @OneToMany(mappedBy = "idEntita1")
     private Collection<ParametridiprogettoS> parametridiprogettoSCollection1;
-    @OneToMany(mappedBy = "idAttributo1")
-    private Collection<ParametridiprogettoS> parametridiprogettoSCollection2;
     @OneToMany(mappedBy = "idAttributo")
+    private Collection<ParametridiprogettoS> parametridiprogettoSCollection2;
+    @OneToMany(mappedBy = "idAttributo1")
     private Collection<ParametridiprogettoS> parametridiprogettoSCollection3;
 
     public NomeentitaattributiS() {

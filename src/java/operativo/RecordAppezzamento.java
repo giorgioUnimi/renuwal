@@ -113,7 +113,8 @@ public class RecordAppezzamento {
            
            temp[i].setAsportazioneAzoto(temp1.getAsportazioneazoto());
            temp[i].setAsportazioneFosforo(temp1.getAsportazionefosforo());
-           temp[i].setAsportazionePotassio(temp1.getAsportazionepotassio());
+           temp[i].setAsportazionePotassio(temp1.getAsportazionepotassio());/*qui c'è lerrore nella tabella storicocoltutraleappezzamento 
+                   la colonna potassio è vuota mentre le altre asportazioni sono a zero perchè ?'*/
            temp[i].setIdAppezzamento(temp1.getIdappezzamentoId());
            temp[i].setIdColtura(temp1.getIdcolturaId().getId());
            temp[i].setMas(temp1.getMas());

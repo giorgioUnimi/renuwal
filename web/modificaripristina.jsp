@@ -45,6 +45,10 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                        if (azione == 0) {
                            caratteristichechimiche.setM3LBovU(valore);
                            caratteristichechimiche.setM3LBovM(true);
+                           
+                           System.out.println("ssssssono quiiiiiiiiiiiii");
+                           
+                           
                        } else {
                            caratteristichechimiche.setM3LBovU(caratteristichechimiche.getM3LBovS());
                            //getDataItemLiq().setMetricubi(caratteristichechimiche.getM3LBovS());
@@ -418,9 +422,16 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
                switch (posizione) {
                    case 1:
                        if (azione == 0) {
+                           
+                           System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " + Thread.currentThread().getStackTrace()[1].getMethodName() + " letame bovino modifica " + valore);
+
+                           
                            caratteristichechimiche.setM3PBovU(valore);
                             caratteristichechimiche.setM3PBovM(true);
                        } else {
+                           
+                           System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " + Thread.currentThread().getStackTrace()[1].getMethodName() + " letame bovino ripristina " + caratteristichechimiche.getM3PBovS());
+                           
                            caratteristichechimiche.setM3PBovU(caratteristichechimiche.getM3PBovS());
                            //dataItemLet.setMetricubi(caratteristichechimiche.getM3PBovS());
                              caratteristichechimiche.setM3PBovM(false);
@@ -795,7 +806,9 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
       EntityTransaction tx = entityManager.getTransaction();
       tx.begin();
       entityManager.persist(caratteristichechimiche);
+      entityManager.flush();
       tx.commit();
+      
        
       System.out.println(this.getClass().getCanonicalName()+" "+Thread.currentThread().getStackTrace()[1].getMethodName()+ " valore " + valore +  " idscenario " +scenario + "posizione " + posizione + " azione " + azione + " tipologia " + tipologia);
     
@@ -812,25 +825,45 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
    /**
    *recupero i parametri che vengono passati tramite ajax da jquery 
    */
-   String valore = request.getParameter("valore");
+   /*String valore = request.getParameter("valore");
    String posizione = request.getParameter("posizione");
    String tipologia = request.getParameter("tipologia");
    String azione = request.getParameter("azione");
-   String scenario = request.getParameter("scenario");
+   String scenario = request.getParameter("scenario");*/
+   String valori = request.getParameter("valore");
+   String[] valori_passati = valori.split("&");
+   String valore = valori_passati[0];
+   String azione =(valori_passati[1]).split("=")[1];
+   String tipologia = valori_passati[2].split("=")[1];
+   String scenario = valori_passati[3].split("=")[1];
+   String posizione = valori_passati[4].split("=")[1];
    
-   //out.println("+++++++++++++++scenario " + scenario + " posizione " + posizione +" azione " + azione+"  tipologia " + tipologia + " valore " + valore);
+   System.out.println("stringa passata " + valori);
+   System.out.println("+++++++++++++++scenario " + scenario + " posizione " + posizione +" azione " + azione+"  tipologia " + tipologia + " valore " + valore);
    /*valore = "1234";
    scenario = "399";
    tipologia = "Liquame Bovino";
    posizione = "1";
    azione = "0";*/
-  /* Thread.sleep(2000);
-   
-   out.println("ciao");
-   
+  /* Thread.sleep(2000);   
+   out.println("ciao");   
    Thread.sleep(2000);*/
-  
-   
+   /* if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
+         {
+             Connessione connessione = Connessione.getInstance();
+            
+             entityManager = connessione.apri("renuwal1");
+             entityManagerFactory = Connessione.getInstance().getEntityManagerFactory();
+         }
+      Query q = entityManager.createNamedQuery("ScenarioI.findByIdscenario").setParameter("idscenario",Integer.parseInt(scenario));
+       db.ScenarioI sce = (db.ScenarioI)q.getResultList().get(0);
+       db.CaratteristicheChmiche caratteristichechimiche = sce.getCaratteristicheChmiche();
+       caratteristichechimiche.setM3LBovU(2345d);
+     EntityTransaction tx = entityManager.getTransaction();
+      tx.begin();
+      entityManager.persist(caratteristichechimiche);
+      tx.commit();*/
+   //
    modificaRipristina(Double.parseDouble(valore),tipologia,Integer.parseInt(posizione),Integer.parseInt(azione),Integer.parseInt(scenario)) ;
   
   %>

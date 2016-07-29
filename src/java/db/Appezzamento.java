@@ -13,8 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -51,11 +49,6 @@ public class Appezzamento implements Serializable {
     @Column(precision = 17, scale = 17)
     private Double superficie;
     private Boolean svz;
-    @JoinTable(name = "scenario_i_appezzamento", joinColumns = {
-        @JoinColumn(name = "appezzamenticollection_id", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "scenarioi_idscenario", referencedColumnName = "idscenario", nullable = false)})
-    @ManyToMany
-    private Collection<ScenarioI> scenarioICollection;
     @JoinColumn(name = "tipoterreno", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private TipoTerreno tipoterreno;
@@ -108,15 +101,6 @@ public class Appezzamento implements Serializable {
 
     public void setSvz(Boolean svz) {
         this.svz = svz;
-    }
-
-    @XmlTransient
-    public Collection<ScenarioI> getScenarioICollection() {
-        return scenarioICollection;
-    }
-
-    public void setScenarioICollection(Collection<ScenarioI> scenarioICollection) {
-        this.scenarioICollection = scenarioICollection;
     }
 
     public TipoTerreno getTipoterreno() {

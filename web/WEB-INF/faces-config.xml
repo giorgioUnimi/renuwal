@@ -44,6 +44,10 @@
             <from-outcome>allevamento</from-outcome>
             <to-view-id>/allevamento_1.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>confronto</from-outcome>
+            <to-view-id>/confronto.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
      <navigation-rule>
         <from-view-id>/dettaglioAzienda.xhtml</from-view-id>
@@ -75,6 +79,10 @@
                <from-outcome>scenario</from-outcome>
                <to-view-id>/scenario.xhtml</to-view-id>
           </navigation-case>
+         <navigation-case>
+             <from-outcome>confronto</from-outcome>
+             <to-view-id>/confronto.xhtml</to-view-id>
+         </navigation-case>
      </navigation-rule>
     <navigation-rule>
         <from-view-id>/stoccaggio.xhtml</from-view-id>
@@ -101,6 +109,10 @@
         <navigation-case>
             <from-outcome>home</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>confronto</from-outcome>
+            <to-view-id>/confronto.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -129,6 +141,10 @@
             <from-outcome>home</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>confronto</from-outcome>
+            <to-view-id>/confronto.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/allevamento_1.xhtml</from-view-id>
@@ -155,6 +171,10 @@
         <navigation-case>
             <from-outcome>home</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>confronto</from-outcome>
+            <to-view-id>/confronto.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -202,6 +222,10 @@
         <navigation-case>
             <from-outcome>dettaglioazienda</from-outcome>
             <to-view-id>/dettaglioAzienda.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>confronto</from-outcome>
+            <to-view-id>/confronto.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -308,6 +332,10 @@
             <from-outcome>allevamento</from-outcome>
             <to-view-id>/allevamento_1.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>confronto</from-outcome>
+            <to-view-id>/confronto.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/appezzamenti.xhtml</from-view-id>
@@ -334,6 +362,45 @@
         <navigation-case>
             <from-outcome>dettaglioazienda</from-outcome>
             <to-view-id>/dettaglioAzienda.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>confronto</from-outcome>
+            <to-view-id>/confronto.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/confronto.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>aziende</from-outcome>
+            <to-view-id>/aziende.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>dettaglioazienda</from-outcome>
+            <to-view-id>/dettaglioAzienda.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>stoccaggio</from-outcome>
+            <to-view-id>/stoccaggio.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>allevamento</from-outcome>
+            <to-view-id>/allevamento_1.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>appezzamenti</from-outcome>
+            <to-view-id>/appezzamenti.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>piano_distribuzione</from-outcome>
+            <to-view-id>/piano_distribuzione.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>acquastoccaggio</from-outcome>
+            <to-view-id>/acquastoccaggio.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

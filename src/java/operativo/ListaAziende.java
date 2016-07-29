@@ -36,7 +36,7 @@ import org.eclipse.persistence.sessions.server.ServerSession;
 
 
 @ManagedBean(name="listaAziende")
-@SessionScoped
+@ViewScoped
 public class ListaAziende implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -121,11 +121,11 @@ public class ListaAziende implements Serializable {
       /**
        * seleziono anche l'utente admin sotto cui ci sono tutte le aziende
        */
-      q1 = entityManager.createQuery("SELECT u FROM Utenti u WHERE u.password='19visto45iia' AND u.username='admin'");
+    /* q1 = entityManager.createQuery("SELECT u FROM Utenti u WHERE u.password='19visto45iia' AND u.username='admin'");
       
       db.Utenti ut1 = null;
       
-      ut1 = (db.Utenti)q1.getSingleResult();
+      ut1 = (db.Utenti)q1.getSingleResult();*/
       
       /**
        * se l'utente rilevato è un super user mostragli tutte le aziende altrimenti solo 
@@ -141,6 +141,8 @@ public class ListaAziende implements Serializable {
          {            
              db.AziendeI a = (db.AziendeI)results.get(i);                
              tabella.add(a);
+             
+             System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() +" " + Thread.currentThread().getStackTrace()[1].getMethodName() + " aggiungo azienda " + a.getCuaa() );
              //aggiungo i valori alla selec aziende
              this.selectaziende.add(new SelectItem(a.getId(),a.getCuaa()));
              
@@ -245,6 +247,8 @@ public class ListaAziende implements Serializable {
         {
             db.AziendeAnni t = iterAziendeAnni.next();
             this.selectanni.add(new SelectItem(t.getId(),t.getIdAnno().getDescrizione()));
+            
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " + Thread.currentThread().getStackTrace()[1].getMethodName() + " aggiungo anno " + t.getIdAnno().getDescrizione() + " all azienda " + t.getIdAzienda().getCuaa());
         }
         
             
@@ -285,6 +289,8 @@ public class ListaAziende implements Serializable {
             Connessione connessione = Connessione.getInstance();
             entityManager = connessione.apri("renuwal1");
          }
+        
+        entityManager.getEntityManagerFactory().getCache().evictAll();
         /**
          * avendo l'id dell'anno dell'azienda attraverso il valore dell'evento che mi arriva
          * recupero prima l'entita aziendeanni e poi gli scenari legati a quel anno
@@ -313,7 +319,7 @@ public class ListaAziende implements Serializable {
         
         
         
-        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " +Thread.currentThread().getStackTrace()[1].getMethodName() +"   " +event.getNewValue());
+        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " +Thread.currentThread().getStackTrace()[1].getMethodName() +"   " +event.getNewValue() + " numero scenari " + azanniTemp.getScenarioICollection().size());
         Connessione.getInstance().chiudi();
         }
      }
@@ -342,6 +348,7 @@ public class ListaAziende implements Serializable {
          db.ScenarioI sceT = entityManager.find(db.ScenarioI.class,Long.parseLong(event.getNewValue().toString()));
          
          dettaglioCuaa.setScenarioString(sceT.getDescrizione());
+         //dettaglioCuaa.setIdscenario(sceT.getIdscenario());
          //GestoreAppezzamenti_2 gestoreAppezzamento = (GestoreAppezzamenti_2) FacesContext.getCurrentInstance().getApplication().getELResolver().getValue(elContext, null, "gestoreAppezzamenti_2");
         // gestoreAppezzamento.popolaAppezzamenti();
          

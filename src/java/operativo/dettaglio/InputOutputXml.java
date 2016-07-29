@@ -449,6 +449,9 @@ public class InputOutputXml {
 		// StreamResult result = new StreamResult(System.out);
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes");
                 transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+                
+                System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " + Thread.currentThread().getStackTrace()[1].getMethodName() + "  "+docW.getFirstChild().getLocalName());
+                
 		transformer.transform(source, result);
                 
                 
@@ -752,7 +755,12 @@ public class InputOutputXml {
         
          
     }
-    
+    public void aggiungiDatiAgronomici1(Element elementoPadre) {
+        Element elemento = docW.createElement("azienda_agro");
+        Element figlio = docW.createElement("organico");
+        elemento.appendChild(figlio);
+        elementoPadre.appendChild(elemento);
+    }
     
     /**
      * pende in input una lista di aziende e aggiunge nel file xml il tag simulazione . In simulazione
@@ -1277,25 +1285,61 @@ public class InputOutputXml {
         tmp2y.appendChild(docW.createTextNode(String.valueOf(coordinataY)));
         azienda.appendChild(tmp2y);
         
+         Element dist_centro = docW.createElement("distanza_centro_particelle");
+        //tmp1.appendChild(docW.createTextNode(dett.getIdscenario().toString()));
+        dist_centro.appendChild(docW.createTextNode("5"));
+        azienda.appendChild(dist_centro);
         
         
+        //calcolo nmax zoo e nmaxtot infunxione degli appezzamenti inseriti
         TypedQuery<db.ScenarioI> q = entityManager.createQuery("SELECT a FROM ScenarioI a WHERE a.idscenario=?1 ", db.ScenarioI.class);
         
         q.setParameter(1, Integer.parseInt(scenario));
-        long idscenario = q.getSingleResult().getIdscenario();
+        db.ScenarioI scenarioN = q.getSingleResult();
+        double appezzamenti_zvn = 0;
+        double appezzamenti_nzvn = 0;
+        double n_max_zoo = 0;
+        double n_max_tot = 0;
+        Iterator<db.Appezzamento> iterApp = scenarioN.getAppezzamentoCollection().iterator();
+        while(iterApp.hasNext())
+        {
+            db.Appezzamento app = iterApp.next();
+            if(app.getSvz())
+            {
+                appezzamenti_zvn += app.getSuperficie();//in ettari 
+            }else
+            {
+                appezzamenti_nzvn += app.getSuperficie();//in ettari 
+            }
+                    
+            
+        }
         
-        //db.ScenarioI idscenariodb = q.getSingleResult();
-
-        //TypedQuery<db.DistanzaCentroParticelle> q1 = entityManager.createQuery("SELECT a FROM DistanzaCentroParticelle a WHERE a.idscenario=?1 ", db.DistanzaCentroParticelle.class);
-        //q1.setParameter(1, idscenario);
-        TypedQuery<db.DatiRimozioneazoto> q2 = entityManager.createQuery("SELECT ab FROM DatiRimozioneazoto  ab WHERE ab.idscenario = ?1 ",db.DatiRimozioneazoto.class);
+        n_max_zoo = 170 * appezzamenti_zvn + 340 * appezzamenti_nzvn ;
+        n_max_tot = 250 *(appezzamenti_zvn + appezzamenti_nzvn) / 0.65;
+        
+       Element nmax_zoo = docW.createElement("n_max_zoo");
+        //tmp1.appendChild(docW.createTextNode(dett.getIdscenario().toString()));
+        nmax_zoo.appendChild(docW.createTextNode(String.valueOf(n_max_zoo)));
+        azienda.appendChild(nmax_zoo);
+        
+         Element nmax_tot = docW.createElement("n_max_tot");
+        //tmp1.appendChild(docW.createTextNode(dett.getIdscenario().toString()));
+        nmax_tot.appendChild(docW.createTextNode(String.valueOf(n_max_tot)));
+        azienda.appendChild(nmax_tot);
+       /* TypedQuery<db.DatiRimozioneazoto> q2 = entityManager.createQuery("SELECT ab FROM DatiRimozioneazoto  ab WHERE ab.idscenario = ?1 ",db.DatiRimozioneazoto.class);
         q2.setParameter(1, idscenario);
+       
+        if(q2.getResultList().isEmpty()){
+            
+        }else
+        {
         db.DatiRimozioneazoto datirimozione = q2.getSingleResult();
        
         double distanza = q2.getSingleResult().getDistanzaCentroParticelle();
-        
+       
         Element tmp2 = docW.createElement("distanza_centro_particelle");
-        //tmp1.appendChild(docW.createTextNode(dett.getIdscenario().toString()));
+       
         tmp2.appendChild(docW.createTextNode(String.valueOf(distanza)));
         azienda.appendChild(tmp2);
         
@@ -1307,17 +1351,15 @@ public class InputOutputXml {
         Element tmp3 = docW.createElement("n_max_zoo");
       
         tmp3.appendChild(docW.createTextNode(String.valueOf(datirimozione.getMaxnsau())));
-        // tmp3.appendChild(docW.createTextNode(String.valueOf("0")));
         azienda.appendChild(tmp3);
         
         
         Element tmp4 = docW.createElement("n_max_tot");
        
         tmp4.appendChild(docW.createTextNode(String.valueOf(datirimozione.getMaxncolture())));
-        //tmp4.appendChild(docW.createTextNode(String.valueOf("0")));
         azienda.appendChild(tmp4);
         
-        
+        }*/
         
         elementoPadre.appendChild(azienda);
 

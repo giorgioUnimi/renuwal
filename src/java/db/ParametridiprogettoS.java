@@ -67,18 +67,18 @@ public class ParametridiprogettoS implements Serializable {
     @JoinColumn(name = "id_nomeparametro", referencedColumnName = "id")
     @ManyToOne
     private NomeparametrdiprogettoS idNomeparametro;
-    @JoinColumn(name = "id_entita1", referencedColumnName = "id")
-    @ManyToOne
-    private NomeentitaattributiS idEntita1;
     @JoinColumn(name = "id_entita", referencedColumnName = "id")
     @ManyToOne
     private NomeentitaattributiS idEntita;
-    @JoinColumn(name = "id_attributo1", referencedColumnName = "id")
+    @JoinColumn(name = "id_entita1", referencedColumnName = "id")
     @ManyToOne
-    private NomeentitaattributiS idAttributo1;
+    private NomeentitaattributiS idEntita1;
     @JoinColumn(name = "id_attributo", referencedColumnName = "id")
     @ManyToOne
     private NomeentitaattributiS idAttributo;
+    @JoinColumn(name = "id_attributo1", referencedColumnName = "id")
+    @ManyToOne
+    private NomeentitaattributiS idAttributo1;
 
     public ParametridiprogettoS() {
     }
@@ -167,14 +167,6 @@ public class ParametridiprogettoS implements Serializable {
         this.idNomeparametro = idNomeparametro;
     }
 
-    public NomeentitaattributiS getIdEntita1() {
-        return idEntita1;
-    }
-
-    public void setIdEntita1(NomeentitaattributiS idEntita1) {
-        this.idEntita1 = idEntita1;
-    }
-
     public NomeentitaattributiS getIdEntita() {
         return idEntita;
     }
@@ -183,12 +175,12 @@ public class ParametridiprogettoS implements Serializable {
         this.idEntita = idEntita;
     }
 
-    public NomeentitaattributiS getIdAttributo1() {
-        return idAttributo1;
+    public NomeentitaattributiS getIdEntita1() {
+        return idEntita1;
     }
 
-    public void setIdAttributo1(NomeentitaattributiS idAttributo1) {
-        this.idAttributo1 = idAttributo1;
+    public void setIdEntita1(NomeentitaattributiS idEntita1) {
+        this.idEntita1 = idEntita1;
     }
 
     public NomeentitaattributiS getIdAttributo() {
@@ -197,6 +189,14 @@ public class ParametridiprogettoS implements Serializable {
 
     public void setIdAttributo(NomeentitaattributiS idAttributo) {
         this.idAttributo = idAttributo;
+    }
+
+    public NomeentitaattributiS getIdAttributo1() {
+        return idAttributo1;
+    }
+
+    public void setIdAttributo1(NomeentitaattributiS idAttributo1) {
+        this.idAttributo1 = idAttributo1;
     }
 
     @Override

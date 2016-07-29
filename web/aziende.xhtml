@@ -209,17 +209,17 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                   </f:facet>
                                   <h:outputText  value="#{row1.codComune}"   />
                               </rich:column>
-                              <rich:column sortBy="#{row1.desProvincia}" sortOrder="#{sortaziende.provinciaOrder}">
+                              <rich:column sortBy="#{row1.desprovincia}" sortOrder="#{sortaziende.provinciaOrder}">
                                   <f:facet name="header">
                                       <a4j:commandLink value="Provincia" render="listaziende1" action="#{sortaziende.sortByProvincia}" />
                                   </f:facet>
-                                  <h:outputText  value="#{row1.desProvincia}"   />
+                                  <h:outputText  value="#{row1.desprovincia}"   />
                               </rich:column>
-                              <rich:column sortBy="#{row1.codiceProvincia}" sortOrder="#{sortaziende.codprovinciaOrder}">
+                              <rich:column sortBy="#{row1.codiceprovincia}" sortOrder="#{sortaziende.codprovinciaOrder}">
                                   <f:facet name="header">
                                       <a4j:commandLink value="Cod.Provincia" render="listaziende1" action="#{sortaziende.sortByCodProvincia}" />
                                   </f:facet>
-                                  <h:outputText  value="#{row1.codiceProvincia}"   />
+                                  <h:outputText  value="#{row1.codiceprovincia}"   />
                               </rich:column>
                               <rich:column sortBy="#{row1.deroga}" sortOrder="#{sortaziende.derogaOrder}">
                                   <f:facet name="header">

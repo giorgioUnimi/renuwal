@@ -114,15 +114,23 @@ public class DettaglioAzienda implements Serializable{
         
         System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" "+Thread.currentThread().getStackTrace()[1].getMethodName() +"  cuaa "+ detto.getCuaa() +  " detto.getScenario() " + detto.getScenario() + " detto.getIdscenario() "  + detto.getIdscenario() + " alternativa " + detto.getAlternativaN()+" detto anno " + detto.getAnno());
                 
-        if(detto.getScenario() == 0)
+        if(detto.getIdscenario() == null || detto.getIdscenario() == 0 )
             return;
         
          /**
              * con lo scenario calcolo le caratteristiche chimiche dell'azienda
              */
-            contenitore.getData(detto.getScenario());
+            contenitore.getData(detto.getIdscenario().intValue());
 
             ContenitoreReflui contenitoreIniziale = contenitore.getContenitore();
+            
+         if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
+         {
+             Connessione connessione = Connessione.getInstance();
+            
+             entityManager = connessione.apri("renuwal1");
+             entityManagerFactory = Connessione.getInstance().getEntityManagerFactory();
+         }
         
         
         /**
@@ -131,6 +139,8 @@ public class DettaglioAzienda implements Serializable{
          * queste popolo listaCaratteristicheLiq e listaCaratteristicheLet
          */
          Query q = entityManager.createNamedQuery("CaratteristicheChmiche.findByIdScenario").setParameter("idScenario",(long)detto.getScenario());
+         //Query q = entityManager.createNamedQuery("CaratteristicheChmiche.findByIdScenario").setParameter("idScenario",(long)399);
+
          List<db.CaratteristicheChmiche> listaCaratteristiche1 = q.getResultList();
          
         if (listaCaratteristiche1.isEmpty()) {
@@ -176,14 +186,17 @@ public class DettaglioAzienda implements Serializable{
             //componenti sono diverse se lo sono salvo le nuove carattersitiche nel lato software delle carattersitche_chimiche(_s)
             //e metto nel lato utente(_u) quelle che hanno il corrispettivo flag a true in caratteristiche_chimiche
             if(confronto(caratteristica,contenitoreIniziale)) {
+                System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " + Thread.currentThread().getStackTrace()[1].getMethodName() + " confronto true ");
                 //popola le liste liquame e letame che sono usate dalla pagina dettagliAziendale
                 //se le caratterstiche chimiche nel db sono uguali a quelle calcolate
                 popolaLiquameLetame(caratteristica);
             }
             else{
+              System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " + Thread.currentThread().getStackTrace()[1].getMethodName() + " confronto false ");
+
                 //altrimenti salvo il contenuto del contenitoreIniziale che contiene le caratteristiche
                 //calcolate nel db lato sistema e nel lato utente se questo non è stato modificato
-               caratteristica = aggiornaCaratteristiche(caratteristica,contenitoreIniziale,detto.getIdscenario());
+                caratteristica = aggiornaCaratteristiche(caratteristica,contenitoreIniziale,detto.getIdscenario());
                 popolaLiquameLetame(caratteristica);
             }
                 
@@ -900,6 +913,8 @@ public class DettaglioAzienda implements Serializable{
          
          Query q = entityManager.createNamedQuery("CaratteristicheChmiche.findByIdScenario").setParameter("idScenario",idscenario);
          List<db.CaratteristicheChmiche> listaCaratteristiche1 = q.getResultList();
+         if(listaCaratteristiche1.isEmpty())
+             return;
          db.CaratteristicheChmiche caratteristica = listaCaratteristiche1.get(0);
         
         /* if(!listaCaratteristiche1.isEmpty()) {

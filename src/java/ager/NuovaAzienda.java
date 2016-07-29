@@ -16,6 +16,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.validation.constraints.Size;
+import operativo.ListaAziende;
 import operativo.Utente;
 import operativo.dettaglio.Connessione;
 //import operativo.dettaglio.UrlDistanza;
@@ -68,13 +69,8 @@ public class NuovaAzienda implements Serializable{
       * metodo associato al click su bottone salva della pagina nuova azienda
       */
      public String salva()
-     {
-         
-         
-          
-         
-         
-         System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " cuaa: " + this.cuaa + " rag_sociale: " + this.ragionesociale + " comune : " + this.comune + " codice_comune : " + this.codice_comune +" provincia : "+ this.provincia+" codice_provincia " + this.codice_provincia + " coordinata_x " + this.coordinata_x + " coordinata_y " + this.coordinata_y + " sauzvn  " + this.sauzvn + " sauzv  " + this.sazv);
+     {   
+        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " cuaa: " + this.cuaa + " rag_sociale: " + this.ragionesociale + " comune : " + this.comune + " codice_comune : " + this.codice_comune +" provincia : "+ this.provincia+" codice_provincia " + this.codice_provincia + " coordinata_x " + this.coordinata_x + " coordinata_y " + this.coordinata_y + " sauzvn  " + this.sauzvn + " sauzv  " + this.sazv);
        
         if (entityManagerFactory == null || !(entityManager.isOpen()))
                             {
@@ -133,8 +129,8 @@ public class NuovaAzienda implements Serializable{
          
          System.out.println("utente username " + utenteLog.getUsername() + " password  " + utenteLog.getPassword());
          
-          
-        
+        // ListaAziende listaAziende = (ListaAziende) FacesContext.getCurrentInstance().getApplication().getELResolver().getValue(elContext, null, "listaAziende"); 
+        // listaAziende.resetValues();
         
        
         

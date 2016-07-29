@@ -400,7 +400,20 @@ public class DettaglioCuaa implements Serializable{
 
    
     
-    
+    /*public  String getRandomNumber1(int digCount) {
+        Random rr = new Random();
+
+
+        StringBuilder sb = new StringBuilder(digCount);
+        for (int i = 0; i < digCount; i++) {
+            sb.append((char) ('0' + rr.nextInt(10)));
+        }
+        
+        
+        System.out.println(Thread.currentThread().getStackTrace()[0].getClassName() + " random numerber " + sb.toString());
+        
+        return sb.toString();
+    }*/
     
    
     

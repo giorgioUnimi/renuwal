@@ -220,6 +220,8 @@ public class ContenitoreAziendale {
        // System.out.println(" utenteospite " + utenteospite + " cuaa " + cuaa);
         
         q = entityManager.createNamedQuery("ScenarioI.findByIdscenario") .setParameter("idscenario", detto.getIdscenario());
+        if(q.getResultList().isEmpty())
+            return;
         db.ScenarioI scena = (db.ScenarioI)q.getResultList().get(0);
         
         

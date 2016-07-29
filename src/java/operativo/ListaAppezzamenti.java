@@ -111,7 +111,9 @@ public class ListaAppezzamenti {
        //devo creare un nuovo appezzamento e quindi devo cercare prima lo scenario
        //il tipo di terreno , il tipo di irrigazione
        Query q = entityManager.createNamedQuery("ScenarioI.findByIdscenario").setParameter("idscenario", getDettaglioCuaa().getIdscenario());
-                setSceT((db.ScenarioI)q.getResultList().get(0));
+       if(q.getResultList().isEmpty())
+           return;
+       setSceT((db.ScenarioI)q.getResultList().get(0));
        Iterator<db.Appezzamento> iterAppezzamenti=getSceT().getAppezzamentoCollection().iterator();
           
        //         getListaAppezzamenti().clear();
