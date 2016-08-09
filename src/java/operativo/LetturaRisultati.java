@@ -7,6 +7,7 @@ package operativo;
 import WebGui.ProgressBarBean;
 import ager.ContenitoreReflui;
 import ager.Refluo;
+import ager.trattamenti.ContenitoreAziendale;
 import multiobiettivo.Alternativa;
 import java.io.IOException;
 import test.*;
@@ -20,6 +21,7 @@ import java.util.ListIterator;
 //import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.el.ELContext;
 
 import javax.faces.application.Application;
 //import javax.faces.bean.ManagedBean;
@@ -830,23 +832,23 @@ public class LetturaRisultati extends Thread {
                 /**
                  * apri l'header della tabella rissuntiva fuori dal dettaglio
                  */
-                apriHeadertable();
+                //apriHeadertable();
+                apriHeadertableRichAnalisi();
+               
                 recuperaDatiAnalisi(leggi, "//alternativa", hh);
                 /**
                  * l'header della tabella rissuntiva fuori dal dettaglio
                  */
-                chiudiHeadertable();
-                
-                /* try{
-                 this.dinamicOut.println("<br/><br/><br/>");
-              }catch(Exception ex){ex.printStackTrace();}*/
+                chiudiHeadertable();        
             
-            if(this.contenitoreflui != null)
-                stampaStatoIniziale();
+            /*if(this.contenitoreflui != null)
+                stampaStatoIniziale();*/
                 
+                // apriHeadertableRichAlt();
+                //recuperaSingola2multi(leggi, true, "//alternativa", "");
+                recuperaSingola2multiRich(leggi, true, "//alternativa", "");
                 
-                
-                recuperaSingola2multi(leggi, true, "//alternativa", "");
+                 //chiudiHeadertable();    
                 break;
           //caso chiamato direttamente dalla classe solutore per il progetto renuwal1  
           case "singolamulti1":
@@ -2080,8 +2082,19 @@ public class LetturaRisultati extends Thread {
       */
      private void recuperaDatiAnalisi(InputOutputXml leggi,String padre,String alternativa)
      {
-             NodeList temp = null;
              
+         /*ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+         DettaglioAzienda  dettaA = ( DettaglioAzienda) FacesContext.getCurrentInstance().getApplication().getELResolver().getValue(elContext, null, "dettaglioAzienda");
+         
+         Refluo liquameSuino = new Refluo("Liquame Suino");
+         liquameSuino.setMetricubi(100);
+         liquameSuino.setAzotoammoniacale(230);
+         dettaA.getListaCaratteristicheLiqXml().add(liquameSuino);*/
+        
+          
+         NodeList temp = null;
+         DecimalFormat dformat = new DecimalFormat("#0,0");  
+         DecimalFormat dformat1 = new DecimalFormat("###.#");  
              
               temp = leggi.cerca1(padre+"/scelta",true);
           
@@ -2098,9 +2111,10 @@ public class LetturaRisultati extends Thread {
                   moduli +=" | " + tratt1.getTrattamento().getNome();
               }
               
-           
-          
-             
+           try{
+           this.dinamicOut.println("<tbody id='form:tablexml:0:tb' class='rf-dt-b'>\n"
+                                + "<tr id='form:tablexml:0' class='rf-dt-r rf-dt-fst-r'>\n");
+           }catch(Exception ex){ex.printStackTrace();}
          
              String pattern1 = "(\\w*)([\\.,](\\w*))";
              
@@ -2108,14 +2122,16 @@ public class LetturaRisultati extends Thread {
                  
              this.dinamicOut.println("<tr>");
              //numero alternativa
-             this.dinamicOut.println("<td>"+alternativa+"</td>");
+              this.dinamicOut.println( "<td id='form:tablexml:0:j_idt257' class='rf-dt-c'>"+alternativa+"</td>");
+            // this.dinamicOut.println("<td>"+alternativa+"</td>");
              //descrizione
-             this.dinamicOut.println("<td>"+moduli+"</td>");
+             this.dinamicOut.println("<td id='form:tablexml:0:j_idt260' class='rf-dt-c'>"+moduli+"</td>");
              //emissioni acide
               temp = leggi.cerca1(padre+"/totali/emissioni/nh3",true);
              double nh3 = Double.parseDouble(temp.item(0).getNodeValue().replaceAll(pattern1, "$1"));
              double em2 = nh3  ;
-             this.dinamicOut.println("<td>"+em2+"</td>");
+            
+             this.dinamicOut.println("<td id='form:tablexml:0:j_idt263' class='rf-dt-c'>"+dformat1.format(em2)+"</td>");
              //emissioni gas serra
              temp = leggi.cerca1(padre+"/totali/emissioni/ch4",true);
              double ch4 = Double.parseDouble(temp.item(0).getNodeValue().replaceAll(pattern1, "$1"));
@@ -2126,17 +2142,20 @@ public class LetturaRisultati extends Thread {
              temp = leggi.cerca1(padre+"/totali/emissioni/no",true);
              double no = Double.parseDouble(temp.item(0).getNodeValue().replaceAll(pattern1, "$1"));
              double em1 = ch4 + co2 + n2o + no; 
-             this.dinamicOut.println("<td>"+em1+"</td>");
+            
+             this.dinamicOut.println("<td id='form:tablexml:0:j_idt266' class='rf-dt-c'>"+dformat1.format(em1)+"</td>");
              //this.dinamicOut.println("<td>"+this.pesoenergia+"</td><td>"+this.pesoemissionia+"</td><td>"+this.pesoemissionis+"</td><td>"+this.pesocosti+"</td>");
               temp = leggi.cerca1(padre+"/totali/energia/consumata",true);
               double econsumata = Double.parseDouble(temp.item(0).getNodeValue().replaceAll(pattern1, "$1"));
               temp = leggi.cerca1(padre+"/totali/energia/prodotta",true);
               double eprodotta = Double.parseDouble(temp.item(0).getNodeValue().replaceAll(pattern1, "$1"));
               double tt = econsumata - eprodotta;
-             this.dinamicOut.println("<td>"+tt +"</td>");
+            
+             this.dinamicOut.println("<td id='form:tablexml:0:j_idt269' class='rf-dt-c'>"+dformat1.format(tt) +"</td>");
              //costi         
              temp = leggi.cerca1(padre+"/totali/costi/gestione",true);
-             this.dinamicOut.println("<td>"+temp.item(0).getNodeValue().replaceAll(pattern1, "$1") +"</td>");
+             double costo_gestione = Double.parseDouble(temp.item(0).getNodeValue().replaceAll(pattern1, "$1"));
+             this.dinamicOut.println("<td id='form:tablexml:0:j_idt272' class='rf-dt-c'>"+dformat1.format(costo_gestione) +"</td>");
              
              
              //gestione surplus : devo leggere il modulo stoccaggi ed il modulo rimozione azoto e fare la somma su liquami , letami su tutto
@@ -2148,10 +2167,10 @@ public class LetturaRisultati extends Thread {
              
               double rapporto = ((totAzotoStoccaggi - totAzotoRimozione) / totAzotoStoccaggi) * 100;
                //lo uso per dare un formato piu corto al double
-             DecimalFormat dformat = new DecimalFormat("#0,00");        
-              this.dinamicOut.println("<td>"+dformat.format(rapporto)+"</td>"); 
+                   
+              this.dinamicOut.println("<td id='form:tablexml:0:j_idt275' class='rf-dt-c'>"+dformat.format(rapporto)+"</td>"); 
             
-             this.dinamicOut.println("</tr>"); 
+             this.dinamicOut.println("</tr></tbody>"); 
              
              }catch(Exception ex)
              {
@@ -2207,7 +2226,59 @@ public class LetturaRisultati extends Thread {
                 };
      }
      
+     /**
+      * crea l'header della tabella del nella nuova modalita usando le classe RichFAces come il dettaglioaziendale
+      */
+     private void apriHeadertableRichAlt()
+     {
+         try {
+             this.dinamicOut.println("<p><h3>Descrizione parametri :</h3><br/><ul><li><b># Alt :</b> numero alternativa </li><li><b>Descrizione :</b> composizione in moduli dell'alternativa </li><li><b>Em A :</b>emissioni acide =nh3(Kg) </li><li><b>Em G :</b>emissioni gas serra = ch4 + co2 + n2o + n0(Kg) </li><li><b>Energia :</b> energia(KWh) consumata - prodotta </li><li><b>Costo :</b>  gestione(esercizio)(Euro)</li><li><b>% surplus :</b> (refluo prodotto - distribuzione sui terreni aziendali) / refluo prodotto  </li></ul></p>");
+             this.dinamicOut.println("<table id='form:tablexmlA' class='rf-dt' style='width:700px;'>");
+             this.dinamicOut.println("<colgroup span='8'></colgroup>");
+             this.dinamicOut.println("<thead id='form:tablexmlA:th' class='rf-dt-thd'>");
+             this.dinamicOut.println("<tr id='form:tablexmlA:ch' class='rf-dt-shdr'>");
+             this.dinamicOut.println("<th id='form:tablexmlA:j_idt150' class='rf-dt-shdr-c' scope='col'>Tipo</th>");
+             this.dinamicOut.println("<th id='form:tablexmlA:j_idt157' class='rf-dt-shdr-c' scope='col'>Volume</th>");
+             this.dinamicOut.println("<th id='form:tablexmlA:j_idt160' class='rf-dt-shdr-c' scope='col'>TKN</th>");
+             this.dinamicOut.println("<th id='form:tablexmlA:j_idt163' class='rf-dt-shdr-c' scope='col'>TAN</th>");
+             this.dinamicOut.println("<th id='form:tablexmlA:j_idt166' class='rf-dt-shdr-c' scope='col'>DM</th>");
+             this.dinamicOut.println("<th id='form:tablexmlA:j_idt169' class='rf-dt-shdr-c' scope='col'>VS</th>");
+             this.dinamicOut.println("<th id='form:tablexmlA:j_idt172' class='rf-dt-shdr-c' scope='col'>K</th>");
+             this.dinamicOut.println("<th id='form:tablexmlA:j_idt175' class='rf-dt-shdr-c' scope='col'>P</th>");
+             this.dinamicOut.println("</tr>");
+             this.dinamicOut.println("</thead>");
+         }catch(Exception ex)
+                {
+                    ex.printStackTrace();
+                };
+     }
      
+     
+     /**
+      * crea l'header della tabella del nella nuova modalita usando le classe RichFAces come il dettaglioaziendale
+      */
+     private void apriHeadertableRichAnalisi()
+     {
+         try {
+             this.dinamicOut.println("<p><h3>Descrizione parametri :</h3><br/><ul><li><b># Alt :</b> numero alternativa </li><li><b>Descrizione :</b> composizione in moduli dell'alternativa </li><li><b>Em A :</b>emissioni acide =nh3(Kg) </li><li><b>Em G :</b>emissioni gas serra = ch4 + co2 + n2o + n0(Kg) </li><li><b>Energia :</b> energia(KWh) consumata - prodotta </li><li><b>Costo :</b>  gestione(esercizio)(Euro)</li><li><b>% surplus :</b> (refluo prodotto - distribuzione sui terreni aziendali) / refluo prodotto  </li></ul>");
+             this.dinamicOut.println("<table id='form:tablexml' class='rf-dt' style='width:700px;'>");
+             this.dinamicOut.println("<colgroup span='8'></colgroup>");
+             this.dinamicOut.println("<thead id='form:tablexml:th' class='rf-dt-thd'>");
+             this.dinamicOut.println("<tr id='form:tablexml:ch' class='rf-dt-shdr'>");
+             this.dinamicOut.println("<th id='form:tablexml:j_idt250' class='rf-dt-shdr-c' scope='col'># Alt.</th>");
+             this.dinamicOut.println("<th id='form:tablexml:j_idt257' class='rf-dt-shdr-c' scope='col'>Descrizione</th>");
+             this.dinamicOut.println("<th id='form:tablexml:j_idt260' class='rf-dt-shdr-c' scope='col'>Em A</th>");
+             this.dinamicOut.println("<th id='form:tablexml:j_idt263' class='rf-dt-shdr-c' scope='col'>Em G</th>");
+             this.dinamicOut.println("<th id='form:tablexml:j_idt266' class='rf-dt-shdr-c' scope='col'>Energia</th>");
+             this.dinamicOut.println("<th id='form:tablexml:j_idt269' class='rf-dt-shdr-c' scope='col'>Costo</th>");
+             this.dinamicOut.println("<th id='form:tablexml:j_idt272' class='rf-dt-shdr-c' scope='col'>% Surplus</th>");             
+             this.dinamicOut.println("</tr>");
+             this.dinamicOut.println("</thead>");
+         }catch(Exception ex)
+                {
+                    ex.printStackTrace();
+                };
+     }
      /**
       * crea l'header della tabella del dettaglio iniziale da mostrare prima del mostra dettaglio
       */
@@ -2540,8 +2611,466 @@ public class LetturaRisultati extends Thread {
           
         // Connessione.getInstance().chiudi();
     }
+    //interroga l'xml di output e crea un contenuitorereflui che contiene  le caratteristiche chimiche del
+     //refluo in output dal solutore
+    private ContenitoreReflui recuperaRefluo(InputOutputXml leggi)
+    {
+       double m3 = 0;
+       double at = 0;
+       double am = 0;
+       double ss = 0;
+       double sv = 0;
+       double ft = 0;
+       double pt = 0;
+       
+       Refluo ref = null;
+       
+       ContenitoreReflui contenitore = new ContenitoreReflui();
+       
+       for(String tipologia:contenitore.getTipologie())
+       {
+       ref = new Refluo(tipologia);
+       
+       String[] pezzi_tipologia = tipologia.split(" ");
+       pezzi_tipologia[0] = pezzi_tipologia[0].toLowerCase();
+       pezzi_tipologia[1] = pezzi_tipologia[1].toLowerCase();
+       //è un adattamento al nome usato dal solutore biomasse mentre in contenitore reflui è biomassa
+       if(pezzi_tipologia[1].equals("biomassa"))
+           pezzi_tipologia[1] = "biomasse";
+       String temp = leggi.cercaSingolo("//totali/caratteristichechimiche/"+ pezzi_tipologia[1]+"/"+pezzi_tipologia[0]+"/m3");
+       System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " + Thread.currentThread().getStackTrace()[1].getMethodName() + " tipologia " + tipologia + " tip 1 " + pezzi_tipologia[0] + " tip 2 " + pezzi_tipologia[1] + " valore " + temp + Math.round(Double.parseDouble(temp)));
+       
+       m3 = Math.round(Double.parseDouble(leggi.cercaSingolo("//totali/caratteristichechimiche/"+ pezzi_tipologia[1]+"/"+pezzi_tipologia[0]+"/m3")));
+        at = Math.round(Double.parseDouble(leggi.cercaSingolo("//totali/caratteristichechimiche/"+ pezzi_tipologia[1]+"/"+pezzi_tipologia[0]+"/at")));
+         am = Math.round(Double.parseDouble(leggi.cercaSingolo("//totali/caratteristichechimiche/"+ pezzi_tipologia[1]+"/"+pezzi_tipologia[0]+"/am")));
+          ss = Math.round(Double.parseDouble(leggi.cercaSingolo("//totali/caratteristichechimiche/"+ pezzi_tipologia[1]+"/"+pezzi_tipologia[0]+"/ss")));
+           sv = Math.round(Double.parseDouble(leggi.cercaSingolo("//totali/caratteristichechimiche/"+ pezzi_tipologia[1]+"/"+pezzi_tipologia[0]+"/sv")));
+            ft = Math.round(Double.parseDouble(leggi.cercaSingolo("//totali/caratteristichechimiche/"+ pezzi_tipologia[1]+"/"+pezzi_tipologia[0]+"/ft")));
+             pt = Math.round(Double.parseDouble(leggi.cercaSingolo("//totali/caratteristichechimiche/"+ pezzi_tipologia[1]+"/"+pezzi_tipologia[0]+"/pt")));
+       
+       //System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " + Thread.currentThread().getStackTrace()[1].getMethodName() + " tipologia " + tipologia + " tip 1 " + pezzi_tipologia[0] + " tip 2 " + pezzi_tipologia[1] + " valore " + temp);
      
-     
+             
+        ref.setMetricubi(m3); 
+        ref.setAzotototale(at);
+        ref.setAzotoammoniacale(am);
+        ref.setSolidivolatili(sv);
+        ref.setSostanzasecca(ss);
+        ref.setPotassiototale(pt);
+        ref.setFosforototale(ft);
+        
+        contenitore.setTipologia(tipologia, ref);
+        
+       }
+       return contenitore;       
+       
+    }
+    private void recuperaSingola2multiRich(InputOutputXml leggi,boolean cache,String padre,String alternativa)  {
+         
+        // System.out.println("+++++++++++++"+padre+"++++++++++++++" + alternativa);
+          
+         NodeList temp = null;
+        //mi serve per recuperar eil numero delle aziende presenti nel file di risposta
+        temp = leggi.cerca1("//risultati/singola_azienda/alternativa",false);
+        
+        if(temp == null)
+        {
+              mostraErrore();
+                     return;
+        }
+       // System.out.println(this.getClass().getCanonicalName()+" " +Thread.currentThread().getStackTrace()[1].getMethodName() + "  risultati trovati " + temp.getLength() );
+        //valore che uso nel ciclo for per ciclare su tutte le aziende del file dei risutlati
+        int numeroAziende = temp.getLength();       
+        //System.out.println(this.getClass().getCanonicalName()+" " +Thread.currentThread().getStackTrace()[1].getMethodName() + "  risultati trovati " + temp.getLength() );
+        try {     
+          
+            {       
+           
+                temp = leggi.cerca1(padre + "/scelta", true);
+                //this.dinamicOut.println("<a class=\"labellocalizzazioneTable\" href=\"#linkrapidi\">Torna su</a>");
+                //this.dinamicOut.println("<p  class=\"labellocalizzazioneTable\"><b>Alternativa scelta : <a name=\"" + temp.item(0).getNodeValue() + "\">" + temp.item(0).getNodeValue() + "</a></b></p>");
+
+                //recupero la composizione dell'alternativa inteso come moduli che la compongono
+                Iterator<db.AlternativaTrattamento> tratt = this.composizioneAlternative1(Integer.parseInt(temp.item(0).getNodeValue()));
+
+                String moduli = "Moduli :";
+
+                while (tratt.hasNext()) {
+                    db.AlternativaTrattamento tratt1 = tratt.next();
+                    int i = tratt1.getTrattamento().getId();
+                    if(i != 6 && i!=7) {
+                        moduli += " | " + tratt1.getTrattamento().getNome();
+                    }
+                }
+                moduli +=" | Vasca | Platea";
+               // this.dinamicOut.println("<p  class=\"labellocalizzazioneTable\"><b>" + moduli + "</b></p>");
+
+
+
+              //  this.dinamicOut.println("<p class=\"labellocalizzazioneTable\">Caratteristiche chimiche : </p>");
+                //this.dinamicOut.println("<table class=\"localizzazioneTable2\">");
+                //this.dinamicOut.println("<thead><tr><th>Tipologia</th><th>Volume(m<sup>3</sup>)</th><th>TKN(kg)</th><th>TAN(kg)</th><th>DM(kg)</th><th>VS(kg)</th><th>P(kg)</th><th>K(kg)</th></tr></thead>");
+                 //this.dinamicOut.println("<p><h3>Descrizione parametri :</h3><br/><ul><li><b># Alt :</b> numero alternativa </li><li><b>Descrizione :</b> composizione in moduli dell'alternativa </li><li><b>Em A :</b>emissioni acide =nh3(Kg) </li><li><b>Em G :</b>emissioni gas serra = ch4 + co2 + n2o + n0(Kg) </li><li><b>Energia :</b> energia(KWh) consumata - prodotta </li><li><b>Costo :</b>  gestione(esercizio)(Euro)</li><li><b>% surplus :</b> (refluo prodotto - distribuzione sui terreni aziendali) / refluo prodotto  </li></ul>");
+              this.dinamicOut.println("<br/><br/>");
+             this.dinamicOut.println("<table id='form:tablexmlA' class='rf-dt' style='width:700px;'>");
+             this.dinamicOut.println("<colgroup span='8'></colgroup>");
+             this.dinamicOut.println("<thead id='form:tablexmlA:th' class='rf-dt-thd'>");
+             this.dinamicOut.println("<tr id='form:tablexmlA:ch' class='rf-dt-shdr'>");
+             this.dinamicOut.println("<th id='form:tablexmlA:j_idt150' class='rf-dt-shdr-c' scope='col'>Tipo</th>");
+             this.dinamicOut.println("<th id='form:tablexmlA:j_idt157' class='rf-dt-shdr-c' scope='col'>Volume</th>");
+             this.dinamicOut.println("<th id='form:tablexmlA:j_idt160' class='rf-dt-shdr-c' scope='col'>TKN</th>");
+             this.dinamicOut.println("<th id='form:tablexmlA:j_idt163' class='rf-dt-shdr-c' scope='col'>TAN</th>");
+             this.dinamicOut.println("<th id='form:tablexmlA:j_idt166' class='rf-dt-shdr-c' scope='col'>DM</th>");
+             this.dinamicOut.println("<th id='form:tablexmlA:j_idt169' class='rf-dt-shdr-c' scope='col'>VS</th>");
+             this.dinamicOut.println("<th id='form:tablexmlA:j_idt172' class='rf-dt-shdr-c' scope='col'>K</th>");
+             this.dinamicOut.println("<th id='form:tablexmlA:j_idt175' class='rf-dt-shdr-c' scope='col'>P</th>");
+             this.dinamicOut.println("</tr>");
+             this.dinamicOut.println("</thead>");
+                
+                
+             ContenitoreReflui contenitore = this.recuperaRefluo(leggi);
+             Refluo tot_letame = contenitore.totale("Letame");  
+             this.dinamicOut.println("<tbody id='form:tablexmlA:0:tb' class='rf-dt-b'>\n"
+                                        +"<tr id='form:tablexmlA:0' class='rf-dt-r rf-dt-fst-r'>\n"
+                                        +"<td id='form:tablexmlA:0:j_idt150' class='rf-dt-c'>\n"
+                                        +"<span id='form:tablexmlA:0:j_idt155' class='rf-csttg'>\n"
+                                        +"<span id='form:tablexmlA:0:j_idt155:collapsed' class='rf-csttg-colps'>\n"
+                                        +"<img alt='' src='/renuwal/faces/javax.faces.resource/org.richfaces/up_icon.gif'>\n"
+                                        +"</span>\n"
+                                        +"<span id='form:tablexmlA:0:j_idt155:expanded' class='rf-csttg-exp' style='display: none;'>\n"
+                                        +"<img alt='' src='/renuwal/faces/javax.faces.resource/org.richfaces/down_icon.gif'>\n"
+                                        +"</span>\n"
+                                        +"<script>\n"
+                                        +"new RichFaces.ui.CollapsibleSubTableToggler('form:tablexmlA:0:j_idt155',{'expandedControl':'form:tablexmlA:0:j_idt155:expanded','collapsedControl':'form:tablexmlA:0:j_idt155:collapsed','eventName':'click','forId':'form:tablexmlA:0:sbtbl'} )\n"
+                                        +"</script>\n"
+                                        +"</span>\n"
+                                        +"Letame\n"
+                                        +"</td>\n");   
+             this.dinamicOut.println( "<td id='form:tablexmlA:0:j_idt157' class='rf-dt-c'>"+tot_letame.getMetricubi()+"</td>"
+                     + "<td id='form:tablexmlA:0:j_idt160' class='rf-dt-c'>"+tot_letame.getAzotototale()+"</td>"
+                     + "<td id='form:tablexmlA:0:j_idt163' class='rf-dt-c'>"+tot_letame.getAzotoammoniacale() +"</td>"
+                     + "<td id='form:tablexmlA:0:j_idt166' class='rf-dt-c'>"+tot_letame.getSostanzasecca()+"</td>"
+                     + "<td id='form:tablexmlA:0:j_idt169' class='rf-dt-c'>"+tot_letame.getSolidivolatili()+"</td>"
+                     + "<td id='form:tablexmlA:0:j_idt172' class='rf-dt-c'>"+tot_letame.getPotassiototale()+"</td>"
+                     + "<td id='form:tablexmlA:0:j_idt175' class='rf-dt-c'>"+tot_letame.getFosforototale()+"</td></tr></tbody>"
+                     );
+             
+             
+             this.dinamicOut.println("<tbody id='form:tablexmlA:0:sbtbl:c' class='rf-cst' style=''>\n"
+                                     +"<tr id='form:tablexmlA:0:sbtbl' style='display: none;'>\n"
+                                     +"<td></td>\n"
+                                     +"</tr>\n"
+                                     +"<tr id='form:tablexmlA:0:sbtbl:ch' class='rf-cst-shdr'>\n"
+                                     +"<td class='rf-cst-shdr-c'>Tipo</td>\n"
+                                     +"<td class='rf-cst-shdr-c'>Volume</td>\n"
+                                     +"<td class='rf-cst-shdr-c'>TKN</td>\n"
+                                     +"<td class='rf-cst-shdr-c'>TAN</td>\n"
+                                     +"<td class='rf-cst-shdr-c'>DM</td>\n"
+                                     +"<td class='rf-cst-shdr-c'>SV</td>\n"
+                                     +"<td class='rf-cst-shdr-c'>K</td>\n"
+                                     +"<td class='rf-cst-shdr-c'>P</td>\n"
+                                     +"</tr>\n");
+             
+                                      Refluo ref = contenitore.getTipologia("Letame Bovino");  
+             
+             this.dinamicOut.println("<tr id='form:tablexmlA:0:sbtbl:0:b' class='rf-cst-r rf-cst-fst-r odd-row'>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:0:j_idt178' class='rf-cst-c' style='background-color: #58ACFA;'>Letame Bovino</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:0:j_idt181' class='rf-cst-c' style='background-color: #58ACFA;'>\n"
+                                    +"<span style='width:30px;'>"+ref.getMetricubi()+"</span>\n"
+                                    +"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:0:j_idt184' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:0:j_idt187' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotoammoniacale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:0:j_idt190' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSostanzasecca()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:0:j_idt193' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSolidivolatili()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:0:j_idt196' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getPotassiototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:0:j_idt199' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getFosforototale()+"</td>\n"
+                                    +"</tr>\n");
+             
+                ref = contenitore.getTipologia("Letame Suino");  
+             
+                this.dinamicOut.println("<tr id='form:tablexmlA:0:sbtbl:1:b' class='rf-cst-r rf-cst-fst-r odd-row'>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:1:j_idt178' class='rf-cst-c' style='background-color: #58ACFA;'>Letame Suino</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:1:j_idt181' class='rf-cst-c' style='background-color: #58ACFA;'>\n"
+                                    +"<span style='width:30px;'>"+ref.getMetricubi()+"</span>\n"
+                                    +"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:1:j_idt184' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:1:j_idt187' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotoammoniacale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:1:j_idt190' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSostanzasecca()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:1:j_idt193' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSolidivolatili()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:1:j_idt196' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getPotassiototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:1:j_idt199' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getFosforototale()+"</td>\n"
+                                    +"</tr>\n");
+                 
+                 ref = contenitore.getTipologia("Letame Avicolo");  
+             
+                this.dinamicOut.println("<tr id='form:tablexmlA:0:sbtbl:2:b' class='rf-cst-r rf-cst-fst-r odd-row'>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:2:j_idt178' class='rf-cst-c' style='background-color: #58ACFA;'>Letame Avicolo</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:2:j_idt181' class='rf-cst-c' style='background-color: #58ACFA;'>\n"
+                                    +"<span style='width:30px;'>"+ref.getMetricubi()+"</span>\n"
+                                    +"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:2:j_idt184' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:2:j_idt187' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotoammoniacale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:2:j_idt190' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSostanzasecca()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:2:j_idt193' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSolidivolatili()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:2:j_idt196' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getPotassiototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:2:j_idt199' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getFosforototale()+"</td>\n"
+                                    +"</tr>\n");
+                
+                 ref = contenitore.getTipologia("Letame Altro");  
+             
+                this.dinamicOut.println("<tr id='form:tablexmlA:0:sbtbl:3:b' class='rf-cst-r rf-cst-fst-r odd-row'>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:3:j_idt178' class='rf-cst-c' style='background-color: #58ACFA;'>Letame Altro</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:3:j_idt181' class='rf-cst-c' style='background-color: #58ACFA;'>\n"
+                                    +"<span style='width:30px;'>"+ref.getMetricubi()+"</span>\n"
+                                    +"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:3:j_idt184' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:3:j_idt187' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotoammoniacale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:3:j_idt190' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSostanzasecca()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:3:j_idt193' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSolidivolatili()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:3:j_idt196' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getPotassiototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:3:j_idt199' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getFosforototale()+"</td>\n"
+                                    +"</tr>\n");
+                
+                 ref = contenitore.getTipologia("Letame Biomassa");  
+             
+                this.dinamicOut.println("<tr id='form:tablexmlA:0:sbtbl:4:b' class='rf-cst-r rf-cst-fst-r odd-row'>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:4:j_idt178' class='rf-cst-c' style='background-color: #58ACFA;'>Letame Suino</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:4:j_idt181' class='rf-cst-c' style='background-color: #58ACFA;'>\n"
+                                    +"<span style='width:30px;'>"+ref.getMetricubi()+"</span>\n"
+                                    +"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:4:j_idt184' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:4:j_idt187' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotoammoniacale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:4:j_idt190' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSostanzasecca()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:4:j_idt193' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSolidivolatili()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:4:j_idt196' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getPotassiototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:4:j_idt199' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getFosforototale()+"</td>\n"
+                                    +"</tr>\n");
+                
+                this.dinamicOut.println("<tr id='form:tablexmlA:0:sbtbl:sc' style='display: none;'>\n"
+                                        +"<td>\n"
+                                        +"<script type='text/javascript'>\n"
+                                        +"new RichFaces.ui.CollapsibleSubTable('form:tablexmlA:0:sbtbl','form',{'optionsInput':'form:tablexmlA:0:sbtbl:options','expandMode':'client','stateInput':'form:tablexmlA:0:sbtbl:state','eventOptions':{'incId':'1'} } )\n"
+                                        +"</script>\n"
+                                        +"<input id='form:tablexmlA:0:sbtbl:state' type='hidden' value='1' name='form:tablexmlA:0:sbtbl:state'>\n"
+                                        +"<input id='form:tablexmlA:0:sbtbl:options' type='hidden' name='form:tablexmlA:0:sbtbl:options' value='form:tablexmlA:0:j_idt155'>\n"
+                                        +"</td>\n"
+                                        +"</tr>\n</tbody>\n");
+                
+                Refluo tot_liquame = contenitore.totale("Liquame");  
+                
+                this.dinamicOut.println("<tbody id='form:tablexmlA:1:tb' class='rf-dt-b'>\n"
+                                        +"<tr id='form:tablexmlA:1' class='rf-dt-r'>\n"
+                                        +"<td id='form:tablexmlA:1:j_idt150' class='rf-dt-c'>\n"
+                                        +"<span id='form:tablexmlA:1:j_idt155' class='rf-csttg'>\n"
+                                        +"<span id='form:tablexmlA:1:j_idt155:collapsed' class='rf-csttg-colps' style='display: none;'>\n"
+                                        +"<img alt='' src='/renuwal/faces/javax.faces.resource/org.richfaces/up_icon.gif'>\n"
+                                        +"</span>\n"
+                                        +"<span id='form:tablexmlA:1:j_idt155:expanded' class='rf-csttg-exp' style=''>\n"
+                                        +"<img alt='' src='/renuwal/faces/javax.faces.resource/org.richfaces/down_icon.gif'>\n"
+                                        +"</span>\n"
+                                        +"<script>\n"
+                                        +"new RichFaces.ui.CollapsibleSubTableToggler('form:tablexmlA:1:j_idt155',{'exapandedControl':'form:tablexmlA:1:j_idt155:expanded','collapsedControl':'form:tablexmlA:1:j_idt155:collapsed','eventName':'click','forId':'form:tablexmlA:1:sbtbl'} )\n"
+                                        +"</script>\n"
+                                        +"</span>\n"
+                                        +"Liquame"
+                                        +"</td>\n"
+                                        +"<td id='form:tablexmlA:1:j_idt157' class='rf-dt-c'>"+tot_liquame.getMetricubi()+"</td>\n"
+                                        +"<td id='form:tablexmlA:1:j_idt160' class='rf-dt-c'>"+tot_liquame.getAzotototale()+"</td>\n"
+                                        +"<td id='form:tablexmlA:1:j_idt163' class='rf-dt-c'>"+tot_liquame.getAzotoammoniacale()+"</td>\n"
+                                        +"<td id='form:tablexmlA:1:j_idt166' class='rf-dt-c'>"+tot_liquame.getSostanzasecca()+"</td>\n"
+                                        +"<td id='form:tablexmlA:1:j_idt169' class='rf-dt-c'>"+tot_liquame.getSolidivolatili()+"</td>\n"
+                                        +"<td id='form:tablexmlA:1:j_idt172' class='rf-dt-c'>"+tot_liquame.getPotassiototale()+"</td>\n"
+                                        +"<td id='form:tablexmlA:1:j_idt175' class='rf-dt-c'>"+tot_liquame.getFosforototale()+"</td>\n"
+                                        +"</tr>\n"
+                                        +"</tbody>\n");
+                
+                
+                this.dinamicOut.println("<tbody id='form:tablexmlA:1:sbtbl:c' class='rf-cst' style=''>\n"
+                                     +"<tr id='form:tablexmlA:1:sbtbl' style='display: none;'>\n"
+                                     +"<td></td>\n"
+                                     +"</tr>\n"
+                                     +"<tr id='form:tablexmlA:1:sbtbl:ch' class='rf-cst-shdr'>\n"
+                                     +"<td class='rf-cst-shdr-c'>Tipo</td>\n"
+                                     +"<td class='rf-cst-shdr-c'>Volume</td>\n"
+                                     +"<td class='rf-cst-shdr-c'>TKN</td>\n"
+                                     +"<td class='rf-cst-shdr-c'>TAN</td>\n"
+                                     +"<td class='rf-cst-shdr-c'>DM</td>\n"
+                                     +"<td class='rf-cst-shdr-c'>SV</td>\n"
+                                     +"<td class='rf-cst-shdr-c'>K</td>\n"
+                                     +"<td class='rf-cst-shdr-c'>P</td>\n"
+                                     +"</tr>\n");
+             
+                                       ref = contenitore.getTipologia("Liquame Bovino");  
+             
+             this.dinamicOut.println("<tr id='form:tablexmlA:1:sbtbl:0:b' class='rf-cst-r rf-cst-fst-r odd-row'>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:0:j_idt178' class='rf-cst-c' style='background-color: #58ACFA;'>Liquame Bovino</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:0:j_idt181' class='rf-cst-c' style='background-color: #58ACFA;'>\n"
+                                    +"<span style='width:30px;'>"+ref.getMetricubi()+"</span>\n"
+                                    +"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:0:j_idt184' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:0:j_idt187' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotoammoniacale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:0:j_idt190' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSostanzasecca()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:0:j_idt193' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSolidivolatili()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:0:j_idt196' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getPotassiototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:0:j_idt199' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getFosforototale()+"</td>\n"
+                                    +"</tr>\n");
+             
+                ref = contenitore.getTipologia("Liquame Suino");  
+             
+                this.dinamicOut.println("<tr id='form:tablexmlA:1:sbtbl:1:b' class='rf-cst-r rf-cst-fst-r odd-row'>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:1:j_idt178' class='rf-cst-c' style='background-color: #58ACFA;'>Liquame Suino</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:1:j_idt181' class='rf-cst-c' style='background-color: #58ACFA;'>\n"
+                                    +"<span style='width:30px;'>"+ref.getMetricubi()+"</span>\n"
+                                    +"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:1:j_idt184' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:1:j_idt187' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotoammoniacale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:1:j_idt190' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSostanzasecca()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:1:j_idt193' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSolidivolatili()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:1:j_idt196' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getPotassiototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:1:j_idt199' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getFosforototale()+"</td>\n"
+                                    +"</tr>\n");
+                 
+                 ref = contenitore.getTipologia("Liquame Avicolo");  
+             
+                this.dinamicOut.println("<tr id='form:tablexmlA:1:sbtbl:2:b' class='rf-cst-r rf-cst-fst-r odd-row'>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:2:j_idt178' class='rf-cst-c' style='background-color: #58ACFA;'>Liquame Avicolo</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:2:j_idt181' class='rf-cst-c' style='background-color: #58ACFA;'>\n"
+                                    +"<span style='width:30px;'>"+ref.getMetricubi()+"</span>\n"
+                                    +"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:2:j_idt184' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:2:j_idt187' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotoammoniacale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:2:j_idt190' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSostanzasecca()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:2:j_idt193' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSolidivolatili()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:2:j_idt196' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getPotassiototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:2:j_idt199' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getFosforototale()+"</td>\n"
+                                    +"</tr>\n");
+                
+                 ref = contenitore.getTipologia("Liquame Altro");  
+             
+                this.dinamicOut.println("<tr id='form:tablexmlA:1:sbtbl:3:b' class='rf-cst-r rf-cst-fst-r odd-row'>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:3:j_idt178' class='rf-cst-c' style='background-color: #58ACFA;'>Liquame Altro</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:3:j_idt181' class='rf-cst-c' style='background-color: #58ACFA;'>\n"
+                                    +"<span style='width:30px;'>"+ref.getMetricubi()+"</span>\n"
+                                    +"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:3:j_idt184' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:3:j_idt187' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotoammoniacale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:3:j_idt190' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSostanzasecca()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:3:j_idt193' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSolidivolatili()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:3:j_idt196' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getPotassiototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:3:j_idt199' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getFosforototale()+"</td>\n"
+                                    +"</tr>\n");
+                
+                 ref = contenitore.getTipologia("Liquame Biomassa");  
+             
+                this.dinamicOut.println("<tr id='form:tablexmlA:1:sbtbl:4:b' class='rf-cst-r rf-cst-fst-r odd-row'>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:4:j_idt178' class='rf-cst-c' style='background-color: #58ACFA;'>Liquame Suino</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:4:j_idt181' class='rf-cst-c' style='background-color: #58ACFA;'>\n"
+                                    +"<span style='width:30px;'>"+ref.getMetricubi()+"</span>\n"
+                                    +"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:4:j_idt184' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:4:j_idt187' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getAzotoammoniacale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:4:j_idt190' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSostanzasecca()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:4:j_idt193' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSolidivolatili()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:4:j_idt196' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getPotassiototale()+"</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:4:j_idt199' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getFosforototale()+"</td>\n"
+                                    +"</tr>\n");
+                
+                this.dinamicOut.println("<tr id='form:tablexmlA:1:sbtbl:sc' style='display: none;'>\n"
+                                        +"<td>\n"
+                                        +"<script type='text/javascript'>\n"
+                                        +"new RichFaces.ui.CollapsibleSubTable('form:tablexmlA:1:sbtbl','form',{'optionsInput':'form:tablexmlA:1:sbtbl:options','expandMode':'client','stateInput':'form:tablexmlA:1:sbtbl:state','eventOptions':{'incId':'1'} } )\n"
+                                        +"</script>\n"
+                                        +"<input id='form:tablexmlA:1:sbtbl:state' type='hidden' value='1' name='form:tablexmlA:1:sbtbl:state'>\n"
+                                        +"<input id='form:tablexmlA:1:sbtbl:options' type='hidden' name='form:tablexmlA:1:sbtbl:options' value='form:tablexmlA:1:j_idt155'>\n"
+                                        +"</td>\n"
+                                        +"</tr>\n</tbody>\n");
+                
+                
+                
+                this.dinamicOut.println("</table>");
+
+
+
+
+                String pattern1 = "(\\w*)([\\.,](\\w*))";
+                
+                //EMISSIONI AGRO
+                this.dinamicOut.println("<p class=\"labellocalizzazioneTable\">EMISSIONI AGRO</p>");
+                this.dinamicOut.println("<table class=\"localizzazioneTable2\">");
+                this.dinamicOut.println("<thead><tr><th>NH3(kg/ha)</th><th>DRAINAGE(mm)</th><th>LEACH(kg/ha)</th></tr></thead>");
+
+                this.dinamicOut.println("<tr>");
+                caratteristichechimiche(padre + "/totali/emissioni_agro");
+                
+                this.dinamicOut.println("</tr>");
+                this.dinamicOut.println("</table>");
+                
+                
+                
+                
+                //EMISSIONI
+                this.dinamicOut.println("<p class=\"labellocalizzazioneTable\">EMISSIONI</p>");
+                this.dinamicOut.println("<table class=\"localizzazioneTable2\">");
+                this.dinamicOut.println("<thead><tr><th>CH4(kg)</th><th>NH3(kg)</th><th>N2(kg)</th><th>N20(kg)</th><th>CO2(kg)</th><th>No(kg)</th></tr></thead>");
+
+                this.dinamicOut.println("<tr>");
+               
+                
+               caratteristichechimiche(padre + "/totali/emissioni");
+                
+                this.dinamicOut.println("</tr>");
+                this.dinamicOut.println("</table>");
+
+
+                //COSTI
+                this.dinamicOut.println("<p class=\"labellocalizzazioneTable\">COSTI</p>");
+                this.dinamicOut.println("<table class=\"localizzazioneTable2\">");
+                this.dinamicOut.println("<thead><tr><th>Investimento(euro)</th><th>Gestione Netto(euro/a)</th><th>Costo Lordo gestione(euro/a)</th><th>Ricavo Lordo energia(euro/a)</th><th>Ricavo ammonio(euro)</th></tr></thead>");
+                this.dinamicOut.println("<tr>");
+
+                 caratteristichechimiche(padre + "/totali/costi");
+
+                this.dinamicOut.println("</tr>");
+                this.dinamicOut.println("</table>");
+
+                //ENERGIA
+                this.dinamicOut.println("<p class=\"labellocalizzazioneTable\">ENERGIA</p>");
+                this.dinamicOut.println("<table class=\"localizzazioneTable2\">");
+                this.dinamicOut.println("<thead><tr><th>Energia Prodotta(KWh)</th><th>Energia consumata(KWh)</th><th>Energia Venduta(KWh)</th></tr></thead><tr>");
+          
+                caratteristichechimiche(padre + "/totali/energia");
+                this.dinamicOut.println("</tr>");
+                this.dinamicOut.println("</table>");
+
+
+                this.dinamicOut.println("<br/>");
+                this.dinamicOut.println("<p class=\"labellocalizzazioneTable\">VALORI AL METRO CUBO</p>");
+           
+                //lo uso per le emissioni,costi , energie dei valori al metro cubo per mostrare due cifre decimali
+                DecimalFormat dformat = new DecimalFormat("#0.00");
+             
+                caratteristichechimicheMC(padre + "/totali/valori_al_metro_cubo",dformat);
+                
+                this.dinamicOut.println("<br/>");
+                //VALORI AL METRO CUBO energia
+               /**
+                 * stampo il surplus cioè vado a leggere l'output degli
+                 * stoccaggi e l'ouput della rimozione e faccio la differenza
+                 */
+                mostraSurplus1(leggi, padre, alternativa);       
+
+                this.dinamicOut.println("<hr>");
+                this.dinamicOut.println("<hr>");
+             
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(LetturaRisultati.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
+          
+        // Connessione.getInstance().chiudi();
+    } 
      /**
       * recupera le caratteristiche chimiche dal file di output del soultore 
       * ed inserisce i valori nel contenitore reflui

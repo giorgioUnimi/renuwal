@@ -53,6 +53,11 @@ public class DettaglioAzienda implements Serializable{
     private List<Refluo> listaCaratteristiche = new LinkedList<Refluo>();
     private List<Refluo> listaCaratteristicheLiq = new LinkedList<Refluo>();
     private List<Refluo> listaCaratteristicheLet = new LinkedList<Refluo>();
+    
+    
+    /*private List<Refluo> listaCaratteristicheXml = new LinkedList<Refluo>();
+    private List<Refluo> listaCaratteristicheLiqXml = new LinkedList<Refluo>();
+    private List<Refluo> listaCaratteristicheLetXml = new LinkedList<Refluo>();*/
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
     private JpaEntityManager jpa;
@@ -2068,7 +2073,7 @@ public class DettaglioAzienda implements Serializable{
         this.azione = azione;
     }
 
-    
+   
 
     /**
      * @return the dataTableLiq

@@ -156,7 +156,9 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                    
                             });                 
                 
-                });
+                });//bottone calcola click 
+                
+             
         
     });
          
@@ -239,7 +241,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                           <br/>   
                                                                         <h:selectOneMenu id="selectscenari" value="#{listaAziende.currentTypeSce}"  valueChangeListener="#{listaAziende.scenariChanged}"  rendered="#{not empty listaAziende.currentTypeSce}" >
                                                                             <f:selectItems value="#{listaAziende.selectscenari}" />
-                                                                             <a4j:ajax event="valueChange" render="table id_azienda id_anno id_scenario id_scenario1"    execute="@this"  />
+                                                                             <a4j:ajax event="valueChange" render="table id_azienda id_anno id_scenario id_scenario1 introta"    execute="@this"  />
 
                                                                         </h:selectOneMenu>
                                                                          
@@ -272,7 +274,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                             
                                                             <h:form id="form">
 
-                                                                <h:panelGrid columns="2" style="width: 20%; margin:-10px 0px 2px 0px;" >
+                                                              <!--  <h:panelGrid columns="2" style="width: 20%; margin:-10px 0px 2px 0px;" >
                                                                     <h:outputLabel id="id_azienda_label" for="id_azienda"
                                                                                    value="Azienda" />
                                                                     <h:outputText  value="#{dettaglioCuaa.cuaa}" id="id_azienda"/>      
@@ -285,13 +287,31 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                     <h:outputLabel id="id_scenario_label1" for="id_scenario1"
                                                                                    value="Scenario1" />
                                                                     <h:outputText value="#{dettaglioCuaa.idscenario}" id="id_scenario1"/>
-                                                                </h:panelGrid>
-                                                                <br/>
-                                                                <br/>
-                                                                <h:inputHidden value="00000" id="numerorandomhidden" />
+                                                                </h:panelGrid>-->
+                                                                
+                                                               <!-- <h:inputHidden value="00000" id="numerorandomhidden" />-->
+                                                                <table id="introta" class="rf-dt" style="width:700px;">
+                                                                    <colgroup span="4"></colgroup>
+                                                                    <thead id="introta:th" class="rf-dt-thd">
+                                                                        <tr id="introta:ch" class="rf-dt-shdr">
+                                                                            <th id="introta:j_idt50" class="rf-dt-shdr-c" scope="col">Azienda</th>
+                                                                            <th id="introta:j_idt57" class="rf-dt-shdr-c" scope="col">Anno</th>
+                                                                            <th id="introta:j_idt60" class="rf-dt-shdr-c" scope="col">Scenario</th>
+                                                                            <th id="introta:j_idt63" class="rf-dt-shdr-c" scope="col">Scenario#</th>                                                                           
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="introta:0:tb" class="rf-dt-b">
+                                                                        <tr id="introta:0" class="rf-dt-r rf-dt-fst-r">
+                                                                            <td id="introta:0:j_idt50" class="rf-dt-c">#{dettaglioCuaa.cuaa}</td>
+                                                                             <td id="introta:0:j_idt57" class="rf-dt-c">#{dettaglioCuaa.anno}</td>
+                                                                              <td id="introta:0:j_idt60" class="rf-dt-c">#{dettaglioCuaa.scenarioString}</td>
+                                                                               <td id="introta:0:j_idt63" class="rf-dt-c">#{dettaglioCuaa.idscenario}</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                               <br/>
+                                                              
                                                                 <rich:dataTable value="#{dettaglioAzienda.listaCaratteristiche}" var="lista"  id="table" style="width:700px;" >
-                                              
-                                              
                                               
                                                                     <rich:column>                                                                           
                                                                         <f:facet name="header">Tipo</f:facet>                                                                            
@@ -358,7 +378,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                             <rich:column  style=" background-color: #58ACFA;" >
                                                                                 
                                                                             <f:facet name="header" >Volume</f:facet>  
-                                                                            <h:outputText value="#{let.metricubi}" style="width:30px;"   onchange="mostra(this,'#{let.tipologia}','1','#{dettaglioCuaa.idscenario}', '0')" > 
+                                                                            <h:outputText value="#{let.metricubi}" style="width:30px;"   > 
                                                                                 <f:convertNumber maxFractionDigits="0" />                                                                          
                                                                             </h:outputText>
                                                                                     
@@ -366,7 +386,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                         </rich:column>
                                                                         <rich:column  style=" background-color: #58ACFA;">
                                                                             <f:facet name="header" >TKN</f:facet>  
-                                                                            <h:outputText value="#{let.azotototale}"  onchange="mostra(this,'#{let.tipologia}','2','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                            <h:outputText value="#{let.azotototale}"  >                                                                          
                                                                                 <f:convertNumber maxFractionDigits="0" />
                                                                             </h:outputText>   
                                                                                 
@@ -374,7 +394,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                         </rich:column>
                                                                         <rich:column  style=" background-color: #58ACFA;">
                                                                             <f:facet name="header" >TAN</f:facet>  
-                                                                            <h:outputText value="#{let.azotoammoniacale}" onchange="mostra(this,'#{let.tipologia}','3','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                            <h:outputText value="#{let.azotoammoniacale}" >                                                                          
                                                                                 <f:convertNumber maxFractionDigits="0" />
                                                                             </h:outputText>   
                                                                                 
@@ -382,7 +402,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                         </rich:column>
                                                                         <rich:column  style=" background-color: #58ACFA;">
                                                                             <f:facet name="header" >DM</f:facet>  
-                                                                            <h:outputText value="#{let.sostanzasecca}" onchange="mostra(this,'#{let.tipologia}','4','#{dettaglioCuaa.idscenario}', '0')" >                                                                          
+                                                                            <h:outputText value="#{let.sostanzasecca}"  >                                                                          
                                                                                 <f:convertNumber maxFractionDigits="0" />
                                                                             </h:outputText>   
                                                                                 
@@ -390,7 +410,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                         </rich:column>
                                                                         <rich:column  style=" background-color: #58ACFA;">
                                                                             <f:facet name="header" >SV</f:facet>  
-                                                                            <h:outputText value="#{let.solidivolatili}"  onchange="mostra(this,'#{let.tipologia}','5','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                            <h:outputText value="#{let.solidivolatili}"  >                                                                          
                                                                                 <f:convertNumber maxFractionDigits="0" />
                                                                             </h:outputText>   
                                                                                 
@@ -398,7 +418,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                         </rich:column>
                                                                         <rich:column  style=" background-color: #58ACFA;">
                                                                             <f:facet name="header" >K</f:facet>  
-                                                                            <h:outputText value="#{let.potassiototale}" onchange="mostra(this,'#{let.tipologia}','6','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                            <h:outputText value="#{let.potassiototale}" >                                                                          
                                                                                 <f:convertNumber maxFractionDigits="0" />
                                                                             </h:outputText>   
                                                                                 
@@ -406,7 +426,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                         </rich:column>
                                                                         <rich:column  style=" background-color: #58ACFA;">
                                                                             <f:facet name="header" >P</f:facet>  
-                                                                            <h:outputText value="#{let.fosforototale}" onchange="mostra(this,'#{let.tipologia}','7','#{dettaglioCuaa.idscenario}', '0')" >                                                                          
+                                                                            <h:outputText value="#{let.fosforototale}"  >                                                                          
                                                                                 <f:convertNumber maxFractionDigits="0" />
                                                                             </h:outputText>   
                                                                                 
@@ -422,7 +442,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                         </rich:column>
                                                                         <rich:column  style=" background-color: #58ACFA;">
                                                                             <f:facet name="header" >Volume</f:facet>  
-                                                                            <h:outputText value="#{liq.metricubi}"  onchange="mostra(this,'#{liq.tipologia}','1','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                            <h:outputText value="#{liq.metricubi}"  >                                                                          
                                                                                 <f:convertNumber maxFractionDigits="0" />
                                                                             </h:outputText>   
                                                                                 
@@ -430,7 +450,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                         </rich:column>
                                                                         <rich:column  style=" background-color: #58ACFA;">
                                                                             <f:facet name="header" >TKN</f:facet>  
-                                                                            <h:outputText value="#{liq.azotototale}" onchange="mostra(this,'#{liq.tipologia}','2','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                            <h:outputText value="#{liq.azotototale}" >                                                                          
                                                                                 <f:convertNumber maxFractionDigits="0" />
                                                                             </h:outputText>   
                                                                                 
@@ -438,7 +458,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                         </rich:column>
                                                                         <rich:column  style=" background-color: #58ACFA;">
                                                                             <f:facet name="header" >TAN</f:facet>  
-                                                                            <h:outputText value="#{liq.azotoammoniacale}" onchange="mostra(this,'#{liq.tipologia}','3','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                            <h:outputText value="#{liq.azotoammoniacale}" >                                                                          
                                                                                 <f:convertNumber maxFractionDigits="0" />
                                                                             </h:outputText>   
                                                                                 
@@ -446,7 +466,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                         </rich:column>
                                                                         <rich:column  style=" background-color: #58ACFA;">
                                                                             <f:facet name="header" >DM</f:facet>  
-                                                                            <h:outputText value="#{liq.sostanzasecca}" onchange="mostra(this,'#{liq.tipologia}','4','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                            <h:outputText value="#{liq.sostanzasecca}" >                                                                          
                                                                                 <f:convertNumber maxFractionDigits="0" />
                                                                             </h:outputText>   
 
@@ -454,7 +474,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                         </rich:column>
                                                                         <rich:column  style=" background-color: #58ACFA;">
                                                                             <f:facet name="header" >SV</f:facet>  
-                                                                            <h:outputText value="#{liq.solidivolatili}" onchange="mostra(this,'#{liq.tipologia}','5','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                            <h:outputText value="#{liq.solidivolatili}" >                                                                          
                                                                                 <f:convertNumber maxFractionDigits="0" />
                                                                             </h:outputText>   
                                                                                 
@@ -462,7 +482,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                         </rich:column>
                                                                         <rich:column  style=" background-color: #58ACFA;">
                                                                             <f:facet name="header" >K</f:facet>  
-                                                                            <h:outputText value="#{liq.potassiototale}" onchange="mostra(this,'#{liq.tipologia}','6','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                            <h:outputText value="#{liq.potassiototale}" >                                                                          
                                                                                 <f:convertNumber maxFractionDigits="0" />
                                                                             </h:outputText>   
                                                                                 
@@ -470,7 +490,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                         </rich:column>
                                                                         <rich:column  style=" background-color: #58ACFA;">
                                                                             <f:facet name="header" >P</f:facet>  
-                                                                            <h:outputText value="#{liq.fosforototale}" onchange="mostra(this,'#{liq.tipologia}','7','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                            <h:outputText value="#{liq.fosforototale}" >                                                                          
                                                                                 <f:convertNumber maxFractionDigits="0" />
                                                                             </h:outputText>   
                                                                                 

@@ -31,7 +31,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "AlternativeS.findById", query = "SELECT a FROM AlternativeS a WHERE a.id = :id"),
     @NamedQuery(name = "AlternativeS.findByDescrizione", query = "SELECT a FROM AlternativeS a WHERE a.descrizione = :descrizione"),
     @NamedQuery(name = "AlternativeS.findByNome", query = "SELECT a FROM AlternativeS a WHERE a.nome = :nome"),
-    @NamedQuery(name = "AlternativeS.findByImmagine", query = "SELECT a FROM AlternativeS a WHERE a.immagine = :immagine")})
+    @NamedQuery(name = "AlternativeS.findByImmagine", query = "SELECT a FROM AlternativeS a WHERE a.immagine = :immagine"),
+    @NamedQuery(name = "AlternativeS.findByDigestato", query = "SELECT a FROM AlternativeS a WHERE a.digestato = :digestato")})
 public class AlternativeS implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,6 +49,7 @@ public class AlternativeS implements Serializable {
     @Size(max = 255)
     @Column(length = 255)
     private String immagine;
+    private Short digestato;
     @OneToMany(mappedBy = "alternativa")
     private Collection<AlternativaTrattamento> alternativaTrattamentoCollection;
 
@@ -90,7 +92,16 @@ public class AlternativeS implements Serializable {
         this.immagine = immagine;
     }
 
-    @XmlTransient
+    public Short getDigestato() {
+        return digestato;
+    }
+
+    public void setDigestato(Short digestato) {
+        this.digestato = digestato;
+    }
+    
+    
+     @XmlTransient
     public Collection<AlternativaTrattamento> getAlternativaTrattamentoCollection() {
         return alternativaTrattamentoCollection;
     }
@@ -98,7 +109,9 @@ public class AlternativeS implements Serializable {
     public void setAlternativaTrattamentoCollection(Collection<AlternativaTrattamento> alternativaTrattamentoCollection) {
         this.alternativaTrattamentoCollection = alternativaTrattamentoCollection;
     }
-
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

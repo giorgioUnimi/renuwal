@@ -177,7 +177,7 @@ public class StoricoColturaAppezzamentoE {
           * per calcolare il nuovo mas se l'utente ha mpodificato il valore 
           * della resa nella pagina piano_colturale
           */
-         db.Coltura colt = entityManager.find(db.Coltura.class,this.idColtura);
+         db.Coltura colt = entityManager.find(db.Coltura.class,(int)this.idColtura);
          db.Asportazione asp = colt.getAsportazioneId();
          double fattoreCorrettivo = asp.getFattorecorrettivo();
          double resadb = colt.getResaId().getQuantita();
