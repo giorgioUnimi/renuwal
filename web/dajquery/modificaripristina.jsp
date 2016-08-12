@@ -815,6 +815,9 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
    }
 %>
 <%
+
+
+System.out.println("Sono in modifica ripristina");
   /**
     * usato da bottoni modifica e ripristina della pagina dettaglioazienda
     * @param valore del campo inputtext inserito dall utente
@@ -825,11 +828,11 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
    /**
    *recupero i parametri che vengono passati tramite ajax da jquery 
    */
-   /*String valore = request.getParameter("valore");
+  String valore = request.getParameter("valore");
    String posizione = request.getParameter("posizione");
    String tipologia = request.getParameter("tipologia");
    String azione = request.getParameter("azione");
-   String scenario = request.getParameter("scenario");*/
+   String scenario = request.getParameter("scenario");/*
    String valori = request.getParameter("valore");
    String[] valori_passati = valori.split("&");
    String valore = valori_passati[0];
@@ -837,14 +840,14 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
    String tipologia = valori_passati[2].split("=")[1];
    String scenario = valori_passati[3].split("=")[1];
    String posizione = valori_passati[4].split("=")[1];
-   
-   System.out.println("stringa passata " + valori);
+   */
+   //System.out.println("stringa passata " + valori);
    System.out.println("+++++++++++++++scenario " + scenario + " posizione " + posizione +" azione " + azione+"  tipologia " + tipologia + " valore " + valore);
-   /*valore = "1234";
+   valore = "1234";
    scenario = "399";
    tipologia = "Liquame Bovino";
    posizione = "1";
-   azione = "0";*/
+   azione = "0";
   /* Thread.sleep(2000);   
    out.println("ciao");   
    Thread.sleep(2000);*/

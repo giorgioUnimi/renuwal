@@ -262,7 +262,7 @@ public class StoricoColturaAppezzamentoE {
          } 
     
          
-        db.Coltura colturaScelta=entityManager.find(db.Coltura.class, this.idColtura);
+        db.Coltura colturaScelta=entityManager.find(db.Coltura.class, (int)this.idColtura);
     
         this.resa_attesa =  colturaScelta.getResaId().getQuantita();
         

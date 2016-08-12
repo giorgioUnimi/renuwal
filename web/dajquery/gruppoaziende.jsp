@@ -282,6 +282,7 @@
          *trattino che quando vado a splittare diventano tre per ogni azienda
          *
          */
+        
          for (int i = 1; i < aziende.length; i = i + 3) {
                  System.out.println("idoperazione  " + aziende[i]);
                  //lo scenario mi arriva nella forma "scenario : 0" per cui nella posizione modulo 3 devo togliere la scritta scenario :

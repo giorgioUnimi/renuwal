@@ -99,9 +99,8 @@ public class AlternativeS implements Serializable {
     public void setDigestato(Short digestato) {
         this.digestato = digestato;
     }
-    
-    
-     @XmlTransient
+
+    @XmlTransient
     public Collection<AlternativaTrattamento> getAlternativaTrattamentoCollection() {
         return alternativaTrattamentoCollection;
     }
@@ -109,9 +108,7 @@ public class AlternativeS implements Serializable {
     public void setAlternativaTrattamentoCollection(Collection<AlternativaTrattamento> alternativaTrattamentoCollection) {
         this.alternativaTrattamentoCollection = alternativaTrattamentoCollection;
     }
-    
-    
-    
+
     @Override
     public int hashCode() {
         int hash = 0;

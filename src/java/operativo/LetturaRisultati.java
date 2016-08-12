@@ -7,6 +7,7 @@ package operativo;
 import WebGui.ProgressBarBean;
 import ager.ContenitoreReflui;
 import ager.Refluo;
+import ager.VincoliNormativi;
 import ager.trattamenti.ContenitoreAziendale;
 import multiobiettivo.Alternativa;
 import java.io.IOException;
@@ -846,7 +847,7 @@ public class LetturaRisultati extends Thread {
                 
                 // apriHeadertableRichAlt();
                 //recuperaSingola2multi(leggi, true, "//alternativa", "");
-                recuperaSingola2multiRich(leggi, true, "//alternativa", "");
+                recuperaSingola2multiRich(leggi, true, "//alternativa", hh);
                 
                  //chiudiHeadertable();    
                 break;
@@ -2687,6 +2688,7 @@ public class LetturaRisultati extends Thread {
             {       
            
                 temp = leggi.cerca1(padre + "/scelta", true);
+                
                 //this.dinamicOut.println("<a class=\"labellocalizzazioneTable\" href=\"#linkrapidi\">Torna su</a>");
                 //this.dinamicOut.println("<p  class=\"labellocalizzazioneTable\"><b>Alternativa scelta : <a name=\"" + temp.item(0).getNodeValue() + "\">" + temp.item(0).getNodeValue() + "</a></b></p>");
 
@@ -2704,9 +2706,55 @@ public class LetturaRisultati extends Thread {
                 }
                 moduli +=" | Vasca | Platea";
                // this.dinamicOut.println("<p  class=\"labellocalizzazioneTable\"><b>" + moduli + "</b></p>");
-
-
-
+            /**
+              * recupero le caratterstiche chimiche totali del refluo in uscita
+              * dal solutore
+              */   
+             ContenitoreReflui contenitore = this.recuperaRefluo(leggi);
+                /**
+                 * verifica dei vincoli nomrativi
+                 */
+                VincoliNormativi vincoli = new VincoliNormativi(contenitore,Integer.parseInt(alternativa));
+                
+                System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " +Thread.currentThread().getStackTrace()[1].getMethodName() + " vincolo nitrati " + vincoli.vincoloNormativo());
+                System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " +Thread.currentThread().getStackTrace()[1].getMethodName() + " vincolo mas " + vincoli.vincoloMas());
+                System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " +Thread.currentThread().getStackTrace()[1].getMethodName() + " vincolo fosforo " + vincoli.vincoloFosforo());
+             this.dinamicOut.println("<br/><br/>");
+             this.dinamicOut.println("<table id='form:tableVincoli' class='rf-dt' style='width:700px;'>");
+             this.dinamicOut.println("<colgroup span='3'></colgroup>");
+             this.dinamicOut.println("<thead id='form:tableVincoli:th' class='rf-dt-thd'>");
+             this.dinamicOut.println("<tr id='form:tableVincoli:ch' class='rf-dt-shdr'>");
+             this.dinamicOut.println("<th id='form:tableVincoli:j_idt150' class='rf-dt-shdr-c' scope='col'>Vincolo Nitrati</th>");
+             this.dinamicOut.println("<th id='form:tableVincoli:j_idt157' class='rf-dt-shdr-c' scope='col'>Vincolo Mas</th>");
+             this.dinamicOut.println("<th id='form:tableVincoli:j_idt160' class='rf-dt-shdr-c' scope='col'>Vincolo Fosforo</th>");
+             this.dinamicOut.println("</tr>");
+             this.dinamicOut.println("</thead>");
+                this.dinamicOut.println("<tbody id='form:tableVincoli:0:tb' class='rf-dt-b'>\n"
+                        + "<tr id='form:tableVincoli:0' class='rf-dt-r rf-dt-fst-r'>\n");
+                if(!vincoli.vincoloNormativo()) {
+                    this.dinamicOut.println("<td id='form:tableVincoli:0:j_idt157' class='rf-dt-c' ></td>");
+                }
+                else {
+                    this.dinamicOut.println("<td id='form:tableVincoli:0:j_idt157' class='rf-dt-c' bgcolor='#FF0000'></td>");
+                }
+                
+                if(!vincoli.vincoloMas()) {
+                    this.dinamicOut.println("<td id='form:tableVincoli:0:j_idt157' class='rf-dt-c'></td>");
+                }
+                else {
+                    this.dinamicOut.println("<td id='form:tableVincoli:0:j_idt157' class='rf-dt-c' bgcolor='#FF0000'></td>");
+                }
+                
+                if(!vincoli.vincoloFosforo()) {
+                    this.dinamicOut.println("<td id='form:tableVincoli:0:j_idt157' class='rf-dt-c'></td>");
+                }
+                else {
+                    this.dinamicOut.println("<td id='form:tableVincoli:0:j_idt157' class='rf-dt-c' bgcolor='#FF0000'></td>");
+                }
+                
+                this.dinamicOut.println("</tr>");
+                this.dinamicOut.println("</tbody>");
+                this.dinamicOut.println("</table>");
               //  this.dinamicOut.println("<p class=\"labellocalizzazioneTable\">Caratteristiche chimiche : </p>");
                 //this.dinamicOut.println("<table class=\"localizzazioneTable2\">");
                 //this.dinamicOut.println("<thead><tr><th>Tipologia</th><th>Volume(m<sup>3</sup>)</th><th>TKN(kg)</th><th>TAN(kg)</th><th>DM(kg)</th><th>VS(kg)</th><th>P(kg)</th><th>K(kg)</th></tr></thead>");
@@ -2727,8 +2775,7 @@ public class LetturaRisultati extends Thread {
              this.dinamicOut.println("</tr>");
              this.dinamicOut.println("</thead>");
                 
-                
-             ContenitoreReflui contenitore = this.recuperaRefluo(leggi);
+           
              Refluo tot_letame = contenitore.totale("Letame");  
              this.dinamicOut.println("<tbody id='form:tablexmlA:0:tb' class='rf-dt-b'>\n"
                                         +"<tr id='form:tablexmlA:0' class='rf-dt-r rf-dt-fst-r'>\n"
@@ -2990,7 +3037,7 @@ public class LetturaRisultati extends Thread {
                 this.dinamicOut.println("</table>");
 
 
-
+                
 
                 String pattern1 = "(\\w*)([\\.,](\\w*))";
                 

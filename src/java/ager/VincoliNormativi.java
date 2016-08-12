@@ -8,6 +8,7 @@
  */
 package ager;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import javax.el.ELContext;
 import javax.faces.context.FacesContext;
@@ -30,12 +31,14 @@ public class VincoliNormativi {
     private EntityManager entityManager;
     private JpaEntityManager jpa;
     private ServerSession serverSession;
-    ContenitoreReflui contenitoreReflui;
-    Long idscenario;
+    private ContenitoreReflui contenitoreReflui;
+    private Long idscenario;
+    private int alternativa;
     
-    public VincoliNormativi(ContenitoreReflui contenitoreReflui){
+    public VincoliNormativi(ContenitoreReflui contenitoreReflui, int alternativa){
         
-         this.contenitoreReflui = contenitoreReflui;       
+         this.contenitoreReflui = contenitoreReflui;
+         this.alternativa = alternativa;
          
          ELContext elContext = FacesContext.getCurrentInstance().getELContext();
          DettaglioCuaa dettTemp = (DettaglioCuaa) FacesContext.getCurrentInstance().getApplication().getELResolver().getValue(elContext, null, "dettaglioCuaa");
@@ -91,14 +94,16 @@ public class VincoliNormativi {
             }
                  
                 
-        }
-        
+        }        
         //se totale_n_zootecnico < uguale a (ettari_zvn * 170 + ettari_nzvn * 340 )
         
-        double temp = totale_n_zootecnico - (ettari_zvn * 170 + ettari_nzvn *340);
+        double tempA =  ettari_zvn * 170 + ettari_nzvn *340;
         
-        Connessione.getInstance().chiudi();
-        if(temp < 0) {
+        Connessione.getInstance().chiudi();         
+        
+        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " + Thread.currentThread().getStackTrace()[1].getMethodName() + " azoto animale " +totale_n_zootecnico +  " < campo " +tempA);
+        
+        if(totale_n_zootecnico <= tempA ) {
             return false;
         }
         else {
@@ -112,8 +117,111 @@ public class VincoliNormativi {
      */
     public boolean vincoloMas()
     {
+         if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
+         {
+            Connessione connessione = Connessione.getInstance();
+            entityManager = connessione.apri("renuwal1");
+         }        
+        /**
+         * recupero lo scenario per avere la lista degli appezzamenti con le loro superfici
+         * e per avere per ogni appezzamento la lista delle rotazioni e delle conseguenti asportazioni
+         * di azoto
+         */
+       Query q = entityManager.createNamedQuery("ScenarioI.findByIdscenario").setParameter("idscenario", this.idscenario);
+       
+       if(q.getResultList().isEmpty())
+           return false;
+       
+       
+       db.ScenarioI sceT = (db.ScenarioI)q.getResultList().get(0);
+       Iterator<db.Appezzamento> iterAppezzamenti=sceT.getAppezzamentoCollection().iterator();
+       double asp_azoto_appezzamenti = 0;
+       //ciclo sugli appezzamenti per calcolare la somma delle asportazioni di azoto
+       //e quindi calcolo l'azoto da gestione colturale
+       while(iterAppezzamenti.hasNext())
+       {
+           db.Appezzamento apptemp = iterAppezzamenti.next();
+           Iterator<db.Storicocolturaappezzamento> iterRotazioni = apptemp.getStoricocolturaappezzamentoCollection().iterator();
+           
+           double aspAzoto = 0;
+           
+           while(iterRotazioni.hasNext())
+           {
+               db.Storicocolturaappezzamento tempRotazione = iterRotazioni.next();
+               aspAzoto += tempRotazione.getAsportazioneazoto();
+           }
+           
+           asp_azoto_appezzamenti += aspAzoto * apptemp.getSuperficie();
+           
+       }
+       //per il confronto devo calcolare la sommatoria di azoto per specie comprensivo delle biomasse
+       //moltiplicato per l'efficienza della singola specie di refluo prendondo il refluo
+       //dal contenitore di refluo preso dal costruttore
+       Refluo re = new Refluo("");
+       HashMap<String,Integer> mappingTipiMateria = new HashMap<String,Integer>();
+       mappingTipiMateria.put("bovino",1);
+        mappingTipiMateria.put("suino",2);
+         mappingTipiMateria.put("avicolo",3);
+          mappingTipiMateria.put("biomassa",9);
+          double azoto_colturale = 0;
+          double azoto_animale  = 0;
+         Query q1 = null; 
+         /**
+          * recupero l'alternativa dal db per capire se ha digestato o meno 
+          * la presenza di digestato fa cambiare la query
+          * ciclo sulle tipologia di refluo sommando l'azoto totale
+          */
+          Query q2 = entityManager.createNamedQuery("AlternativeS.findById").setParameter("id", this.alternativa); 
+          db.AlternativeS alternativa = (db.AlternativeS)q2.getSingleResult();
+          boolean dadigestato = alternativa.getDigestato() == 0 ? false : true;
+        /**
+         * ciclo sulle tipologie di refluo e splitto la tipologia perchè l'efficienza dell'azoto 
+         * cambia se è liquame o letame. Se l'alternativa ha digestato devo scelgiere quei coefficienti che 
+         * hanno il campo digestato a true
+         */  
+        for (String s : this.contenitoreReflui.getTipologie()) {
+            
+            if(s.contains("Altro")) {
+                continue;
+            }
+            azoto_colturale = contenitoreReflui.getContenitore().get(s).getAzotototale();
+            
+            String[] tipo_splittato = s.split(" ");
+            tipo_splittato[0] = tipo_splittato[0].toLowerCase();
+            tipo_splittato[1] = tipo_splittato[1].toLowerCase();
+            
+            //System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " +Thread.currentThread().getStackTrace()[1].getMethodName() + " spli 0 " + tipo_splittato[0] + " spli 1 " + tipo_splittato[1]);
+            
+            //mi restituisce il valore numerico del codice materia
+            //della tipologia di refluo che sto prendendo dal contenitorereflui
+            int tipomateria = mappingTipiMateria.get( tipo_splittato[1].trim());
+             Query q0 = entityManager.createNamedQuery("TipomateriaS.findById").setParameter("id", tipomateria);
+            db.TipomateriaS tipoM = (db.TipomateriaS)q0.getSingleResult();
+            q1 = entityManager.createQuery("SELECT a FROM Efficienze a WHERE a.tipomateriaId = :tipo AND a.daDigestato = :digestato", db.Efficienze.class);
+            q1.setParameter("tipo", tipoM);
+            q1.setParameter("digestato", dadigestato);
+            db.Efficienze efficienza = (db.Efficienze) q1.getSingleResult();
+            
+            if (s.contains("liquame")) {
+                 azoto_animale += azoto_colturale * efficienza.getEfficienzaAzotoLiquame();
+            } else {//letame
+                azoto_animale += azoto_colturale * efficienza.getEfficienzaAzotoLetame();
+            }
+
+            
+        }
         
-        return true;
+        Connessione.getInstance().chiudi();
+        
+        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " + Thread.currentThread().getStackTrace()[1].getMethodName() + " azoto animale " +azoto_animale +  " < campo " +asp_azoto_appezzamenti);
+        
+        
+        if(azoto_animale < asp_azoto_appezzamenti) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
     /**
      * verifica il vincolo fosforo
@@ -121,7 +229,109 @@ public class VincoliNormativi {
      */
     public boolean vincoloFosforo(){
         
-        return true;
+        if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
+         {
+            Connessione connessione = Connessione.getInstance();
+            entityManager = connessione.apri("renuwal1");
+         }        
+        /**
+         * recupero lo scenario per avere la lista degli appezzamenti con le loro superfici
+         * e per avere per ogni appezzamento la lista delle rotazioni e delle conseguenti asportazioni
+         * di fosforo
+         */
+       Query q = entityManager.createNamedQuery("ScenarioI.findByIdscenario").setParameter("idscenario", this.idscenario);
+       
+       if(q.getResultList().isEmpty())
+           return false;
+       
+       
+       db.ScenarioI sceT = (db.ScenarioI)q.getResultList().get(0);
+       Iterator<db.Appezzamento> iterAppezzamenti=sceT.getAppezzamentoCollection().iterator();
+       double asp_fosforo_appezzamenti = 0;
+       //ciclo sugli appezzamenti per calcolare la somma delle asportazioni di fosforo
+       //e quindi calcolo l'fosforo da gestione colturale
+       while(iterAppezzamenti.hasNext())
+       {
+           db.Appezzamento apptemp = iterAppezzamenti.next();
+           Iterator<db.Storicocolturaappezzamento> iterRotazioni = apptemp.getStoricocolturaappezzamentoCollection().iterator();
+           
+           double aspFosforo = 0;
+           
+           while(iterRotazioni.hasNext())
+           {
+               db.Storicocolturaappezzamento tempRotazione = iterRotazioni.next();
+               aspFosforo += tempRotazione.getAsportazionefosforo();
+           }
+           
+           asp_fosforo_appezzamenti += aspFosforo * apptemp.getSuperficie();
+           
+       }
+       //per il confronto devo calcolare la sommatoria di fosforo per specie comprensivo delle biomasse
+       //moltiplicato per l'efficienza della singola specie di refluo prendondo il refluo
+       //dal contenitore di refluo preso dal costruttore
+       Refluo re = new Refluo("");
+       HashMap<String,Integer> mappingTipiMateria = new HashMap<String,Integer>();
+       mappingTipiMateria.put("bovino",1);
+        mappingTipiMateria.put("suino",2);
+         mappingTipiMateria.put("avicolo",3);
+          mappingTipiMateria.put("biomassa",9);
+          double fosforo_colturale = 0;
+          double fosforo_animale  = 0;
+         Query q1 = null; 
+         /**
+          * recupero l'alternativa dal db per capire se ha digestato o meno 
+          * la presenza di digestato fa cambiare la query
+          * ciclo sulle tipologia di refluo sommando l'fosforo totale
+          */
+          Query q2 = entityManager.createNamedQuery("AlternativeS.findById").setParameter("id", this.alternativa); 
+          db.AlternativeS alternativa = (db.AlternativeS)q2.getSingleResult();
+          boolean dadigestato = alternativa.getDigestato() == 0 ? false : true;
+        /**
+         * ciclo sulle tipologie di refluo e splitto la tipologia perchè l'efficienza dell'fosforo 
+         * cambia se è liquame o letame. Se l'alternativa ha digestato devo scelgiere quei coefficienti che 
+         * hanno il campo digestato a true
+         */  
+        for (String s : this.contenitoreReflui.getTipologie()) {
+              if(s.contains("Altro")) {
+                continue;
+            }
+            
+            fosforo_colturale = contenitoreReflui.getContenitore().get(s).getFosforototale();
+            
+            String[] tipo_splittato = s.split(" ");
+            tipo_splittato[0] = tipo_splittato[0].toLowerCase();
+            tipo_splittato[1] = tipo_splittato[1].toLowerCase();
+            
+            //mi restituisce il valore numerico del codice materia
+            //della tipologia di refluo che sto prendendo dal contenitorereflui
+            int tipomateria = mappingTipiMateria.get( tipo_splittato[1].trim());
+            Query q0 = entityManager.createNamedQuery("TipomateriaS.findById").setParameter("id", tipomateria);
+            db.TipomateriaS tipoM = (db.TipomateriaS)q0.getSingleResult();
+            q1 = entityManager.createQuery("SELECT a FROM Efficienze a WHERE a.tipomateriaId = :tipo AND a.daDigestato = :digestato", db.Efficienze.class);
+            q1.setParameter("tipo", tipoM);
+            q1.setParameter("digestato", dadigestato);
+            db.Efficienze efficienza = (db.Efficienze) q1.getSingleResult();
+            
+            //if (s.contains("liquame")) {
+                 fosforo_animale += fosforo_colturale * efficienza.getEfficienzaFosforo();
+           /* } else {//letame
+                fosforo_animale += fosforo_colturale * efficienza.getEfficienzaAzotoLetame();
+            }*/
+
+            
+        }
+        
+        Connessione.getInstance().chiudi();
+        
+        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " + Thread.currentThread().getStackTrace()[1].getMethodName() + " fosforo animale " +fosforo_animale +  " < campo " +asp_fosforo_appezzamenti);
+
+        
+        if(fosforo_animale < asp_fosforo_appezzamenti) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
     
     

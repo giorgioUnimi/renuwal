@@ -19,9 +19,10 @@ and open the template in the editor.
              
              
 <h:outputStylesheet library="css" name="style.css"  />
+<h:outputScript name="jquery.js" target="head"/>
 <!--script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/jquery.js?ver=1.11.3'></script>-->
 <!--<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>-->
-<script type='text/javascript' src="http://localhost:8080/renuwal/resources/jquery/jquery-1.9.1.js" />
+<!--<script type='text/javascript' src="http://localhost:8080/renuwal/resources/jquery/jquery-1.9.1.js" />-->
 <style type="text/css" id="custom-background-css">
 body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-content/themes/travelify/images/background.png'); background-repeat: repeat; background-position: top left; background-attachment: scroll; }
 </style>
@@ -77,7 +78,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
         
        function mostra(valore,tipologia,posizione,scenario,azione)
         {
-            // alert("valore " + valore.value  +" tipologia " + tipologia + " volume  " + volume + " tipo " + tipo + " scenario " + scenario);
+            alert("valore " + valore.value  +" tipologia " + tipologia + " volume  " + volume + " tipo " + tipo + " scenario " + scenario);
             if(azione == "0")//onchange campo testo
                 {
                     alert("valore " + valore.value  +" tipologia " + tipologia + " volume  " + posizione + " azione " + azione + " scenario " + scenario);
@@ -124,17 +125,93 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
         }
         
         
-       var $j = jQuery.noConflict();
-            $j(document).ready(function() {
-             
-               });
+      
                
       
     </script>    
+
+
     </h:head>
  
     <h:body class="home page page-id-12 page-template-default custom-background ecwd-theme-travelify ">
-	
+<f:verbatim>
+       <script language="javascript">//<![CDATA[
+            $(document).ready(function(){   
+                var vol_let_bovino = $('#form\\:table\\:0\\:sbtbl\\:0\\:vol_let').val();
+                var tkn_let_bovino = $('#form\\:table\\:0\\:sbtbl\\:0\\:tkn_let').val();
+                var tan_let_bovino = $('#form\\:table\\:0\\:sbtbl\\:0\\:tan_let').val();
+                var vol_liq_bovino = $('#form\\:table\\:0\\:sbtbl1\\:0\\:vol_liq').val();
+                //alert("volume letame bovino " + vol_let_bovino + " tkn letame bovino " + tkn_let_bovino + " tan let bovino " + tan_let_bovino);
+            
+        
+                $('#form\\:table\\:0\\:sbtbl\\:0\\:vol_let_link').click(function(event){
+                     event.preventDefault();
+                     var vol_let_bovino = $('#form\\:table\\:0\\:sbtbl\\:0\\:vol_let').val();
+                     var idscenario = $('#form\\:id_scenario1');
+                     var tipologia = "Letame Bovino";
+                     var posizione = "1";
+                     var azione = "0";
+                     alert("modifica volume letame bovino " + vol_let_bovino);
+                     
+                $.ajax(
+                        {
+                            type :"post",
+                            url  :"dajquery/modificaripristina.jsp",
+                            data : {
+                                    valore      : vol_let_bovino,
+                                    scenario    : idscenario,
+                                    tipologia   : tipologia,
+                                    posizione   : posizione,
+                                    azione      : azione
+                                   },
+                             success:function(data){
+                                    alert("finito");
+                                   },
+                            error:function(exception){
+                                alert('Exeption:'+exception);
+                            }
+                        }
+                        );
+                });
+                
+                
+                 $('#form\\:table\\:0\\:sbtbl\\:0\\:vol_let_link1').click(function(){
+                     var vol_let_bovino = $('#form\\:table\\:0\\:sbtbl\\:0\\:vol_let').val();
+                     
+                      alert("ripristina volume letame bovino " + vol_let_bovino);
+                });
+                
+                $('#form\\:table\\:0\\:sbtbl\\:1\\:vol_let_link').click(function(){
+                     var vol_let_suino = $('#form\\:table\\:0\\:sbtbl\\:1\\:vol_let').val();
+                     
+                      alert("modifica volume letame suino " + vol_let_suino);
+                });
+                
+                
+                 $('#form\\:table\\:0\\:sbtbl\\:1\\:vol_let_link1').click(function(){
+                     var vol_let_suino = $('#form\\:table\\:0\\:sbtbl\\:1\\:vol_let').val();
+                     
+                      alert("ripristina volume letame suino " + vol_let_suino);
+                });
+                
+                
+                 $('#form\\:table\\:0\\:sbtbl\\:0\\:tkn_let_link').click(function(){
+                    var tkn_let_bovino = $('#form\\:table\\:0\\:sbtbl\\:0\\:tkn_let').val();
+                    
+                     alert("tkn_let_bovino " + tkn_let_bovino);
+                });
+                
+                 $('#form\\:table\\:0\\:sbtbl\\:0\\:tan_let_link').click(function(){
+                     var tan_let_bovino = $('#form\\:table\\:0\\:sbtbl\\:0\\:tan_let').val();
+                     
+                      alert("tan_let_bovino " + tan_let_bovino);
+                });
+
+
+});
+         
+//]]></script>  
+</f:verbatim> 	
        <div class="wrapper">
                <header id="branding" >
                                     
@@ -330,71 +407,74 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                             <rich:column  style=" background-color: #58ACFA;" >
                                                                             
                                                                                 <f:facet name="header" >Volume</f:facet>  
-                                                                                <h:inputText value="#{let.metricubi}" style="width:30px;"   onchange="mostra(this,'#{let.tipologia}','1','#{dettaglioCuaa.idscenario}', '0')" > 
+                                                                                <h:inputText value="#{let.metricubi}" style="width:30px;"   id="vol_let" > 
                                                                                     <f:convertNumber maxFractionDigits="0" />                                                                          
                                                                                 </h:inputText>
-                                                                                <h:link styleClass="no-decor"   onclick="mostra(this,'#{let.tipologia}','1','#{dettaglioCuaa.idscenario}', '1')"  >
+                                                                                <h:link styleClass="no-decor"  id="vol_let_link"  type="text/css">
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
-                                                                                </h:link>     
+                                                                                </h:link>
+                                                                                 <h:link styleClass="no-decor"  id="vol_let_link1" type="text/css">
+                                                                                      <h:graphicImage value="/resources/css/images/ripristina.jpg" alt="reload" />
+                                                                                </h:link>   
                                                                            
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >TKN</f:facet>  
-                                                                                <h:inputText value="#{let.azotototale}"  onchange="mostra(this,'#{let.tipologia}','2','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <h:inputText value="#{let.azotototale}"  id="tkn_let">                                                                          
                                                                                 <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
                                                                            
-                                                                             <h:link styleClass="no-decor"    onclick="mostra(this,'#{let.tipologia}','2','#{dettaglioCuaa.idscenario}', '1')"  >
+                                                                             <h:link styleClass="no-decor"    id="tkn_let_link" >
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </h:link>  
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >TAN</f:facet>  
-                                                                                <h:inputText value="#{let.azotoammoniacale}" onchange="mostra(this,'#{let.tipologia}','3','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <h:inputText value="#{let.azotoammoniacale}" id="tan_let">                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
                                                                             
-                                                                               <h:link styleClass="no-decor"    onclick="mostra(this,'#{let.tipologia}','3','#{dettaglioCuaa.idscenario}', '1')"  >
+                                                                               <h:link styleClass="no-decor"     id="tan_let_link" >
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </h:link>  
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >DM</f:facet>  
-                                                                                <h:inputText value="#{let.sostanzasecca}" onchange="mostra(this,'#{let.tipologia}','4','#{dettaglioCuaa.idscenario}', '0')" >                                                                          
+                                                                                <h:inputText value="#{let.sostanzasecca}"  >                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
                                                                                
-                                                                               <h:link styleClass="no-decor"    onclick="mostra(this,'#{let.tipologia}','4','#{dettaglioCuaa.idscenario}', '1')"  >
+                                                                               <h:link styleClass="no-decor"      >
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </h:link>  
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >SV</f:facet>  
-                                                                                <h:inputText value="#{let.solidivolatili}"  onchange="mostra(this,'#{let.tipologia}','5','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <h:inputText value="#{let.solidivolatili}" >                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
                                                                            
-                                                                               <h:link styleClass="no-decor"    onclick="mostra(this,'#{let.tipologia}','5','#{dettaglioCuaa.idscenario}', '1')"  >
+                                                                               <h:link styleClass="no-decor"      >
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </h:link>  
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >K</f:facet>  
-                                                                                <h:inputText value="#{let.potassiototale}" onchange="mostra(this,'#{let.tipologia}','6','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <h:inputText value="#{let.potassiototale}" >                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
                                                                           
-                                                                              <h:link styleClass="no-decor"    onclick="mostra(this,'#{let.tipologia}','6','#{dettaglioCuaa.idscenario}', '1')"  >
+                                                                                <h:link styleClass="no-decor"    >
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </h:link>  
                                                                              
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >P</f:facet>  
-                                                                                <h:inputText value="#{let.fosforototale}" onchange="mostra(this,'#{let.tipologia}','7','#{dettaglioCuaa.idscenario}', '0')" >                                                                          
+                                                                                <h:inputText value="#{let.fosforototale}"  >                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
-                                                                              <h:link styleClass="no-decor"    onclick="mostra(this,'#{let.tipologia}','7','#{dettaglioCuaa.idscenario}', '1')"  >
+                                                                              <h:link styleClass="no-decor"     >
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </h:link>  
                                                                             </rich:column>
@@ -409,71 +489,71 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                             </rich:column>
                                                                            <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >Volume</f:facet>  
-                                                                                <h:inputText value="#{liq.metricubi}"  onchange="mostra(this,'#{liq.tipologia}','1','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <h:inputText value="#{liq.metricubi}"   id="vol_liq">                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
                                                                                
-                                                                               <h:link styleClass="no-decor"    onclick="mostra(this,'#{liq.tipologia}','1','#{dettaglioCuaa.idscenario}', '1')"  >
+                                                                               <h:link styleClass="no-decor"     id="vol_liq_link" >
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </h:link>  
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >TKN</f:facet>  
-                                                                                <h:inputText value="#{liq.azotototale}" onchange="mostra(this,'#{liq.tipologia}','2','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <h:inputText value="#{liq.azotototale}"  id="tkn_liq">                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
                                                                                
-                                                                                <h:link styleClass="no-decor"    onclick="mostra(this,'#{liq.tipologia}','2','#{dettaglioCuaa.idscenario}', '1')"  >
+                                                                                <h:link styleClass="no-decor"    id="tkn_liq_link" >
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </h:link>  
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >TAN</f:facet>  
-                                                                                <h:inputText value="#{liq.azotoammoniacale}" onchange="mostra(this,'#{liq.tipologia}','3','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <h:inputText value="#{liq.azotoammoniacale}"   id="tan_liq">                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
                                                                               
-                                                                                <h:link styleClass="no-decor"    onclick="mostra(this,'#{liq.tipologia}','3','#{dettaglioCuaa.idscenario}', '1')"  >
+                                                                                <h:link styleClass="no-decor"     id="tan_liq_link" >
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </h:link>  
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >DM</f:facet>  
-                                                                                <h:inputText value="#{liq.sostanzasecca}" onchange="mostra(this,'#{liq.tipologia}','4','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <h:inputText value="#{liq.sostanzasecca}" >                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
                                                                                 
-                                                                                <h:link styleClass="no-decor"    onclick="mostra(this,'#{liq.tipologia}','4','#{dettaglioCuaa.idscenario}', '1')"  >
+                                                                                <h:link styleClass="no-decor"      >
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </h:link>  
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >SV</f:facet>  
-                                                                                <h:inputText value="#{liq.solidivolatili}" onchange="mostra(this,'#{liq.tipologia}','5','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <h:inputText value="#{liq.solidivolatili}" >                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
                                                                              
-                                                                               <h:link styleClass="no-decor"    onclick="mostra(this,'#{liq.tipologia}','5','#{dettaglioCuaa.idscenario}', '1')"  >
+                                                                               <h:link styleClass="no-decor"     >
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </h:link>  
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >K</f:facet>  
-                                                                                <h:inputText value="#{liq.potassiototale}" onchange="mostra(this,'#{liq.tipologia}','6','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <h:inputText value="#{liq.potassiototale}" >                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
                                                                                
-                                                                                 <h:link styleClass="no-decor"    onclick="mostra(this,'#{liq.tipologia}','6','#{dettaglioCuaa.idscenario}', '1')"  >
+                                                                                 <h:link styleClass="no-decor"     >
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </h:link>  
                                                                             </rich:column>
                                                                             <rich:column  style=" background-color: #58ACFA;">
                                                                                 <f:facet name="header" >P</f:facet>  
-                                                                                <h:inputText value="#{liq.fosforototale}" onchange="mostra(this,'#{liq.tipologia}','7','#{dettaglioCuaa.idscenario}', '0')">                                                                          
+                                                                                <h:inputText value="#{liq.fosforototale}" >                                                                          
                                                                                  <f:convertNumber maxFractionDigits="0" />
                                                                             </h:inputText>   
                                                                             
-                                                                              <h:link styleClass="no-decor"    onclick="mostra(this,'#{liq.tipologia}','7','#{dettaglioCuaa.idscenario}', '1')"  >
+                                                                              <h:link styleClass="no-decor"    >
                                                                                       <h:graphicImage value="/resources/css/images/edit.gif" alt="update" />
                                                                                 </h:link>  
                                                                             </rich:column>  

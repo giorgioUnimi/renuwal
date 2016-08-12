@@ -162,7 +162,7 @@ public class StoricoColturaleAppezzamento extends ListaAppezzamenti implements S
          entityManager.merge(appT);
          entityManager.getTransaction().commit();*/
           entityManager.getTransaction().begin();
-         Query query = entityManager.createQuery("DELETE FROM StoricoColturaAppezzamento s where s.idAppezzamento = :dacancellare");
+         Query query = entityManager.createQuery("DELETE FROM Storicocolturaappezzamento s where s.idappezzamentoId = :dacancellare");
          int numerocancellati = query.setParameter("dacancellare", appT).executeUpdate();
           entityManager.getTransaction().commit();
         //riinizializzo l'iteratore della lista        
@@ -180,7 +180,7 @@ public class StoricoColturaleAppezzamento extends ListaAppezzamenti implements S
                 stoT.setAsportazionefosforo(sto.getAsportazioneFosforo());
                 stoT.setAsportazionepotassio(sto.getAsportazionePotassio());
                 stoT.setIdappezzamentoId(sto.getIdAppezzamento());
-                db.Coltura colT = entityManager.find(db.Coltura.class, sto.getIdColtura());
+                db.Coltura colT = entityManager.find(db.Coltura.class, (int)sto.getIdColtura());
                 db.Rotazione rota = entityManager.find(db.Rotazione.class,rotaz);
                 stoT.setIdcolturaId(colT);
                 stoT.setMas(sto.getMas());

@@ -147,9 +147,10 @@ public class DettaglioAzienda implements Serializable{
          //Query q = entityManager.createNamedQuery("CaratteristicheChmiche.findByIdScenario").setParameter("idScenario",(long)399);
 
          List<db.CaratteristicheChmiche> listaCaratteristiche1 = q.getResultList();
-         
+        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" "+Thread.currentThread().getStackTrace()[1].getMethodName() + " size " + listaCaratteristiche1.size());
+
         if (listaCaratteristiche1.isEmpty()) {
-           
+           System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" "+Thread.currentThread().getStackTrace()[1].getMethodName());
             //contenitoreIniziale.stampaContenuto();
             /**
              * popolo le liste listaCaratteristicheLiq e listaCaratteristicheLet
@@ -918,9 +919,16 @@ public class DettaglioAzienda implements Serializable{
          
          Query q = entityManager.createNamedQuery("CaratteristicheChmiche.findByIdScenario").setParameter("idScenario",idscenario);
          List<db.CaratteristicheChmiche> listaCaratteristiche1 = q.getResultList();
+         
+         db.CaratteristicheChmiche caratteristica = null;
+         
          if(listaCaratteristiche1.isEmpty())
-             return;
-         db.CaratteristicheChmiche caratteristica = listaCaratteristiche1.get(0);
+         {
+             caratteristica = new db.CaratteristicheChmiche(idscenario);
+         }else
+         {
+             caratteristica = listaCaratteristiche1.get(0);
+         }
         
         /* if(!listaCaratteristiche1.isEmpty()) {
              connessione.chiudi();
@@ -929,28 +937,28 @@ public class DettaglioAzienda implements Serializable{
           System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " idscenario 1 " + idscenario);
          //caratteristica = new db.CaratteristicheChmiche(new Long(idscenario));
          
-         for(String tipologia:reflui.getTipologie())
+         for(String tipologia1:reflui.getTipologie())
          {
-            Refluo reT = reflui.getTipologia(tipologia); 
+            Refluo reT = reflui.getTipologia(tipologia1); 
             
-              System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " idscenario " + idscenario + " tipologia che aggiungo " + tipologia);
-            switch(tipologia)
+              System.out.println(Thread.currentThread().getStackTrace()[1].getMethodName() + " idscenario " + idscenario + " tipologia che aggiungo " + tipologia1);
+            switch(tipologia1)
             {
                 case "Liquame Bovino":
-                    caratteristica.setM3PBovS(reT.getMetricubi());
-                    caratteristica.setM3PBovU(reT.getMetricubi());
-                    caratteristica.setTanPBovS(reT.getAzotoammoniacale());
-                    caratteristica.setTanPBovU(reT.getAzotoammoniacale());
-                    caratteristica.setTknPBovS(reT.getAzotototale());
-                    caratteristica.setTknPBovU(reT.getAzotototale());
-                    caratteristica.setDmPBovS(reT.getSostanzasecca());
-                    caratteristica.setDmPBovU(reT.getSostanzasecca());
-                    caratteristica.setVsPBovS(reT.getSolidivolatili());
-                    caratteristica.setVsPBovU(reT.getSolidivolatili());
-                    caratteristica.setPPBovS(reT.getFosforototale());
-                    caratteristica.setPPBovU(reT.getFosforototale());
-                    caratteristica.setKPBovS(reT.getPotassiototale());
-                    caratteristica.setKPBovU(reT.getPotassiototale());
+                    caratteristica.setM3LBovS(reT.getMetricubi());
+                    caratteristica.setM3LBovU(reT.getMetricubi());
+                    caratteristica.setTanLBovS(reT.getAzotoammoniacale());
+                    caratteristica.setTanLBovU(reT.getAzotoammoniacale());
+                    caratteristica.setTknLBovS(reT.getAzotototale());
+                    caratteristica.setTknLBovU(reT.getAzotototale());
+                    caratteristica.setDmLBovS(reT.getSostanzasecca());
+                    caratteristica.setDmLBovU(reT.getSostanzasecca());
+                    caratteristica.setVsLBovS(reT.getSolidivolatili());
+                    caratteristica.setVsLBovU(reT.getSolidivolatili());
+                    caratteristica.setPLBovS(reT.getFosforototale());
+                    caratteristica.setPLBovU(reT.getFosforototale());
+                    caratteristica.setKLBovS(reT.getPotassiototale());
+                    caratteristica.setKLBovU(reT.getPotassiototale());
                     break;
                 case "Liquame Suino":
                     caratteristica.setM3LSuiS(reT.getMetricubi());
@@ -1001,20 +1009,20 @@ public class DettaglioAzienda implements Serializable{
                     caratteristica.setKLAltU(reT.getPotassiototale());
                     break;
                 case "Liquame Biomassa":
-                    caratteristica.setM3PBioS(reT.getMetricubi());
-                    caratteristica.setM3PBioU(reT.getMetricubi());
-                    caratteristica.setTanPBioS(reT.getAzotoammoniacale());
-                    caratteristica.setTanPBioU(reT.getAzotoammoniacale());
-                    caratteristica.setTknPBioS(reT.getAzotototale());
-                    caratteristica.setTknPBioU(reT.getAzotototale());
-                    caratteristica.setDmPBioS(reT.getSostanzasecca());
-                    caratteristica.setDmPBioU(reT.getSostanzasecca());
-                    caratteristica.setVsPBioS(reT.getSolidivolatili());
-                    caratteristica.setVsPBioU(reT.getSolidivolatili());
-                    caratteristica.setPPBioS(reT.getFosforototale());
-                    caratteristica.setPPBioU(reT.getFosforototale());
-                    caratteristica.setKPBioS(reT.getPotassiototale());
-                    caratteristica.setKPBioU(reT.getPotassiototale());
+                    caratteristica.setM3LBioS(reT.getMetricubi());
+                    caratteristica.setM3LBioU(reT.getMetricubi());
+                    caratteristica.setTanLBioS(reT.getAzotoammoniacale());
+                    caratteristica.setTanLBioU(reT.getAzotoammoniacale());
+                    caratteristica.setTknLBioS(reT.getAzotototale());
+                    caratteristica.setTknLBioU(reT.getAzotototale());
+                    caratteristica.setDmLBioS(reT.getSostanzasecca());
+                    caratteristica.setDmLBioU(reT.getSostanzasecca());
+                    caratteristica.setVsLBioS(reT.getSolidivolatili());
+                    caratteristica.setVsLBioU(reT.getSolidivolatili());
+                    caratteristica.setPLBioS(reT.getFosforototale());
+                    caratteristica.setPLBioU(reT.getFosforototale());
+                    caratteristica.setKLBioS(reT.getPotassiototale());
+                    caratteristica.setKLBioU(reT.getPotassiototale());
                     break;
                 case "Letame Bovino":
                     caratteristica.setM3PBovS(reT.getMetricubi());
@@ -1106,8 +1114,8 @@ public class DettaglioAzienda implements Serializable{
             entityManager.persist(caratteristica);
         tx.commit();
 
+         Connessione.getInstance().chiudi();
          
-         connessione.chiudi();
     }
 //    private void impostaDatiRimozioneAzoto(String cuaa,int scenario)
 //    {

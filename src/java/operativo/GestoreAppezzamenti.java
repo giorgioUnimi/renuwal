@@ -110,7 +110,7 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
             entityManager = connessione.apri("renuwal1");
          }
          
-         db.Appezzamento appT = entityManager.find(db.Appezzamento.class,this.appezzamentoEdit.getId());
+         db.Appezzamento appT = entityManager.find(db.Appezzamento.class,this.appezzamentoEdit.getId().intValue());
          
          Query q = entityManager.createNamedQuery("TipoIrrigazione.findByDescrizione").setParameter("descrizione", this.appezzamentoEdit.getTipoIrrigazione().getDescrizione());
          db.TipoIrrigazione tipoIrrigazione =(db.TipoIrrigazione)q.getSingleResult();
@@ -144,7 +144,7 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
      * della pagina appezzamenti.xhtml e prima deve cancellare il record appezzamento nel db
      */
     public void remove() {   
-        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " +Thread.currentThread().getStackTrace()[1].getMethodName()  + "   size listaappezzamenti " + super.getListaAppezzamenti().size() + " --remove--" + " idappezzamento  " + this.currentAppIndex1 +"idscenario  " + this.getDettaglioCuaa().getScenarioString() );
+       // System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " +Thread.currentThread().getStackTrace()[1].getMethodName()  + "   size listaappezzamenti " + super.getListaAppezzamenti().size() + " --remove--" + " idappezzamento  " + this.currentAppIndex1 +"idscenario  " + this.getDettaglioCuaa().getScenarioString() );
 
         Iterator<RecordAppezzamento> iterAppezzamento = super.getListaAppezzamenti().iterator();
         RecordAppezzamento re = null;
@@ -174,15 +174,18 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
      */
     private void deleteAppezzamento(long idappezzamento)
     {
+        ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+         DettaglioCuaa dettTemp = (DettaglioCuaa) FacesContext.getCurrentInstance().getApplication().getELResolver().getValue(elContext, null, "dettaglioCuaa");
         
-        System.out.println("gestore appezzamenti deleteappezzamanto idappezzamento " + idappezzamento);
+        Long idscenario = dettTemp.getIdscenario();
+        System.out.println("gestore appezzamenti deleteappezzamanto idappezzamento " + idappezzamento + " idscenario " + idscenario);
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
             entityManager = connessione.apri("renuwal1");
          }
-        db.ScenarioI sceT = entityManager.find(db.ScenarioI.class,this.getDettaglioCuaa().getIdscenario());
-        Iterator<db.Appezzamento> iterApp = sceT.getAppezzamentoCollection().iterator();
+        db.ScenarioI sceT1 = entityManager.find(db.ScenarioI.class,idscenario);
+        Iterator<db.Appezzamento> iterApp = sceT1.getAppezzamentoCollection().iterator();
         db.Appezzamento app = null;
         while(iterApp.hasNext())
         {
@@ -195,11 +198,11 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
         
         if(app != null)
         {
-           sceT.getAppezzamentoCollection().remove(app); 
+           sceT1.getAppezzamentoCollection().remove(app); 
         }
         
         entityManager.getTransaction().begin();
-        entityManager.merge(sceT);
+        entityManager.merge(sceT1);
         entityManager.getTransaction().commit();
         
         Connessione.getInstance().chiudi();
@@ -359,7 +362,10 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
     public long addRecord()
     {
       //System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() +" " +Thread.currentThread().getStackTrace()[1].getMethodName()+ " id appezzamento " + this.currentAppIndex + " nome " + this.getNome() + " superficie " +this.getSuperficie() + " svn " + this.isSvn() + " terreno " + this.getTipoTerreno() + " irrigazione " + this.getTipoIrrigazione() + " scenario "  + this.getDettaglioCuaa().getScenarioString());
-      
+       ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+         DettaglioCuaa dettTemp = (DettaglioCuaa) FacesContext.getCurrentInstance().getApplication().getELResolver().getValue(elContext, null, "dettaglioCuaa");
+        
+        Long idscenario = dettTemp.getIdscenario();
       if(this.getNome() == null)
           return -1;
       /**
@@ -373,7 +379,7 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
       
        //devo creare un nuovo appezzamento e quindi devo cercare prima lo scenario
        //il tipo di terreno , il tipo di irrigazione
-       Query q = entityManager.createNamedQuery("ScenarioI.findByIdscenario").setParameter("idscenario", this.getDettaglioCuaa().getIdscenario());
+       Query q = entityManager.createNamedQuery("ScenarioI.findByIdscenario").setParameter("idscenario", dettTemp.getIdscenario());
        db.ScenarioI scenT =null;
        db.TipoTerreno tipoTer = null;
        db.TipoIrrigazione tipoIrr = null;

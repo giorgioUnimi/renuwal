@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -46,6 +48,9 @@ public class Efficienze implements Serializable {
     private Double efficienzaFosforo;
     @Column(name = "da_digestato")
     private Boolean daDigestato;
+    @JoinColumn(name = "tipomateria_id", referencedColumnName = "id")
+    @ManyToOne
+    private TipomateriaS tipomateriaId;
 
     public Efficienze() {
     }
@@ -92,6 +97,14 @@ public class Efficienze implements Serializable {
 
     public void setDaDigestato(Boolean daDigestato) {
         this.daDigestato = daDigestato;
+    }
+
+    public TipomateriaS getTipomateriaId() {
+        return tipomateriaId;
+    }
+
+    public void setTipomateriaId(TipomateriaS tipomateriaId) {
+        this.tipomateriaId = tipomateriaId;
     }
 
     @Override

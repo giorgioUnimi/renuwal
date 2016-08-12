@@ -41,12 +41,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
     <h:body class="home page page-id-12 page-template-default custom-background ecwd-theme-travelify ">
 <f:verbatim>
        <script language="javascript">//<![CDATA[
-    $(document).ready(function(){   
-        
-        
-        
-        
-        
+    $(document).ready(function(){  
         /**
          * select delle alternative che deve aggiornare l'immagine a fianco
          */
@@ -86,7 +81,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                  var operazione ="singolamulti";
                  var azienda = $('#form\\:id_azienda').text(); 
                  azienda = "-"+azienda+"-"+azienda+"-"+scenario;
-                 //alert("numero random " +numeroR);
+                 //alert("numero random " +numeroR + " azienda " + azienda);
                  $.ajax(
                             {
                                 type:'GET',
@@ -241,7 +236,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                           <br/>   
                                                                         <h:selectOneMenu id="selectscenari" value="#{listaAziende.currentTypeSce}"  valueChangeListener="#{listaAziende.scenariChanged}"  rendered="#{not empty listaAziende.currentTypeSce}" >
                                                                             <f:selectItems value="#{listaAziende.selectscenari}" />
-                                                                             <a4j:ajax event="valueChange" render="table id_azienda id_anno id_scenario id_scenario1 introta"    execute="@this"  />
+                                                                             <a4j:ajax event="valueChange" render="table id_azienda id_anno id_scenario id_scenario1 introta "    execute="@form"  />
 
                                                                         </h:selectOneMenu>
                                                                          
@@ -274,7 +269,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                             
                                                             <h:form id="form">
 
-                                                              <!--  <h:panelGrid columns="2" style="width: 20%; margin:-10px 0px 2px 0px;" >
+                                                                <h:panelGrid columns="2" style="width: 20%; margin:-10px 0px 2px 0px;" >
                                                                     <h:outputLabel id="id_azienda_label" for="id_azienda"
                                                                                    value="Azienda" />
                                                                     <h:outputText  value="#{dettaglioCuaa.cuaa}" id="id_azienda"/>      
@@ -287,10 +282,33 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                     <h:outputLabel id="id_scenario_label1" for="id_scenario1"
                                                                                    value="Scenario1" />
                                                                     <h:outputText value="#{dettaglioCuaa.idscenario}" id="id_scenario1"/>
-                                                                </h:panelGrid>-->
+                                                                </h:panelGrid>
                                                                 
-                                                               <!-- <h:inputHidden value="00000" id="numerorandomhidden" />-->
-                                                                <table id="introta" class="rf-dt" style="width:700px;">
+                                                                <h:inputHidden value="00000" id="numerorandomhidden" />
+                                                                
+                                                                <!--<rich:dataTable id="introta" >
+                                                                     <rich:column>                                                                           
+                                                                        <f:facet name="header">Azienda</f:facet>                                                                     
+                                                                        <h:outputText value="#{dettaglioCuaa.cuaa}" >#{dettaglioCuaa.cuaa}                                                                             
+                                                                        </h:outputText>  
+                                                                     </rich:column>
+                                                                    <rich:column>                                                                           
+                                                                        <f:facet name="header">Anno</f:facet>                                                                     
+                                                                            <h:outputText value="#{dettaglioCuaa.anno}" >                                                                             
+                                                                        </h:outputText>  
+                                                                     </rich:column>
+                                                                    <rich:column>                                                                           
+                                                                        <f:facet name="header">Scenario</f:facet>                                                                     
+                                                                            <h:outputText value="#{dettaglioCuaa.scenarioString}" >                                                                             
+                                                                        </h:outputText>  
+                                                                     </rich:column>
+                                                                    <rich:column>                                                                           
+                                                                        <f:facet name="header">Scenario#</f:facet>                                                                     
+                                                                            <h:outputText value="#{dettaglioCuaa.idscenario}" >                                                                             
+                                                                        </h:outputText>  
+                                                                     </rich:column>
+                                                                </rich:dataTable>-->
+                                                                <!--<table id="introta" class="rf-dt" style="width:700px;">
                                                                     <colgroup span="4"></colgroup>
                                                                     <thead id="introta:th" class="rf-dt-thd">
                                                                         <tr id="introta:ch" class="rf-dt-shdr">
@@ -308,7 +326,7 @@ body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-c
                                                                                <td id="introta:0:j_idt63" class="rf-dt-c">#{dettaglioCuaa.idscenario}</td>
                                                                         </tr>
                                                                     </tbody>
-                                                                </table>
+                                                                </table>-->
                                                                <br/>
                                                               
                                                                 <rich:dataTable value="#{dettaglioAzienda.listaCaratteristiche}" var="lista"  id="table" style="width:700px;" >

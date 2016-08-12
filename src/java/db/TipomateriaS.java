@@ -44,6 +44,8 @@ public class TipomateriaS implements Serializable {
     private Boolean animale;
     @OneToMany(mappedBy = "idtipomateriaId")
     private Collection<Efficienza> efficienzaCollection;
+    @OneToMany(mappedBy = "tipomateriaId")
+    private Collection<Efficienze> efficienzeCollection;
     @OneToMany(mappedBy = "tipologiaanimaleId")
     private Collection<SpecieS> specieSCollection;
 
@@ -85,6 +87,15 @@ public class TipomateriaS implements Serializable {
 
     public void setEfficienzaCollection(Collection<Efficienza> efficienzaCollection) {
         this.efficienzaCollection = efficienzaCollection;
+    }
+
+    @XmlTransient
+    public Collection<Efficienze> getEfficienzeCollection() {
+        return efficienzeCollection;
+    }
+
+    public void setEfficienzeCollection(Collection<Efficienze> efficienzeCollection) {
+        this.efficienzeCollection = efficienzeCollection;
     }
 
     @XmlTransient
