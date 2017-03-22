@@ -10,15 +10,17 @@ and open the template in the editor.
     xmlns:c="http://java.sun.com/jsp/jstl/core">
    <nav id="main-nav" class="clearfix">
                        <div class="container clearfix">
+                          
                            <ul class="root">
-                               <c:if test="#{navigazione.paginaAttuale eq 'index.xhtml'|| navigazione.paginaAttuale eq 'index_1.xhtml'}">
-                                   <li id="menu-item-66" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-12 current_page_item menu-item-66"><h:link   value="Benvenuti" /></li>                             
+                           
+                                  <li id="menu-item-66" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-12 current_page_item menu-item-66"><h:link   value="Benvenuti" /></li>                             
+                                  <c:if test="#{utente.corretto eq 'true'}">
                                    <li id="menu-item-136" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-136" ><h:link value="Gestione Colturale" outcome="home" />
                                        <ul class="sub-menu">
                                            <li id="menu-item-68" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68"><h:link value="Aziende" outcome="aziende" /></li>
                                            <li id="menu-item-133" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-133"><h:link value="Appezzamenti" outcome="appezzamenti" /></li>
                                            <li id="menu-item-134" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-134"><h:link value="Piano Colturale" outcome="piano_colturale" /></li>
-                                           <!--<li id="menu-item-135" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-135"><h:link value="Piano Distribuzione" outcome="piano_distribuzione" /></li>                             -->
+                                           <li id="menu-item-135" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-135"><h:link value="Piano Distribuzione" outcome="piano_distribuzione" /></li>                           
                                        </ul>
                                    </li>
                                    <li id="menu-item-137" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-137" ><h:link value="Gestione Zootecnica" outcome="home" />
@@ -26,21 +28,24 @@ and open the template in the editor.
                                            <li id="menu-item-142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Dettaglio Aziendale" outcome="dettaglioazienda" /></li>
                                            <li id="menu-item-139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Allevamenti" outcome="allevamento" /></li>
                                            <li id="menu-item-140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Stoccaggi" outcome="stoccaggio" /></li>
-                                           <li id="menu-item-141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-141"><h:link value="Raccolta Acqua" outcome="acquastoccaggio" /></li>                             
+                                           <li id="menu-item-141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-141"><h:link value="Acque aggiuntive" outcome="acquastoccaggio" /></li>                             
                                        </ul>
                                    </li>
                                  <li id="menu-item-151" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-151" ><h:link value="Confronto" outcome="confronto" /></li>
                                  <li id="menu-item-171" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-171" ><h:link value="Piano Distribuzione" outcome="piano_distribuzione" /></li>
-
+                                 
                                </c:if>
-                               <c:if test="#{navigazione.paginaAttuale eq 'aziende.xhtml'}">
+                              <!-- <c:otherwise>
+                                 <li id="menu-item-66" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-12 current_page_item menu-item-66"><h:link   value="Benvenuti" /></li>                             
+
+                               </c:otherwise>    -->
+                              <!-- <c:if test="#{navigazione.paginaAttuale eq 'aziende.xhtml'}">
                               <li id="menu-item-66" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-12 current_page_item menu-item-66"><h:link   value="Benvenuti" /></li>                             
                                    <li id="menu-item-136" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-136" ><h:link value="Gestione Colturale" outcome="home" />
                                        <ul class="sub-menu">
                                            <li id="menu-item-68" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68"><h:link value="Aziende" outcome="aziende" /></li>
                                            <li id="menu-item-133" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-133"><h:link value="Appezzamenti" outcome="appezzamenti" /></li>
                                            <li id="menu-item-134" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-134"><h:link value="Piano Colturale" outcome="piano_colturale" /></li>
-                                           <!--<li id="menu-item-135" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-135"><h:link value="Piano Distribuzione" outcome="piano_distribuzione" /></li>-->                             
                                        </ul>
                                    </li>
                                    <li id="menu-item-137" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-137" ><h:link value="Gestione Zootecnica" outcome="home" />
@@ -62,7 +67,6 @@ and open the template in the editor.
                                            <li id="menu-item-68" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68"><h:link value="Aziende" outcome="aziende" /></li>
                                            <li id="menu-item-133" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-133"><h:link value="Appezzamenti" outcome="appezzamenti" /></li>
                                            <li id="menu-item-134" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-134"><h:link value="Piano Colturale" outcome="piano_colturale" /></li>
-                                           <!--<li id="menu-item-135" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-135"><h:link value="Piano Distribuzione" outcome="piano_distribuzione" /></li>-->                             
                                        </ul>
                                    </li>
                                    <li id="menu-item-137" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-137" ><h:link value="Gestione Zootecnica" outcome="home" />
@@ -85,7 +89,6 @@ and open the template in the editor.
                                            <li id="menu-item-68" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68"><h:link value="Aziende" outcome="aziende" /></li>
                                            <li id="menu-item-133" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-133"><h:link value="Appezzamenti" outcome="appezzamenti" /></li>
                                            <li id="menu-item-134" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-134"><h:link value="Piano Colturale" outcome="piano_colturale" /></li>
-                                           <!--<li id="menu-item-135" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-135"><h:link value="Piano Distribuzione" outcome="piano_distribuzione" /></li>-->                             
                                        </ul>
                                    </li>
                                    <li id="menu-item-137" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-137" ><h:link value="Gestione Zootecnica" outcome="home" />
@@ -93,7 +96,6 @@ and open the template in the editor.
                                            <li id="menu-item-142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Dettaglio Aziendale" outcome="dettaglioazienda" /></li>
                                            <li id="menu-item-139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Allevamenti" outcome="allevamento" /></li>
                                            <li id="menu-item-140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Stoccaggi" outcome="stoccaggio" /></li>
-                                           <!--<li id="menu-item-141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-141"><h:link value="Raccolta Acqua" outcome="acquastoccaggio" /></li>-->                             
                                        </ul>
                                    </li>
                                
@@ -108,7 +110,6 @@ and open the template in the editor.
                                            <li id="menu-item-68" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68"><h:link value="Aziende" outcome="aziende" /></li>
                                            <li id="menu-item-133" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-133"><h:link value="Appezzamenti" outcome="appezzamenti" /></li>
                                            <li id="menu-item-134" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-134"><h:link value="Piano Colturale" outcome="piano_colturale" /></li>
-                                           <!--<li id="menu-item-135" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-135"><h:link value="Piano Distribuzione" outcome="piano_distribuzione" /></li>-->                             
                                        </ul>
                                    </li>
                                    <li id="menu-item-137" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-137" ><h:link value="Gestione Zootecnica" outcome="home" />
@@ -132,12 +133,10 @@ and open the template in the editor.
                                            <li id="menu-item-68" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68"><h:link value="Aziende" outcome="aziende" /></li>
                                            <li id="menu-item-133" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-133"><h:link value="Appezzamenti" outcome="appezzamenti" /></li>
                                            <li id="menu-item-134" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-134"><h:link value="Piano Colturale" outcome="piano_colturale" /></li>
-                                           <!--<li id="menu-item-135" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-135"><h:link value="Piano Distribuzione" outcome="piano_distribuzione" /></li>-->                             
                                        </ul>
                                    </li>
                                    <li id="menu-item-137" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-137" ><h:link value="Gestione Zootecnica" outcome="home" />
                                        <ul class="sub-menu">
-                                           <!--<li id="menu-item-142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Dettaglio Aziendale" outcome="dettaglioazienda" /></li>-->
                                            <li id="menu-item-139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Allevamenti" outcome="allevamento" /></li>
                                            <li id="menu-item-140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Stoccaggi" outcome="stoccaggio" /></li>
                                            <li id="menu-item-141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-141"><h:link value="Raccolta Acqua" outcome="acquastoccaggio" /></li>                             
@@ -155,13 +154,11 @@ and open the template in the editor.
                                            <li id="menu-item-68" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68"><h:link value="Aziende" outcome="aziende" /></li>
                                            <li id="menu-item-133" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-133"><h:link value="Appezzamenti" outcome="appezzamenti" /></li>
                                            <li id="menu-item-134" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-134"><h:link value="Piano Colturale" outcome="piano_colturale" /></li>
-                                           <!--<li id="menu-item-135" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-135"><h:link value="Piano Distribuzione" outcome="piano_distribuzione" /></li>-->                             
                                        </ul>
                                    </li>
                                    <li id="menu-item-137" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-137" ><h:link value="Gestione Zootecnica" outcome="home" />
                                        <ul class="sub-menu">
                                            <li id="menu-item-142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Dettaglio Aziendale" outcome="dettaglioazienda" /></li>
-                                           <!--<li id="menu-item-139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Allevamenti" outcome="allevamento" /></li>-->
                                            <li id="menu-item-140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Stoccaggi" outcome="stoccaggio" /></li>
                                            <li id="menu-item-141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-141"><h:link value="Raccolta Acqua" outcome="acquastoccaggio" /></li>                             
                                        </ul>
@@ -178,14 +175,12 @@ and open the template in the editor.
                                            <li id="menu-item-68" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68"><h:link value="Aziende" outcome="aziende" /></li>
                                            <li id="menu-item-133" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-133"><h:link value="Appezzamenti" outcome="appezzamenti" /></li>
                                            <li id="menu-item-134" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-134"><h:link value="Piano Colturale" outcome="piano_colturale" /></li>
-                                           <!--<li id="menu-item-135" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-135"><h:link value="Piano Distribuzione" outcome="piano_distribuzione" /></li>-->                             
                                        </ul>
                                    </li>
                                    <li id="menu-item-137" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-137" ><h:link value="Gestione Zootecnica" outcome="home" />
                                        <ul class="sub-menu">
                                            <li id="menu-item-142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Dettaglio Aziendale" outcome="dettaglioazienda" /></li>
                                            <li id="menu-item-139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Allevamenti" outcome="allevamento" /></li>
-                                           <!--<li id="menu-item-140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Stoccaggi" outcome="stoccaggio" /></li>-->
                                            <li id="menu-item-141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-141"><h:link value="Raccolta Acqua" outcome="acquastoccaggio" /></li>                             
                                        </ul>
                                    </li>
@@ -201,7 +196,6 @@ and open the template in the editor.
                                            <li id="menu-item-68" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68"><h:link value="Aziende" outcome="aziende" /></li>
                                            <li id="menu-item-133" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-133"><h:link value="Appezzamenti" outcome="appezzamenti" /></li>
                                            <li id="menu-item-134" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-134"><h:link value="Piano Colturale" outcome="piano_colturale" /></li>
-                                           <!--<li id="menu-item-135" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-135"><h:link value="Piano Distribuzione" outcome="piano_distribuzione" /></li>-->                             
                                        </ul>
                                    </li>
                                    <li id="menu-item-137" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-137" ><h:link value="Gestione Zootecnica" outcome="home" />
@@ -209,7 +203,6 @@ and open the template in the editor.
                                            <li id="menu-item-142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Dettaglio Aziendale" outcome="dettaglioazienda" /></li>
                                            <li id="menu-item-139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Allevamenti" outcome="allevamento" /></li>
                                            <li id="menu-item-140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Stoccaggi" outcome="stoccaggio" /></li>
-                                           <!--<li id="menu-item-141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-141"><h:link value="Raccolta Acqua" outcome="acquastoccaggio" /></li>-->                             
                                        </ul>
                                    </li>
                                 
@@ -225,7 +218,6 @@ and open the template in the editor.
                                            <li id="menu-item-68" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-68"><h:link value="Aziende" outcome="aziende" /></li>
                                            <li id="menu-item-133" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-133"><h:link value="Appezzamenti" outcome="appezzamenti" /></li>
                                            <li id="menu-item-134" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-134"><h:link value="Piano Colturale" outcome="piano_colturale" /></li>
-                                           <!--<li id="menu-item-135" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-135"><h:link value="Piano Distribuzione" outcome="piano_distribuzione" /></li>-->                             
                                        </ul>
                                    </li>
                                    <li id="menu-item-137" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-137" ><h:link value="Gestione Zootecnica" outcome="home" />
@@ -233,41 +225,15 @@ and open the template in the editor.
                                            <li id="menu-item-142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Dettaglio Aziendale" outcome="dettaglioazienda" /></li>
                                            <li id="menu-item-139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Allevamenti" outcome="allevamento" /></li>
                                            <li id="menu-item-140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-140"><h:link value="Stoccaggi" outcome="stoccaggio" /></li>
-                                           <!--<li id="menu-item-141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-141"><h:link value="Raccolta Acqua" outcome="acquastoccaggio" /></li>-->                             
+                                           <li id="menu-item-141" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-141"><h:link value="Raccolta Acqua" outcome="acquastoccaggio" /></li>                             
                                        </ul>
                                    </li>
                                 
-                                 <!-- <li id="menu-item-151" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-151" ><h:link value="Confronto" outcome="confronto" /></li>-->
                                  <li id="menu-item-171" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-171" ><h:link value="Piano Distribuzione" outcome="piano_distribuzione" /></li>
-
-                                
-                                </c:if>
+                                 </c:if>   
+                             -->
                                
-                               
-                               
-                               
-                               <!--<li id="menu-item-57" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-57"><a href="http://www.renuwal.unimi.it/it_IT/risultati-attivita-sperimentale/">Risultati</a>
-                                   <ul class="sub-menu">
-                                       <li id="menu-item-60" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-60"><a href="http://www.renuwal.unimi.it/it_IT/risultati-attivita-sperimentale/attivita-sperimentali/">Attività Sperimentali</a>
-                                           <ul class="sub-menu">
-                                               <li id="menu-item-64" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-64"><a href="http://www.renuwal.unimi.it/it_IT/risultati-attivita-sperimentale/attivita-sperimentali/test-preliminari/">Task 1: test preliminari</a></li>
-                                               <li id="menu-item-63" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-63"><a href="http://www.renuwal.unimi.it/it_IT/risultati-attivita-sperimentale/attivita-sperimentali/sviluppo-del-prototipo/">Task 2: sviluppo del prototipo</a></li>
-                                               <li id="menu-item-62" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-62"><a href="http://www.renuwal.unimi.it/it_IT/risultati-attivita-sperimentale/attivita-sperimentali/test-sperimentali/">Task 3: verifica funzionamento prototipo</a></li>
-                                               <li id="menu-item-61" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-61"><a href="http://www.renuwal.unimi.it/it_IT/risultati-attivita-sperimentale/attivita-sperimentali/task-4-valutazione-complessiva-del-prototipo/">Task 4 :valutazione complessiva del prototipo</a></li>
-                                           </ul>
-                                       </li>
-                                       <li id="menu-item-59" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-59"><a href="http://www.renuwal.unimi.it/it_IT/risultati-attivita-sperimentale/software/">Software</a>
-                                           <ul class="sub-menu">
-                                               <li id="menu-item-129" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-129"><a href="http://www.renuwal.unimi.it/it_IT/risultati-attivita-sperimentale/software/software-di-valutazione/">Software di valutazione</a></li>
-                                               <li id="menu-item-128" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-128"><a href="http://www.renuwal.unimi.it/it_IT/risultati-attivita-sperimentale/software/software-di-supporto-alle-decisioni/">Software di supporto alle decisioni</a></li>
-                                           </ul>
-                                       </li>
-                                   </ul>
-                               </li>
-                               <li id="menu-item-56" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-56"><a href="http://www.renuwal.unimi.it/it_IT/news/">News</a></li>
-                               <li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><a href="http://www.renuwal.unimi.it/it_IT/partner/">Contatti</a></li>
-                               <li class="default-menu"><a href="http://www.renuwal.unimi.it/it_IT/" title="Navigation">Navigazione</a>
-                               </li>-->
+                              
                            </ul>
                        </div><!-- .container -->
                   
