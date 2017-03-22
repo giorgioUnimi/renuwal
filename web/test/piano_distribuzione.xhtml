@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
-                xmlns:rich="http://richfaces.org/rich">    
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">    
     <!--<h:form>  -->
          <h:panelGrid columns="2" style="width: 20%; float: left;margin:-10px 0px 2px 0px;" >
         <h:outputLabel id="id_azienda_label" for="id_azienda"
@@ -15,7 +17,243 @@
          <h:outputText value="#{dettaglioCuaa.scenarioString}" id="id_scenario"/>
         </h:panelGrid>
       
-       <div style="clear: both;"/>
+       <div style="clear: both;"/>      
+       <br/>
+        
+       <div id="dialog" title="Basic dialog" style="display: none;">
+           <p>E' necessario selezionare Azienda,Anno e Scenario sulla colonna di sinistra.</p>
+       </div>
+       
+       
+      <!--<c:set var="myVar" value="#{risultatoConfronto}" scope="request"  id="risultatoC"/>-->
+       <c:choose>
+       <c:when test="#{not empty risultatoConfronto.listaCaratteristiche }"> 
+       <rich:dataTable value="#{risultatoConfronto.listaCaratteristiche}" var="lista"  id="table" style="width:500px;" >                                                               
+           
+          <f:facet name="header">
+                <rich:columnGroup>  
+                    <rich:column colspan="2">
+                        <h:outputText value="Refluo" />
+                    </rich:column>
+                    <rich:column colspan="2">
+                        <h:outputText value="N" />
+                    </rich:column>
+                    <rich:column colspan="2">
+                        <h:outputText value="P2O" />
+                    </rich:column>
+                    <rich:column colspan="2">
+                        <h:outputText value="K2O5" />
+                    </rich:column>
+                 <rich:column rowspan="1" breakRowBefore="true" >
+                        <h:outputText value="Disponibile"  />
+                    </rich:column>
+                    <rich:column rowspan="1">
+                        <h:outputText value="Quantita" />
+                    </rich:column>                                         
+                    <rich:column rowspan="1">
+                        <h:outputText value="Kg" />
+                    </rich:column>   
+                     <rich:column rowspan="1">
+                         <!--<h:outputText value="Kg/m<sup>3</sup>" />-->
+                         Kg/m<sup>3</sup>
+                    </rich:column>
+                    <rich:column rowspan="1">
+                        <h:outputText value="Kg" />
+                    </rich:column>   
+                     <rich:column rowspan="1">
+                         <!--<h:outputText value="Kg/m<sup>3</sup>" />-->
+                         Kg/m<sup>3</sup>
+                    </rich:column>   
+                    <rich:column rowspan="1">
+                        <h:outputText value="Kg" />
+                    </rich:column>   
+                     <rich:column rowspan="1">
+                         <!--<h:outputText value="Kg/m<sup>3</sup>" />-->
+                         Kg/m<sup>3</sup>
+                    </rich:column>   
+                </rich:columnGroup>      
+          </f:facet>    
+           <rich:column>                                                                           
+              
+                   
+               <h:outputText value="#{risultatoConfronto.tipoLiquame}" rendered="#{lista.tipologia eq 'Liquame'}" > 
+                   <rich:collapsibleSubTableToggler  for="sbtbl3"   />
+               </h:outputText>    
+               <h:outputText value="#{risultatoConfronto.tipoLetame}"  rendered="#{lista.tipologia eq 'Letame'}">  
+                   <rich:collapsibleSubTableToggler  for="sbtbl2"   />
+               </h:outputText>    
+               <h:outputText value="ToTali"  rendered="#{lista.tipologia eq 'Totale'}">  
+               </h:outputText>     
+                   
+           </rich:column>
+           <rich:column >
+               <!--<f:facet name="header">Quantita(m3)</f:facet>-->
+               <h:outputText value="#{lista.metricubi}" >
+                   <f:convertNumber maxFractionDigits="0" />
+               </h:outputText>    
+           </rich:column>
+           <rich:column>
+              <!-- <f:facet name="header">N</f:facet>-->
+              <h:outputText value="#{lista.azotototale }" >
+                   <f:convertNumber maxFractionDigits="0" />
+               </h:outputText>    
+           </rich:column>
+           <rich:column>
+              <!-- <f:facet name="header">N</f:facet>-->
+               <h:outputText value="#{lista.metricubi == 0 ? 0:lista.azotototale / lista.metricubi}" >
+                   <f:convertNumber maxFractionDigits="1" />
+               </h:outputText>    
+           </rich:column>
+           <rich:column>
+               <!--<f:facet name="header">K2O</f:facet>-->
+               <h:outputText value="#{lista.potassiototale}" >                                                                          
+                   <f:convertNumber maxFractionDigits="0" />
+               </h:outputText>    
+           </rich:column>
+           <rich:column>
+               <!--<f:facet name="header">K2O</f:facet>-->
+               <h:outputText value="#{lista.metricubi == 0 ? 0:lista.potassiototale / lista.metricubi}" >                                                                          
+                   <f:convertNumber maxFractionDigits="1" />
+               </h:outputText>    
+           </rich:column>
+           <rich:column>
+              <!-- <f:facet name="header">P2O5</f:facet>-->
+               <h:outputText value="#{lista.fosforototale}" >                                                                          
+                   <f:convertNumber maxFractionDigits="0" />
+               </h:outputText>     
+           </rich:column>
+            <rich:column>
+              <!-- <f:facet name="header">P2O5</f:facet>-->
+              <h:outputText value="#{lista.metricubi == 0 ? 0:lista.fosforototale / lista.metricubi}" >                                                                          
+                   <f:convertNumber maxFractionDigits="1" />
+               </h:outputText>     
+           </rich:column>
+        <!--
+           <rich:collapsibleSubTable value="#{risultatoConfronto.listaCaratteristicheLet}" var="let" id="sbtbl2" expandMode="client" rows="12"  rowClasses="odd-row, even-row"   expanded="#{false}"   >
+               <rich:column  style=" background-color: #58ACFA;">
+               
+                   <h:outputText value="#{ let.tipologia}" >                                                                          
+                       
+                   </h:outputText>   
+               </rich:column>
+               <rich:column  style=" background-color: #58ACFA;" >
+                   
+                
+                   <h:outputText value="#{let.metricubi}" style="width:30px;"    > 
+                       <f:convertNumber maxFractionDigits="0" />                                                                          
+                   </h:outputText>                                                                             
+                  
+                       
+               </rich:column>
+               <rich:column  style=" background-color: #58ACFA;">
+               
+                   <h:outputText value="#{let.azotototale}"   >                                                                          
+                       <f:convertNumber maxFractionDigits="0" />
+                   </h:outputText>                 
+               </rich:column>
+               
+               <rich:column  style=" background-color: #58ACFA;">
+                 
+                   <h:outputText value="#{let.metricubi == 0 ? 0:let.azotototale / let.metricubi}"   >                                                                          
+                       <f:convertNumber maxFractionDigits="1" />
+                   </h:outputText>                 
+               </rich:column>
+              
+               <rich:column  style=" background-color: #58ACFA;">
+               
+                   <h:outputText value="#{let.potassiototale}" >                                                                          
+                       <f:convertNumber maxFractionDigits="0" />
+                   </h:outputText>                
+               </rich:column>
+               
+               <rich:column  style=" background-color: #58ACFA;">
+                
+                   <h:outputText value="#{let.metricubi == 0 ? 0:let.potassiototale / let.metricubi}" >                                                                          
+                       <f:convertNumber maxFractionDigits="1" />
+                   </h:outputText>                
+               </rich:column>
+               
+               <rich:column  style=" background-color: #58ACFA;">
+                
+                   <h:outputText value="#{let.fosforototale}"  >                                                                          
+                       <f:convertNumber maxFractionDigits="0" />
+                   </h:outputText>                 
+               </rich:column>
+               <rich:column  style=" background-color: #58ACFA;">
+                 
+                  <h:outputText value="#{let.metricubi == 0 ? 0:let.fosforototale / let.metricubi}"  >                                                                          
+                       <f:convertNumber maxFractionDigits="1" />
+                   </h:outputText>                 
+               </rich:column>
+               
+               
+           </rich:collapsibleSubTable> 
+          -->
+            <!--   
+           <rich:collapsibleSubTable value="#{risultatoConfronto.listaCaratteristicheLiq}" var="liq" id="sbtbl3" expandMode="client" rows="12"  rowClasses="odd-row, even-row"   expanded="#{false}"  >
+               <rich:column  style=" background-color: #58ACFA;">
+                
+                   <h:outputText value="#{ liq.tipologia }" >                                                                          
+                       
+                   </h:outputText>  
+                       
+               </rich:column>
+               <rich:column  style=" background-color: #58ACFA;">
+                  
+                   <h:outputText value="#{liq.metricubi}"    >                                                                          
+                       <f:convertNumber maxFractionDigits="0" />
+                   </h:outputText>   
+                       
+                   
+               </rich:column>
+               <rich:column  style=" background-color: #58ACFA;">
+                  
+                   <h:outputText value="#{liq.azotototale}"   >                                                                          
+                       <f:convertNumber maxFractionDigits="0" />
+                   </h:outputText>                 
+               </rich:column>
+               
+               <rich:column  style=" background-color: #58ACFA;">
+                
+                   <h:outputText value="#{liq.metricubi == 0 ? 0:liq.azotototale / liq.metricubi}"   >                                                                          
+                       <f:convertNumber maxFractionDigits="1" />
+                   </h:outputText>                 
+               </rich:column>
+              
+               <rich:column  style=" background-color: #58ACFA;">
+                 
+                   <h:outputText value="#{liq.potassiototale}" >                                                                          
+                       <f:convertNumber maxFractionDigits="0" />
+                   </h:outputText>               
+               </rich:column>
+               
+               <rich:column  style=" background-color: #58ACFA;">
+                  
+                   <h:outputText value="#{liq.metricubi == 0 ? 0:liq.potassiototale / liq.metricubi}" >                                                                          
+                       <f:convertNumber maxFractionDigits="1" />
+                   </h:outputText>               
+               </rich:column>
+               
+               <rich:column  style=" background-color: #58ACFA;">
+                  
+                   <h:outputText value="#{liq.fosforototale}" >                                                                          
+                       <f:convertNumber maxFractionDigits="0" />
+                   </h:outputText>                       
+               </rich:column>
+               
+               <rich:column  style=" background-color: #58ACFA;">
+                 
+                   <h:outputText value="#{liq.metricubi == 0 ? 0:liq.fosforototale / liq.metricubi}" >                                                                          
+                       <f:convertNumber maxFractionDigits="1" />
+                   </h:outputText>                       
+               </rich:column>  
+               
+               
+           </rich:collapsibleSubTable>
+               -->
+       </rich:dataTable>
+       <br/>
+       
        <rich:dataTable value="#{pianoDistribuzione.appezzamenti}" var="item" rows="5" id="listExample" style="width:700px;">
             <f:facet name="header">
                 <rich:columnGroup>  
@@ -24,16 +262,22 @@
                     </rich:column>
                      <rich:column colspan="2" >
                         <h:outputText value="Asp N" />
-                    </rich:column>  
+                    </rich:column>
+                     <rich:column colspan="2" >
+                        <h:outputText value="Asp P2O5" />
+                    </rich:column>
+                     <rich:column colspan="2" >
+                        <h:outputText value="Asp K2O" />
+                    </rich:column>
                     <rich:column rowspan="1" breakRowBefore="true">
-                        <h:outputText value="Appezzamento" />
+                        <h:outputText value="Upa" />
                     </rich:column>
-                    <rich:column rowspan="1">
-                        <h:outputText value="Superficie" />
-                    </rich:column>
-                    <rich:column rowspan="1">
+                     <rich:column rowspan="1">
                         <h:outputText value="Coltura" />
-                    </rich:column>                         
+                    </rich:column> 
+                    <rich:column rowspan="1">
+                        <h:outputText value="Superficie" />                       
+                    </rich:column>                                         
                     <rich:column rowspan="1">
                         <h:outputText value="Rotazione" />
                     </rich:column>
@@ -41,24 +285,39 @@
                         <h:outputText value="Resa Attesa" />
                     </rich:column>  
                      
-                    <rich:column>
+                    <rich:column rowspan="1">
                         <h:outputText value="Kg" />
                     </rich:column>
-                      <rich:column>
-                        <h:outputText value="Kg/h" />
-                    </rich:column>                   
+                      <rich:column rowspan="1">
+                        <h:outputText value="Kg/ha" />
+                    </rich:column> 
+                    <rich:column rowspan="1">
+                        <h:outputText value="Kg" />
+                    </rich:column>
+                      <rich:column rowspan="1">
+                        <h:outputText value="Kg/ha" />
+                    </rich:column>     
+                    <rich:column rowspan="1">
+                        <h:outputText value="Kg" />
+                    </rich:column>
+                      <rich:column rowspan="1">
+                        <h:outputText value="Kg/ha" />
+                    </rich:column>     
                 </rich:columnGroup>
             </f:facet>
             <rich:column>
                 <rich:collapsibleSubTableToggler for="sbtbl"   />
-                <h:outputText value="#{item.nomeAppezzamento}"  />                
+                <h:outputText value="#{item.upa}"  />                
             </rich:column>
            <rich:column>
-               <h:outputText value="#{item.superficie}"  />   
+               <h:outputText value="#{item.coltura}"  />   
            </rich:column>
-            <rich:column>
-                <h:outputText value="#{item.coltura}"  />   
+           <rich:column>
+               <h:outputText value="#{item.superficie}"  >   
+                    <f:convertNumber maxFractionDigits="2" />
+               </h:outputText>    
            </rich:column>
+            
             <rich:column>
                 <h:outputText value="#{item.rotazione}"  />   
            </rich:column>
@@ -66,37 +325,144 @@
                 <h:outputText value="#{item.resa_attesa}"  />   
            </rich:column>
             <rich:column>
-                <h:outputText value="#{item.asportazioniN}"  />   
+                <h:outputText value="#{item.asportazioniNKg}"  >   
+                <f:convertNumber maxFractionDigits="2" />     
+                </h:outputText>
            </rich:column>
             <rich:column>
-                <h:outputText value="#{item.asportazioniN}"  />   
+                <h:outputText value="#{item.asportazioniNKgsuHA}"  >   
+                     <f:convertNumber maxFractionDigits="2" />
+                </h:outputText>    
            </rich:column>
-           <rich:collapsibleSubTable value="#{item.distribuzioni}" var="distribuzione" id="sbtbl" expandMode="client" rows="12"  rowClasses="odd-row, even-row"   expanded="#{false}"  >
-            <rich:column  style=" background-color: #58ACFA;">
-                    <f:facet name="header" >Mese</f:facet>
-            </rich:column>         
-           <rich:column  style=" background-color: #58ACFA;">
-                    <f:facet name="header" >Refluo Distribuito</f:facet>
+            <rich:column>
+                <h:outputText value="#{item.asportazioniPKg}"  >   
+                    <f:convertNumber maxFractionDigits="2" />
+                </h:outputText>    
+           </rich:column>
+            <rich:column>
+                <h:outputText value="#{item.asportazioniPKgsuHA}"  >   
+                <f:convertNumber maxFractionDigits="2" />
+                </h:outputText>
+           </rich:column>
+            <rich:column>
+                <h:outputText value="#{item.asportazioniKKg}"  >   
+                    <f:convertNumber maxFractionDigits="2" />
+                </h:outputText>       
+           </rich:column>
+            <rich:column>
+                <h:outputText value="#{item.asportazioniKKgsuHA}"  >   
+                    <f:convertNumber maxFractionDigits="2" />
+                </h:outputText>      
+           </rich:column>
+           <rich:collapsibleSubTable value="#{item.distribuzioni}" var="distri" id="sbtbl" expandMode="client" rows="12"   rowClasses="odd-row, even-row"  style="width: 200px;"  expanded="#{false}"  >
+               <rich:column  style=" background-color: #58ACFA;padding: 0px;"  >
+               <f:facet name="header" ><a href="#" title="Tipologia di refluo distribuito">Refluo Di.</a></f:facet>
+               <h:selectOneMenu value="#{distri.tipoRefluo}" style="margin-bottom: 0px;width: 65px;">
+                         <f:selectItems value="#{distri.tipiReflui}" />
+                          <a4j:ajax execute="@this"  event="click" render="listaMesi listaTecniche tipiModalita quantita_dist distribuita_mcubi dose doseha efficienza efficienza_alcampo" />
+               </h:selectOneMenu> 
+           </rich:column>    
+           <rich:column  style=" background-color: #58ACFA;padding: 0px;margin:0px;width: 55px;">
+               <f:facet name="header" ><a href="#" title="Mese">Mese</a></f:facet>
+                    <h:selectOneMenu id="listaMesi" style="width: 55px;margin: 0px;padding:0px;" value="#{distri.tipoMese}" >
+                        <f:selectItems value="#{distri.listaMesi}"    />
+                         <a4j:ajax execute="@this"  event="click" render="listaTecniche tipiModalita quantita_dist distribuita_mcubi dose doseha efficienza efficienza_alcampo" />
+                    </h:selectOneMenu> 
+            </rich:column> 
+           <rich:column  style=" background-color: #58ACFA;padding: 0px;">
+                    <f:facet name="header" ><a href="#" title="Tecnica di distribuzione">Tecnica</a></f:facet>
+                    <h:selectOneMenu id="listaTecniche" style="width: 65px;margin-bottom: 0px;" value="#{distri.tipoTecnica}" >
+                        <f:selectItems value="#{distri.tipiTecniche}"    />
+                         <a4j:ajax execute="@this"  event="click" render="tipiModalita quantita_dist distribuita_mcubi dose doseha efficienza efficienza_alcampo" />
+                    </h:selectOneMenu>
+            </rich:column>            
+           <rich:column  style=" background-color: #58ACFA;padding: 0px;">
+                    <f:facet name="header" ><a href="#" title="Modalita di distribuzione">Modalita</a></f:facet>
+                    <h:selectOneMenu id="tipiModalita" style="width: 65px;margin-bottom: 0px;" value="#{distri.tipoModalita}" >
+                        <f:selectItems value="#{distri.tipiModalita}"    />
+                             <a4j:ajax execute="@this"  event="click" render=" quantita_dist "  />
+                    </h:selectOneMenu>
+            </rich:column>        
+          
+          <rich:column  style=" background-color: #58ACFA;padding: 0px;width: 30px;">
+             
+              <f:facet name="header"><a href="#" title="Quantita distribuita in campo in metri cubi">m<sup>3</sup></a></f:facet>
+                   
+                    <h:inputText value="#{distri.quantita_distribuita}" id="quantita_dist" style="width: 30px;"   onkeypress="if (event.keyCode == 13) { return false; }">
+                        <a4j:ajax event="valueChange" render="distribuita_mcubi dose doseha efficienza efficienza_alcampo " execute="@this"/>
+                    </h:inputText>    
+            </rich:column>
+           <rich:column  style=" background-color: #58ACFA;margin-bottom: 0px;padding: 0px;">
+                    <f:facet name="header"><a href="#" title="Quantita distribuita in campo in metri cubi su ettaro">m<sup>3</sup>/ha</a></f:facet>
+                    <h:inputText value="#{distri.quantita_distribuita_mcubi}" id="distribuita_mcubi" style="width: 30px;"  onkeypress="if (event.keyCode == 13) { return false; }">
+                       <a4j:ajax event="valueChange" render="quantita_dist dose doseha efficienza_alcampo efficienza perdita_aria perdita_acqua" execute="@this"/>
+                       <f:convertNumber maxFractionDigits="1" />
+                    </h:inputText>
+            </rich:column> 
+           <rich:column  style=" background-color: #58ACFA;margin-bottom: 0px;padding: 0px;">
+                    <f:facet name="header" ><a href="#" title="Dose di Kg N tot">KgN</a></f:facet>
+                    <h:outputText value="#{distri.dose}" id="dose">
+                    <f:convertNumber maxFractionDigits="2"/>
+                    </h:outputText>
+            </rich:column>
+           <rich:column  style=" background-color: #58ACFA;margin-bottom: 0px;padding: 0px;">
+                    <f:facet name="header" ><a href="#" title="Dose di Kg N/ha">KgN/ha</a></f:facet>
+                    <h:outputText value="#{distri.doseha}" id="doseha">
+                    <f:convertNumber maxFractionDigits="2"/>
+                    </h:outputText>
             </rich:column>    
-           <rich:column  style=" background-color: #58ACFA;">
-                    <f:facet name="header" >Modalita</f:facet>
+           <rich:column  style=" background-color: #58ACFA;margin-bottom: 0px;padding: 0px;">
+                    <f:facet name="header" ><a href="#" title="N al campo efficiente (Kg/ha)">N eff.</a></f:facet>
+                    <h:inputText value="#{distri.efficienza_alcampo}" id="efficienza_alcampo" style="width: 30px;"  onkeypress="if (event.keyCode == 13) { return false; }">
+                    <a4j:ajax event="valueChange" render="efficienza doseha dose distribuita_mcubi quantita_dist " execute="@this"/>
+                        <f:convertNumber maxFractionDigits="2"/>
+                    </h:inputText>
             </rich:column>        
-           <rich:column  style=" background-color: #58ACFA;">
-                    <f:facet name="header" >Efficienza N</f:facet>
-            </rich:column>        
-           <rich:column  style=" background-color: #58ACFA;">
-                    <f:facet name="header" >N netto</f:facet>
-            </rich:column>        
-           <rich:column  style=" background-color: #58ACFA;">
-                    <f:facet name="header" >N al campo</f:facet>
-            </rich:column>        
-           <rich:column  style=" background-color: #58ACFA;">
-                    <f:facet name="header" >Quantita Refluo</f:facet>
-            </rich:column>        
+              <rich:column  style=" background-color: #58ACFA;margin-bottom: 0px;padding: 0px;">
+                  <f:facet name="header" ><a href="#" title="Efficienza dell'azoto distribuito in %">Eff.</a></f:facet>
+                    <h:outputText value="#{distri.efficienza}" id="efficienza">
+                        <f:convertNumber maxFractionDigits="2"/>
+                    </h:outputText>    
+            </rich:column>    
+             <rich:column  style=" background-color: #58ACFA;margin-bottom: 0px;padding: 0px;">
+                  <f:facet name="header" ><a href="#" title="Perdita N in aria in KgN ">Perd.aria</a></f:facet>
+                    <h:outputText value="#{distri.perditaInAria}" id="perdita_aria">
+                        <f:convertNumber maxFractionDigits="2"/>
+                    </h:outputText>    
+            </rich:column>    
+               
+             <rich:column  style=" background-color: #58ACFA;margin-bottom: 0px;padding: 0px;">
+                  <f:facet name="header" ><a href="#" title="Perdita N in acqua KgN">Perd.acqua</a></f:facet>
+                    <h:outputText value="#{distri.perditaInAcqua}" id="perdita_acqua" >
+                        <f:convertNumber maxFractionDigits="2"/>
+                    </h:outputText>    
+            </rich:column>       
+               
+                  
            <f:facet name="footer">
                     <h:commandButton value="Salva"   />
            </f:facet>
            </rich:collapsibleSubTable>    
       </rich:dataTable>
+      </c:when>
+       <c:otherwise>
+                 <p><b>Prima di applicare un piano di disrtibuzione</b> devi aver eseguito 
+                     <ul> 
+                         <li>il confronto usando la voce di menu in alto <b>Confronto</b> </li>
+                         <li>aver selezionato Azienda, Anno, Scenario dal menu di selezione nella colonna di sinistra</li> 
+                     </ul>
+                 </p>  
+                 
+       </c:otherwise>    
+       </c:choose>    
+       
+     <!--  <c:choose>
+                <c:when test="#{risultatoConfronto.testScenario}">
+                    <h4>Prima di applicare un piano di concimazione seleziona uno scenario.</h4>
+                </c:when>    
+                <c:otherwise>                              
+                    <h4>Prima di applicare un piano di concimazione devi aver eseguito il confronto.</h4>
+                </c:otherwise>  
+            </c:choose>   -->
   <!--  </h:form>-->
 </ui:composition>

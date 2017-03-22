@@ -21,43 +21,57 @@
         <c:set var="myVar" value="#{storicoColturaleAppezzamenti.listaAppezzamenti}" scope="request" />
        
         <h:panelGrid columns="2" style="width: 32%; float: left;margin:-10px 0px 20px 0px;" >
-        <h:outputLabel id="id_tot_aspn_label" for="id_tot_aspn" value="Asp N Tot Azienda" />
+        <h:outputLabel id="id_tot_aspn_label" for="id_tot_aspn" value="Asp N Tot Azienda(Kg)" />
         
-        <h:outputText  value="#{storicoColturaleAppezzamenti.asportazioneAzoto} Kg" id="id_tot_aspn" />    
+        <h:outputText  value="#{storicoColturaleAppezzamenti.asportazioneAzoto}" id="id_tot_aspn" >    
+          <f:convertNumber maxFractionDigits="1" />   
+        </h:outputText>  
        
-        <h:outputLabel id="id_tot_aspk_label" for="id_tot_aspk" value="Asp K Tot Azienda" />
+        <h:outputLabel id="id_tot_aspk_label" for="id_tot_aspk" value="Asp K Tot Azienda(Kg)" />
        
-        <h:outputText value="#{storicoColturaleAppezzamenti.asportazionePotassio} Kg"  id="id_tot_aspk" />
+        <h:outputText value="#{storicoColturaleAppezzamenti.asportazionePotassio} "  id="id_tot_aspk" >
+         <f:convertNumber maxFractionDigits="2" />
+        </h:outputText> 
         
-         <h:outputLabel id="id_tot_aspp_label" for="id_tot_aspp" value="Asp P Tot Azienda" />
-         <h:outputText value="#{storicoColturaleAppezzamenti.asportazioneFosforo} Kg" id="id_tot_aspp" />
+         <h:outputLabel id="id_tot_aspp_label" for="id_tot_aspp" value="Asp P Tot Azienda(kg)" />
+         <h:outputText value="#{storicoColturaleAppezzamenti.asportazioneFosforo} " id="id_tot_aspp" >
+              <f:convertNumber maxFractionDigits="2" />
+         </h:outputText>    
        
         </h:panelGrid> 
         <br/>
+         <div id="dialog" title="Basic dialog" style="display: none;">
+           <p>E' necessario selezionare Azienda,Anno e Scenario sulla colonna di sinistra.</p>
+       </div>
         
-        <rich:dataTable value="#{myVar}"  var="list" rows="5" id="listExample" style="width: 700px;" >
+      <!-- <c:choose>
+       <c:when test="#{not empty dettaglioCuaa.scenarioString }"> -->
+        <rich:dataTable value="#{myVar}"  var="list" rows="6" id="listExample" style="width: 700px;" >
             <f:facet name="header">
                 <rich:columnGroup>
-                    <rich:column colspan="7">
+                    <rich:column colspan="8">
                         <h:outputText value="Gestione Appezzamenti" />
                     </rich:column>
                     <rich:column breakRowBefore="true">
+                        <h:outputText value="Upa" />
+                    </rich:column>
+                     <rich:column>
                         <h:outputText value="Nome" />
                     </rich:column>
                     <rich:column>
-                        <h:outputText value="Superficie" />
+                        <h:outputText value="Superficie(ha)" />
                     </rich:column>                         
                     <rich:column>
-                        <h:outputText value="Asp N" />
+                        <a href="#" title="Kg di azoto asportato per tonnellata prodotta"><h:outputText value="Asp N" /></a>
                     </rich:column>
                     <rich:column>
-                        <h:outputText value="Asp P" />
+                        <a href="#" title="Kg di fosforo asportato per tonnellata prodotta"><h:outputText value="Asp P" /></a>
                     </rich:column>  
                     <rich:column>
-                        <h:outputText value="Asp K" />
+                       <a href="#" title="Kg di potassio asportato per tonnellata prodotta"> <h:outputText value="Asp K" /></a>
                     </rich:column>
                       <rich:column>
-                        <h:outputText value="ZVN" />
+                        <a href="#" title="L'appezzamento è in zona vulnerabile o non vulnerabile"><h:outputText value="ZVN" /></a>
                     </rich:column>            
                      <rich:column>
                         <h:outputText value="Coltura Precedente" />
@@ -66,26 +80,31 @@
             </f:facet>
             <rich:column>
                 <rich:collapsibleSubTableToggler for="sbtbl"    />
-                <h:outputText value="#{list.nome}" />                
+                <h:outputText value="#{list.upa}" style=" width: 30px;"/>                
             </rich:column>
+            <rich:column >               
+                <h:outputText value="#{list.nome}" >                
+                  <f:convertNumber maxFractionDigits="0" />
+                </h:outputText>
+            </rich:column>     
             <rich:column style=" width: 30px;">               
                 <h:outputText value="#{list.superficie}" >                
-                  <f:convertNumber maxFractionDigits="0" />
+                  <f:convertNumber maxFractionDigits="2" />
                 </h:outputText>
             </rich:column>                 
             <rich:column>              
                 <h:outputText value="#{list.asp_azoto}" id="id_app_aspn">                
-                  <f:convertNumber maxFractionDigits="0" />
+                  <f:convertNumber maxFractionDigits="2" />
                 </h:outputText> 
             </rich:column>
             <rich:column>              
                  <h:outputText value="#{list.asp_fosforo}" id="id_app_aspk">                
-                   <f:convertNumber maxFractionDigits="0" />
+                   <f:convertNumber maxFractionDigits="2" />
                  </h:outputText>  
             </rich:column>
              <rich:column>              
                  <h:outputText value="#{list.asp_potassio}" id="id_app_aspp" >                
-                  <f:convertNumber maxFractionDigits="0" />
+                  <f:convertNumber maxFractionDigits="2" />
                  </h:outputText> 
             </rich:column>             
             <rich:column>               
@@ -114,7 +133,7 @@
                     </h:selectOneMenu>
                 </rich:column>
                 <rich:column style=" background-color: #58ACFA;">
-                    <f:facet name="header">Resa</f:facet>
+                    <f:facet name="header"><a href="#" title="produzione media in t/ha">Resa</a></f:facet>
                     <h:inputText value="#{item.resa_attesa}" id="id_resa" style="margin: 0 0 0 0;padding: 0 0 0 0;">
                         <a4j:ajax  event="keyup"   listener="#{storicoColturaleAppezzamenti.processInput}"  render=" id_aspn id_aspk id_aspp id_app_aspn id_app_aspp id_app_aspk id_tot_aspn id_tot_aspk id_tot_aspp" />
                       <!--  <a4j:ajax  event="keyup"   listener="#{storicoColturaleAppezzamenti.processInput}"  render=" id_aspn id_aspk id_aspp " />-->
@@ -125,19 +144,19 @@
                 </rich:column>
               
                 <rich:column style=" background-color: #58ACFA;">
-                    <f:facet name="header">Asp N</f:facet>
+                    <f:facet name="header"><a href="#" title="Kg di azoto asportato per tonnellata prodotta">Asp N</a></f:facet>
                     <h:outputText value="#{item.asportazioneAzoto}" id="id_aspn">
                      <f:convertNumber maxFractionDigits="0" />    
                     </h:outputText>    
                 </rich:column>
                 <rich:column style=" background-color: #58ACFA;">
-                    <f:facet name="header">Asp P</f:facet>
+                    <f:facet name="header"><a href="#" title="Kg di fosforo asportato per tonnellata prodotta">Asp P</a></f:facet>
                     <h:outputText value="#{item.asportazioneFosforo}" id="id_aspp">
                       <f:convertNumber maxFractionDigits="0" />
                     </h:outputText> 
                 </rich:column>
                 <rich:column style=" background-color: #58ACFA; ">
-                    <f:facet name="header">Asp K</f:facet>
+                    <f:facet name="header"><a href="#" title="Kg di potassio asportato per tonnellata prodotta">Asp K</a></f:facet>
                     <h:outputText value="#{item.asportazionePotassio}" id="id_aspk">
                       <f:convertNumber maxFractionDigits="0" />
                     </h:outputText>  
@@ -170,10 +189,12 @@
 
                 </rich:columnGroup>    
             </f:facet>-->
-                    
-           
+               <f:facet name="footer">      
+                    <rich:dataScroller page="#{storicoColturaleAppezzamenti.page}" fastStep="3"/>
+               </f:facet>
         </rich:dataTable>
-        
+      <!-- </c:when>
+       </c:choose>    -->
         
        
        <!-- <h:outputText value="#{storicoColturaleAppezzamenti.test}" id="storico_test1"/>-->
