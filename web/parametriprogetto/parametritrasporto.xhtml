@@ -1,0 +1,505 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <!--
+       <h:outputStylesheet  library="css" name="animated-menu.css"/>
+        -->
+      <h:outputStylesheet  library="css" name="jsfcrud.css"/>
+      <!--
+	<script src="http://jqueryjs.googlecode.com/files/jquery-1.3.js" type="text/javascript"></script>
+      -->
+      <!--
+      <script src="../resources/jquery/jquery-1.9.1.js"></script>
+      
+        <h:outputScript library="css" name="js/jquery.easing.1.3.js" />
+      -->
+                        <!--<script src="js/jquery.easing.1.3.js" type="text/javascript"></script>-->
+         <!--               
+	<h:outputScript library="css" name="animated-menu.js" />
+         -->
+         <title>AziendaR-Trasporto</title>
+    </h:head>
+    <h:body>
+       
+            <h:panelGroup id="headerside" layout="block">
+                     
+                
+                      <c:if test="#{utente.corretto}">
+               
+                        </c:if>
+                    <p>
+                        <h:graphicImage  value="../resources/css/images/logobianco1.jpg" />
+                      
+                      <fieldset style="border: 1px solid #21221A;margin-bottom: 0px;margin-bottom: 0px;margin-bottom: 0px;margin-bottom: 0px;margin-bottom: 0px;margin-top: 0px;padding-bottom: 0px;padding-top: 0px;">
+                           <legend><h2>Progetto Ager</h2></legend>
+                                
+               <p><b>Decision<br />Support<br />Tool</b></p>
+                   </fieldset> 
+                  
+                    
+                  </p>
+                  
+                  
+               
+            </h:panelGroup>  
+        
+        <div id="leftrightcontainer">
+           
+            <!--
+            <h:panelGroup id="leftside" layout="block">
+                
+                <p>
+                     Legenda Etichette : 
+                    <ul>
+                        <li>Volume: in metri cubi</li>
+                         <li>Biomassa: in metri cubi</li>
+                         <li>TN: azoto totale in KG</li>
+                         <li>N:  azoto ammoniacale in KG</li>
+                         <li>DM: sostanza secca in KG</li>
+                         <li>SV: solidi volatili in KG</li>
+                         <li>TK: potassio totale in KG</li>
+                         <li>TP: fosforo totale in KG</li>
+                        </ul>
+                    
+                    
+                 <p class="menusinistra"> Vai A :</p>
+                  <h:form>
+                   <ul >
+                      <li><h:commandLink action="home" value="Home"></h:commandLink></li>
+                      <li><h:commandLink action="aziende" value="Aziende"></h:commandLink></li>
+                       <li><h:commandLink action="dettaglioazienda" value="Dettaglio Azienda"></h:commandLink></li>
+                   </ul>
+                   <p class="menusinistra"> Inserimento :</p>   
+                    <ul>   
+                      <li><h:commandLink action="allevamento" value="Allevamento"></h:commandLink></li>
+                      <li><h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></li>
+                      <li><h:commandLink action="acquastoccaggio" value="Acqua di Stoccaggio"></h:commandLink></li>
+                   </ul>
+                   <p class="menusinistra"> Alternative :</p>
+                   <ul>
+                       <c:if test="#{refluiAzienda.immagine eq '../images/alt0.gif'}">
+                        <li><h:commandLink action="vasca" value="Vasca"></h:commandLink></li>
+                        <li><h:commandLink action="platea" value="Platea"></h:commandLink></li>
+                        <li><h:commandLink action="alternative" value="Scelta Alternative"></h:commandLink></li>
+                        </c:if>
+                       <c:if test="#{refluiAzienda.immagine eq '../images/alt1.gif'}">
+                       
+                         <li><h:commandLink action="vasca" value="Vasca"></h:commandLink></li>
+                        <li><h:commandLink action="platea" value="Platea"></h:commandLink></li>
+                        <li><h:commandLink action="alternative" value="Scelta Alternative"></h:commandLink></li>-->
+                      <!--<li><h:commandLink action="alternative" value="Scelta Alternative"></h:commandLink></li>-->
+                     <!-- <li><h:commandLink action="separazione" value="Separazione"></h:commandLink></li>
+                      <li><h:commandLink action="platea" value="Platea"></h:commandLink></li>
+                      <li><h:commandLink action="vasca" value="Vasca"></h:commandLink></li>-->
+                    <!--  </c:if>
+                      
+                    </ul>
+                   <p class="menusinistra"> Guida :</p>
+                   <ul>
+                       <li><h:commandLink action="guida" value="Help"></h:commandLink></li>
+                   </ul>    
+                        </h:form>
+                </p>
+            </h:panelGroup> 
+        -->
+      <ui:insert name="leftside" >
+		  <ui:include src="/template/colonnasinistra.xhtml" />
+		</ui:insert>    
+        
+        <h:panelGroup id="rightside" layout="block">
+            
+              <ui:insert name="ulmenu" >
+		  <ui:include src="/template/nuovomenu.xhtml" />
+		</ui:insert>      
+          <!--  
+            <ul id="ulmenu">
+		<li class="green">
+			<p><a href="#">Vai A</a></p>
+			 <p class="subtext"><h:form> <h:commandLink action="home" value="Home"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="aziende" value="Aziende"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="dettaglioazienda" value="Dettaglio Azienda"></h:commandLink></h:form></p>
+		</li>
+		<li class="yellow">
+			<p><a href="#">Inserimento</a></p>
+			<p class="subtext"><h:form> <h:commandLink action="allevamento" value="Allevamento"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="acquastoccaggio" value="Acqua di Stoccaggio"></h:commandLink></h:form></p>
+		</li>
+		<li class="red">
+			<p><a href="#">Alternative</a></p>
+			
+                        <p class="subtext"><h:form> <h:commandLink action="vasca" value="Vasca"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="platea" value="Platea"></h:commandLink></h:form></p>
+
+		</li>
+		
+	</ul>
+                -->
+
+            <div class="cleardiv">
+                    </div>
+                <p>
+                   <h3>SEESPIG - Valutazione tecnica ed economica delle soluzioni territoriali<br/> per la gestione degli effluenti di allevamento</h3> 
+               </p>
+                 <h:outputText value="Utente :#{utente.username}  "/>
+                 <br/>
+                 <h:outputText value="Mail :#{utente.mail_utente}  "/>
+                
+               <p>
+                    
+                   <h2>Progetto Ager: parametri di progetto del modulo Trasporto</h2> 
+                   <br/>
+                     <f:event type="javax.faces.event.PreRenderViewEvent"    listener="#{dettaglioCuaa.impostaCuaa(param['id'],param['id1'],param['id2'])}"/>
+                <!--
+                   <h:outputText value="Cuaa selezionato : #{dettaglioCuaa.impostaCuaa(param['id'],param['id1'],param['id2'])}" style="display: block;" />
+                -->
+                <h:outputText value="Cuaa selezionato : #{dettaglioCuaa.cuaa_finto}" style="display: block;" />
+   
+                <h:outputText value="Ragione Sociale : #{dettaglioCuaa.ragionesociale_finto}" style="display: block;"/>
+                        
+                        <h:outputText value="Comune : #{dettaglioCuaa.comune}" style="display: block;"/>
+                        
+                        <h:outputText value="Descrizione scenario : #{dettaglioCuaa.descrizionescenario}" style="display: block;"/>
+                        <h:outputText value="Scenario : #{dettaglioCuaa.scenario}" style="display: block;"/>
+                        
+               </p>    
+              
+            <f:view id="vistaRoot">
+                <h:form id="formRoot">
+                    <h1>Parametri di progetto </h1>
+                  
+                <h3>Parametri generali liquame</h3>
+                    <h:panelGrid  columns="3" class="stileparametri">
+                         
+                    <h:outputLabel for="consumo_operazioni_l" value="Consumo operazioni carico e scarico(TJ/viaggio)" />
+                    <h:inputText id="consumo_operazioni_l"   value="#{trasportoGUI.consumo_operazioni_l}"  style="width: 80px;" >
+                   
+                    </h:inputText>
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="189l" />
+                   </h:commandButton>
+                         <h:outputLabel for="consumo_l" value="Consumo(TJ/km)" />
+                         <h:inputText id="consumo_l"   value="#{trasportoGUI.consumo_l}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="190l" />
+                   </h:commandButton>
+                  
+                   
+                    <h:outputLabel for="tempo_operazioni_l" value="Tempo operazioni carico e scarico(h)" />
+                    <h:inputText id="tempo_operazioni_l"   value="#{trasportoGUI.tempo_operazioni_l}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="191l" />
+                   </h:commandButton>
+                   
+                    <h:outputLabel for="ore_lavoro_l" value="Ore lavoro giornaliere del mezzo" />
+                    <h:inputText id="ore_lavoro_l"   value="#{trasportoGUI.ore_lavoro_l}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="192l" />
+                   </h:commandButton>
+                   
+                    <h:outputLabel for="velocita_media_l" value="Velocita media(km/h)" />
+                    <h:inputText id="velocita_media_l"   value="#{trasportoGUI.velocita_media_l}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="193l" />
+                   </h:commandButton>
+                   
+                    <h:outputLabel for="capacita_di_carico_l" value="Capacita di carico(m3)" />
+                    <h:inputText id="capacita_di_carico_l"   value="#{trasportoGUI.capacita_carico_l}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="194l" />
+                   </h:commandButton>
+                    
+                    
+                    <h:outputLabel for="b_l" value="b(costante influisce sul costo di trasporto )" />
+                    <h:inputText id="b_l"   value="#{trasportoGUI.b_l}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="195l" />
+                   </h:commandButton>
+                    
+                               
+                     <h:outputLabel for="m1_l" value="m1(costante influisce sul costo di trasporto )" />
+                     <h:inputText id="m1_l"   value="#{trasportoGUI.m1_l}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="30l" />
+                   </h:commandButton>
+                    
+                    
+                    
+                    
+                     <h:outputLabel for="m2_l" value="m2(costante influisce sul costo di trasporto )" >
+                                                           
+                     </h:outputLabel>    
+                     <h:inputText id="m2_l"   value="#{trasportoGUI.m2_l}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="31l" />
+                   </h:commandButton>
+                    
+                    
+                    <h:outputLabel id="ef_co2_trasp_road_l_tip" for="ef_co2_trasp_road_l" value="ef_co2_trasp_road(kg[CO2]/TJ)" >
+                        <rich:tooltip mode="ajax" layout="block" >
+                                      <h:outputText value="#{datatooltip.spiegaTip(100)}" escape="false"  />
+                                  </rich:tooltip>
+                                  
+                    </h:outputLabel>    
+                    <h:inputText id="ef_co2_trasp_road_l"   value="#{trasportoGUI.ef_co2_trasp_road_l}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="196l" />
+                   </h:commandButton>
+                    
+                    
+                     <h:outputLabel id="ef_nh3_trasp_l_tip" for="ef_nh3_trasp_l" value="ef_nh3_trasp(g[NH3]/km)" >
+                         <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(101)}" />
+                                  </rich:tooltip>
+                     </h:outputLabel>    
+                     <h:inputText id="costo_energia_eletrica_l"   value="#{trasportoGUI.ef_nh3_trasp_l}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="197l" />
+                   </h:commandButton>
+                    
+                    
+                     <h:outputLabel id="ef_n2o_tra_road_l_tip" for="ef_n2o_tra_road_l" value="ef_n2o_tra_road(kg[N2O]/km)" >
+                          <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(102)}" />
+                                  </rich:tooltip>
+                     </h:outputLabel>    
+                     <h:inputText id="costo_acido_solforico_l"   value="#{trasportoGUI.ef_n2o_tra_road_l}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="198l" />
+                   </h:commandButton>
+                    
+                    
+                    <h:outputLabel id="ef_n2o_cold_l_tip" for="ef_n2o_cold_l" value="ef_n2o_cold(kg/start)" >
+                        <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(103)}" />
+                                  </rich:tooltip>
+                    </h:outputLabel>    
+                    <h:inputText id="ef_n2o_cold_l"   value="#{trasportoGUI.ef_n2o_cold_l}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="199l" />
+                   </h:commandButton>
+                   
+                    
+                     <h:outputLabel id="ef_ch4_tra_road_l_tip" for="ef_ch4_tra_road_l" value="ef_ch4_tra_road(kg/km)" >
+                         <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(104)}" />
+                                  </rich:tooltip>
+                     </h:outputLabel>    
+                     <h:inputText id="ef_ch4_tra_road_l"   value="#{trasportoGUI.ef_ch4_tra_road_l}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="200l" />
+                   </h:commandButton>
+                    
+                    
+                    
+                       <h:outputLabel id="ef_ch4_cold_l_tip" for="ef_ch4_cold_l" value="ef_ch4_cold(kg/start)" >
+                           <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(105)}" />
+                                  </rich:tooltip>
+                       </h:outputLabel>    
+                       <h:inputText id="ef_ch4_cold_l"   value="#{trasportoGUI.ef_ch4_cold_l}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="201l" />
+                   </h:commandButton>
+                   
+                    <h:outputLabel id="ef_no_tra_l_tip" for="ef_no_tra_l" value="ef_no_tra(g/km)" >
+                         <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(105)}" />
+                                  </rich:tooltip>
+                    </h:outputLabel>    
+                    <h:inputText id="ef_no_tra_l"   value="#{trasportoGUI.ef_no_tra_l}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="202l" />
+                   </h:commandButton>
+                   
+                    <h:outputLabel id="ef_n2o_tra_offroad_l_tip" for="ef_n2o_tra_offroad_l" value="ef_n2o_tra_offroad(kg/TJ)" >
+                         <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(106)}" />
+                                  </rich:tooltip>
+                    </h:outputLabel>    
+                    <h:inputText id="ef_n2o_tra_offroad_l"   value="#{trasportoGUI.ef_n2o_tra_offroad_l}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="203l" />
+                   </h:commandButton>
+                    
+                     <h:outputLabel id="ef_ch4_tra_offroad_l_tip" for="ef_ch4_tra_offroad_l" value="ef_ch4_tra_offroad(kg/TJ)" >
+                          <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(107)}" />
+                                  </rich:tooltip>
+                     </h:outputLabel>    
+                     <h:inputText id="ef_ch4_tra_offroad_l"   value="#{trasportoGUI.ef_ch4_tra_offroad_l}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="204l" />
+                   </h:commandButton>
+                   
+                  
+                    
+                    
+                 
+                   
+              </h:panelGrid> 
+            
+                  <br>  </br>
+                  <br>  </br>
+                   <hr> </hr>
+                     <hr> </hr>
+                     <h3>Parametri generali letame</h3>
+                    <h:panelGrid  columns="3" class="stileparametri">
+                         
+                    <h:outputLabel for="consumo_operazioni_p" value="Consumo operazioni carico e scarico(TJ/viaggio)" />
+                    <h:inputText id="consumo_operazioni_p"   value="#{trasportoGUI.consumo_operazioni_q}"  style="width: 80px;" >
+                   
+                    </h:inputText>
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="189q" />
+                   </h:commandButton>
+                         <h:outputLabel for="consumo_p" value="Consumo(TJ/km)" />
+                         <h:inputText id="consumo_p"   value="#{trasportoGUI.consumo_q}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="190q" />
+                   </h:commandButton>
+                  
+                   
+                    <h:outputLabel for="tempo_operazioni_p" value="Tempo operazioni carico e scarico(h)" />
+                    <h:inputText id="tempo_operazioni_p"   value="#{trasportoGUI.tempo_operazioni_q}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="191q" />
+                   </h:commandButton>
+                   
+                    <h:outputLabel for="ore_qavoro_p" value="Ore lavoro giornaliere del mezzo" />
+                    <h:inputText id="ore_qavoro_p"   value="#{trasportoGUI.ore_qavoro_q}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="192q" />
+                   </h:commandButton>
+                   
+                    <h:outputLabel for="velocita_media_p" value="Velocita media(km/h)" />
+                    <h:inputText id="velocita_media_p"   value="#{trasportoGUI.velocita_media_q}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="193q" />
+                   </h:commandButton>
+                   
+                    <h:outputLabel for="capacita_di_carico_p" value="Capacita di carico(m3)" />
+                    <h:inputText id="capacita_di_carico_p"   value="#{trasportoGUI.capacita_carico_q}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="194q" />
+                   </h:commandButton>
+                    
+                    
+                    <h:outputLabel for="b_p" value="b(costante influisce sul costo di trasporto )" />
+                    <h:inputText id="b_p"   value="#{trasportoGUI.b_q}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="195q" />
+                   </h:commandButton>
+                    
+                               
+                     <h:outputLabel for="m1_p" value="m1(costante influisce sul costo di trasporto )" />
+                     <h:inputText id="m1_p"   value="#{trasportoGUI.m1_q}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="30q" />
+                   </h:commandButton>
+                    
+                    
+                    
+                    
+                     <h:outputLabel for="m2_p" value="m2(costante influisce sul costo di trasporto )" />
+                     <h:inputText id="m2_p"   value="#{trasportoGUI.m2_q}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="31q" />
+                   </h:commandButton>
+                    
+                    
+                    <h:outputLabel for="ef_co2_trasp_road_p" value="ef_co2_trasp_road(kg[CO2]/TJ)" />
+                    <h:inputText id="ef_co2_trasp_road_p"   value="#{trasportoGUI.ef_co2_trasp_road_q}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="196q" />
+                   </h:commandButton>
+                    
+                    
+                     <h:outputLabel for="ef_nh3_trasp_p" value="ef_nh3_trasp(g[NH3]/km)" />
+                     <h:inputText id="costo_energia_eletrica_p"   value="#{trasportoGUI.ef_nh3_trasp_q}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="197q" />
+                   </h:commandButton>
+                    
+                    
+                     <h:outputLabel for="ef_n2o_tra_road_p" value="ef_n2o_tra_road(kg[NH3]/km)" />
+                     <h:inputText id="costo_acido_solforico_p"   value="#{trasportoGUI.ef_n2o_tra_road_q}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="198q" />
+                   </h:commandButton>
+                    
+                    
+                    <h:outputLabel for="ef_n2o_cold_p" value="ef_n2o_cold(kg/km)" />
+                    <h:inputText id="ef_n2o_cold_p"   value="#{trasportoGUI.ef_n2o_cold_q}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="199q" />
+                   </h:commandButton>
+                   
+                    
+                     <h:outputLabel for="ef_ch4_tra_road_p" value="ef_ch4_tra_road(kg/km)" />
+                     <h:inputText id="ef_ch4_tra_road_p"   value="#{trasportoGUI.ef_ch4_tra_road_q}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="200q" />
+                   </h:commandButton>
+                    
+                    
+                    
+                       <h:outputLabel for="ef_ch4_cold_p" value="ef_ch4_cold(kg/km)" />
+                       <h:inputText id="ef_ch4_cold_p"   value="#{trasportoGUI.ef_ch4_cold_q}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="201q" />
+                   </h:commandButton>
+                   
+                    <h:outputLabel for="ef_no_tra_p" value="ef_no_tra(g/km)" />
+                    <h:inputText id="ef_no_tra_p"   value="#{trasportoGUI.ef_no_tra_q}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="202q" />
+                   </h:commandButton>
+                   
+                    <h:outputLabel for="ef_n2o_tra_offroad_p" value="ef_n2o_tra_offroad(kg/TJ)" />
+                    <h:inputText id="ef_n2o_tra_offroad_p"   value="#{trasportoGUI.ef_n2o_tra_offroad_q}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="203q" />
+                   </h:commandButton>
+                    
+                     <h:outputLabel for="ef_ch4_tra_offroad_p" value="ef_ch4_tra_offroad(kg/TJ)" />
+                     <h:inputText id="ef_ch4_tra_offroad_p"   value="#{trasportoGUI.ef_ch4_tra_offroad_q}"  style="width: 80px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{trasportoGUI.aggiorna()}">
+                       <f:param name="action" value="204q" />
+                   </h:commandButton>
+                   
+                  
+                    
+                    
+                 
+                   
+              </h:panelGrid> 
+                    
+                    
+                    <h:panelGroup rendered="#{facesContext.validationFailed}">
+                        <p class="messaggi">L'aggiornamento non è andato a buon fine.</p>
+                    </h:panelGroup>  
+                    
+                </h:form>
+            </f:view>
+            
+        </h:panelGroup>   
+            </div>
+        <div class="cleardiv">
+            </div>
+        <div id="footerside">
+                    <p>
+                        <br/>
+                        <h3>Sviluppato da :<br /><a href="http://www.disaa.unimi.it">Dipartimento di Scienze Agrarie e Ambientali</a> <br /><a href="http://www.unimi.it"> Università degli Studi di Milano </a></h3>
+                     
+                    </p>    
+        </div>
+    </h:body>
+</html>
+

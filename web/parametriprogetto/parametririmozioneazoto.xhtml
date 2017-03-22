@@ -1,0 +1,379 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <!--
+       <h:outputStylesheet  library="css" name="animated-menu.css"/>
+        -->
+      <h:outputStylesheet  library="css" name="jsfcrud.css"/>
+      <!--
+	<script src="http://jqueryjs.googlecode.com/files/jquery-1.3.js" type="text/javascript"></script>
+      -->
+      <!--
+      <script src="../resources/jquery/jquery-1.9.1.js"></script>
+      
+        <h:outputScript library="css" name="js/jquery.easing.1.3.js" />
+      -->
+                        <!--<script src="js/jquery.easing.1.3.js" type="text/javascript"></script>-->
+	<!--
+                        <h:outputScript library="css" name="animated-menu.js" />
+ -->
+         <title>AziendaR-gestione eccedenze</title>
+    </h:head>
+    <h:body>
+       
+            <h:panelGroup id="headerside" layout="block">
+                     
+                
+                      <c:if test="#{utente.corretto}">
+               
+                        </c:if>
+                    <p>
+                        <h:graphicImage  value="../resources/css/images/logobianco1.jpg" />
+                      
+                      <fieldset style="border: 1px solid #21221A;margin-bottom: 0px;margin-bottom: 0px;margin-bottom: 0px;margin-bottom: 0px;margin-bottom: 0px;margin-top: 0px;padding-bottom: 0px;padding-top: 0px;">
+                           <legend><h2>Progetto Ager</h2></legend>
+                                
+               <p><b>Decision<br />Support<br />Tool</b></p>
+                   </fieldset> 
+                  
+                    
+                  </p>
+                  
+                  
+               
+            </h:panelGroup>  
+        
+        <div id="leftrightcontainer">
+           
+            <!--
+            <h:panelGroup id="leftside" layout="block">
+                
+                <p>
+                     Legenda Etichette : 
+                    <ul>
+                        <li>Volume: in metri cubi</li>
+                         <li>Biomassa: in metri cubi</li>
+                         <li>TN: azoto totale in KG</li>
+                         <li>N:  azoto ammoniacale in KG</li>
+                         <li>DM: sostanza secca in KG</li>
+                         <li>SV: solidi volatili in KG</li>
+                         <li>TK: potassio totale in KG</li>
+                         <li>TP: fosforo totale in KG</li>
+                        </ul>
+                    
+                    
+                 <p class="menusinistra"> Vai A :</p>
+                  <h:form>
+                   <ul >
+                      <li><h:commandLink action="home" value="Home"></h:commandLink></li>
+                      <li><h:commandLink action="aziende" value="Aziende"></h:commandLink></li>
+                       <li><h:commandLink action="dettaglioazienda" value="Dettaglio Azienda"></h:commandLink></li>
+                   </ul>
+                   <p class="menusinistra"> Inserimento :</p>   
+                    <ul>   
+                      <li><h:commandLink action="allevamento" value="Allevamento"></h:commandLink></li>
+                      <li><h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></li>
+                      <li><h:commandLink action="acquastoccaggio" value="Acqua di Stoccaggio"></h:commandLink></li>
+                   </ul>
+                   <p class="menusinistra"> Alternative :</p>
+                   <ul>
+                       <c:if test="#{refluiAzienda.immagine eq '../images/alt0.gif'}">
+                        <li><h:commandLink action="vasca" value="Vasca"></h:commandLink></li>
+                        <li><h:commandLink action="platea" value="Platea"></h:commandLink></li>
+                        <li><h:commandLink action="alternative" value="Scelta Alternative"></h:commandLink></li>
+                        </c:if>
+                       <c:if test="#{refluiAzienda.immagine eq '../images/alt1.gif'}">
+                       
+                         <li><h:commandLink action="vasca" value="Vasca"></h:commandLink></li>
+                        <li><h:commandLink action="platea" value="Platea"></h:commandLink></li>
+                        <li><h:commandLink action="alternative" value="Scelta Alternative"></h:commandLink></li>-->
+                      <!--<li><h:commandLink action="alternative" value="Scelta Alternative"></h:commandLink></li>-->
+                     <!-- <li><h:commandLink action="separazione" value="Separazione"></h:commandLink></li>
+                      <li><h:commandLink action="platea" value="Platea"></h:commandLink></li>
+                      <li><h:commandLink action="vasca" value="Vasca"></h:commandLink></li>-->
+                    <!--  </c:if>
+                      
+                    </ul>
+                   <p class="menusinistra"> Guida :</p>
+                   <ul>
+                       <li><h:commandLink action="guida" value="Help"></h:commandLink></li>
+                   </ul>    
+                        </h:form>
+                </p>
+            </h:panelGroup> 
+        -->
+      <ui:insert name="leftside" >
+		  <ui:include src="/template/colonnasinistra.xhtml" />
+		</ui:insert>    
+        
+        <h:panelGroup id="rightside" layout="block">
+            
+              <ui:insert name="ulmenu" >
+		  <ui:include src="/template/nuovomenu.xhtml" />
+		</ui:insert>      
+          <!--  
+            <ul id="ulmenu">
+		<li class="green">
+			<p><a href="#">Vai A</a></p>
+			 <p class="subtext"><h:form> <h:commandLink action="home" value="Home"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="aziende" value="Aziende"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="dettaglioazienda" value="Dettaglio Azienda"></h:commandLink></h:form></p>
+		</li>
+		<li class="yellow">
+			<p><a href="#">Inserimento</a></p>
+			<p class="subtext"><h:form> <h:commandLink action="allevamento" value="Allevamento"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="stoccaggio" value="Stoccaggio"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="acquastoccaggio" value="Acqua di Stoccaggio"></h:commandLink></h:form></p>
+		</li>
+		<li class="red">
+			<p><a href="#">Alternative</a></p>
+			
+                        <p class="subtext"><h:form> <h:commandLink action="vasca" value="Vasca"></h:commandLink></h:form></p>
+                        <p class="subtext"><h:form> <h:commandLink action="platea" value="Platea"></h:commandLink></h:form></p>
+
+		</li>
+		
+	</ul>
+                -->
+
+            <div class="cleardiv">
+                    </div>
+                <p>
+                   <h3>SEESPIG - Valutazione tecnica ed economica delle soluzioni territoriali<br/> per la gestione degli effluenti di allevamento</h3>   
+               </p>   
+                 <h:outputText value="Utente :#{utente.username}  "/>
+                 <br/>
+                 <h:outputText value="Mail :#{utente.mail_utente}  "/>
+                 
+               <p>
+                 
+                   <h2>Progetto Ager: parametri di progetto Gestione Eccedenze</h2> 
+                   <br/>
+                      <f:event type="javax.faces.event.PreRenderViewEvent"    listener="#{dettaglioCuaa.impostaCuaa(param['id'],param['id1'],param['id2'])}"/>
+                <!--
+                   <h:outputText value="Cuaa selezionato : #{dettaglioCuaa.impostaCuaa(param['id'],param['id1'],param['id2'])}" style="display: block;" />
+                -->
+                <h:outputText value="Cuaa selezionato : #{dettaglioCuaa.cuaa_finto}" style="display: block;" />
+   
+                <h:outputText value="Ragione Sociale : #{dettaglioCuaa.ragionesociale_finto}" style="display: block;"/>
+                        
+                        <h:outputText value="Comune : #{dettaglioCuaa.comune}" style="display: block;"/>
+                        
+                        <h:outputText value="Descrizione scenario : #{dettaglioCuaa.descrizionescenario}" style="display: block;"/>
+                        <h:outputText value="Scenario : #{dettaglioCuaa.scenario}" style="display: block;"/>
+                        
+               </p>    
+              
+            <f:view id="vistaRoot">
+                <h:form id="formRoot">
+                    <h1>Parametri di progetto</h1>
+                  
+                <h3>Parametri generali</h3>
+                    <h:panelGrid  columns="3" class="stileparametri">
+                         
+                       
+                         <h:outputLabel for="costo_cessione_liquame" value="Costo cessione liquame(euro/m3)" />
+                         <h:inputText id="costo_cessione_liquame"   value="#{rimozioneazotoGUI.costo_cessione_liquame}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="122" />
+                   </h:commandButton>
+                         
+                         
+                   
+                         <h:outputLabel for="costo_cessione_palabile" value="Costo cessione palabile(euro/m3)" />
+                         <h:inputText id="costo_cessione_palabile"   value="#{rimozioneazotoGUI.costo_cessione_palabile}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="123" />
+                   </h:commandButton>      
+                  
+                   
+                    <h:outputLabel for="costo_utilizzo_terreni_terzi_liquame" value="Costo utilizzo terreni terzi liquame(euro/m3)" />
+                    <h:inputText id="costo_utilizzo_terreni_terzi_liquame"   value="#{rimozioneazotoGUI.costo_utilizzo_terreni_terzi_liquame}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="124" />
+                   </h:commandButton>
+                   
+                    <h:outputLabel for="costo_utilizzo_terreni_terzi_palabile" value="Costo utilizzo terreni terzi palabile(euro/m3)" />
+                    <h:inputText id="costo_utilizzo_terreni_terzi_palabile"   value="#{rimozioneazotoGUI.costo_utilizzo_terreni_terzi_palabile}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="125" />
+                   </h:commandButton>
+                    
+                    
+                    <h:outputLabel for="costo_trasporto" value="Costo trasporto(euro/m3 * km)" />
+                    <h:inputText id="costo_trasporto"   value="#{rimozioneazotoGUI.costo_trasporto}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="126" />
+                   </h:commandButton>
+                    
+                      <h:outputLabel for="emisisoni_co2" value="Emissioni co2(kg/m3*km)" />
+                         <h:inputText id="emisisoni_co2"   value="#{rimozioneazotoGUI.emissioni_co2}"  style="width: 50px;" >
+                   
+                    </h:inputText>
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="94" />
+                   </h:commandButton>
+                    <h:outputLabel for="emissioni_nh3_liq" value="Emissioni nh3 liquame(kg/m3)" />
+                    <h:inputText id="emissioni_nh3_liq"   value="#{rimozioneazotoGUI.emissioni_nh3_liq}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="127" />
+                   </h:commandButton>
+                   
+                    <h:outputLabel for="emissioni_nh3_pal" value="Emissioni nh3 palabile(kg/m3)" />
+                    <h:inputText id="emissioni_nh3_pal"   value="#{rimozioneazotoGUI.emissioni_nh3_pal}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="128" />
+                   </h:commandButton>
+                   
+                    <h:outputLabel for="emissioni_no" value="Emissioni no(kg/m3*km)" />
+                    <h:inputText id="emissioni_no"   value="#{rimozioneazotoGUI.emissioni_no}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="129" />
+                   </h:commandButton>
+                   
+                  
+                   
+                    <h:outputLabel for="energia_consumata" value="Energia consumata(kW*h/m3*km) " />
+                    <h:inputText id="energia_consumata"   value="#{rimozioneazotoGUI.energia_consumata}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="130" />
+                   </h:commandButton>
+                   
+                    <h:outputLabel for="eff_media" value="Efficienza media" />
+                    <h:inputText id="eff_media"   value="#{rimozioneazotoGUI.eff_media}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="131" />
+                   </h:commandButton>
+                   
+                    <h:outputLabel for="costo_n_min" value="Costo N minerale(urea 46% euro/kg)" />
+                    <h:inputText id="costo_n_min"   value="#{rimozioneazotoGUI.costo_n_min}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="132" />
+                   </h:commandButton>
+                    
+                     <h:outputLabel for="titolo_fertilizzante" value="Titolo fertilizzante(%N)" />
+                     <h:inputText id="titolo_fertilizzante"   value="#{rimozioneazotoGUI.titolo_fertilizzante}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="133" />
+                   </h:commandButton>
+                    
+                     <h:outputLabel for="distanza_media_trasporto_min" value="Distanza media trasporto min(km) " />
+                     <h:inputText id="distanza_media_trasporto_min"   value="#{rimozioneazotoGUI.distanza_media_trasporto_min}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="134" />
+                   </h:commandButton>
+                   
+                     <h:outputLabel for="coeff_em_no" value="Coefficiente emissione no(%)" />
+                     <h:inputText id="coeff_em_no"   value="#{rimozioneazotoGUI.coeff_em_no}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="135" />
+                   </h:commandButton>
+                  
+                       <h:outputLabel for="coeff_em_n2o" value="Coefficiente emissione n2o(%)" />
+                       <h:inputText id="coeff_em_n2o"   value="#{rimozioneazotoGUI.coeff_em_n2o}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="136" />
+                   </h:commandButton>
+                   
+                  
+                      <h:outputLabel for="coeff_em_nh3" value="Coefficiente emissione nh3(%)" />
+                      <h:inputText id="coeff_em_nh3"   value="#{rimozioneazotoGUI.coeff_em_nh3}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="137" />
+                   </h:commandButton>
+                  
+                     
+                     
+                      <h:outputLabel for="coeff_em_co2" value="Coefficiente emissione co2(%)" />
+                      <h:inputText id="coeff_em_co2"   value="#{rimozioneazotoGUI.coeff_em_co2}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="138" />
+                   </h:commandButton>
+                    
+                     <h:outputLabel for="energia_consumata_minerale" value="Energia consumata minerale(kW*h/kg)" />
+                     <h:inputText id="energia_consumata_minerale"   value="#{rimozioneazotoGUI.energia_consumata_minerale}"  style="width: 50px;" ></h:inputText>
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="139" />
+                   </h:commandButton>
+                   <h:outputLabel for="costo_trasporto_minerale" value="Costo trasporto minerale(euro/ha)" />
+                   <h:inputText id="costo_trasporto_minerale"   value="#{rimozioneazotoGUI.costo_trasporto_minerale}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="140" />
+                   </h:commandButton>
+                   <h:outputLabel for="costo_distribuzione" value="Costo distribuzione(euro/t)" />
+                   <h:inputText id="costo_distribuzione"   value="#{rimozioneazotoGUI.costo_distribuzione}"  style="width: 50px;" ></h:inputText>
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="158" />
+                   </h:commandButton>
+                   <h:outputLabel for="consumo_concimazione_min" value="Consumo concimazione min(l/ha)" />
+                   <h:inputText id="consumo_concimazione_min"   value="#{rimozioneazotoGUI.consumo_concimazione_min}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="159" />
+                   </h:commandButton>
+                   
+                   
+                    
+                   
+                 
+                   
+              </h:panelGrid> 
+                
+                
+                
+                 <h:panelGroup rendered="#{facesContext.validationFailed}">
+                        <p class="messaggi">L'aggiornamento non è andato a buon fine.</p>
+                </h:panelGroup>  
+            
+                    
+                    <h3>Imposta la preferenza dell'utente in caso di eccesso</h3>
+                     <h:panelGrid  columns="2" class="stileparametri">
+                           <h:outputLabel for="selezionescelta" value="Preferenza Cessione" />
+                         
+                    <h:selectOneMenu  id="selezionescelta" value="#{rimozioneazotoGUI.sceltaoperazione}" style="width: 200px;">
+                         <f:selectItem itemValue="118" itemLabel="preferisco cedere il palabile" />  
+                         <f:selectItem itemValue="119" itemLabel="preferisco cedere il liquame" />  
+                          <f:selectItem itemValue="120" itemLabel="utilizzo il palabile su terreni terzi" />  
+                           <f:selectItem itemValue="121" itemLabel="utilizzo il liquame su terreni terzi" />  
+                          <f:ajax execute="selezionescelta" immediate="true" event="valueChange" render=" selezionedistanza " />
+                     </h:selectOneMenu>
+                    
+                     <h:outputLabel for="selezionedistanza" value="Distanze(raggio in km)" />
+                     <h:selectOneMenu  id="selezionedistanza" value="#{rimozioneazotoGUI.distanza}"  style="width: 200px;">
+                        <f:selectItem itemValue="3" itemLabel="3" />  
+                         <f:selectItem itemValue="5" itemLabel="5" />  
+                          <f:selectItem itemValue="10" itemLabel="10" />  
+                           <f:selectItem itemValue="15" itemLabel="15" />  
+                            <f:selectItem itemValue="20" itemLabel="20" />  
+                            <f:selectItem itemValue="30" itemLabel="30" /> 
+                             <f:selectItem itemValue="50" itemLabel="50" /> 
+                              <f:selectItem itemValue="100" itemLabel="100" /> 
+                               <f:selectItem itemValue="150" itemLabel="150" /> 
+                            <f:ajax execute="selezionedistanza" immediate="true" event="valueChange"  />
+                     </h:selectOneMenu>
+                      <h:commandButton value="Aggiorna" action="#{rimozioneazotoGUI.aggiorna()}">
+                       <f:param name="action" value="0" />
+                   </h:commandButton>
+                      </h:panelGrid> 
+                    
+                </h:form>
+            </f:view>
+            
+        </h:panelGroup>   
+            </div>
+        <div class="cleardiv">
+            </div>
+        <div id="footerside">
+                    <p>
+                        <br/>
+                        <h3>Sviluppato da :<br /><a href="http://www.disaa.unimi.it">Dipartimento di Scienze Agrarie e Ambientali</a> <br /><a href="http://www.unimi.it"> Università degli Studi di Milano </a></h3>
+                     
+                    </p>    
+        </div>
+    </h:body>
+</html>
+

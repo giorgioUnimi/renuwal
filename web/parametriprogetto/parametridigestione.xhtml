@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      >
+   
+    <h:head>
+        <title>dettaglioAzienda_ReNuWal</title>
+             
+             
+<h:outputStylesheet library="css" name="style.css"  />
+<!--script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/jquery.js?ver=1.11.3'></script>-->
+<!--<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>-->
+<!--<script type='text/javascript' src="http://localhost:8080/renuwal/resources/jquery/jquery-1.9.1.js" />-->
+<h:outputScript name="jquery.js" target="head"/>
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-content/themes/travelify/images/background.png'); background-repeat: repeat; background-position: top left; background-attachment: scroll; }
+</style>
+
+<link rel="icon" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-32x32.jpg" sizes="32x32" />
+<link rel="icon" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-192x192.jpg" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-180x180.jpg"/>
+<link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&amp;subset=Latin'/> 
+<meta name="msapplication-TileImage" content="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-270x270.jpg"/>
+
+
+<style>
+body { background-color:#fafafa;}
+.container { margin:150px auto;}
+.demo {
+  height: 300px;
+  margin-bottom: 10px;
+}
+
+</style>
+
+
+
+
+</h:head>
+    <h:body class="home page page-id-12 page-template-default custom-background ecwd-theme-travelify ">    
+            
+        <div class="wrapper">
+               <header id="branding" >
+                                    
+               <div class="container clearfix">
+                   <div class="hgroup-wrap clearfix">
+                       <section class="hgroup-right">
+                       </section><!-- .hgroup-right -->
+                       <div id="site-logo" class="clearfix">
+                           <!--<div   >-->
+                           <div  id="site-title"  >
+                               <div style="float:left;">
+                                   <a href="http://www.renuwal.unimi.it/it_IT/" title="ReNuWal" rel="home" style="color: #57ad68;font-size: 36px;">
+                                       ReNuWal                                                                  
+                                   </a>
+                               </div>
+                               <div>
+                                   <a href="http://www.disaa.unimi.it"><img style="padding-left: 25px;" src="http://users.unimi.it/renuwal/wp-content/uploads/2015/10/logho_DiSAA2.png" alt="logo disaa" /></a>
+                               </div>  
+                           </div>  
+                                                            
+                           <div style="clear: both;">
+                               <h2  id="site-description" >Tecniche innovative di gestione e trattamento degli effluenti per la riduzione dell’inquinamento diffuso delle acque in aree ad alta densità zootecnica</h2>
+                                                            
+                           </div><!-- #site-logo -->
+                                    
+                       </div><!-- .hgroup-wrap -->
+                   </div><!-- .container -->
+                 <!--  <img src="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-foto-6.jpg" class="header-image" width="1500" height="369" alt="ReNuWal"/>
+                   -->
+                   <ui:insert name="leftside" >
+                    <ui:include src="/template/menu_renuwal_1.xhtml" />
+                   </ui:insert>
+                   </div>
+               </header>
+		 <f:view id="vistaRoot">
+				<div id="main" class="container clearfix">
+
+                                    <div id="container">
+                                        <div id="secondary" class="widget no-margin-left" >
+                                            <aside style="float:left;"> 
+                                                    <header class="entry-header">
+                
+                                                    <ui:insert name="leftside" >
+                                                        <ui:include src="/resources/css/colonnasinistra.xhtml" />
+                                                    </ui:insert>
+                                                </header>
+                                                <br/>
+                                                        <br/>
+                                                        <h:form>
+                                                        <h:panelGrid columns="1" id="panelAzienda" width="100px;" >
+                                                             <a4j:outputPanel id="first"    >
+                                                                   <h:outputText id="selectaziendeLabel"  value="Azienda:"  /><br/> 
+                                                                    <h:selectOneMenu id="selectaziende" value="#{listaAziende.currentTypeAz}" valueChangeListener="#{listaAziende.aziendeChanged}">
+                                                                        <f:selectItems value="#{listaAziende.selectaziende}" />
+                                                                        <a4j:ajax event="valueChange" render="second" execute="@this"  />
+                                                                    </h:selectOneMenu>
+                                                             </a4j:outputPanel>          
+                                                                       
+                                                                    <a4j:outputPanel id="second"    >
+                                                                        
+                                                                        <h:outputText id="selectanniLabel"  value="Anno:" rendered="#{not empty listaAziende.currentTypeAn}" />
+                                                                           <br/> 
+                                                                        <h:selectOneMenu id="selectanni" value="#{listaAziende.currentTypeAn}"  valueChangeListener="#{listaAziende.anniChanged}"  rendered="#{not empty listaAziende.currentTypeAn}" >
+                                                                            <f:selectItems value="#{listaAziende.selectanni}" />
+                                                                            <a4j:ajax event="valueChange" render="third" execute="@this" />
+                                                                        </h:selectOneMenu>
+                                                                            
+                                                                    </a4j:outputPanel>
+                                                                        
+                                                                    <a4j:outputPanel id="third"   >
+                                                                        
+                                                                        <h:outputText id="selectscenariLabel"  value="Scenario:" rendered="#{not empty listaAziende.currentTypeSce}" />
+                                                                          <br/>   
+                                                                        <h:selectOneMenu id="selectscenari" value="#{listaAziende.currentTypeSce}"  valueChangeListener="#{listaAziende.scenariChanged}"  rendered="#{not empty listaAziende.currentTypeSce}" >
+                                                                            <f:selectItems value="#{listaAziende.selectscenari}" />
+                                                                             <a4j:ajax event="valueChange" render="table id_azienda id_anno id_scenario id_scenario1 introta "    execute="@form"  />
+
+                                                                        </h:selectOneMenu>
+                                                                         
+                                                                    </a4j:outputPanel>
+                                                                  </h:panelGrid>
+                                                
+                                                </h:form>
+                                                
+                                            </aside>
+
+                                        </div>
+        
+        
+                                        <div id="primary" class="no-margin-right">
+
+                                                    <div id="content">	<section id="post-12" class="post-12 page type-page status-publish hentry">
+       
+                                                    <article>
+                    
+                    
+                                                        <header class="entry-header">
+                                                            <h2 class="entry-title">Parametri di progetto del modulo Digestione</h2><!-- .entry-title -->
+                                                        </header>
+                                                        <div class="entry-content clearfix">
+                <h:form id="formRoot">
+                 
+                  <h:panelGrid columns="2" style="width: 20%; margin:-10px 0px 2px 0px;" >
+                                                                    <h:outputLabel id="id_azienda_label" for="id_azienda"
+                                                                                   value="Azienda" />
+                                                                    <h:outputText  value="#{dettaglioCuaa.cuaa}" id="id_azienda"/>      
+                                                                    <h:outputLabel id="id_anno_label" for="id_anno"
+                                                                                   value="Anno" />
+                                                                    <h:outputText value="#{dettaglioCuaa.anno}" id="id_anno"/>
+                                                                    <h:outputLabel id="id_scenario_label" for="id_scenario"
+                                                                                   value="Scenario" />
+                                                                    <h:outputText value="#{dettaglioCuaa.scenarioString}" id="id_scenario"/>
+                                                                    <h:outputLabel id="id_scenario_label1" for="id_scenario1"
+                                                                                   value="Scenario1" />
+                                                                    <h:outputText value="#{dettaglioCuaa.idscenario}" id="id_scenario1"/>
+                                                                </h:panelGrid>
+              
+                 
+                
+                 
+              <!--
+                <div style="float:right;">
+              -->
+                   <h3>Modifica Coefficienti Biomassa</h3>
+                    <h:panelGrid  columns="3" class="stileparametri">
+                         
+                   <h:outputLabel id ="rapportobiomassaliquame_tip" for="rapportobiomassaliquame" value="Rapporto biomassa/liquame(%) " >
+                        <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(60)}" />
+                         </rich:tooltip>
+                   </h:outputLabel>    
+                   <h:inputText id="rapportobiomassaliquame"   value="#{digestioneGUI.rapportobiomassaliquame}"  style="width: 50px;" >
+                   
+                    </h:inputText>
+                    <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                       <f:param name="action" value="33" />
+                   </h:commandButton>
+                         <h:outputLabel id="rendimentocogeneratore_tip" for="rendimentocogeneratore" value="Rendimento Cogeneratore(%) " >
+                             <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(61)}" />
+                         </rich:tooltip>
+                         </h:outputLabel>    
+                   <h:inputText id="rendimentocogeneratore"   value="#{digestioneGUI.rendimentocogeneratore}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                       <f:param name="action" value="34" />
+                   </h:commandButton>
+                   <h:outputLabel id="orefunzionamento_tip" for="orefunzionamento" value="Ore funzionamento all'anno" >
+                       <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(62)}" />
+                         </rich:tooltip>
+                   </h:outputLabel>    
+                   <h:inputText id="orefunzionamento"   value="#{digestioneGUI.orefunzionamento}"  style="width: 50px;" ></h:inputText>
+                    <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                       <f:param name="action" value="35" />
+                   </h:commandButton>
+                   <h:outputLabel id="biogasemesso_tip" for="biogasemesso" value="Biogas emesso (%)" >
+                       <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(63)}" />
+                         </rich:tooltip>
+                   </h:outputLabel>    
+                   <h:inputText id="biogasemesso"   value="#{digestioneGUI.biogasemesso}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                       <f:param name="action" value="98" />
+                   </h:commandButton>
+                   <h:outputLabel id="biogasutilizzato_tip" for="biogasutilizzato" value="Biogas utilizzato(%) " >
+                       <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(63)}" />
+                         </rich:tooltip>
+                   </h:outputLabel>    
+                   <h:inputText id="biogasutilizzato"   value="#{digestioneGUI.biogasutilizzato}"  style="width: 50px;" ></h:inputText>
+                    <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                       <f:param name="action" value="36" />
+                   </h:commandButton>
+                   <h:outputLabel id="energiaautoconsumo_tip" for="energiaautoconsumo" value="Energia per Autoconsumo(%) " >
+                       <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(64)}" />
+                         </rich:tooltip>
+                   </h:outputLabel>   
+                   <h:inputText id="energiaautoconsumo"   value="#{digestioneGUI.energiaautoconsumo}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                       <f:param name="action" value="37" />
+                   </h:commandButton>
+                
+                   <h:outputLabel id="emissioninh3_tip" for="emissioninh3" value="Emissioni nh3(% su TAN)" >
+                       <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(65)}" />
+                         </rich:tooltip>
+                   </h:outputLabel>    
+                   <h:inputText id="emissioninh3"   value="#{digestioneGUI.emissioninh3}"  style="width: 50px;" ></h:inputText> 
+                    <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                       <f:param name="action" value="38" />
+                   </h:commandButton>
+                   
+              </h:panelGrid>
+               
+              <!--
+                <div style="padding-top: 4px;">    
+              -->
+                 <h3> Modifica Coefficienti Biogas</h3>
+               
+                 
+                    <h:selectOneMenu  id="tipoinput" value="#{digestioneGUI.tipobiomassa}" style="width: 100px;">
+                        <f:selectItem itemValue="1" itemLabel="bovino" />  
+                         <f:selectItem itemValue="2" itemLabel="suino" />  
+                          <f:selectItem itemValue="3" itemLabel="avicolo" />  
+                           <f:selectItem itemValue="4" itemLabel="altro" />  
+                            <f:selectItem itemValue="5" itemLabel="insilati" />  
+                             <f:selectItem itemValue="6" itemLabel="glicerina" />  
+                              <f:selectItem itemValue="7" itemLabel="scarti organici" />  
+                               <f:selectItem itemValue="8" itemLabel="colture energetiche" />  
+                            <h:outputLabel for="tipoinput" value="Tipo Input " />
+                            <f:ajax execute="tipoinput" immediate="true" event="click" render="produzionebiogas metanonelbiogas densitagas prezzobiomassa densitabiomassa" />
+                    </h:selectOneMenu> 
+                   <br />
+                    <h:panelGrid  columns="3" class="stileparametri">
+                         <h:outputLabel id="produzionebiogas_tip" for="produzionebiogas" value="Produzione biogas (m3/t solidi volatili) " >
+                         <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(66)}" />
+                         </rich:tooltip>
+                         </h:outputLabel>    
+                   <h:inputText id="produzionebiogas"   value="#{digestioneGUI.produzionebiogas}"  style="width: 50px;" >
+                   
+                    </h:inputText>
+                    <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                       <f:param name="action" value="74" />
+                   </h:commandButton>
+                             <h:outputLabel id="metanonelbiogas_tip" for="metanonelbiogas" value="% Metano nel biogas " >
+                                 <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(67)}" />
+                                </rich:tooltip>
+                             </h:outputLabel>    
+                   <h:inputText id="metanonelbiogas"   value="#{digestioneGUI.metanonelbiogas}"  style="width: 50px;" >
+                   
+                    </h:inputText>
+                    <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                       <f:param name="action" value="69" />
+                   </h:commandButton>
+                                 <h:outputLabel id="densitagas_tip" for="densitagas" value="Densita biogas (Kg/m3) " >
+                                     <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(68)}" />
+                                </rich:tooltip>
+                                 </h:outputLabel>    
+                   <h:inputText id="densitagas"   value="#{digestioneGUI.densitagas}"  style="width: 50px;" >
+                   
+                    </h:inputText>
+                    <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                       <f:param name="action" value="73" />
+                   </h:commandButton>
+                                     <h:outputLabel for="prezzobiomassa" value="Prezzo biomassa(euro/t) " />
+                   <h:inputText id="prezzobiomassa"   value="#{digestioneGUI.prezzobiomassa}"  style="width: 50px;" >
+                   
+                    </h:inputText>
+                    <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                       <f:param name="action" value="75" />
+                   </h:commandButton>
+                                         <h:outputLabel for="densitabiomassa" value="Densita biomassa(t/m3) " >
+                                             <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(68)}" />
+                                </rich:tooltip>
+                                         </h:outputLabel>    
+                   <h:inputText id="densitabiomassa"   value="#{digestioneGUI.densitabiomassa}"  style="width: 50px;" >
+                   
+                    </h:inputText>
+                    <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                       <f:param name="action" value="99" />
+                   </h:commandButton>
+                    </h:panelGrid>
+                  
+                
+                   <hr></hr>
+                     <h:panelGroup rendered="#{facesContext.validationFailed}">
+                        <p class="messaggi">L'aggiornamento non è andato a buon fine.</p>
+                    </h:panelGroup>    
+                    <br/>
+                  <!--
+                           <div style="float:right;padding-right: 50px;">
+                  -->
+                   
+                           <h3>Modifica Caratteristiche Biomassa</h3>
+                   
+                     <h:selectOneMenu  id="tipobiomassa1" value="#{digestioneGUI.tipobiomassa1}" style="width: 100px;">
+                            <f:selectItem itemValue="5" itemLabel="insilati" />  
+                             <f:selectItem itemValue="6" itemLabel="glicerina" />  
+                              <f:selectItem itemValue="7" itemLabel="scarti organici" />  
+                               <f:selectItem itemValue="8" itemLabel="colture energetiche" />  
+                            <h:outputLabel for="tipobiomassa1" value="Tipo Biomassa " />
+                            <f:ajax execute="tipobiomassa1" immediate="true" event="click" render="st sv azoto azotoammoniacale p k" />
+                    </h:selectOneMenu> 
+                   <br />
+                    <h:panelGrid  columns="3" class="stileparametri">
+                    <h:outputLabel for="st" value="ST(sostanza secca)(t/t)" />
+                   <h:inputText id="st"   value="#{digestioneGUI.st}"  style="width: 50px;" />
+                    <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                       <f:param name="action" value="43" />
+                   </h:commandButton>
+                    <h:outputLabel for="sv" value="SV(solidi volatili)(t/t)" />
+                   <h:inputText id="sv"   value="#{digestioneGUI.sv}"  style="width: 50px;" />
+                    <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                       <f:param name="action" value="44" />
+                   </h:commandButton>
+                    <h:outputLabel for="azoto" value="Azoto Totale (kg/t)" />
+                   <h:inputText id="azoto"   value="#{digestioneGUI.azoto}"  style="width: 50px;" />
+                    <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                       <f:param name="action" value="45" />
+                   </h:commandButton>
+                    <h:outputLabel for="azotoammoniacale" value="Azoto ammoniacale(kg/t) " />
+                   <h:inputText id="azotoammoniacale"   value="#{digestioneGUI.azotoammoniacale}"  style="width: 50px;" />
+                    <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                       <f:param name="action" value="46" />
+                   </h:commandButton>
+                    <h:outputLabel for="p" value="Fosforo (kg/t)" />
+                   <h:inputText id="p"   value="#{digestioneGUI.fosforo}"  style="width: 50px;" />
+                    <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                       <f:param name="action" value="47" />
+                   </h:commandButton>
+                   <h:outputLabel for="k" value="Potassio (kg/t)" />
+                   <h:inputText id="k"   value="#{digestioneGUI.potassio}"  style="width: 50px;" />
+                    <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                       <f:param name="action" value="48" />
+                   </h:commandButton>
+                   
+                  
+                    </h:panelGrid>
+                  
+                   
+                  
+                    <h3>Modifica Parametri Economici</h3>
+                   
+                    <h:panelGrid columns="3" class="stileparametri">
+                        <h:outputLabel id="c_inv_tip" for="c_inv" value="c_inv (euro)" >
+                             <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(69)}" />
+                                </rich:tooltip>
+                        </h:outputLabel>    
+                        <h:inputText id="c_inv"   value="#{digestioneGUI.c_inv}"  style="width: 50px;" />
+                        <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                            <f:param name="action" value="49" />
+                        </h:commandButton>
+                        <h:outputLabel id="e_inv_tip" for="e_inv" value="e_inv (euro)" >
+                        <rich:tooltip mode="ajax" layout="block">
+                                      <h:outputText value="#{datatooltip.spiegaTip(69)}" />
+                                </rich:tooltip>
+                        </h:outputLabel>   
+                        <h:inputText id="e_inv"   value="#{digestioneGUI.e_inv}"  style="width: 50px;" />
+                        <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                            <f:param name="action" value="50" />
+                        </h:commandButton>
+                       <h:outputLabel for="costogestione" value="Costo gestione(euro/KWh) " />
+                        <h:inputText id="costogestione"   value="#{digestioneGUI.costogestione}"  style="width: 50px;" />
+                        <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                            <f:param name="action" value="18" />
+                        </h:commandButton>
+                        <h:outputLabel for="prezzoenergia" value="Prezzo energia (euro/KWh)" />
+                        <h:inputText id="prezzoenergia"   value="#{digestioneGUI.prezzoenergia}"  style="width: 50px;" />
+                        <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                            <f:param name="action" value="19" />
+                        </h:commandButton>
+                        <h:outputLabel for="durata_investimento" value="Durata investimento(anni) " />
+                        <h:inputText id="durata_investimento"   value="#{digestioneGUI.durata_investimento}"  style="width: 50px;" />
+                        <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                            <f:param name="action" value="52" />
+                        </h:commandButton>
+                        <h:outputLabel for="tasso_interesse" value="Tasso interesse " />
+                        <h:inputText id="tasso_interesse"   value="#{digestioneGUI.tasso_interesse}"  style="width: 50px;" />
+                        <h:commandButton value="Aggiorna" action="#{digestioneGUI.aggiorna()}">
+                            <f:param name="action" value="61" />
+                        </h:commandButton>
+                    </h:panelGrid>
+                    
+                 
+                </h:form>
+                                                            
+                                                            
+           
+                                                            
+                                                              
+
+                                                                    
+                                                        </div>
+                                                        <div id="comments" class="comments-area">  
+    
+                                                        </div><!-- #comments .comments-area -->
+                                                    </article>
+                                                </section>
+                                            </div><!-- #content --></div><!-- #primary -->
+                                    </div><!-- #container -->
+
+
+	   </div><!-- #main -->
+
+	   </f:view>  
+	   
+	   <footer id="footerarea" class="clearfix">
+			
+
+
+<div id="site-generator">
+				<div class="container">
+                                    <div class="copyright" style="float:left;padding:15px 0px 0px 0px;">Sviluppato dal <a href="http://www.disaa.unimi.it">Dipartimeno di Scienze Agrarie e Ambientali    </a>
+                                    </div>
+                                    <a href="http://www.disaa.unimi.it">
+                                        <div>
+                                            <img style="vertical-align:text-top;" src="http://users.unimi.it/renuwal/wp-content/uploads/2015/10/logodisaa2.jpg" alt="logo disaa" /></div></a><div class="footer-right"></div><div style="clear:both;"></div>
+			</div><!-- .container -->
+			</div><!-- #site-generator -->
+                        <div class="back-to-top"><a href="#branding"></a></div>
+           </footer>
+
+    
+       </div><!-- .wrapper -->
+    </h:body>
+</html>
+

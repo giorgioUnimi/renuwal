@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      >
+   
+    <h:head>
+        <title>dettaglioAzienda_ReNuWal</title>
+             
+             
+<h:outputStylesheet library="css" name="style.css"  />
+<!--script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/jquery.js?ver=1.11.3'></script>-->
+<!--<script type='text/javascript' src='http://www.renuwal.unimi.it/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>-->
+<!--<script type='text/javascript' src="http://localhost:8080/renuwal/resources/jquery/jquery-1.9.1.js" />-->
+<h:outputScript name="jquery.js" target="head"/>
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-image: url('http://www.renuwal.unimi.it/wp-content/themes/travelify/images/background.png'); background-repeat: repeat; background-position: top left; background-attachment: scroll; }
+</style>
+
+<link rel="icon" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-32x32.jpg" sizes="32x32" />
+<link rel="icon" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-192x192.jpg" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-180x180.jpg"/>
+<link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&amp;subset=Latin'/> 
+<meta name="msapplication-TileImage" content="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-loghiRGB_DiSAA_notxt-270x270.jpg"/>
+
+
+<style>
+body { background-color:#fafafa;}
+.container { margin:150px auto;}
+.demo {
+  height: 300px;
+  margin-bottom: 10px;
+}
+
+</style>
+
+
+
+
+</h:head>
+    <h:body class="home page page-id-12 page-template-default custom-background ecwd-theme-travelify ">    
+            
+        <div class="wrapper">
+               <header id="branding" >
+                                    
+               <div class="container clearfix">
+                   <div class="hgroup-wrap clearfix">
+                       <section class="hgroup-right">
+                       </section><!-- .hgroup-right -->
+                       <div id="site-logo" class="clearfix">
+                           <!--<div   >-->
+                           <div  id="site-title"  >
+                               <div style="float:left;">
+                                   <a href="http://www.renuwal.unimi.it/it_IT/" title="ReNuWal" rel="home" style="color: #57ad68;font-size: 36px;">
+                                       ReNuWal                                                                  
+                                   </a>
+                               </div>
+                               <div>
+                                   <a href="http://www.disaa.unimi.it"><img style="padding-left: 25px;" src="http://users.unimi.it/renuwal/wp-content/uploads/2015/10/logho_DiSAA2.png" alt="logo disaa" /></a>
+                               </div>  
+                           </div>  
+                                                            
+                           <div style="clear: both;">
+                               <h2  id="site-description" >Tecniche innovative di gestione e trattamento degli effluenti per la riduzione dell’inquinamento diffuso delle acque in aree ad alta densità zootecnica</h2>
+                                                            
+                           </div><!-- #site-logo -->
+                                    
+                       </div><!-- .hgroup-wrap -->
+                   </div><!-- .container -->
+                 <!--  <img src="http://www.renuwal.unimi.it/wp-content/uploads/2015/10/cropped-foto-6.jpg" class="header-image" width="1500" height="369" alt="ReNuWal"/>
+                   -->
+                   <ui:insert name="leftside" >
+                    <ui:include src="/template/menu_renuwal_1.xhtml" />
+                   </ui:insert>
+                   </div>
+               </header>
+		 <f:view id="vistaRoot">
+				<div id="main" class="container clearfix">
+
+                                    <div id="container">
+                                        <div id="secondary" class="widget no-margin-left" >
+                                            <aside style="float:left;"> 
+                                                    <header class="entry-header">
+                
+                                                    <ui:insert name="leftside" >
+                                                        <ui:include src="/resources/css/colonnasinistra.xhtml" />
+                                                    </ui:insert>
+                                                </header>
+                                                <br/>
+                                                        <br/>
+                                                        <h:form>
+                                                        <h:panelGrid columns="1" id="panelAzienda" width="100px;" >
+                                                             <a4j:outputPanel id="first"    >
+                                                                   <h:outputText id="selectaziendeLabel"  value="Azienda:"  /><br/> 
+                                                                    <h:selectOneMenu id="selectaziende" value="#{listaAziende.currentTypeAz}" valueChangeListener="#{listaAziende.aziendeChanged}">
+                                                                        <f:selectItems value="#{listaAziende.selectaziende}" />
+                                                                        <a4j:ajax event="valueChange" render="second" execute="@this"  />
+                                                                    </h:selectOneMenu>
+                                                             </a4j:outputPanel>          
+                                                                       
+                                                                    <a4j:outputPanel id="second"    >
+                                                                        
+                                                                        <h:outputText id="selectanniLabel"  value="Anno:" rendered="#{not empty listaAziende.currentTypeAn}" />
+                                                                           <br/> 
+                                                                        <h:selectOneMenu id="selectanni" value="#{listaAziende.currentTypeAn}"  valueChangeListener="#{listaAziende.anniChanged}"  rendered="#{not empty listaAziende.currentTypeAn}" >
+                                                                            <f:selectItems value="#{listaAziende.selectanni}" />
+                                                                            <a4j:ajax event="valueChange" render="third" execute="@this" />
+                                                                        </h:selectOneMenu>
+                                                                            
+                                                                    </a4j:outputPanel>
+                                                                        
+                                                                    <a4j:outputPanel id="third"   >
+                                                                        
+                                                                        <h:outputText id="selectscenariLabel"  value="Scenario:" rendered="#{not empty listaAziende.currentTypeSce}" />
+                                                                          <br/>   
+                                                                        <h:selectOneMenu id="selectscenari" value="#{listaAziende.currentTypeSce}"  valueChangeListener="#{listaAziende.scenariChanged}"  rendered="#{not empty listaAziende.currentTypeSce}" >
+                                                                            <f:selectItems value="#{listaAziende.selectscenari}" />
+                                                                             <a4j:ajax event="valueChange" render="table id_azienda id_anno id_scenario id_scenario1 introta "    execute="@form"  />
+
+                                                                        </h:selectOneMenu>
+                                                                         
+                                                                    </a4j:outputPanel>
+                                                                  </h:panelGrid>
+                                                
+                                                </h:form>
+                                                
+                                            </aside>
+
+                                        </div>
+        
+        
+                                        <div id="primary" class="no-margin-right">
+
+                                                    <div id="content">	<section id="post-12" class="post-12 page type-page status-publish hentry">
+       
+                                                    <article>
+                    
+                    
+                                                        <header class="entry-header">
+                                                            <h2 class="entry-title">Parametri di progetto del modulo Flottazione</h2><!-- .entry-title -->
+                                                        </header>
+                                                        <div class="entry-content clearfix">
+                <h:form id="formRoot">
+                    
+                     <h:panelGrid columns="2" style="width: 20%; margin:-10px 0px 2px 0px;" >
+                                                                    <h:outputLabel id="id_azienda_label" for="id_azienda"
+                                                                                   value="Azienda" />
+                                                                    <h:outputText  value="#{dettaglioCuaa.cuaa}" id="id_azienda"/>      
+                                                                    <h:outputLabel id="id_anno_label" for="id_anno"
+                                                                                   value="Anno" />
+                                                                    <h:outputText value="#{dettaglioCuaa.anno}" id="id_anno"/>
+                                                                    <h:outputLabel id="id_scenario_label" for="id_scenario"
+                                                                                   value="Scenario" />
+                                                                    <h:outputText value="#{dettaglioCuaa.scenarioString}" id="id_scenario"/>
+                                                                    <h:outputLabel id="id_scenario_label1" for="id_scenario1"
+                                                                                   value="Scenario1" />
+                                                                    <h:outputText value="#{dettaglioCuaa.idscenario}" id="id_scenario1"/>
+                                                                </h:panelGrid>
+                   <h2>Parametri di carattere Generale</h2>
+                     <ul>
+                    <li><b>investimento(euro/m3) </b>: investimento per l'acquisto di un singolo separatore</li>
+                     <li><b>anni</b> : influiscono sull'ammortamento</li>
+                     <li><b>ore di utilizzo anno(massime)</b> : influisce sul calcolo della portata=totale liquame(m3)/ore anno   </li>
+                     <li><b>costo sale metallico(euro/kg)</b>:moltiplicato per il comsumo di sale metallico influisce sul costo degli additivi </li>
+                     <li><b>costo polielettrolita(euro/kg)</b>:moltiplicato per il comsumo di polieletrolita influsice sul costo degli additivi </li>
+                     <li><b>consumo sale metallico(g/L)</b>:moltitplicato per il costo sale metallico infuisce sul costo degli additivi  </li>
+                     <li><b>consumo polielettrolita(g/L)</b>:</li>
+                     <li><b>costo energia(euro/KWh)</b>:</li>
+                     <li><b>costo gestione unitaria(euro/m3)</b> : costo per la manutenzione/gestione oraria di un flottatore</li>
+                     <li><b>Carico idraulico superficiale(m3/m2/h)</b> : </li>   
+                     <li><b>Tempo di ritenzione idraulica(h)</b> : </li>
+                     <li><b>Potenza unitaria(KW/m3/h)</b> : </li>
+                     <li><b>Fattore di emissione CH4(% su SV)</b> : </li>
+                     <li><b>Fattore di emissione di NH3(% di TANin)</b> :</li>
+                     <li><b>Fattore di emissione di CO2(% di SVin)</b> :</li>
+                     <li><b>Fattore di emissione di N2(% di TKNin)</b> :</li>
+                     <li><b>Fattore di emissione di N20(% di TKN)</b> :</li>
+                     <li><b>Tasso di interesse</b> : influisce sull'ammortamento</li>
+                </ul>    
+                    <h:panelGrid  columns="7">
+                   <!--
+                   i valori degli itemvalue devono corrispondere agli id dei nomiparamtrdiprogetto
+                   -->
+                   <h:selectOneMenu  id="selezionecoefficiente" value="#{flottazioneGUI.coefficientemaccchina}" style="width: 120px;">
+                        <f:selectItem itemValue="96" itemLabel="investimento(euro)" />  
+                         <f:selectItem itemValue="17" itemLabel="anni" />  
+                          <f:selectItem itemValue="21" itemLabel="ore di utilizzo annuo(h)" />  
+                           <f:selectItem itemValue="100" itemLabel="costo sale metallico(euro/kg)" />  
+                            <f:selectItem itemValue="101" itemLabel="costo polielettrolita(euro/kg)" />  
+                            <f:selectItem itemValue="102" itemLabel="consumo sale metallico(g/L)" />  
+                         <f:selectItem itemValue="103" itemLabel="consumo polielettrolita(g/L)" />  
+                          <f:selectItem itemValue="19" itemLabel="costo energia(euro/KWh)" /> 
+                           <f:selectItem itemValue="117" itemLabel="costo gestione unitaria(euro/m3)" />  
+                            <f:selectItem itemValue="104" itemLabel="carico idraulico superficiale(m3/m2/h)" />  
+                             <f:selectItem itemValue="105" itemLabel="tempo di ritenzione idraulica(h)" />  
+                              <f:selectItem itemValue="106" itemLabel="potenza unitaria(KW/m3/h)" />  
+                          <f:selectItem itemValue="23" itemLabel="fattore di emissione CH4" />  
+                           <f:selectItem itemValue="24" itemLabel="fattore di emissione NH3" />  
+                            <f:selectItem itemValue="25" itemLabel="fattore di emissione C02" /> 
+                             <f:selectItem itemValue="26" itemLabel="fattore di emissione N2" />  
+                            <f:selectItem itemValue="27" itemLabel="fattore di emissione N20" />  
+                              <f:selectItem itemValue="76" itemLabel="tasso di interesse" />  
+                            <h:outputLabel for="selezionecoefficiente" value="Parametri     " />
+                           <f:ajax execute="valoreparametro" immediate="true" event="click" render="valoreparametro" />
+                           
+                    </h:selectOneMenu> 
+                    <!--
+                   i valori degli itemvalue devono corrispondere ai valori di contenutoattributo in parametridiprogetto
+                   -->
+                 <!--
+                 <h:selectOneMenu  id="selezionetipomacchina" value="#{flottazioneGUI.coefficientetipomacchina}" style="width: 70px;">
+                        <f:selectItem itemValue="senza_additivi" itemLabel="senza additivi" />  
+                         <f:selectItem itemValue="con_additivi" itemLabel="con additivi" />  
+                         
+                            <h:outputLabel for="selezionetipomacchina" value="Tipo Macchina " />
+                             
+                             <f:ajax execute="selezionetipomacchina" immediate="true" event="click" render="valoreparametro" />
+                              
+                    </h:selectOneMenu> 
+                   -->
+                  
+              
+                   <h:outputLabel for="valoreparametro" value="Valore" /> 
+                   <h:inputText id="valoreparametro"   value="#{flottazioneGUI.valorecoefficiente}"  style="width: 50px;" >
+                           
+                         
+                      
+                            <f:convertNumber minFractionDigits="1" />
+                        </h:inputText>
+              
+                        <h:commandButton value="Aggiorna" action="#{flottazioneGUI.aggiorna()}">
+                    <f:param name="action" value="1" />
+                </h:commandButton>
+                    
+                    </h:panelGrid>
+                    <hr></hr>
+                    <br/> <br/>
+                    <h4>Immagine campione di ausilio al significato dei parametri c1,c2,m1,m2 </h4>
+                   <ul>
+                       <li><b>c1</b>: pendenza della retta</li>
+                       <li><b>c2</b>: intercetta della retta</li>
+                       <li><b>m1</b>: valore della sostanza secca a cui comincia la pendenza</li>
+                       <li><b>m2</b>: valore della sostanza secca a cui finisce la pendenza</li>
+                   </ul>    
+
+                   <h:graphicImage value="../resources/css/images/efficienzaseparazione.png" style="padding-left: 30px;"/>
+                    <br/> <br/>
+                    <h2>Parametri di progetto legati alle efficienze </h2>
+                   <h:panelGrid  columns="7">
+                   <!--
+                   i valori degli itemvalue devono corrispondere agli id dei nomiparamtrdiprogetto
+                   -->
+                   <h:selectOneMenu  id="selezioneefficienze" value="#{flottazioneGUI.coefficienterefluo}" style="width: 120px;">
+                        <f:selectItem itemValue="1" itemLabel="bovino" />  
+                         <f:selectItem itemValue="2" itemLabel="suino" />  
+                          <f:selectItem itemValue="3" itemLabel="avicolo" />  
+                           <f:selectItem itemValue="4" itemLabel="altro" />  
+                            <f:selectItem itemValue="9" itemLabel="biomassa" />  
+                            <h:outputLabel for="selezioneefficienze" value="Tipo Refluo   " />
+                            <f:ajax execute="selezionecaratteristica" immediate="true" event="click" render="valoreparametro1 valoreparametro2 valoreparametro3 valoreparametro4" />
+                    </h:selectOneMenu> 
+                    <!--
+                   i valori degli itemvalue devono corrispondere ai valori di contenutoattributo in parametridiprogetto
+                   -->
+                   <h:selectOneMenu  id="selezionecaratteristica" value="#{flottazioneGUI.coefficentecaratteristica}" style="width: 70px;">
+                        <f:selectItem itemValue="1" itemLabel="volume" />  
+                         <f:selectItem itemValue="2" itemLabel="azoto totale" />  
+                          <f:selectItem itemValue="3" itemLabel="azoto ammoniacale" />  
+                           <f:selectItem itemValue="4" itemLabel="sostanza secca" />  
+                            <f:selectItem itemValue="5" itemLabel="solidi volatili" />  
+                            <f:selectItem itemValue="6" itemLabel="fosforo totale" />  
+                            <f:selectItem itemValue="7" itemLabel="potassio" />  
+                            <h:outputLabel for="selezionecaratteristica" value="Caratteristica " />
+                             
+                             <f:ajax execute="selezionecaratteristica" immediate="true" event="click" render="valoreparametro1 valoreparametro2 valoreparametro3 valoreparametro4" />
+                              
+                    </h:selectOneMenu> 
+              
+                   <h:panelGrid columns="3">
+                   <h:outputLabel for="valoreparametro1" value="    C1" /> 
+                       <h:inputText id="valoreparametro1"   value="#{flottazioneGUI.valorecoefficiente1}"  style="width: 50px;" >
+                       <f:convertNumber minFractionDigits="1" />
+                   </h:inputText>
+                            
+                   <h:commandButton value="Aggiorna" action="#{flottazioneGUI.aggiorna()}">
+                       <f:param name="action" value="28" />
+                   </h:commandButton>
+                    <h:outputLabel for="valoreparametro2" value="    C2" /> 
+                       <h:inputText id="valoreparametro2"   value="#{flottazioneGUI.valorecoefficiente2}"  style="width: 50px;" >
+                       <f:convertNumber minFractionDigits="1" />
+                   </h:inputText>
+                            
+                   <h:commandButton value="Aggiorna" action="#{flottazioneGUI.aggiorna()}">
+                       <f:param name="action" value="29" />
+                   </h:commandButton>
+                     <h:outputLabel for="valoreparametro3" value="    M1" /> 
+                       <h:inputText id="valoreparametro3"   value="#{flottazioneGUI.valorecoefficiente3}"  style="width: 50px;" >
+                       <f:convertNumber minFractionDigits="1" />
+                   </h:inputText>
+                            
+                   <h:commandButton value="Aggiorna" action="#{flottazioneGUI.aggiorna()}">
+                       <f:param name="action" value="30" />
+                   </h:commandButton>
+                      <h:outputLabel for="valoreparametro4" value="    M2" /> 
+                       <h:inputText id="valoreparametro4"   value="#{flottazioneGUI.valorecoefficiente4}"  style="width: 50px;" >
+                       <f:convertNumber minFractionDigits="1" />
+                   </h:inputText>
+                            
+                   <h:commandButton value="Aggiorna" action="#{flottazioneGUI.aggiorna()}">
+                       <f:param name="action" value="31" />
+                   </h:commandButton>
+                    </h:panelGrid>
+                    </h:panelGrid>
+                   
+                   <br/>
+                   <h:panelGroup rendered="#{facesContext.validationFailed}">
+                        <p class="messaggi">L'aggiornamento non è andato a buon fine.</p>
+                    </h:panelGroup>  
+                   <br/>
+                  
+                        
+             
+
+                </h:form>
+                                                            
+                                                            
+           
+                                                            
+                                                              
+
+                                                                    
+                                                        </div>
+                                                        <div id="comments" class="comments-area">  
+    
+                                                        </div><!-- #comments .comments-area -->
+                                                    </article>
+                                                </section>
+                                            </div><!-- #content --></div><!-- #primary -->
+                                    </div><!-- #container -->
+
+
+	   </div><!-- #main -->
+
+	   </f:view>  
+	   
+	   <footer id="footerarea" class="clearfix">
+			
+
+
+<div id="site-generator">
+				<div class="container">
+                                    <div class="copyright" style="float:left;padding:15px 0px 0px 0px;">Sviluppato dal <a href="http://www.disaa.unimi.it">Dipartimeno di Scienze Agrarie e Ambientali    </a>
+                                    </div>
+                                    <a href="http://www.disaa.unimi.it">
+                                        <div>
+                                            <img style="vertical-align:text-top;" src="http://users.unimi.it/renuwal/wp-content/uploads/2015/10/logodisaa2.jpg" alt="logo disaa" /></div></a><div class="footer-right"></div><div style="clear:both;"></div>
+			</div><!-- .container -->
+			</div><!-- #site-generator -->
+                        <div class="back-to-top"><a href="#branding"></a></div>
+           </footer>
+
+    
+       </div><!-- .wrapper -->
+    </h:body>
+</html>
