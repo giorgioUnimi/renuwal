@@ -29,7 +29,7 @@
                </h4>--><!-- .entry-title -->
                    <fieldset> 
                        <!--<legend>Info</legend>-->
-                       <p style="font-size: 10px;"><b>Registrati</b> usando il link sotto se sei un nuovo utente.Usa username: <b>guest</b> password <b>guest</b> per provare la nostra applicazione.</p>
+                       <p style="font-size: 10px;"><b>Registrati</b> usando il link sotto se sei un nuovo utente.Usa username: <b>giorgio</b> password <b>giorgio</b> per provare la nostra applicazione.</p>
                    </fieldset>    
                    <h:form id="form_login">
                        <table columns="2"  style="padding:0px 0px 0px 2px;margin: 0px 0px 0px 0px;">
@@ -103,82 +103,11 @@
                        <h:link value="Home" style="font-size:14px;" outcome="home" />
                   </li>
             </ul>   
-            <!--   <ul>
-                  <li>
-                       <h:link value="Home" style="font-size:14px;" outcome="home" />
-                  </li>
-                  <li>
-                       <h:link value="Aziende" style="font-size:14px;" outcome="aziende" />
-                  </li>
-              </ul>    
+         
               </c:if>  
-            <c:if test="#{navigazione.paginaAttuale eq 'dettaglioAzienda.xhtml' || navigazione.paginaAttuale eq 'allevamento_1.xhtml' || navigazione.paginaAttuale eq 'stoccaggio.xhtml' || navigazione.paginaAttuale eq 'acquastoccaggio.xhtml'}">
-            
-              <ul>
-                  
-                  <li>
-                       <h:link value="Home" style="font-size:14px;" outcome="home" >
-                            <f:param name="id" value="#{dettaglioCuaa.getId()}"/>
-                       </h:link>     
-                  </li>
-                  <li>
-                       <h:link value="Aziende" style="font-size:14px;" outcome="aziende" />
-                  </li>
-                  <li>
-                       <h:link value="Scenari" style="font-size:14px;" outcome="scenario"  />
-                  </li>
-              </ul>
-              
-              <ul>
-                 <c:if test="#{navigazione.paginaAttuale eq 'dettaglioAzienda.xhtml'}" >
-                    <li>
-                       <h:link value="Allevamenti" style="font-size:14px;" outcome="allevamento" />
-                  </li>  
-                   <li>
-                       <h:link value="Stoccaggi" style="font-size:14px;" outcome="stoccaggio" />
-                  </li>
-                   <li>
-                       <h:link value="Acquestoccaggio" style="font-size:14px;" outcome="acquastoccaggio" />
-                  </li>
-                 </c:if>  
-                  
-                 <c:if test="#{navigazione.paginaAttuale eq 'allevamento_1.xhtml'}" >
-                   <li>
-                       <h:link value="Dettaglio Azienda" style="font-size:14px;" outcome="dettaglioazienda" />
-                  </li>
-                   <li>
-                       <h:link value="Stoccaggi" style="font-size:14px;" outcome="stoccaggio" />
-                  </li>
-                   <li>
-                       <h:link value="Acquestoccaggio" style="font-size:14px;" outcome="acquastoccaggio" />
-                  </li>
-                 </c:if> 
-                <c:if test="#{navigazione.paginaAttuale eq 'stoccaggio.xhtml'}" >
-                 <li>
-                       <h:link value="Dettaglio Azienda" style="font-size:14px;" outcome="dettaglioazienda" />
-                  </li> 
-                  <li>
-                       <h:link value="Allevamenti" style="font-size:14px;" outcome="allevamento" />
-                  </li>
-                  <li>
-                       <h:link value="Acquestoccaggio" style="font-size:14px;" outcome="acquastoccaggio" />
-                  </li>
-                 </c:if>
-                <c:if test="#{navigazione.paginaAttuale eq 'acquastoccaggio.xhtml'}" >
-                  <li>
-                       <h:link value="Dettaglio Azienda" style="font-size:14px;" outcome="dettaglioazienda" />
-                  </li>  
-                  <li>
-                       <h:link value="Allevamenti" style="font-size:14px;" outcome="allevamento" />
-                  </li>
-                  <li>
-                       <h:link value="Stoccaggi" style="font-size:14px;" outcome="stoccaggio" />
-                  </li>
-                  </c:if>      
-              </ul>-->    
-              </c:if>  
-                <h:outputText value="pagina di provenienza : #{navigazione.daChi }" style="display: block;"/>
+             <!--   <h:outputText value="pagina di provenienza : #{navigazione.daChi }" style="display: block;"/>
                 <h:outputText value="pagina attuale : #{navigazione.paginaAttuale }" style="display: block;"/>
+             -->
          
             </h:panelGroup> 
         </ui:composition>

@@ -78,7 +78,7 @@ hr {
 	margin: 0 0 40px;
 }
 .wrapper {
-	max-width: 1018px;
+	max-width: 1058px;
        
        
 	margin: 0 auto;
@@ -89,7 +89,7 @@ hr {
 }
 .container {
 	margin: 0 auto;
-	max-width: 978px;
+	max-width: 1028px;
        
        
 }
@@ -2062,3 +2062,58 @@ article {
         
 }*/
 
+.localizzazioneTable2 , .localizzazioneTable3 {
+    width: 700px;
+    height: 40px;
+    border:1px solid rgb(192,192,192);
+    font-size: 11px;
+    
+    margin-bottom: 10px;
+}
+
+.localizzazioneTable4{
+    width: 700px;
+    height: 40px;
+    border:1px solid rgb(192,192,192);
+    font-size: 11px;
+    
+    margin-bottom: 10px;
+}
+
+
+.localizzazioneTable2 thead tr th , .localizzazioneTable3 thead tr th , .localizzazioneTable4 thead tr th{
+    padding: 3px 2px 2px 2px;
+    text-align: center;
+    font-weight: bold;
+    background-color: rgb(221,234,252);
+    
+}
+
+.localizzazioneTable2 tbody tr td , .localizzazioneTable2 thead tr th , .localizzazioneTable3 tbody tr td , .localizzazioneTable3 thead tr th , .localizzazioneTable4 thead tr th{
+    border-bottom: 1px solid rgb(192,192,192);
+    border-right: 1px solid rgb(192,192,192);
+}
+
+
+.righeBlue tbody tr:nth-child(1), .righeBlue tbody tr:nth-child(7){
+     background-color: rgb(173,216,210);
+     
+}
+
+.righeBlue tbody tr:nth-child(2) ,.righeBlue tbody tr:nth-child(3) ,.righeBlue tbody tr:nth-child(4) ,
+.righeBlue tbody tr:nth-child(5) ,.righeBlue tbody tr:nth-child(6) ,.righeBlue tbody tr:nth-child(8) ,
+.righeBlue tbody tr:nth-child(9) ,.righeBlue tbody tr:nth-child(10),.righeBlue tbody tr:nth-child(11),
+.righeBlue tbody tr:nth-child(12){
+    display:none;
+}
+
+
+.nascondi{
+    display:none;    
+}
+
+.mostra{
+    display:show;
+}
+
+ 
