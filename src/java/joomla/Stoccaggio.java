@@ -99,7 +99,7 @@ public class Stoccaggio implements Serializable {
         if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
         
          Query q1 = entityManager.createNamedQuery("AziendeI.findByCuaa").setParameter("cuaa", this.dettCuaa.getCuaa());
@@ -162,7 +162,7 @@ public class Stoccaggio implements Serializable {
          if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
          {
              Connessione connessione = Connessione.getInstance();
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
          }
         /**
          * mi serve per cancellare la cache prodotto dalla precedente query 
@@ -295,7 +295,7 @@ public class Stoccaggio implements Serializable {
         if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
          {
              Connessione connessione = Connessione.getInstance();
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
          }
          
         FacesMessage message = null;
@@ -308,7 +308,7 @@ public class Stoccaggio implements Serializable {
         
                   
          dataItem = ((RecordStoccaggio) getDataTable().getRowData());
-           if(dataItem == null)
+         if(dataItem == null)
          {
               System.out.println(this.getClass().getCanonicalName() + " ritorno null perchè qualche valore è nullo");
                message = new FacesMessage(" Aggiornamento non corretto ");
@@ -322,20 +322,50 @@ public class Stoccaggio implements Serializable {
           * verifico che i campi capacita superficie scoperta e superficie totale 
           * della pagina stoccaggio non siano vuoti o contengano
           * valori non numerici o contengano virgole o punti o inizi con lo 0
-          */
-         Pattern pattern = Pattern.compile("[^0-9.]+|^[0]");
+          */ 
+         //Pattern pattern = Pattern.compile("[^0-9.]+|^[0]");
+        /* Pattern pattern = Pattern.compile("\\D*");
          Matcher matcher = pattern.matcher(dataItem.getCapacita());
+       
          Matcher matcher1 = pattern.matcher(dataItem.getSuperficiescoperta());
          Matcher matcher2 = pattern.matcher(dataItem.getSuperficietotale());
          
-         if(dataItem.getSuperficiescoperta()== null || dataItem.getSuperficiescoperta().trim().length() == 0 ||dataItem.getSuperficietotale() == null || dataItem.getSuperficietotale().trim().length() == 0 ||dataItem.getCapacita() == null || dataItem.getCapacita().trim().length() == 0 || matcher.find()|| matcher1.find()|| matcher2.find())
+         System.out.println( " matcher " + matcher.find() + " matcher1 " +matcher1.find()+ " matcher2 " +matcher2.find() );
+         */
+         double s_scoperta = 0;
+         double s_totale = 0;
+         double s_capacita = 0;
+         boolean statoinput = true;
+         try{
+             s_scoperta=Double.parseDouble(dataItem.getSuperficiescoperta());
+             s_totale=Double.parseDouble(dataItem.getSuperficietotale());
+             s_capacita=Double.parseDouble(dataItem.getCapacita());
+             
+             if(s_scoperta < 0 || s_totale < 0 || s_capacita < 0) {
+                 statoinput = false;
+             }
+             
+         }catch(NumberFormatException nfe)
          {
-             System.out.println(this.getClass().getCanonicalName() + " ritorno null perchè dataitem della riga è nullo");
+             statoinput = false; 
+         }
+         
+         if(!statoinput)
+         {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" "+Thread.currentThread().getStackTrace()[1].getMethodName()  + " ritorno null perchè dataitemaa della riga è nullo");
+             message = new FacesMessage(" Aggiornamento non corretto ");
+             context = FacesContext.getCurrentInstance();
+             context.addMessage(bottoneaggiungi1.getClientId(context), message);
+             return ; 
+         }
+        /* if( (matcher1.find()) )
+         {
+             System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" "+Thread.currentThread().getStackTrace()[1].getMethodName()  + " ritorno null perchè dataitemaa della riga è nullo");
              message = new FacesMessage(" Aggiornamento non corretto ");
              context = FacesContext.getCurrentInstance();
              context.addMessage(bottoneaggiungi1.getClientId(context), message);
              return ;
-         }  
+         }  */
            
            
          if(dataItem.getDescrizione() == null )
@@ -411,7 +441,7 @@ public class Stoccaggio implements Serializable {
          int ultimo = getDataTable().getRowCount();
          DettaglioCuaa dettaglioCuaa = new DettaglioCuaa();
          String cuaa = dettaglioCuaa.getCuaa();
-         /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal1");
+         /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal2");
          entityManager = entityManagerFactory.createEntityManager();
          jpa = (JpaEntityManager) entityManager.getDelegate();
          serverSession = jpa.getServerSession();
@@ -422,7 +452,7 @@ public class Stoccaggio implements Serializable {
          if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
          {
              Connessione connessione = Connessione.getInstance();
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
          }
          
          
@@ -441,7 +471,7 @@ public class Stoccaggio implements Serializable {
          
           if(dataItem == null)
          {
-              System.out.println(this.getClass().getCanonicalName() + " ritorno null perchè qualche valore è nullo");
+              System.out.println(this.getClass().getCanonicalName() + " ritorno null perchè qualche valore è nullo as");
              
              message = new FacesMessage(" Inserimento non corretto ");
              context = FacesContext.getCurrentInstance();
@@ -458,7 +488,7 @@ public class Stoccaggio implements Serializable {
           * della pagina stoccaggio non siano vuoti o contengano
           * valori non numerici o contengano virgole o punti o inizi con lo 0
           */
-         Pattern pattern = Pattern.compile("[^0-9.]+|^[0]");
+         /*Pattern pattern = Pattern.compile("[^0-9.]+|^[0]");
          Matcher matcher = pattern.matcher(dataItem.getCapacita());
          Matcher matcher1 = pattern.matcher(dataItem.getSuperficiescoperta());
          Matcher matcher2 = pattern.matcher(dataItem.getSuperficietotale());
@@ -470,11 +500,36 @@ public class Stoccaggio implements Serializable {
              context = FacesContext.getCurrentInstance();
              context.addMessage(bottoneaggiungi1.getClientId(context), message);
              return null;
-         } 
+         }*/ 
+          double s_scoperta = 0;
+         double s_totale = 0;
+         double s_capacita = 0;
+         boolean statoinput = true;
+         try{
+             s_scoperta=Double.parseDouble(dataItem.getSuperficiescoperta());
+             s_totale=Double.parseDouble(dataItem.getSuperficietotale());
+             s_capacita=Double.parseDouble(dataItem.getCapacita());
+             
+             if(s_scoperta < 0 || s_totale < 0 || s_capacita < 0) {
+                 statoinput = false;
+             }
+             
+         }catch(NumberFormatException nfe)
+         {
+             statoinput = false; 
+         }
+         
+         if(!statoinput)
+         {
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" "+Thread.currentThread().getStackTrace()[1].getMethodName()  + " ritorno null perchè dataitemaa della riga è nullo");
+             message = new FacesMessage(" Inserimento non corretto ");
+             context = FacesContext.getCurrentInstance();
+             context.addMessage(bottoneaggiungi1.getClientId(context), message);
+             return ""; 
+         }
           
           
-          
-         if(dataItem.getDescrizione() == null || Double.parseDouble(dataItem.getSuperficiescoperta()) < 1 || Double.parseDouble(dataItem.getSuperficietotale()) < 1 || Double.parseDouble(dataItem.getCapacita()) < 1  )
+         if(dataItem.getDescrizione() == null || Double.parseDouble(dataItem.getSuperficiescoperta()) < 0 || Double.parseDouble(dataItem.getSuperficietotale()) < 0 || Double.parseDouble(dataItem.getCapacita()) < 0  )
          {
              
              System.out.println(this.getClass().getCanonicalName() + " ritorno null perchè qualche valore è nullo");
@@ -648,14 +703,14 @@ public class Stoccaggio implements Serializable {
         String cuaa="";
         long id = 0;
         
-       /* entityManagerFactory = Persistence.createEntityManagerFactory("renuwal1");
+       /* entityManagerFactory = Persistence.createEntityManagerFactory("renuwal2");
         entityManager = entityManagerFactory.createEntityManager();
         jpa = (JpaEntityManager) entityManager.getDelegate();*/
        
          if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
          {
              Connessione connessione = Connessione.getInstance();
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
          }
         
         Iterator<RecordStoccaggio> entries =  this.tabella.iterator();

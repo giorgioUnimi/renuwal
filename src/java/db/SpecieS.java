@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author giorgio
  */
 @Entity
-@Table(name = "specie_s", catalog = "renuwal1", schema = "allevamento")
+@Table(name = "specie_s", catalog = "renuwal2", schema = "allevamento")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SpecieS.findAll", query = "SELECT s FROM SpecieS s"),
@@ -46,7 +46,7 @@ public class SpecieS implements Serializable {
     private String desSpecie;
     @JoinColumn(name = "tipologiaanimale_id", referencedColumnName = "id")
     @ManyToOne
-    private TipomateriaS tipologiaanimaleId;
+    private ProvenienzaRefluo tipologiaanimaleId;
     @OneToMany(mappedBy = "speciebSCodSpecie")
     private Collection<SpeciecategoriaallevamentostabulazionebS> speciecategoriaallevamentostabulazionebSCollection;
     @OneToMany(mappedBy = "codiceSpecie")
@@ -80,11 +80,11 @@ public class SpecieS implements Serializable {
         this.desSpecie = desSpecie;
     }
 
-    public TipomateriaS getTipologiaanimaleId() {
+    public ProvenienzaRefluo getTipologiaanimaleId() {
         return tipologiaanimaleId;
     }
 
-    public void setTipologiaanimaleId(TipomateriaS tipologiaanimaleId) {
+    public void setTipologiaanimaleId(ProvenienzaRefluo tipologiaanimaleId) {
         this.tipologiaanimaleId = tipologiaanimaleId;
     }
 

@@ -1258,7 +1258,7 @@ public class InputOutputXml {
 
         if (entityManagerFactory == null || !(entityManagerFactory.isOpen())) {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
             entityManagerFactory = connessione.getEntityManagerFactory();
         }
         
@@ -1693,7 +1693,7 @@ public class InputOutputXml {
        if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
                             {
                                Connessione connessione = Connessione.getInstance();
-                               entityManager = connessione.apri("renuwal1");
+                               entityManager = connessione.apri("renuwal2");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                             }
       

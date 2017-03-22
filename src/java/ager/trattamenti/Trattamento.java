@@ -11,6 +11,7 @@
 package ager.trattamenti;
 
 import ager.ContenitoreReflui;
+import ager.TipiReflui;
 
 
 /**
@@ -21,9 +22,9 @@ public class Trattamento implements CalcolaTrattamento{
      
    
     
-    private ContenitoreReflui contenitoreRefluiIn = new ContenitoreReflui();
+    private ContenitoreReflui contenitoreRefluiIn = new ContenitoreReflui(TipiReflui.getInstance().getTipologieDaAllevamento());
     
-    private ContenitoreReflui contenitoreRefluiOut = new ContenitoreReflui();
+    private ContenitoreReflui contenitoreRefluiOut = new ContenitoreReflui(TipiReflui.getInstance().getTipologieDaAllevamento());
     
     /**************************************************************
      * EMISSIONI IN ARIA
@@ -218,9 +219,9 @@ public class Trattamento implements CalcolaTrattamento{
      */
     public void azzeraContenitori() {
         
-        this.contenitoreRefluiIn = new ContenitoreReflui();
+        this.contenitoreRefluiIn = new ContenitoreReflui(TipiReflui.getInstance().getTipologieDaAllevamento());
         
-        this.contenitoreRefluiOut = new ContenitoreReflui();
+        this.contenitoreRefluiOut = new ContenitoreReflui(TipiReflui.getInstance().getTipologieDaAllevamento());
     }
 
     /**

@@ -131,7 +131,7 @@ public class Solutore {
              modello = new Modello("C:\\Users\\giorgio\\Documents\\NetBeansProjects\\seespig\\","seespig1.exe",numerorandom1,false);
          }else
          {
-             modello = new Modello("/home/giorgiogalassi/Documenti/solutorec/","./solutore1.out",numerorandom1,true); 
+             modello = new Modello("/home/giorgiogalassi/Documenti/solutorec/","./solutore1_renuwal.out",numerorandom1,true); 
          }
          
                 

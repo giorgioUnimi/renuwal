@@ -62,7 +62,7 @@ public class DettaglioCuaa implements Serializable{
     private int codicespecie;
     private String codicecategoria;
     private int codicestabulazione;
-    private int scenario;
+    private int scenario = 0;
     private String scenarioString;
     private String descrizionescenario;
     private Long idscenario;
@@ -79,6 +79,8 @@ public class DettaglioCuaa implements Serializable{
      * il valore numerico dell alternativa che va in esecuzione
      */
     private int alternativaN = 0;
+    
+   
         
     public DettaglioCuaa(){
          
@@ -355,7 +357,7 @@ public class DettaglioCuaa implements Serializable{
     }
 
     /**
-     * interroga il db renuwal1 e recupera la lista degli
+     * interroga il db renuwal2 e recupera la lista degli
      * anni 
      * @return the anni
      */
@@ -365,7 +367,7 @@ public class DettaglioCuaa implements Serializable{
                             {
                                Connessione connessione = Connessione.getInstance();
                               
-                               entityManager = connessione.apri("renuwal1");
+                               entityManager = connessione.apri("renuwal2");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                                System.out.println(" apro la connessione perchè chiusa ed adesso è aperta : " +  entityManager.isOpen() + " entityManagerfactory aperto : " + entityManagerFactory.isOpen());
                             }else

@@ -93,7 +93,7 @@ public class Acquastoccaggio implements Serializable {
         
        
         
-       /* entityManagerFactory = Persistence.createEntityManagerFactory("renuwal1");
+       /* entityManagerFactory = Persistence.createEntityManagerFactory("renuwal2");
         entityManager = entityManagerFactory.createEntityManager();
         jpa = (JpaEntityManager) entityManager.getDelegate();
         serverSession = jpa.getServerSession();*/
@@ -102,7 +102,7 @@ public class Acquastoccaggio implements Serializable {
          if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
          {
              Connessione connessione = Connessione.getInstance();
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
          }
         
         /**
@@ -193,14 +193,14 @@ public class Acquastoccaggio implements Serializable {
          * recupero il record a cui fa riferimento la struttura acque di stoccaggio 
          * secondo ilcuaa dellì'azienda
          */
-        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal1");
+        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal2");
         entityManager = entityManagerFactory.createEntityManager();
         jpa = (JpaEntityManager) entityManager.getDelegate();
         serverSession = jpa.getServerSession();*/
          if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
          {
              Connessione connessione = Connessione.getInstance();
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
          }
         entityManager.getTransaction().begin();
         

@@ -59,9 +59,9 @@ public class ListaAllevamenti implements Serializable {
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
-       // apri("renuwal1");
+       // apri("renuwal2");
         // initialise with one entry
       // tabella.add(new Azienda());
         /**
@@ -83,7 +83,7 @@ public class ListaAllevamenti implements Serializable {
     
     /**
      * apro la connessione il db postgresql
-     * @param connessione "renuwal1"
+     * @param connessione "renuwal2"
      */
     /*public boolean apri(String connessione)
     {
@@ -132,10 +132,10 @@ public class ListaAllevamenti implements Serializable {
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
             
-      /*  entityManagerFactory = Persistence.createEntityManagerFactory("renuwal1");
+      /*  entityManagerFactory = Persistence.createEntityManagerFactory("renuwal2");
         entityManager = entityManagerFactory.createEntityManager();
         jpa = (JpaEntityManager) entityManager.getDelegate();
         serverSession = jpa.getServerSession();*/
@@ -328,13 +328,13 @@ public class ListaAllevamenti implements Serializable {
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
          
         DettaglioCuaa dettaglioCuaa = new DettaglioCuaa();
         //String cuaa = dettaglioCuaa.getCuaa();
         Long idscenario = dettaglioCuaa.getIdscenario();
-        entityManagerFactory = Persistence.createEntityManagerFactory("renuwal1");
+        entityManagerFactory = Persistence.createEntityManagerFactory("renuwal2");
         entityManager = entityManagerFactory.createEntityManager();
         jpa = (JpaEntityManager) entityManager.getDelegate();
         serverSession = jpa.getServerSession();
@@ -461,7 +461,7 @@ public class ListaAllevamenti implements Serializable {
         String cuaa="";
         int id = 0;
         
-        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal1");
+        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal2");
         entityManager = entityManagerFactory.createEntityManager();
         jpa = (JpaEntityManager) entityManager.getDelegate();
         serverSession = jpa.getServerSession();
@@ -474,7 +474,7 @@ public class ListaAllevamenti implements Serializable {
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
         
         DettaglioCuaa dettoCuaa = new DettaglioCuaa();

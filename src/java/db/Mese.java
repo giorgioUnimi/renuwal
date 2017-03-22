@@ -5,26 +5,25 @@
 package db;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author giorgio
  */
 @Entity
-@Table(catalog = "renuwal1", schema = "allevamento")
+@Table(catalog = "renuwal2", schema = "allevamento")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Mese.findAll", query = "SELECT m FROM Mese m"),
@@ -40,8 +39,9 @@ public class Mese implements Serializable {
     @Size(max = 255)
     @Column(length = 255)
     private String descrizione;
-    @ManyToMany(mappedBy = "meseCollection")
-    private Collection<Epoca> epocaCollection;
+    @JoinColumn(name = "id_epoca", referencedColumnName = "id")
+    @ManyToOne
+    private Epoca idEpoca;
 
     public Mese() {
     }
@@ -66,13 +66,12 @@ public class Mese implements Serializable {
         this.descrizione = descrizione;
     }
 
-    @XmlTransient
-    public Collection<Epoca> getEpocaCollection() {
-        return epocaCollection;
+    public Epoca getIdEpoca() {
+        return idEpoca;
     }
 
-    public void setEpocaCollection(Collection<Epoca> epocaCollection) {
-        this.epocaCollection = epocaCollection;
+    public void setIdEpoca(Epoca idEpoca) {
+        this.idEpoca = idEpoca;
     }
 
     @Override

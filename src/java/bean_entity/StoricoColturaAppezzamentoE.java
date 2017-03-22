@@ -72,7 +72,7 @@ public class StoricoColturaAppezzamentoE {
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          } 
     
          
@@ -154,7 +154,7 @@ public class StoricoColturaAppezzamentoE {
         if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
         /**
          * recupero nell'appezzamento la coltura precedente per capire se devo togliere 
@@ -258,7 +258,7 @@ public class StoricoColturaAppezzamentoE {
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          } 
     
          

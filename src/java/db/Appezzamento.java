@@ -18,6 +18,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -27,14 +28,15 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author giorgio
  */
 @Entity
-@Table(catalog = "renuwal1", schema = "allevamento")
+@Table(catalog = "renuwal2", schema = "allevamento")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Appezzamento.findAll", query = "SELECT a FROM Appezzamento a"),
     @NamedQuery(name = "Appezzamento.findById", query = "SELECT a FROM Appezzamento a WHERE a.id = :id"),
     @NamedQuery(name = "Appezzamento.findByNome", query = "SELECT a FROM Appezzamento a WHERE a.nome = :nome"),
     @NamedQuery(name = "Appezzamento.findBySuperficie", query = "SELECT a FROM Appezzamento a WHERE a.superficie = :superficie"),
-    @NamedQuery(name = "Appezzamento.findBySvz", query = "SELECT a FROM Appezzamento a WHERE a.svz = :svz")})
+    @NamedQuery(name = "Appezzamento.findBySvz", query = "SELECT a FROM Appezzamento a WHERE a.svz = :svz"),
+    @NamedQuery(name = "Appezzamento.findByUpa", query = "SELECT a FROM Appezzamento a WHERE a.upa = :upa")})
 public class Appezzamento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,9 +51,10 @@ public class Appezzamento implements Serializable {
     @Column(precision = 17, scale = 17)
     private Double superficie;
     private Boolean svz;
-    @JoinColumn(name = "tipoterreno", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false)
-    private TipoTerreno tipoterreno;
+    @Basic(optional = false)
+    @NotNull
+    @Column(nullable = false)
+    private short upa;
     @JoinColumn(name = "tipoirrigazione", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private TipoIrrigazione tipoirrigazione;
@@ -69,6 +72,11 @@ public class Appezzamento implements Serializable {
 
     public Appezzamento(Integer id) {
         this.id = id;
+    }
+
+    public Appezzamento(Integer id, short upa) {
+        this.id = id;
+        this.upa = upa;
     }
 
     public Integer getId() {
@@ -103,12 +111,12 @@ public class Appezzamento implements Serializable {
         this.svz = svz;
     }
 
-    public TipoTerreno getTipoterreno() {
-        return tipoterreno;
+    public short getUpa() {
+        return upa;
     }
 
-    public void setTipoterreno(TipoTerreno tipoterreno) {
-        this.tipoterreno = tipoterreno;
+    public void setUpa(short upa) {
+        this.upa = upa;
     }
 
     public TipoIrrigazione getTipoirrigazione() {

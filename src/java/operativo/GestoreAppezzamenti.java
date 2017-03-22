@@ -77,6 +77,16 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
     private int clientRows;
     
     private boolean checkboxReadOnly = true;
+    /**
+     * vincolo upa mi dice se è rispettato il fatto che all'interno di 
+     * un determinato upa ci sia la stessa irrigazione e la stessa vulnerabilita
+     */
+    private boolean vincoloUpa = false;
+    /**
+     * mi dice quale vincolo non è rispettato cioè se l'upa non ha la stessa irrigazione
+     * o la stessa vulnerabilità
+     */
+    //private String messaggioUpa = "";
     
     /**
      * Creates a new instance of GestoreAppezzamenti
@@ -99,23 +109,87 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
     }
     
     /**
-     * modifica del record della tabella appezzamenti del db renuwal1 e modifica di una riga della tabella della pagina a
+     * verifica che il nuovo appezzamento o quello che si sta 
+     * per modificare abbia irrigazione e vulnerabilità identica a quelle 
+     * degli appezzamenti che sono gia presenti nell'upa
+     * @return  true se la verifica è andata bene altrimenti false
+     */
+    private boolean verificaIntegritaUpa(int upa,db.TipoIrrigazione irri,boolean svn)
+    {
+        
+        ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+         DettaglioCuaa dettTemp = (DettaglioCuaa) FacesContext.getCurrentInstance().getApplication().getELResolver().getValue(elContext, null, "dettaglioCuaa");
+        
+        Long idscenario = dettTemp.getIdscenario();
+        
+          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
+         {
+            Connessione connessione = Connessione.getInstance();
+            entityManager = connessione.apri("renuwal2");
+         }
+      
+       //devo creare un nuovo appezzamento e quindi devo cercare prima lo scenario
+       //il tipo di terreno , il tipo di irrigazione
+       Query q = entityManager.createNamedQuery("ScenarioI.findByIdscenario").setParameter("idscenario", dettTemp.getIdscenario());
+       db.ScenarioI scenT = (db.ScenarioI)q.getResultList().get(0);
+        
+        
+        boolean rit = true;
+        /**
+         * itero sulla collezione degli appezzamenti
+         */
+        Iterator<db.Appezzamento> iterApp = scenT.getAppezzamentoCollection().iterator();
+        while(iterApp.hasNext())
+        {
+            db.Appezzamento temp = iterApp.next();
+            
+            if(temp.getUpa() == upa && (temp.getTipoirrigazione().getId() != irri.getId() || temp.getSvz() != svn)){
+                rit = false;
+                break;
+            }
+        }
+        
+        
+        //Connessione.getInstance().chiudi();
+        
+        return rit;
+    }
+    
+    
+    
+    /**
+     * modifica del record della tabella appezzamenti del db renuwal2 e modifica di una riga della tabella della pagina a
      * appezzamenti.xhtml
      */
     public void store() {              
-        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " +Thread.currentThread().getStackTrace()[1].getMethodName() + " id " + this.appezzamentoEdit.getId() + " nome " + this.appezzamentoEdit.getNome() + " superficie " + this.appezzamentoEdit.getSuperficie() + " svn " +this.appezzamentoEdit.isSvn() + " tipo terreno id " + this.appezzamentoEdit.getTipoTerreno()+ " descrizione terreno"+this.appezzamentoEdit.getTipoTerreno().getDescrizione() + " tipo irrigazione " + this.appezzamentoEdit.getTipoIrrigazione() + " tipo irrigazione descrizione " + this.appezzamentoEdit.getTipoIrrigazione().getDescrizione());
+        
+        
+
+        
+        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " +Thread.currentThread().getStackTrace()[1].getMethodName() + " id " + this.appezzamentoEdit.getId() + " nome " + this.appezzamentoEdit.getNome() + " superficie " + this.appezzamentoEdit.getSuperficie() + " svn " +this.appezzamentoEdit.isSvn() +  " tipo irrigazione " + this.appezzamentoEdit.getTipoIrrigazione() + " tipo irrigazione descrizione " + this.appezzamentoEdit.getTipoIrrigazione().getDescrizione());
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
          
          db.Appezzamento appT = entityManager.find(db.Appezzamento.class,this.appezzamentoEdit.getId().intValue());
          
          Query q = entityManager.createNamedQuery("TipoIrrigazione.findByDescrizione").setParameter("descrizione", this.appezzamentoEdit.getTipoIrrigazione().getDescrizione());
          db.TipoIrrigazione tipoIrrigazione =(db.TipoIrrigazione)q.getSingleResult();
-         Query q1 = entityManager.createNamedQuery("TipoTerreno.findByDescrizione").setParameter("descrizione", this.appezzamentoEdit.getTipoTerreno().getDescrizione());
-         db.TipoTerreno tipoTerreno =(db.TipoTerreno)q1.getSingleResult();
+         
+         
+         this.vincoloUpa =  this.verificaIntegritaUpa(this.appezzamentoEdit.getUpa(),tipoIrrigazione,this.appezzamentoEdit.isSvn());
+         
+         if(!this.vincoloUpa) 
+         {
+              super.getListaAppezzamenti().clear();
+              this.popolaAppezzamenti();
+             return;
+         }
+         
+         //Query q1 = entityManager.createNamedQuery("TipoTerreno.findByDescrizione").setParameter("descrizione", this.appezzamentoEdit.getTipoTerreno().getDescrizione());
+         //db.TipoTerreno tipoTerreno =(db.TipoTerreno)q1.getSingleResult();
          //db.TipoIrrigazione irriT = entityManager.find(db.TipoIrrigazione.class,this.appezzamentoEdit.);
          if(appT != null)
          {
@@ -123,8 +197,10 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
              appT.setSuperficie(this.appezzamentoEdit.getSuperficie());
              appT.setSvz(this.appezzamentoEdit.isSvn());
              appT.setTipoirrigazione(tipoIrrigazione);
-             appT.setTipoterreno(tipoTerreno);
+             appT.setUpa((short)this.appezzamentoEdit.getUpa());
          }
+         
+         
          
          entityManager.getTransaction().begin();
          entityManager.merge(appT);
@@ -135,6 +211,9 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
          
          super.getListaAppezzamenti().clear();
          this.popolaAppezzamenti();
+         
+        
+         
     
     }
     
@@ -155,6 +234,7 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
             if(re.getId() == this.currentAppIndex1 )
             {
                 System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " +Thread.currentThread().getStackTrace()[1].getMethodName()  + "trovato nel ciclo while ");
+                break;
             }
         }
         //se ho trovato l'appezzamento in listaappezzzamenti lo tolgo dalla lista
@@ -174,17 +254,17 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
      */
     private void deleteAppezzamento(long idappezzamento)
     {
-        ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+        /*ELContext elContext = FacesContext.getCurrentInstance().getELContext();
          DettaglioCuaa dettTemp = (DettaglioCuaa) FacesContext.getCurrentInstance().getApplication().getELResolver().getValue(elContext, null, "dettaglioCuaa");
         
         Long idscenario = dettTemp.getIdscenario();
         System.out.println("gestore appezzamenti deleteappezzamanto idappezzamento " + idappezzamento + " idscenario " + idscenario);
-         if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
+        */ if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
-        db.ScenarioI sceT1 = entityManager.find(db.ScenarioI.class,idscenario);
+       /* db.ScenarioI sceT1 = entityManager.find(db.ScenarioI.class,idscenario);
         Iterator<db.Appezzamento> iterApp = sceT1.getAppezzamentoCollection().iterator();
         db.Appezzamento app = null;
         while(iterApp.hasNext())
@@ -199,10 +279,14 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
         if(app != null)
         {
            sceT1.getAppezzamentoCollection().remove(app); 
-        }
+        }*/
+        
+        db.Appezzamento tempApp = entityManager.find(db.Appezzamento.class,(int)idappezzamento);
         
         entityManager.getTransaction().begin();
-        entityManager.merge(sceT1);
+        //entityManager.merge(sceT1);
+        entityManager.remove(tempApp);
+        
         entityManager.getTransaction().commit();
         
         Connessione.getInstance().chiudi();
@@ -237,7 +321,7 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
     * creo il record in appezzamenti nel db e poi creo il record nella tabella della pagina appezzamenti.xhtml
     */ 
    public void add() {              
-        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " +Thread.currentThread().getStackTrace()[1].getMethodName() + " nome  " + super.getNome() + " superficie " + super.getSuperficie() + " svn " + super.isSvn() + " tipoterreno " + super.getTipoTerreno() + " tipoirrigazione " + super.getTipoIrrigazione());
+        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " +Thread.currentThread().getStackTrace()[1].getMethodName() + " nome  " + super.getNome() + " superficie " + super.getSuperficie() + " svn " + super.isSvn() +  " tipoirrigazione " + super.getTipoIrrigazione());
         //aggino il record nel database
         long id = addRecord();
         
@@ -281,7 +365,7 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
       /* if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
       
        //devo creare un nuovo appezzamento e quindi devo cercare prima lo scenario
@@ -374,14 +458,14 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
        if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
       
        //devo creare un nuovo appezzamento e quindi devo cercare prima lo scenario
        //il tipo di terreno , il tipo di irrigazione
        Query q = entityManager.createNamedQuery("ScenarioI.findByIdscenario").setParameter("idscenario", dettTemp.getIdscenario());
        db.ScenarioI scenT =null;
-       db.TipoTerreno tipoTer = null;
+       //db.TipoTerreno tipoTer = null;
        db.TipoIrrigazione tipoIrr = null;
        
        if(!q.getResultList().isEmpty())
@@ -394,7 +478,7 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
           return -1;
        }
      
-       q = entityManager.createNamedQuery("TipoTerreno.findById").setParameter("id", Long.parseLong(super.getTipoTerreno()));
+       /*q = entityManager.createNamedQuery("TipoTerreno.findById").setParameter("id", Long.parseLong(super.getTipoTerreno()));
        if(!q.getResultList().isEmpty())
        {
            tipoTer = (db.TipoTerreno)q.getResultList().get(0);
@@ -402,7 +486,7 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
        {
            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() +" " +Thread.currentThread().getStackTrace()[1].getMethodName() + " tipo terreno null");
            return -1;
-       }
+       }*/
        
        q = entityManager.createNamedQuery("TipoIrrigazione.findById").setParameter("id", Long.parseLong(super.getTipoIrrigazione()));
        if(!q.getResultList().isEmpty())
@@ -417,13 +501,19 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
        Colturaprecedente colturaPrecedente = entityManager.find(db.Colturaprecedente.class,1);
        
        
+       this.vincoloUpa =  this.verificaIntegritaUpa(this.getUpa(),tipoIrr,this.isSvn());
+         
+       if(!this.vincoloUpa) return 0l;
+       
+       
+       
         entityManager.getTransaction().begin();
         db.Appezzamento nuovoappezzamento = new db.Appezzamento();
         nuovoappezzamento.setNome(this.getNome());
         nuovoappezzamento.setSuperficie(this.getSuperficie());
         nuovoappezzamento.setScenarioIdscenario(scenT);
         nuovoappezzamento.setTipoirrigazione(tipoIrr);
-        nuovoappezzamento.setTipoterreno(tipoTer);
+        nuovoappezzamento.setUpa((short)this.getUpa());
         nuovoappezzamento.setSvz(this.isSvn());
         nuovoappezzamento.setColturaprecedenteId(colturaPrecedente);
         
@@ -439,7 +529,7 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
         if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
         
         entityManager.getTransaction().begin();
@@ -512,7 +602,7 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
         if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
       
        Iterator<db.Appezzamento> iterApp = sceT.getAppezzamentiCollection().iterator(); 
@@ -848,6 +938,34 @@ public class GestoreAppezzamenti extends ListaAppezzamenti implements Serializab
     public void setCheckboxReadOnly(boolean checkboxReadOnly) {
         this.checkboxReadOnly = checkboxReadOnly;
     }
+
+    /**
+     * @return the vincoloUpa
+     */
+    public boolean isVincoloUpa() {
+        return vincoloUpa;
+    }
+
+    /**
+     * @param vincoloUpa the vincoloUpa to set
+     */
+    public void setVincoloUpa(boolean vincoloUpa) {
+        this.vincoloUpa = vincoloUpa;
+    }
+
+    /**
+     * @return the messaggioUpa
+     */
+   /* public String getMessaggioUpa() {
+        return messaggioUpa;
+    }*/
+
+    /**
+     * @param messaggioUpa the messaggioUpa to set
+     */
+   /* public void setMessaggioUpa(String messaggioUpa) {
+        this.messaggioUpa = messaggioUpa;
+    }*/
 
     /**
      * @return the currentAppIndex1

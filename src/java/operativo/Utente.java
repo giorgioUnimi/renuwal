@@ -141,7 +141,7 @@ public class Utente implements Serializable {
     
     private void verificaAccount()
     {
-        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal1");
+        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal2");
         entityManager = entityManagerFactory.createEntityManager();
         jpa = (JpaEntityManager) entityManager.getDelegate();*/
         
@@ -155,7 +155,7 @@ public class Utente implements Serializable {
                             {
                                Connessione connessione = Connessione.getInstance();
                               
-                               entityManager = connessione.apri("renuwal1");
+                               entityManager = connessione.apri("renuwal2");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                                System.out.println(" apro la connessione perchè chiusa ed adesso è aperta : " +  entityManager.isOpen() + " entityManagerfactory aperto : " + entityManagerFactory.isOpen());
                             }else
@@ -315,7 +315,7 @@ public class Utente implements Serializable {
                             {
                                Connessione connessione = Connessione.getInstance();
                               
-                               entityManager = connessione.apri("renuwal1");
+                               entityManager = connessione.apri("renuwal2");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                                System.out.println(" apro la connessione perchè chiusa ed adesso è aperta : " +  entityManager.isOpen() + " entityManagerfactory aperto : " + entityManagerFactory.isOpen());
                             }else
@@ -490,7 +490,7 @@ public class Utente implements Serializable {
                             {
                                Connessione connessione = Connessione.getInstance();
                               
-                               entityManager = connessione.apri("renuwal1");
+                               entityManager = connessione.apri("renuwal2");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                                System.out.println(" apro la connessione perchè chiusa ed adesso è aperta : " +  entityManager.isOpen() + " entityManagerfactory aperto : " + entityManagerFactory.isOpen());
                             }else
@@ -541,7 +541,7 @@ public class Utente implements Serializable {
                             {
                                Connessione connessione = Connessione.getInstance();
                               
-                               entityManager = connessione.apri("renuwal1");
+                               entityManager = connessione.apri("renuwal2");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                                System.out.println(" apro la connessione perchè chiusa ed adesso è aperta : " +  entityManager.isOpen() + " entityManagerfactory aperto : " + entityManagerFactory.isOpen());
                             }else

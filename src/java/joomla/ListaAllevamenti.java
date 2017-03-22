@@ -93,7 +93,7 @@ public class ListaAllevamenti implements Serializable {
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
      
         /**
@@ -131,7 +131,7 @@ public class ListaAllevamenti implements Serializable {
         if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
         
          Query q1 = entityManager.createNamedQuery("AziendeI.findByCuaa").setParameter("cuaa", this.getDettCuaa().getCuaa());
@@ -264,7 +264,7 @@ public class ListaAllevamenti implements Serializable {
                  */
                 if (entityManagerFactory == null || (!entityManagerFactory.isOpen())) {
                     Connessione connessione = Connessione.getInstance();
-                    entityManager = connessione.apri("renuwal1");
+                    entityManager = connessione.apri("renuwal2");
                 }
 
                 /**
@@ -358,7 +358,7 @@ public class ListaAllevamenti implements Serializable {
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
      
         
@@ -663,7 +663,7 @@ public class ListaAllevamenti implements Serializable {
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
          
         //DettaglioCuaa dettaglioCuaa = new DettaglioCuaa();
@@ -810,7 +810,7 @@ public class ListaAllevamenti implements Serializable {
         String cuaa="";
         int id = 0;
         
-        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal1");
+        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal2");
         entityManager = entityManagerFactory.createEntityManager();
         jpa = (JpaEntityManager) entityManager.getDelegate();
         serverSession = jpa.getServerSession();
@@ -823,7 +823,7 @@ public class ListaAllevamenti implements Serializable {
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
         
         DettaglioCuaa dettoCuaa = new DettaglioCuaa();
@@ -929,7 +929,7 @@ public class ListaAllevamenti implements Serializable {
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
           
           System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " +Thread.currentThread().getStackTrace()[1].getMethodName() + "id passato  " + id);
@@ -989,7 +989,7 @@ public class ListaAllevamenti implements Serializable {
           if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
           
         dataItem = (RecordAllevamento1) getDataTable1().getRowData();
@@ -1230,7 +1230,7 @@ public class ListaAllevamenti implements Serializable {
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
          
         // db.Appezzamento appT = entityManager.find(db.Appezzamento.class,this.appezzamentoEdit.getId());

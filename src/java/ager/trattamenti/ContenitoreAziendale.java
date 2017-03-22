@@ -6,6 +6,7 @@ package ager.trattamenti;
 
 import ager.ContenitoreReflui;
 import ager.Refluo;
+import ager.TipiReflui;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.ListIterator;
@@ -59,7 +60,7 @@ public class ContenitoreAziendale {
      * contenitore dei risultati della trasformazioe aziendale 
      * il contentitore verra passato al LetameT e LiquameT
      */
-  private ContenitoreReflui contenitore = new ContenitoreReflui();
+  private ContenitoreReflui contenitore = new ContenitoreReflui(TipiReflui.getInstance().getTipologieDaAllevamento());
     
   
    /**
@@ -136,7 +137,7 @@ public class ContenitoreAziendale {
     
     /**
      * apro la connessione il db postgresql
-     * @param connessione "renuwal1"
+     * @param connessione "renuwal2"
      */
     /*public void apri(String connessione)
     {
@@ -170,7 +171,7 @@ public class ContenitoreAziendale {
      */
     public void getData(int id)
     {
-        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal1");
+        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal2");
         entityManager = entityManagerFactory.createEntityManager();
         jpa = (JpaEntityManager) entityManager.getDelegate();
         serverSession = jpa.getServerSession();*/
@@ -183,7 +184,7 @@ public class ContenitoreAziendale {
          {
              Connessione connessione = Connessione.getInstance();
             
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
               entityManagerFactory = Connessione.getInstance().getEntityManagerFactory();
          }
         
@@ -191,7 +192,7 @@ public class ContenitoreAziendale {
         entityManagerFactory.getCache().evictAll();
          
          
-        this.contenitore = new ContenitoreReflui();
+        this.contenitore = new ContenitoreReflui(TipiReflui.getInstance().getTipologieDaAllevamento());
         
         //DettaglioCuaa detto = new DettaglioCuaa();
         

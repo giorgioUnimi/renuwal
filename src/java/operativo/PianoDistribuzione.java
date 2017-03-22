@@ -7,6 +7,7 @@ package operativo;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import javax.el.ELContext;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -39,7 +40,32 @@ public class PianoDistribuzione {
     public PianoDistribuzione() {
     }
     
-    
+    private RecordDistribuzione findAppezzamento(String coltura,int idrotazione)
+    {
+        RecordDistribuzione item = null;
+        
+        ListIterator<RecordDistribuzione> iterrecordDistribuzione = this.appezzamenti.listIterator();
+        RecordDistribuzione tempRecord;
+        
+        while(iterrecordDistribuzione.hasNext())
+        {
+           tempRecord = iterrecordDistribuzione.next();
+           
+          // System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " + Thread.currentThread().getStackTrace()[1].getMethodName() + " cerco " + coltura + " rotazione " + idrotazione +" attuale coltura " +tempRecord.getColtura() + " attuale rotazione " +tempRecord.getRotazione());
+           
+           if(tempRecord.getColtura().equals(coltura) && tempRecord.getRotazione() == idrotazione)
+           {
+               item = tempRecord;
+              // System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " + Thread.currentThread().getStackTrace()[1].getMethodName() + " cerco " + coltura + " rotazione " + idrotazione +" attuale coltura " +tempRecord.getColtura() + " attuale rotazione " +tempRecord.getRotazione() + " ----------trovato------------------");
+
+               break;
+           }
+        }
+        
+      
+        
+        return item;
+    }
     private void popolaPiano()
     {
         synchronized(this){
@@ -57,14 +83,14 @@ public class PianoDistribuzione {
        if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
          
        Query q = entityManager.createNamedQuery("ScenarioI.findByIdscenario").setParameter("idscenario", getDettaglioCuaa().getScenario());
        db.ScenarioI sceT = (db.ScenarioI)q.getResultList().get(0);         
        Iterator<db.Appezzamento> iterAppezzamento = sceT.getAppezzamentoCollection().iterator();
        
-       
+       boolean nuovo=false;
        while(iterAppezzamento.hasNext())
        {
            db.Appezzamento appT = iterAppezzamento.next();
@@ -72,14 +98,50 @@ public class PianoDistribuzione {
            while(storicoTemp.hasNext())
            {
                db.Storicocolturaappezzamento storicoT = storicoTemp.next();
-               RecordDistribuzione recordDistribuzione = new RecordDistribuzione();
+               //storicoT contiene le rotazioni di uno specifico appezzamento
+               //se se una rotazione non è impostata contiene la coltura 1
+               if(storicoT.getIdcolturaId().getId() == 1) {
+                   continue;
+               }
+               //cerco se quella coltura con quella rotazione sono gia presenti nella lista
+               //cosi da sommare la superficie di appezzamenti che hanno la stessa coltura e rotazione
+               RecordDistribuzione recordDistribuzione = this.findAppezzamento(storicoT.getIdcolturaId().getDescrizione(), storicoT.getRotazioneId().getId());
+               
+               
+               //System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " + Thread.currentThread().getStackTrace()[1].getMethodName() + " tan l bov  " +sceT.getRisultatoConfronto().getTanLBov() + " scenario " + sceT.getRisultatoConfronto().getIdScenario());
+
+               
+               if(recordDistribuzione == null)
+               {
+                   
+                   recordDistribuzione = new  RecordDistribuzione(sceT.getRisultatoConfronto(),storicoT.getIdcolturaId());
+                   nuovo = true;
+               }else
+               {
+                   nuovo = false;
+               }
+               
+               
+               
+               
                recordDistribuzione.setNomeAppezzamento(appT.getNome());
-               recordDistribuzione.setSuperficie(appT.getSuperficie());
+               recordDistribuzione.setSuperficie(recordDistribuzione.getSuperficie() + appT.getSuperficie());
+               recordDistribuzione.setUpa(appT.getUpa());
                recordDistribuzione.setColtura(storicoT.getIdcolturaId().getDescrizione());
                recordDistribuzione.setResa_attesa(storicoT.getResaAttesa());
-               recordDistribuzione.setAsportazioniN(storicoT.getAsportazioneazoto());
+               recordDistribuzione.setAsportazioniNKgsuHA(storicoT.getAsportazioneazoto());
+               recordDistribuzione.setAsportazioniNKg(storicoT.getAsportazioneazoto() * recordDistribuzione.getSuperficie());
+               
+               recordDistribuzione.setAsportazioniPKgsuHA(storicoT.getAsportazionefosforo());
+               recordDistribuzione.setAsportazioniPKg(storicoT.getAsportazionefosforo() * recordDistribuzione.getSuperficie());
+               
+               recordDistribuzione.setAsportazioniKKgsuHA(storicoT.getAsportazionepotassio());
+               recordDistribuzione.setAsportazioniKKg(storicoT.getAsportazionepotassio() * recordDistribuzione.getSuperficie());
+               
                recordDistribuzione.setRotazione(storicoT.getRotazioneId().getId());
-               this.appezzamenti.add(recordDistribuzione);
+               if(nuovo) {
+                   this.appezzamenti.add(recordDistribuzione);
+               }
            }
        }
        

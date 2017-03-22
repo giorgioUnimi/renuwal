@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author giorgio
  */
 @Entity
-@Table(name = "scenario_i", catalog = "renuwal1", schema = "allevamento")
+@Table(name = "scenario_i", catalog = "renuwal2", schema = "allevamento")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ScenarioI.findAll", query = "SELECT s FROM ScenarioI s"),
@@ -55,6 +55,8 @@ public class ScenarioI implements Serializable {
     private Collection<Appezzamento> appezzamentoCollection;
     @OneToMany(mappedBy = "idscenario")
     private Collection<AllevamentoI> allevamentoICollection;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "scenarioI")
+    private RisultatoConfronto risultatoConfronto;
     @JoinColumn(name = "id_aziendeanni", referencedColumnName = "id")
     @ManyToOne
     private AziendeAnni idAziendeanni;
@@ -126,6 +128,14 @@ public class ScenarioI implements Serializable {
 
     public void setAllevamentoICollection(Collection<AllevamentoI> allevamentoICollection) {
         this.allevamentoICollection = allevamentoICollection;
+    }
+
+    public RisultatoConfronto getRisultatoConfronto() {
+        return risultatoConfronto;
+    }
+
+    public void setRisultatoConfronto(RisultatoConfronto risultatoConfronto) {
+        this.risultatoConfronto = risultatoConfronto;
     }
 
     public AziendeAnni getIdAziendeanni() {

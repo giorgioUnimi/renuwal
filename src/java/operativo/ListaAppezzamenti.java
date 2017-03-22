@@ -32,7 +32,8 @@ public class ListaAppezzamenti {
     private List<db.TipoTerreno> tipiTerreni;
     private List<db.TipoIrrigazione> tipiIrrigazione;
     private List<db.Coltura> listaColture;
-    private String tipoTerreno = "1";
+    //private String tipoTerreno = "1";
+    private int upa = 1;
     private String tipoIrrigazione = "1";
     private String nome = "";
     private double superficie = 0d;
@@ -47,7 +48,7 @@ public class ListaAppezzamenti {
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          } 
          
           Query q = entityManager.createNamedQuery("TipoTerreno.findAll");
@@ -105,14 +106,17 @@ public class ListaAppezzamenti {
        if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
       
+       
+       entityManager.getEntityManagerFactory().getCache().evictAll();
        //devo creare un nuovo appezzamento e quindi devo cercare prima lo scenario
        //il tipo di terreno , il tipo di irrigazione
        Query q = entityManager.createNamedQuery("ScenarioI.findByIdscenario").setParameter("idscenario", getDettaglioCuaa().getIdscenario());
-       if(q.getResultList().isEmpty())
-           return;
+       if(q.getResultList().isEmpty()) {
+                return;
+            }
        setSceT((db.ScenarioI)q.getResultList().get(0));
        Iterator<db.Appezzamento> iterAppezzamenti=getSceT().getAppezzamentoCollection().iterator();
           
@@ -122,12 +126,13 @@ public class ListaAppezzamenti {
        {
            db.Appezzamento apptemp = iterAppezzamenti.next();
            RecordAppezzamento reT = new RecordAppezzamento(apptemp);
-           reT.popolaRotazioni();
+           reT.popolaRotazioni(apptemp.getId());
            reT.setNome(apptemp.getNome());
            reT.setSuperficie(apptemp.getSuperficie());
            reT.setSvn(apptemp.getSvz());
            reT.setTipoIrrigazione(apptemp.getTipoirrigazione());
-           reT.setTipoTerreno(apptemp.getTipoterreno());
+          // reT.setTipoTerreno(apptemp.getTipoterreno());
+           reT.setUpa(apptemp.getUpa());
            reT.setId((long)apptemp.getId());
            reT.setColtura_precedente(apptemp.getColturaprecedenteId().getId());
            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " + Thread.currentThread().getStackTrace()[1].getMethodName() +" idappezzamento " + reT.getId() + " aggiunto" + " nome: " + reT.getNome());
@@ -185,16 +190,16 @@ public class ListaAppezzamenti {
     /**
      * @return the tipoTerreno
      */
-    public String getTipoTerreno() {
+    /*public String getTipoTerreno() {
         return tipoTerreno;
-    }
+    }*/
 
     /**
      * @param tipoTerreno the tipoTerreno to set
      */
-    public void setTipoTerreno(String tipoTerreno) {
+   /* public void setTipoTerreno(String tipoTerreno) {
         this.tipoTerreno = tipoTerreno;
-    }
+    }*/
 
     /**
      * @return the tipoIrrigazione
@@ -271,9 +276,18 @@ public class ListaAppezzamenti {
      */
     public List<RecordAppezzamento> getListaAppezzamenti() {
        
-            
+       /*   ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+         DettaglioCuaa dettTemp = (DettaglioCuaa) FacesContext.getCurrentInstance().getApplication().getELResolver().getValue(elContext, null, "dettaglioCuaa");
+        
+        Long idscenario = dettTemp.getIdscenario();    */
         System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " +Thread.currentThread().getStackTrace()[1].getMethodName() + " numero appezzamaneti " + this.listaAppezzamenti.size() );   
         // if(listaAppezzamenti.isEmpty()  || !StoricoColturaleAppezzamento.isRenderAsp()) {
+       /**
+        * and idscenario è
+        */
+        //listaAppezzamenti.clear();
+        
+        
         if(listaAppezzamenti.isEmpty()  ) {
                 popolaAppezzamenti();
                 
@@ -318,6 +332,20 @@ public class ListaAppezzamenti {
      */
     public void setListaColture(List<db.Coltura> listaColture) {
         this.listaColture = listaColture;
+    }
+
+    /**
+     * @return the upa
+     */
+    public int getUpa() {
+        return upa;
+    }
+
+    /**
+     * @param upa the upa to set
+     */
+    public void setUpa(int upa) {
+        this.upa = upa;
     }
     
     

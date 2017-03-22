@@ -446,7 +446,7 @@ public class SeparazioneAVite extends Trattamento {
       Query q3 = entityManager.createNamedQuery("CaratteristichechimicheS.findAll");
       List<db.CaratteristicheChmiche> caratteri = (List<db.CaratteristicheChmiche>)q3.getResultList();
       Query q4 = entityManager.createNamedQuery("TipomateriaS.findByAnimale").setParameter("animale", true);
-      List<db.TipomateriaS> tipo = (List<db.TipomateriaS>)q4.getResultList();
+      /*List<db.TipomateriaS> tipo = (List<db.TipomateriaS>)q4.getResultList();
       
       for(db.TipomateriaS ti:tipo)
       {

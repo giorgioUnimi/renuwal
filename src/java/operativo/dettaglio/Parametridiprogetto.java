@@ -65,7 +65,7 @@ public class Parametridiprogetto {
         if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
                             {
                                Connessione connessione1 = Connessione.getInstance();
-                               entityManager = connessione1.apri("provagiorgio13");
+                               entityManager = connessione1.apri("renuwal2");
                                entityManagerFactory = connessione1.getEntityManagerFactory();
                             }
         
@@ -130,7 +130,7 @@ public class Parametridiprogetto {
         if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
                             {
                                Connessione connessione1 = Connessione.getInstance();
-                               entityManager = connessione1.apri("provagiorgio13");
+                               entityManager = connessione1.apri("renuwal2");
                                entityManagerFactory = connessione1.getEntityManagerFactory();
                             }
         

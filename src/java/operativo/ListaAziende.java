@@ -5,6 +5,7 @@
 package operativo;
 
 
+import ager.RisultatoConfronto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -92,7 +93,7 @@ public class ListaAziende implements Serializable {
          if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
          {
              Connessione connessione = Connessione.getInstance();
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
          }
           /**
           * le seguenti righe mi servono per recuperare il session bean utente impostato nella pagina index
@@ -179,7 +180,7 @@ public class ListaAziende implements Serializable {
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
          
          if (this.aziendaEdit.getCuaa() != null || !this.aziendaEdit.getCuaa().isEmpty() || this.aziendaEdit.getRagioneSociale() != null || !this.aziendaEdit.getRagioneSociale().isEmpty()) {
@@ -225,7 +226,7 @@ public class ListaAziende implements Serializable {
         if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
        /**
         * l'id della azienda deriva dal valore del item della select  selezionato che è contenuto
@@ -287,7 +288,7 @@ public class ListaAziende implements Serializable {
         if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
         
         entityManager.getEntityManagerFactory().getCache().evictAll();
@@ -334,7 +335,7 @@ public class ListaAziende implements Serializable {
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }    
         /**
          * recupero dettagliocuaa che è il contenitore delle informazioni che uso tra le varie classi
@@ -369,6 +370,8 @@ public class ListaAziende implements Serializable {
         ListaAppezzamenti listaAppezzamenti = ListaAppezzamenti.getInstance();
         listaAppezzamenti.getListaAppezzamenti().clear();
         listaAppezzamenti.popolaAppezzamenti();
+        
+       
         
         //System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " + Thread.currentThread().getStackTrace()[1].getMethodName() + " listaappezzamenti size " + listaAppezzamenti.getListaAppezzamenti().size());
          //StoricoColturaleAppezzamento.setRenderAsp(false);   
@@ -514,7 +517,7 @@ public class ListaAziende implements Serializable {
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
         /**
          * mi collego al database ed elimino l'azienda che ha id come parametro passato
@@ -567,7 +570,7 @@ public class ListaAziende implements Serializable {
        if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
        
        
@@ -624,12 +627,21 @@ public class ListaAziende implements Serializable {
        db.ScenarioI sceN = new db.ScenarioI();
        sceN.setDescrizione(dettaglioCuaa.getDescrizionescenario());
        sceN.setIdAziendeanni(azanT);
+       
+      
        /**
         * uso aziendeanni appena creato per cr4eare un nuovo scneario
         */
        tx.begin();
         entityManager.persist(sceN);
+       
+       
        tx.commit();
+       
+       
+       
+       
+     
               
        Connessione.getInstance().chiudi();
        
@@ -654,7 +666,7 @@ public class ListaAziende implements Serializable {
        if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }
        entityManager.getTransaction().begin();
        //Query q1 = entityManager.createQuery("Delete from ScenarioI s where s.idscenario=?1").setParameter(1, Long.parseLong(this.currentType));

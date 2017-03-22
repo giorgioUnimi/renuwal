@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author giorgio
  */
 @Entity
-@Table(catalog = "renuwal1", schema = "allevamento")
+@Table(catalog = "renuwal2", schema = "allevamento")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Rotazione.findAll", query = "SELECT r FROM Rotazione r"),
@@ -41,8 +41,6 @@ public class Rotazione implements Serializable {
     @Size(max = 255)
     @Column(length = 255)
     private String descrizione;
-    @OneToMany(mappedBy = "rotazioneId")
-    private Collection<ColturaleColturaRotazione> colturaleColturaRotazioneCollection;
     @OneToMany(mappedBy = "rotazioneId")
     private Collection<Storicocolturaappezzamento> storicocolturaappezzamentoCollection;
 
@@ -67,15 +65,6 @@ public class Rotazione implements Serializable {
 
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
-    }
-
-    @XmlTransient
-    public Collection<ColturaleColturaRotazione> getColturaleColturaRotazioneCollection() {
-        return colturaleColturaRotazioneCollection;
-    }
-
-    public void setColturaleColturaRotazioneCollection(Collection<ColturaleColturaRotazione> colturaleColturaRotazioneCollection) {
-        this.colturaleColturaRotazioneCollection = colturaleColturaRotazioneCollection;
     }
 
     @XmlTransient

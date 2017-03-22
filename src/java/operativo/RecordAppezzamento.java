@@ -28,7 +28,7 @@ public class RecordAppezzamento {
     
     //private List<db.TipoTerreno> tipiTerreni;
    // private List<db.TipoIrrigazione> tipiIrrigazione;
-    private db.TipoTerreno tipoTerreno;
+    //private db.TipoTerreno tipoTerreno;
     private db.TipoIrrigazione tipoIrrigazione;
     private String nome = "";
     private double superficie = 0d;
@@ -42,6 +42,7 @@ public class RecordAppezzamento {
      private double asp_azoto = 0;
      private double asp_fosforo = 0;
      private double asp_potassio = 0;
+     private int upa;
     /**
      * Gli apporti massimi di azoto devono essere ridotti:
      *   - di 40 kg N/ha per la coltura che segue l’aratura di un prato avvicendato di durata almeno triennale;
@@ -68,7 +69,7 @@ public class RecordAppezzamento {
       //popolaRotazioni();
     }
     
-    public void popolaRotazioni()
+    public void popolaRotazioni(int idapp)
     {
         
     System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " + Thread.currentThread().getStackTrace()[1].getMethodName() +" 1a ");
@@ -81,15 +82,18 @@ public class RecordAppezzamento {
          */
         if (entityManagerFactory == null || (!entityManagerFactory.isOpen())) {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
         }  
+        
+          entityManager.getEntityManagerFactory().getCache().evictAll();
+        
        /**
         * mi collego a storicocoltuappezzamenti del db e popolo i tre record SoritcoColturaAppezzamentoE 
         * con i dati del db 
         */ 
-       db.Appezzamento app = entityManager.find(db.Appezzamento.class,appezzamento.getId());
+       db.Appezzamento app = entityManager.find(db.Appezzamento.class,idapp);
        
-           System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " + Thread.currentThread().getStackTrace()[1].getMethodName() +" 2a id appezzamento " + appezzamento.getId());
+           System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " + Thread.currentThread().getStackTrace()[1].getMethodName() +" 2a id appezzamento " + idapp);
 
        /**
         * recupero lo storico del db storicolturaappezzamento
@@ -103,7 +107,7 @@ public class RecordAppezzamento {
         }
        
        
-        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " + Thread.currentThread().getStackTrace()[1].getMethodName() +" 3 id appezzamento " + appezzamento.getId() + " numero storico  " +app.getStoricocolturaappezzamentoCollection().size());
+        System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" " + Thread.currentThread().getStackTrace()[1].getMethodName() +" 3 id appezzamento " + idapp + " numero storico  " +app.getStoricocolturaappezzamentoCollection().size());
 
        
        int i = 0;
@@ -161,16 +165,16 @@ public class RecordAppezzamento {
     /**
      * @return the tipoTerreno
      */
-    public db.TipoTerreno getTipoTerreno() {
+   /* public db.TipoTerreno getTipoTerreno() {
         return tipoTerreno;
-    }
+    }*/
 
     /**
      * @param tipoTerreno the tipoTerreno to set
      */
-    public void setTipoTerreno(db.TipoTerreno tipoTerreno) {
+   /* public void setTipoTerreno(db.TipoTerreno tipoTerreno) {
         this.tipoTerreno = tipoTerreno;
-    }
+    }*/
 
     /**
      * @return the tipoIrrigazione
@@ -233,7 +237,7 @@ public class RecordAppezzamento {
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          } 
         
          
@@ -421,7 +425,7 @@ public class RecordAppezzamento {
         if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          } 
         
          if (this.appezzamento != null) {
@@ -441,6 +445,20 @@ public class RecordAppezzamento {
          
           Connessione.getInstance().chiudi();
         
+    }
+
+    /**
+     * @return the upa
+     */
+    public int getUpa() {
+        return upa;
+    }
+
+    /**
+     * @param upa the upa to set
+     */
+    public void setUpa(int upa) {
+        this.upa = upa;
     }
     
 }

@@ -285,7 +285,7 @@ public class Platea extends Trattamento{
          * recupero il menu stoccaggi relativo al tipo di stoccaggio inserito 
          * nella tabella inputstoccaggis
          */
-         menu = stocco.getIdstoccaggio();
+       //  menu = stocco.getIdstoccaggio();
         /**
          * recupero la capacità dello stoccaggio 
          */
@@ -390,12 +390,12 @@ public class Platea extends Trattamento{
         {
             db.StoccaggioI itero = iterStoccaggi.next();
             
-            if(itero.getIdstoccaggio().getForma().getTipo().equals("palabili"))
+          /*  if(itero.getIdstoccaggio().getForma().getTipo().equals("palabili"))
             {
                capacita +=  itero.getCapacita();
                 impostaGestionali(itero); 
                
-            }
+            }*/
             
             
         }
@@ -420,7 +420,7 @@ public class Platea extends Trattamento{
         {
             db.StoccaggioI itero = iterStoccaggi.next();
             
-            if(itero.getIdstoccaggio().getForma().equals("palabili"))
+         /*   if(itero.getIdstoccaggio().getForma().equals("palabili"))
             {
               
                 this.fnh3medio += (itero.getCapacita() * Double.parseDouble((classeparametri.getParametrodiprogetto(1,"fnh3", itero.getIdstoccaggio().toString(),null,null).getValore()))) / capacita;
@@ -430,7 +430,7 @@ public class Platea extends Trattamento{
                 this.fnminmedio += (itero.getCapacita() * Double.parseDouble((classeparametri.getParametrodiprogetto(1,"fnmin", itero.getIdstoccaggio().toString(),null,null).getValore()))) / capacita;
                
                
-            }
+            }*/
         }
         
         

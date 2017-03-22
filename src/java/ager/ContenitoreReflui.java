@@ -21,9 +21,10 @@ public class ContenitoreReflui {
      * al liquame ed una relativa al letame.
      */
     //List<String> tipologie = null;
-   private String[] tipologie = {"Liquame Bovino","Liquame Suino","Liquame Avicolo","Liquame Altro","Liquame Biomassa","Letame Bovino","Letame Suino","Letame Avicolo","Letame Altro","Letame Biomassa"};
-    
-   /**
+   //private String[] tipologie = {"Liquame Bovino","Liquame Suino","Liquame Avicolo","Liquame Altro","Liquame Biomassa","Letame Bovino","Letame Suino","Letame Avicolo","Letame Altro","Letame Biomassa"};
+   
+    private String[] tipologie;
+    /**
     * Contenitore delle caratteristiche chimiche delle biomasse
     */
   //private Refluo biomassa = new Refluo("Biomassa");
@@ -43,8 +44,14 @@ public class ContenitoreReflui {
      * 
      * @param tipologie 
      */
-    public ContenitoreReflui()
+    public ContenitoreReflui(String[] tipologie)
     {
+        if(tipologie == null || tipologie.length == 0)
+        {
+            return;
+        }
+        
+        this.tipologie = tipologie;
         
         contenitore = new Hashtable<String,Refluo>();
         
@@ -114,14 +121,41 @@ public class ContenitoreReflui {
          * per i totali parziali cerco tra le tipologie che rappresentano le chiavi della hashtable
          * e faccio le somme nella classe refluo che devo ritornare
          */
-        if(tipo.equals("Liquame") || tipo.equals("Letame"))
+        if(tipo.equals("Liquame") )
         {
                 
         re = new Refluo(tipo);
         
         for(String  s:tipologie)
         {
-                if(s.contains(tipo))
+                if(s.contains("Liquame") || s.contains("chiarificata"))
+                {
+                  re.addAzotoAmmoniacale(contenitore.get(s).getAzotoammoniacale()) ;
+                  re.addAzotoTotale(contenitore.get(s).getAzotototale());
+                  re.addFosforoTotale(contenitore.get(s).getFosforototale());
+                  re.addMetricubi(contenitore.get(s).getMetricubi());
+                  //re.addMetricubibiomassa(contenitore.get(s).getMetricubibiomassa());
+                  re.addPotassioTotale(contenitore.get(s).getPotassiototale());
+                  re.addSolidiVolatili(contenitore.get(s).getSolidivolatili());
+                  re.addSostanzaSecca(contenitore.get(s).getSostanzasecca());
+                }//else dfdfdf//   
+              
+        }
+        
+        return re;
+        
+        }
+        
+        
+        if( tipo.equals("Letame"))
+        {
+                
+        re = new Refluo(tipo);
+        
+        for(String  s:tipologie)
+        {
+               
+                if(s.contains("Letame") )
                 {
                   re.addAzotoAmmoniacale(contenitore.get(s).getAzotoammoniacale()) ;
                   re.addAzotoTotale(contenitore.get(s).getAzotototale());
@@ -137,6 +171,7 @@ public class ContenitoreReflui {
         return re;
         
         }
+        
         
         
         if(tipo.equals("Totale"))

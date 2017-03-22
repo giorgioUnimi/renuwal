@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author giorgio
  */
 @Entity
-@Table(catalog = "renuwal1", schema = "allevamento")
+@Table(catalog = "renuwal2", schema = "allevamento")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Dose.findAll", query = "SELECT d FROM Dose d"),
@@ -46,8 +46,8 @@ public class Dose implements Serializable {
     private Integer maxDose;
     @Column(name = "min_dose")
     private Integer minDose;
-    @OneToMany(mappedBy = "iddoseId")
-    private Collection<Efficienza> efficienzaCollection;
+    @OneToMany(mappedBy = "idDose")
+    private Collection<TabellaEfficienzaRefluoDose> tabellaEfficienzaRefluoDoseCollection;
 
     public Dose() {
     }
@@ -89,12 +89,12 @@ public class Dose implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Efficienza> getEfficienzaCollection() {
-        return efficienzaCollection;
+    public Collection<TabellaEfficienzaRefluoDose> getTabellaEfficienzaRefluoDoseCollection() {
+        return tabellaEfficienzaRefluoDoseCollection;
     }
 
-    public void setEfficienzaCollection(Collection<Efficienza> efficienzaCollection) {
-        this.efficienzaCollection = efficienzaCollection;
+    public void setTabellaEfficienzaRefluoDoseCollection(Collection<TabellaEfficienzaRefluoDose> tabellaEfficienzaRefluoDoseCollection) {
+        this.tabellaEfficienzaRefluoDoseCollection = tabellaEfficienzaRefluoDoseCollection;
     }
 
     @Override

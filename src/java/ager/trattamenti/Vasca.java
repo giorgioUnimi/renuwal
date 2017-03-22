@@ -285,7 +285,7 @@ public class Vasca extends Trattamento{
          * recupero il menu stoccaggi relativo al tipo di stoccaggio inserito 
          * nella tabella inputstoccaggis
          */
-        menu = stocco.getIdstoccaggio();
+        //menu = stocco.getIdstoccaggio();
         capacita1 = stocco.getCapacita();
         
         if(capacita1 > 0)
@@ -374,15 +374,15 @@ public class Vasca extends Trattamento{
         {
             db.StoccaggioI itero = iterStoccaggi.next();
             
-            if(itero.getIdstoccaggio().getForma().getTipo().equals("liquidi"))
+          /*  if(itero.getIdstoccaggio().getForma().getTipo().equals("liquidi"))
             {
                capacita +=  itero.getCapacita();
               
                /**
                 * imposta i costi
                 */
-                impostaGestionali(itero);
-            }
+               // impostaGestionali(itero);
+           // }
             
              this.scopertoTotale += itero.getSuperficiescoperta();
              
@@ -409,7 +409,7 @@ public class Vasca extends Trattamento{
         {
             db.StoccaggioI itero = iterStoccaggi.next();
             
-            if(itero.getIdstoccaggio().getForma().getId().equals("liquidi"))
+           /* if(itero.getIdstoccaggio().getForma().getId().equals("liquidi"))
             {
               
                 this.fnh3medio += (itero.getCapacita() * Double.parseDouble((classeparametri.getParametrodiprogetto(1,"fnh3", itero.getIdstoccaggio().toString(),null,null).getValore()))) / capacita;
@@ -418,7 +418,7 @@ public class Vasca extends Trattamento{
                 this.fsvmedio += (itero.getCapacita() * Double.parseDouble((classeparametri.getParametrodiprogetto(1,"fsv", itero.getIdstoccaggio().toString(),null,null).getValore()))) / capacita;
                 this.fnminmedio += (itero.getCapacita() * Double.parseDouble((classeparametri.getParametrodiprogetto(1,"fnmin", itero.getIdstoccaggio().toString(),null,null).getValore()))) / capacita;
                
-            }
+            }*/
         }
         
         

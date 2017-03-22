@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author giorgio
  */
 @Entity
-@Table(catalog = "renuwal1", schema = "allevamento")
+@Table(catalog = "renuwal2", schema = "allevamento")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Modalitadistribuzione.findAll", query = "SELECT m FROM Modalitadistribuzione m"),
@@ -41,8 +41,8 @@ public class Modalitadistribuzione implements Serializable {
     @Size(max = 255)
     @Column(length = 255)
     private String descrizione;
-    @OneToMany(mappedBy = "idmodalitadistribuzioneId")
-    private Collection<Efficienza> efficienzaCollection;
+    @OneToMany(mappedBy = "idModalita")
+    private Collection<TabellaEfficienzaColturaModalitaTecnica> tabellaEfficienzaColturaModalitaTecnicaCollection;
 
     public Modalitadistribuzione() {
     }
@@ -68,12 +68,12 @@ public class Modalitadistribuzione implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Efficienza> getEfficienzaCollection() {
-        return efficienzaCollection;
+    public Collection<TabellaEfficienzaColturaModalitaTecnica> getTabellaEfficienzaColturaModalitaTecnicaCollection() {
+        return tabellaEfficienzaColturaModalitaTecnicaCollection;
     }
 
-    public void setEfficienzaCollection(Collection<Efficienza> efficienzaCollection) {
-        this.efficienzaCollection = efficienzaCollection;
+    public void setTabellaEfficienzaColturaModalitaTecnicaCollection(Collection<TabellaEfficienzaColturaModalitaTecnica> tabellaEfficienzaColturaModalitaTecnicaCollection) {
+        this.tabellaEfficienzaColturaModalitaTecnicaCollection = tabellaEfficienzaColturaModalitaTecnicaCollection;
     }
 
     @Override

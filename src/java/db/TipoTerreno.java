@@ -5,27 +5,23 @@
 package db;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author giorgio
  */
 @Entity
-@Table(name = "tipo_terreno", catalog = "renuwal1", schema = "allevamento")
+@Table(name = "tipo_terreno", catalog = "renuwal2", schema = "allevamento")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TipoTerreno.findAll", query = "SELECT t FROM TipoTerreno t"),
@@ -41,10 +37,6 @@ public class TipoTerreno implements Serializable {
     @Size(max = 255)
     @Column(length = 255)
     private String descrizione;
-    @OneToMany(mappedBy = "idterrenoId")
-    private Collection<Efficienza> efficienzaCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoterreno")
-    private Collection<Appezzamento> appezzamentoCollection;
 
     public TipoTerreno() {
     }
@@ -67,24 +59,6 @@ public class TipoTerreno implements Serializable {
 
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
-    }
-
-    @XmlTransient
-    public Collection<Efficienza> getEfficienzaCollection() {
-        return efficienzaCollection;
-    }
-
-    public void setEfficienzaCollection(Collection<Efficienza> efficienzaCollection) {
-        this.efficienzaCollection = efficienzaCollection;
-    }
-
-    @XmlTransient
-    public Collection<Appezzamento> getAppezzamentoCollection() {
-        return appezzamentoCollection;
-    }
-
-    public void setAppezzamentoCollection(Collection<Appezzamento> appezzamentoCollection) {
-        this.appezzamentoCollection = appezzamentoCollection;
     }
 
     @Override

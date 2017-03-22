@@ -128,14 +128,14 @@ public class Acquastoccaggio implements Serializable {
           if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
          {
              Connessione connessione = Connessione.getInstance();
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
          }
         
         /**
          * mi serve per cancellare la cache prodotto dalla precedente query 
          */
         entityManager.getEntityManagerFactory().getCache().evictAll();
-        
+        //recupero i dati in base allo scenario 
         Query q = entityManager.createNamedQuery("ScenarioI.findByIdscenario").setParameter("idscenario", dettCuaa.getIdscenario());
         List<db.ScenarioI> sceList = (List<db.ScenarioI>)q.getResultList();
         db.ScenarioI sce = null;
@@ -145,17 +145,41 @@ public class Acquastoccaggio implements Serializable {
         else
            sce = sceList.get(0);
         
+        
+        
         if(sce.getAcquastoccaggioI() != null)
         {
             db.AcquastoccaggioI temp = sce.getAcquastoccaggioI();
             this.setAcquaImpianti(temp.getAcquaImpianti());
             this.setSuperfici_scoperte(temp.getSuperficiScoperte());
             this.setPioggia(temp.getPioggia());
-            this.setCapacita_liquidi(temp.getCapLiquidi1rac());
-            this.setCapacita_solidi(temp.getCapSolidi1rac());
-            this.setSuperfici_scoperte_liquidi(temp.getSupLiquidi1rac());
-            this.setSuperfici_scoperte_solidi(temp.getSupSolidi1rac());
+            //this.setCapacita_liquidi(temp.getCapLiquidi1rac());
+            //this.setCapacita_solidi(temp.getCapSolidi1rac());
+            //this.setSuperfici_scoperte_liquidi(temp.getSupLiquidi1rac());
+            //this.setSuperfici_scoperte_solidi(temp.getSupSolidi1rac());
         }
+        
+        
+        //ciclo sugli stoccaggi di questo sceanrio per sommare le superifici scoperte
+        //la cui somma diventerà il contenuto di superficie coperta vasche di acque aggiuntive
+        List<db.StoccaggioI> listaSto =(List<db.StoccaggioI>)sce.getStoccaggioICollection();
+        ListIterator<db.StoccaggioI> iterSto = listaSto.listIterator();
+        double temp1 = 0;
+        while(iterSto.hasNext())
+        {
+            db.StoccaggioI tt = iterSto.next();
+            temp1 +=tt.getSuperficiescoperta();
+        }
+        
+        this.setSuperfici_scoperte_liquidi(temp1);
+        //per calcolare le acque aggiuntive di acquastoccaggio devo applicare 
+        // la seguente forumula
+        //acque aggiuntive (m3): acqua lavaggio impianti (m3) + (superfici di stabulazione scoperte (m2)+superficie scoperta vasche (m2))*piovosità annua (mm)/1000
+        
+        double acque_agg = this.getAcquaImpianti() + (this.getSuperfici_scoperte() + temp1) * this.getPioggia() / 1000;
+        
+        this.setSuperfici_scoperte_solidi(acque_agg);
+        
     }
     
     /**
@@ -169,7 +193,7 @@ public class Acquastoccaggio implements Serializable {
          if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
          {
              Connessione connessione = Connessione.getInstance();
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
          }
         
         /**
@@ -241,17 +265,17 @@ public class Acquastoccaggio implements Serializable {
          if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
          {
              Connessione connessione = Connessione.getInstance();
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
          }
       
-          
+          System.out.println(Thread.currentThread().getStackTrace()[1].getClassName()+" "+Thread.currentThread().getStackTrace()[1].getMethodName() + " acqua impianti " + this.getAcquaImpianti() +" idscenario " +dettCuaa.getIdscenario().intValue() );
           
         db.AcquastoccaggioI acquaSto = entityManager.find(db.AcquastoccaggioI.class,dettCuaa.getIdscenario().intValue());
-        acquaSto.setAcquaImpianti(this.acquaImpianti);
+        acquaSto.setAcquaImpianti(this.getAcquaImpianti());
         acquaSto.setSuperficiScoperte(this.superfici_scoperte);
         acquaSto.setPioggia(this.pioggia);
-        acquaSto.setCapLiquidi1rac(this.capacita_solidi);
-        acquaSto.setCapSolidi1rac(this.capacita_solidi);
+        //acquaSto.setCapLiquidi1rac(this.capacita_solidi);
+        //acquaSto.setCapSolidi1rac(this.capacita_solidi);
         acquaSto.setSupLiquidi1rac(this.superfici_scoperte_liquidi);
         acquaSto.setSupSolidi1rac(this.superfici_scoperte_solidi);
         
@@ -301,7 +325,7 @@ public class Acquastoccaggio implements Serializable {
        /*  if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
          {
              Connessione connessione = Connessione.getInstance();
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
          }
         entityManager.getTransaction().begin();
         

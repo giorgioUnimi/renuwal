@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author giorgio
  */
 @Entity
-@Table(catalog = "renuwal1", schema = "allevamento")
+@Table(catalog = "renuwal2", schema = "allevamento")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Gruppocolturale.findAll", query = "SELECT g FROM Gruppocolturale g"),
@@ -40,8 +40,10 @@ public class Gruppocolturale implements Serializable {
     @Size(max = 255)
     @Column(length = 255)
     private String descrizione;
-    @OneToMany(mappedBy = "gruppocolturaleId")
-    private Collection<ColturaleColturaRotazione> colturaleColturaRotazioneCollection;
+    @OneToMany(mappedBy = "idGruppoColturale")
+    private Collection<Coltura> colturaCollection;
+    @OneToMany(mappedBy = "idGruppoColturale")
+    private Collection<TabellaEfficienzaColturaModalitaTecnica> tabellaEfficienzaColturaModalitaTecnicaCollection;
     @OneToMany(mappedBy = "idgruppocolturaleId")
     private Collection<Storicocolturaappezzamento> storicocolturaappezzamentoCollection;
 
@@ -69,12 +71,21 @@ public class Gruppocolturale implements Serializable {
     }
 
     @XmlTransient
-    public Collection<ColturaleColturaRotazione> getColturaleColturaRotazioneCollection() {
-        return colturaleColturaRotazioneCollection;
+    public Collection<Coltura> getColturaCollection() {
+        return colturaCollection;
     }
 
-    public void setColturaleColturaRotazioneCollection(Collection<ColturaleColturaRotazione> colturaleColturaRotazioneCollection) {
-        this.colturaleColturaRotazioneCollection = colturaleColturaRotazioneCollection;
+    public void setColturaCollection(Collection<Coltura> colturaCollection) {
+        this.colturaCollection = colturaCollection;
+    }
+
+    @XmlTransient
+    public Collection<TabellaEfficienzaColturaModalitaTecnica> getTabellaEfficienzaColturaModalitaTecnicaCollection() {
+        return tabellaEfficienzaColturaModalitaTecnicaCollection;
+    }
+
+    public void setTabellaEfficienzaColturaModalitaTecnicaCollection(Collection<TabellaEfficienzaColturaModalitaTecnica> tabellaEfficienzaColturaModalitaTecnicaCollection) {
+        this.tabellaEfficienzaColturaModalitaTecnicaCollection = tabellaEfficienzaColturaModalitaTecnicaCollection;
     }
 
     @XmlTransient

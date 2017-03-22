@@ -6,6 +6,7 @@ package operativo;
 
 import ager.ContenitoreReflui;
 import ager.Refluo;
+import ager.TipiReflui;
 import ager.trattamenti.ContenitoreAziendale;
 import java.io.Serializable;
 import java.util.Collection;
@@ -133,7 +134,7 @@ public class DettaglioAzienda implements Serializable{
          {
              Connessione connessione = Connessione.getInstance();
             
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
              entityManagerFactory = Connessione.getInstance().getEntityManagerFactory();
          }
         
@@ -354,25 +355,25 @@ public class DettaglioAzienda implements Serializable{
                 refluo = contenitoreIniziale.getTipologia("Liquame Bovino");
                 //lo imposto nelle caratteristiche chimiche
                 //se non è stato modificato dall'utente lo cambio altrimenti no
-            if (!caratteristica.getM3LBovM()) {
+            if (caratteristica.getM3LBovM()==null || !caratteristica.getM3LBovM()) {
                 caratteristica.setM3LBovU(refluo.getMetricubi());
             }
-            if (!caratteristica.getTanLBovM()) {
+            if (caratteristica.getTanLBovM()== null || !caratteristica.getTanLBovM()) {
                 caratteristica.setTknLBovU(refluo.getAzotototale());
             }
-            if (!caratteristica.getTknLBovM()) {
+            if (caratteristica.getTknLBovM()== null || !caratteristica.getTknLBovM()) {
                 caratteristica.setTanLBovU(refluo.getAzotoammoniacale());
             }
-            if (!caratteristica.getPLBovM()) {
+            if (caratteristica.getPLBovM()==null || !caratteristica.getPLBovM()) {
                 caratteristica.setPLBovU(refluo.getFosforototale());
             }
-            if (!caratteristica.getKLBovM()) {
+            if (caratteristica.getKLBovM()== null || !caratteristica.getKLBovM()) {
                 caratteristica.setKLBovU(refluo.getPotassiototale());
             }
-            if (!caratteristica.getVsLBovM()) {
+            if (caratteristica.getVsLBovM()==null || !caratteristica.getVsLBovM()) {
                 caratteristica.setVsLBovU(refluo.getSolidivolatili());
             }
-            if (!caratteristica.getDmLBovM()) {
+            if (caratteristica.getDmLBovM() == null || !caratteristica.getDmLBovM()) {
                 caratteristica.setDmLBovU(refluo.getSostanzasecca());
             }
                
@@ -381,25 +382,25 @@ public class DettaglioAzienda implements Serializable{
             refluo = contenitoreIniziale.getTipologia("Liquame Suino");
                 //lo imposto nelle caratteristiche chimiche
                 //se non è stato modificato dall'utente lo cambio altrimenti no
-            if (!caratteristica.getM3LSuiM()) {
+            if (caratteristica.getM3LSuiM() == null || !caratteristica.getM3LSuiM()) {
                 caratteristica.setM3LSuiU(refluo.getMetricubi());
             }
-            if (!caratteristica.getTanLSuiM()) {
+            if (caratteristica.getTanLSuiM() == null || !caratteristica.getTanLSuiM()) {
                 caratteristica.setTknLSuiU(refluo.getAzotototale());
             }
-            if (!caratteristica.getTknLSuiM()) {
+            if (caratteristica.getTknLSuiM()==null || !caratteristica.getTknLSuiM()) {
                 caratteristica.setTanLSuiU(refluo.getAzotoammoniacale());
             }
-            if (!caratteristica.getPLSuiM()) {
+            if (caratteristica.getPLSuiM()==null || !caratteristica.getPLSuiM()) {
                 caratteristica.setPLSuiU(refluo.getFosforototale());
             }
-            if (!caratteristica.getKLSuiM()) {
+            if (caratteristica.getKLSuiM()==null || !caratteristica.getKLSuiM()) {
                 caratteristica.setKLSuiU(refluo.getPotassiototale());
             }
-            if (!caratteristica.getVsLSuiM()) {
+            if (caratteristica.getVsLSuiM() == null || !caratteristica.getVsLSuiM()) {
                 caratteristica.setVsLSuiU(refluo.getSolidivolatili());
             }
-            if (!caratteristica.getDmLSuiM()) {
+            if (caratteristica.getDmLSuiM()== null || !caratteristica.getDmLSuiM()) {
                 caratteristica.setDmLSuiU(refluo.getSostanzasecca());
             }
             
@@ -407,25 +408,25 @@ public class DettaglioAzienda implements Serializable{
                 refluo = contenitoreIniziale.getTipologia("Liquame Avicolo");
                 //lo imposto nelle caratteristiche chimiche
                 //se non è stato modificato dall'utente lo cambio altrimenti no
-            if (!caratteristica.getM3LAviM()) {
+            if (caratteristica.getM3LAviM() == null || !caratteristica.getM3LAviM()) {
                 caratteristica.setM3LAviU(refluo.getMetricubi());
             }
-            if (!caratteristica.getTanLAviM()) {
+            if (caratteristica.getTanLAviM() == null || !caratteristica.getTanLAviM()) {
                 caratteristica.setTknLAviU(refluo.getAzotototale());
             }
-            if (!caratteristica.getTknLAviM()) {
+            if (caratteristica.getTknLAviM() == null || !caratteristica.getTknLAviM()) {
                 caratteristica.setTanLAviU(refluo.getAzotoammoniacale());
             }
-            if (!caratteristica.getPLAviM()) {
+            if (caratteristica.getPLAviM() == null || !caratteristica.getPLAviM()) {
                 caratteristica.setPLAviU(refluo.getFosforototale());
             }
-            if (!caratteristica.getKLAviM()) {
+            if (caratteristica.getKLAviM() == null || !caratteristica.getKLAviM()) {
                 caratteristica.setKLAviU(refluo.getPotassiototale());
             }
-            if (!caratteristica.getVsLAviM()) {
+            if (caratteristica.getVsLAviM()==null || !caratteristica.getVsLAviM()) {
                 caratteristica.setVsLAviU(refluo.getSolidivolatili());
             }
-            if (!caratteristica.getDmLAviM()) {
+            if (caratteristica.getDmLAviM()==null || !caratteristica.getDmLAviM()) {
                 caratteristica.setDmLAviU(refluo.getSostanzasecca());
             }
             
@@ -433,25 +434,25 @@ public class DettaglioAzienda implements Serializable{
                 refluo = contenitoreIniziale.getTipologia("Liquame Altro");
                 //lo imposto nelle caratteristiche chimiche
                 //se non è stato modificato dall'utente lo cambio altrimenti no
-            if (!caratteristica.getM3LAltM()) {
+            if (caratteristica.getM3LAltM()==null || !caratteristica.getM3LAltM()) {
                 caratteristica.setM3LAltU(refluo.getMetricubi());
             }
-            if (!caratteristica.getTanLAltM()) {
+            if (caratteristica.getTanLAltM()==null || !caratteristica.getTanLAltM()) {
                 caratteristica.setTknLAltU(refluo.getAzotototale());
             }
-            if (!caratteristica.getTknLAltM()) {
+            if (caratteristica.getTknLAltM()==null || !caratteristica.getTknLAltM()) {
                 caratteristica.setTanLAltU(refluo.getAzotoammoniacale());
             }
-            if (!caratteristica.getPLAltM()) {
+            if (caratteristica.getPLAltM()==null ||  !caratteristica.getPLAltM()) {
                 caratteristica.setPLAltU(refluo.getFosforototale());
             }
-            if (!caratteristica.getKLAltM()) {
+            if (caratteristica.getKLAltM() == null || !caratteristica.getKLAltM()) {
                 caratteristica.setKLAltU(refluo.getPotassiototale());
             }
-            if (!caratteristica.getVsLAltM()) {
+            if (caratteristica.getVsLAltM() == null || !caratteristica.getVsLAltM()) {
                 caratteristica.setVsLAltU(refluo.getSolidivolatili());
             }
-            if (!caratteristica.getDmLAltM()) {
+            if (caratteristica.getDmLAltM() == null || !caratteristica.getDmLAltM()) {
                 caratteristica.setDmLAltU(refluo.getSostanzasecca());
             }
             
@@ -459,25 +460,25 @@ public class DettaglioAzienda implements Serializable{
                 refluo = contenitoreIniziale.getTipologia("Liquame Biomassa");
                 //lo imposto nelle caratteristiche chimiche
                 //se non è stato modificato dall'utente lo cambio altrimenti no
-            if (!caratteristica.getM3LBioM()) {
+            if (caratteristica.getM3LBioM()==null || !caratteristica.getM3LBioM()) {
                 caratteristica.setM3LBioU(refluo.getMetricubi());
             }
-            if (!caratteristica.getTanLBioM()) {
+            if (caratteristica.getTanLBioM()==null || !caratteristica.getTanLBioM()) {
                 caratteristica.setTknLBioU(refluo.getAzotototale());
             }
-            if (!caratteristica.getTknLBioM()) {
+            if (caratteristica.getTknLBioM()==null || !caratteristica.getTknLBioM()) {
                 caratteristica.setTanLBioU(refluo.getAzotoammoniacale());
             }
-            if (!caratteristica.getPLBioM()) {
+            if (caratteristica.getPLBioM()==null || !caratteristica.getPLBioM()) {
                 caratteristica.setPLBioU(refluo.getFosforototale());
             }
-            if (!caratteristica.getKLBioM()) {
+            if (caratteristica.getKLBioM()==null || !caratteristica.getKLBioM()) {
                 caratteristica.setKLBioU(refluo.getPotassiototale());
             }
-            if (!caratteristica.getVsLBioM()) {
+            if (caratteristica.getVsLBioM()==null || !caratteristica.getVsLBioM()) {
                 caratteristica.setVsLBioU(refluo.getSolidivolatili());
             }
-            if (!caratteristica.getDmLBioM()) {
+            if (caratteristica.getDmLBioM()==null || !caratteristica.getDmLBioM()) {
                 caratteristica.setDmLBioU(refluo.getSostanzasecca());
             }
             
@@ -489,25 +490,25 @@ public class DettaglioAzienda implements Serializable{
                 refluo = contenitoreIniziale.getTipologia("Letame Bovino");
                 //lo imposto nelle caratteristiche chimiche
                 //se non è stato modificato dall'utente lo cambio altrimenti no
-            if (!caratteristica.getM3PBovM()) {
+            if (caratteristica.getM3PBovM()==null || !caratteristica.getM3PBovM()) {
                 caratteristica.setM3PBovU(refluo.getMetricubi());
             }
-            if (!caratteristica.getTanPBovM()) {
+            if (caratteristica.getTanPBovM()==null || !caratteristica.getTanPBovM()) {
                 caratteristica.setTknPBovU(refluo.getAzotototale());
             }
-            if (!caratteristica.getTknPBovM()) {
+            if (caratteristica.getTknPBovM()==null || !caratteristica.getTknPBovM()) {
                 caratteristica.setTanPBovU(refluo.getAzotoammoniacale());
             }
-            if (!caratteristica.getPPBovM()) {
+            if (caratteristica.getPPBovM()==null || !caratteristica.getPPBovM()) {
                 caratteristica.setPPBovU(refluo.getFosforototale());
             }
-            if (!caratteristica.getKPBovM()) {
+            if (caratteristica.getKPBovM()==null || !caratteristica.getKPBovM()) {
                 caratteristica.setKPBovU(refluo.getPotassiototale());
             }
-            if (!caratteristica.getVsPBovM()) {
+            if (caratteristica.getVsPBovM()==null || !caratteristica.getVsPBovM()) {
                 caratteristica.setVsPBovU(refluo.getSolidivolatili());
             }
-            if (!caratteristica.getDmPBovM()) {
+            if (caratteristica.getDmPBovM()==null || !caratteristica.getDmPBovM()) {
                 caratteristica.setDmPBovU(refluo.getSostanzasecca());
             }
                
@@ -516,25 +517,25 @@ public class DettaglioAzienda implements Serializable{
             refluo = contenitoreIniziale.getTipologia("Letame Suino");
                 //lo imposto nelle caratteristiche chimiche
                 //se non è stato modificato dall'utente lo cambio altrimenti no
-            if (!caratteristica.getM3PSuiM()) {
+            if (caratteristica.getM3PSuiM()==null || !caratteristica.getM3PSuiM()) {
                 caratteristica.setM3PSuiU(refluo.getMetricubi());
             }
-            if (!caratteristica.getTanPSuiM()) {
+            if (caratteristica.getTanPSuiM()==null || !caratteristica.getTanPSuiM()) {
                 caratteristica.setTknPSuiU(refluo.getAzotototale());
             }
-            if (!caratteristica.getTknPSuiM()) {
+            if (caratteristica.getTknPSuiM() == null || !caratteristica.getTknPSuiM()) {
                 caratteristica.setTanPSuiU(refluo.getAzotoammoniacale());
             }
-            if (!caratteristica.getPPSuiM()) {
+            if (caratteristica.getPPSuiM() == null || !caratteristica.getPPSuiM()) {
                 caratteristica.setPPSuiU(refluo.getFosforototale());
             }
-            if (!caratteristica.getKPSuiM()) {
+            if (caratteristica.getKPSuiM() == null || !caratteristica.getKPSuiM()) {
                 caratteristica.setKPSuiU(refluo.getPotassiototale());
             }
-            if (!caratteristica.getVsPSuiM()) {
+            if (caratteristica.getVsPSuiM() == null || !caratteristica.getVsPSuiM()) {
                 caratteristica.setVsPSuiU(refluo.getSolidivolatili());
             }
-            if (!caratteristica.getDmPSuiM()) {
+            if (caratteristica.getDmPSuiM() ==null || !caratteristica.getDmPSuiM()) {
                 caratteristica.setDmPSuiU(refluo.getSostanzasecca());
             }
             
@@ -542,25 +543,25 @@ public class DettaglioAzienda implements Serializable{
                 refluo = contenitoreIniziale.getTipologia("Letame Avicolo");
                 //lo imposto nelle caratteristiche chimiche
                 //se non è stato modificato dall'utente lo cambio altrimenti no
-            if (!caratteristica.getM3PAviM()) {
+            if (caratteristica.getM3PAviM()==null || !caratteristica.getM3PAviM()) {
                 caratteristica.setM3PAviU(refluo.getMetricubi());
             }
-            if (!caratteristica.getTanPAviM()) {
+            if (caratteristica.getTanPAviM()==null || !caratteristica.getTanPAviM()) {
                 caratteristica.setTknPAviU(refluo.getAzotototale());
             }
-            if (!caratteristica.getTknPAviM()) {
+            if (caratteristica.getTknPAviM()==null || !caratteristica.getTknPAviM()) {
                 caratteristica.setTanPAviU(refluo.getAzotoammoniacale());
             }
-            if (!caratteristica.getPPAviM()) {
+            if (caratteristica.getPPAviM()==null || !caratteristica.getPPAviM()) {
                 caratteristica.setPPAviU(refluo.getFosforototale());
             }
-            if (!caratteristica.getKPAviM()) {
+            if (caratteristica.getKPAviM()==null || !caratteristica.getKPAviM()) {
                 caratteristica.setKPAviU(refluo.getPotassiototale());
             }
-            if (!caratteristica.getVsPAviM()) {
+            if (caratteristica.getVsPAviM()==null || !caratteristica.getVsPAviM()) {
                 caratteristica.setVsPAviU(refluo.getSolidivolatili());
             }
-            if (!caratteristica.getDmPAviM()) {
+            if (caratteristica.getDmPAviM()==null || !caratteristica.getDmPAviM()) {
                 caratteristica.setDmPAviU(refluo.getSostanzasecca());
             }
             
@@ -568,25 +569,25 @@ public class DettaglioAzienda implements Serializable{
                 refluo = contenitoreIniziale.getTipologia("Letame Altro");
                 //lo imposto nelle caratteristiche chimiche
                 //se non è stato modificato dall'utente lo cambio altrimenti no
-            if (!caratteristica.getM3PAltM()) {
+            if (caratteristica.getM3PAltM()==null || !caratteristica.getM3PAltM()) {
                 caratteristica.setM3PAltU(refluo.getMetricubi());
             }
-            if (!caratteristica.getTanPAltM()) {
+            if (caratteristica.getTanPAltM()==null || !caratteristica.getTanPAltM()) {
                 caratteristica.setTknPAltU(refluo.getAzotototale());
             }
-            if (!caratteristica.getTknPAltM()) {
+            if (caratteristica.getTknPAltM()==null || !caratteristica.getTknPAltM()) {
                 caratteristica.setTanPAltU(refluo.getAzotoammoniacale());
             }
-            if (!caratteristica.getPPAltM()) {
+            if (caratteristica.getPPAltM()==null || !caratteristica.getPPAltM()) {
                 caratteristica.setPPAltU(refluo.getFosforototale());
             }
-            if (!caratteristica.getKPAltM()) {
+            if (caratteristica.getKPAltM() == null || !caratteristica.getKPAltM()) {
                 caratteristica.setKPAltU(refluo.getPotassiototale());
             }
-            if (!caratteristica.getVsPAltM()) {
+            if (caratteristica.getVsPAltM()==null || !caratteristica.getVsPAltM()) {
                 caratteristica.setVsPAltU(refluo.getSolidivolatili());
             }
-            if (!caratteristica.getDmPAltM()) {
+            if (caratteristica.getDmPAltM()==null || !caratteristica.getDmPAltM()) {
                 caratteristica.setDmPAltU(refluo.getSostanzasecca());
             }
             
@@ -594,25 +595,25 @@ public class DettaglioAzienda implements Serializable{
                 refluo = contenitoreIniziale.getTipologia("Letame Biomassa");
                 //lo imposto nelle caratteristiche chimiche
                 //se non è stato modificato dall'utente lo cambio altrimenti no
-            if (!caratteristica.getM3PBioM()) {
+            if (caratteristica.getM3PBioM()== null || !caratteristica.getM3PBioM()) {
                 caratteristica.setM3PBioU(refluo.getMetricubi());
             }
-            if (!caratteristica.getTanPBioM()) {
+            if (caratteristica.getTanPBioM()== null || !caratteristica.getTanPBioM()) {
                 caratteristica.setTknPBioU(refluo.getAzotototale());
             }
-            if (!caratteristica.getTknPBioM()) {
+            if (caratteristica.getTknPBioM()== null || !caratteristica.getTknPBioM()) {
                 caratteristica.setTanPBioU(refluo.getAzotoammoniacale());
             }
-            if (!caratteristica.getPPBioM()) {
+            if (caratteristica.getPPBioM() == null || !caratteristica.getPPBioM()) {
                 caratteristica.setPPBioU(refluo.getFosforototale());
             }
-            if (!caratteristica.getKPBioM()) {
+            if (caratteristica.getKPBioM() == null || !caratteristica.getKPBioM()) {
                 caratteristica.setKPBioU(refluo.getPotassiototale());
             }
-            if (!caratteristica.getVsPBioM()) {
+            if (caratteristica.getVsPBioM() == null || !caratteristica.getVsPBioM()) {
                 caratteristica.setVsPBioU(refluo.getSolidivolatili());
             }
-            if (!caratteristica.getDmPBioM()) {
+            if (caratteristica.getDmPBioM() == null || !caratteristica.getDmPBioM()) {
                 caratteristica.setDmPBioU(refluo.getSostanzasecca());
             }
             
@@ -621,7 +622,7 @@ public class DettaglioAzienda implements Serializable{
          
             if (entityManagerFactory == null || !(entityManagerFactory.isOpen())) {
                 connessione = Connessione.getInstance();
-                entityManager = connessione.apri("renuwal1");
+                entityManager = connessione.apri("renuwal2");
             }
 
             EntityTransaction tx = entityManager.getTransaction();
@@ -631,7 +632,7 @@ public class DettaglioAzienda implements Serializable{
             tx.commit();
 
 
-            connessione.chiudi();
+            Connessione.getInstance().chiudi();
             
             
             return caratteristica;
@@ -842,7 +843,7 @@ public class DettaglioAzienda implements Serializable{
         this.listaCaratteristicheLet.add(palt);
         this.listaCaratteristicheLet.add(pbio);
       
-        ContenitoreReflui cont = new ContenitoreReflui();
+        ContenitoreReflui cont = new ContenitoreReflui(TipiReflui.getInstance().getTipologieDaAllevamento());
         cont.setTipologia("Liquame Bovino", lbov);
         cont.setTipologia("Liquame Suino", lsui);
         cont.setTipologia("Liquame Avicolo", lavi);
@@ -911,7 +912,7 @@ public class DettaglioAzienda implements Serializable{
          if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
          {
              connessione = Connessione.getInstance();
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
          }
          
          
@@ -1127,7 +1128,7 @@ public class DettaglioAzienda implements Serializable{
 //         if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
 //         {
 //             connessione = Connessione.getInstance();
-//             entityManager = connessione.apri("renuwal1");
+//             entityManager = connessione.apri("renuwal2");
 //         }
 //        
 //        /**
@@ -1316,7 +1317,7 @@ public class DettaglioAzienda implements Serializable{
          {
              Connessione connessione = Connessione.getInstance();
             
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
              entityManagerFactory = Connessione.getInstance().getEntityManagerFactory();
          }
         

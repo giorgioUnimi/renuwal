@@ -211,7 +211,7 @@ public class RecordAllevamento {
                 if (desAllevamento != null && desAllevamento.length() != 0) {
                     if (desStabulazione != null && desStabulazione.length() != 0) {
 
-                      /*  entityManagerFactory = Persistence.createEntityManagerFactory("renuwal1");
+                      /*  entityManagerFactory = Persistence.createEntityManagerFactory("renuwal2");
                         entityManager = entityManagerFactory.createEntityManager();
                         jpa = (JpaEntityManager) entityManager.getDelegate();
                         serverSession = jpa.getServerSession();
@@ -222,7 +222,7 @@ public class RecordAllevamento {
                      if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
                             {
                                Connessione connessione = Connessione.getInstance();
-                               entityManager = connessione.apri("renuwal1");
+                               entityManager = connessione.apri("renuwal2");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                             }
                         
@@ -334,7 +334,7 @@ public class RecordAllevamento {
      */
     public ArrayList getListaSpecie() {
         
-        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal1");
+        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal2");
         entityManager = entityManagerFactory.createEntityManager();
         jpa = (JpaEntityManager) entityManager.getDelegate();
         serverSession = jpa.getServerSession();
@@ -344,7 +344,7 @@ public class RecordAllevamento {
          if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
                             {
                                Connessione connessione = Connessione.getInstance();
-                               entityManager = connessione.apri("renuwal1");
+                               entityManager = connessione.apri("renuwal2");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                             }
 
@@ -402,7 +402,7 @@ public class RecordAllevamento {
      */
     public ArrayList getListaCategorie() {
         
-        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal1");
+        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal2");
         entityManager = entityManagerFactory.createEntityManager();
         jpa = (JpaEntityManager) entityManager.getDelegate();
         serverSession = jpa.getServerSession();
@@ -411,7 +411,7 @@ public class RecordAllevamento {
          if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
                             {
                                Connessione connessione = Connessione.getInstance();
-                               entityManager = connessione.apri("renuwal1");
+                               entityManager = connessione.apri("renuwal2");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                             }
         
@@ -484,7 +484,7 @@ public class RecordAllevamento {
      */
     public ArrayList getListAllevamento() {
         
-        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal1");
+        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal2");
         entityManager = entityManagerFactory.createEntityManager();
         jpa = (JpaEntityManager) entityManager.getDelegate();
         serverSession = jpa.getServerSession();
@@ -493,7 +493,7 @@ public class RecordAllevamento {
          if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
                             {
                                Connessione connessione = Connessione.getInstance();
-                               entityManager = connessione.apri("renuwal1");
+                               entityManager = connessione.apri("renuwal2");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                             }
         
@@ -571,7 +571,7 @@ public class RecordAllevamento {
      */
     public ArrayList getListStabulazione() {
         
-        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal1");
+        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal2");
         entityManager = entityManagerFactory.createEntityManager();
         jpa = (JpaEntityManager) entityManager.getDelegate();
         serverSession = jpa.getServerSession();
@@ -581,7 +581,7 @@ public class RecordAllevamento {
          if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
                             {
                                Connessione connessione = Connessione.getInstance();
-                               entityManager = connessione.apri("renuwal1");
+                               entityManager = connessione.apri("renuwal2");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                             }
         

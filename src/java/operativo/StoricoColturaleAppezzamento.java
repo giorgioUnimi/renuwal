@@ -49,7 +49,7 @@ public class StoricoColturaleAppezzamento extends ListaAppezzamenti implements S
     
     private boolean checkboxReadOnly = true;
  
-     
+    private int page = 1; 
      //private List<RecordAppezzamento> listaAppezzamentiG;
     /**
      * Creates a new instance of StoricoColturaleAppezzamento
@@ -144,7 +144,7 @@ public class StoricoColturaleAppezzamento extends ListaAppezzamenti implements S
        if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }           
             
         /**
@@ -329,6 +329,20 @@ public class StoricoColturaleAppezzamento extends ListaAppezzamenti implements S
      */
     public void setCheckboxReadOnly(boolean checkboxReadOnly) {
         this.checkboxReadOnly = checkboxReadOnly;
+    }
+
+    /**
+     * @return the page
+     */
+    public int getPage() {
+        return page;
+    }
+
+    /**
+     * @param page the page to set
+     */
+    public void setPage(int page) {
+        this.page = page;
     }
 
   

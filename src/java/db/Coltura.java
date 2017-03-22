@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author giorgio
  */
 @Entity
-@Table(catalog = "renuwal1", schema = "allevamento")
+@Table(catalog = "renuwal2", schema = "allevamento")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Coltura.findAll", query = "SELECT c FROM Coltura c"),
@@ -46,13 +46,14 @@ public class Coltura implements Serializable {
     private String descrizione;
     @ManyToMany(mappedBy = "colturaCollection")
     private Collection<Asportazione> asportazioneCollection;
-    @OneToMany(mappedBy = "colturaId")
-    private Collection<ColturaleColturaRotazione> colturaleColturaRotazioneCollection;
     @OneToMany(mappedBy = "idcolturaId")
     private Collection<Residuoprecessione> residuoprecessioneCollection;
     @JoinColumn(name = "resa_id", referencedColumnName = "id")
     @ManyToOne
     private Resa resaId;
+    @JoinColumn(name = "id_gruppo_colturale", referencedColumnName = "id")
+    @ManyToOne
+    private Gruppocolturale idGruppoColturale;
     @JoinColumn(name = "asportazione_id", referencedColumnName = "id")
     @ManyToOne
     private Asportazione asportazioneId;
@@ -92,15 +93,6 @@ public class Coltura implements Serializable {
     }
 
     @XmlTransient
-    public Collection<ColturaleColturaRotazione> getColturaleColturaRotazioneCollection() {
-        return colturaleColturaRotazioneCollection;
-    }
-
-    public void setColturaleColturaRotazioneCollection(Collection<ColturaleColturaRotazione> colturaleColturaRotazioneCollection) {
-        this.colturaleColturaRotazioneCollection = colturaleColturaRotazioneCollection;
-    }
-
-    @XmlTransient
     public Collection<Residuoprecessione> getResiduoprecessioneCollection() {
         return residuoprecessioneCollection;
     }
@@ -115,6 +107,14 @@ public class Coltura implements Serializable {
 
     public void setResaId(Resa resaId) {
         this.resaId = resaId;
+    }
+
+    public Gruppocolturale getIdGruppoColturale() {
+        return idGruppoColturale;
+    }
+
+    public void setIdGruppoColturale(Gruppocolturale idGruppoColturale) {
+        this.idGruppoColturale = idGruppoColturale;
     }
 
     public Asportazione getAsportazioneId() {

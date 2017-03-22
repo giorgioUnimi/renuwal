@@ -85,14 +85,14 @@ public class Stoccaggio implements Serializable {
         
        
         
-        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal1");
+        /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal2");
         entityManager = entityManagerFactory.createEntityManager();
         jpa = (JpaEntityManager) entityManager.getDelegate();
         serverSession = jpa.getServerSession();*/
          if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
          {
              Connessione connessione = Connessione.getInstance();
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
          }
         /**
          * mi serve per cancellare la cache prodotto dalla precedente query 
@@ -233,7 +233,7 @@ public class Stoccaggio implements Serializable {
          int ultimo = getDataTable().getRowCount();
          DettaglioCuaa dettaglioCuaa = new DettaglioCuaa();
          String cuaa = dettaglioCuaa.getCuaa();
-         /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal1");
+         /*entityManagerFactory = Persistence.createEntityManagerFactory("renuwal2");
          entityManager = entityManagerFactory.createEntityManager();
          jpa = (JpaEntityManager) entityManager.getDelegate();
          serverSession = jpa.getServerSession();
@@ -244,7 +244,7 @@ public class Stoccaggio implements Serializable {
          if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
          {
              Connessione connessione = Connessione.getInstance();
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
          }
          
          
@@ -393,14 +393,14 @@ public class Stoccaggio implements Serializable {
         String cuaa="";
         long id = 0;
         
-       /* entityManagerFactory = Persistence.createEntityManagerFactory("renuwal1");
+       /* entityManagerFactory = Persistence.createEntityManagerFactory("renuwal2");
         entityManager = entityManagerFactory.createEntityManager();
         jpa = (JpaEntityManager) entityManager.getDelegate();*/
        
          if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
          {
              Connessione connessione = Connessione.getInstance();
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
          }
         
         Iterator<RecordStoccaggio> entries =  this.tabella.iterator();

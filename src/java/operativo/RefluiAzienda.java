@@ -431,7 +431,7 @@ if(dettaglioCuaa.getAlternativa() != null)
         if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
                             {
                                Connessione connessione = Connessione.getInstance();
-                               entityManager = connessione.apri("renuwal1");
+                               entityManager = connessione.apri("renuwal2");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                             }
       
@@ -918,7 +918,7 @@ if(dettaglioCuaa.getAlternativa() != null)
          }else
          {
              //modello = new Modello("/mnt/disco2/runmodello/","./solutore.out",String.valueOf(numerorandom),true); 
-             modello = new Modello("/home/giorgiogalassi/Documenti/solutorec/","./solutore1.out",String.valueOf(numerorandom1),true); 
+             modello = new Modello("/home/giorgiogalassi/Documenti/solutorec/","./solutore1_renuwal.out",String.valueOf(numerorandom1),true); 
          }
          
         //modello.risolvi();        

@@ -7,6 +7,7 @@ package operativo;
 import WebGui.ProgressBarBean;
 import ager.ContenitoreReflui;
 import ager.Refluo;
+import ager.TipiReflui;
 import ager.VincoliNormativi;
 import ager.trattamenti.ContenitoreAziendale;
 import multiobiettivo.Alternativa;
@@ -14,11 +15,13 @@ import java.io.IOException;
 import test.*;
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 //import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -90,6 +93,8 @@ public class LetturaRisultati extends Thread {
      */
     boolean flagOutput=true;
     
+    int scenario = 0;
+    
    /**
     * costruttore proveniente dalla classe solutore
     * @param leggi
@@ -130,13 +135,14 @@ public class LetturaRisultati extends Thread {
       * @param modello
       * @param operazioneScelta 
       */
-     public LetturaRisultati(InputOutputXml leggi,String numero,javax.servlet.jsp.JspWriter dinamicOut,Modello modello,String operazioneScelta)
+     public LetturaRisultati(InputOutputXml leggi,String numero,javax.servlet.jsp.JspWriter dinamicOut,Modello modello,String operazioneScelta, int scenario)
      {
          this.leggi = leggi;
          this.numero = numero;
          this.dinamicOut = dinamicOut;
          this.operazioneScelta = operazioneScelta;
          this.modello = modello;
+         this.scenario = scenario;
          
          
          //this.singolaAzienda = singola;
@@ -851,7 +857,7 @@ public class LetturaRisultati extends Thread {
                 
                  //chiudiHeadertable();    
                 break;
-          //caso chiamato direttamente dalla classe solutore per il progetto renuwal1  
+          //caso chiamato direttamente dalla classe solutore per il progetto renuwal2  
           case "singolamulti1":
                 String hh1 = leggi.cercaSingolo("//alternativa/scelta");
                 String padre = "//alternativa";
@@ -934,7 +940,7 @@ public class LetturaRisultati extends Thread {
              this.dinamicOut.println("<table class=\"localizzazioneTable2\">");
                 this.dinamicOut.println("<thead><tr><th>Ch4(Kg/m<sup>3</sup>)</th><th>Nh3(Kg/m<sup>3</sup>)</th><th>N2(Kg/m<sup>3</sup>)</th><th>N2o(Kg/m<sup>3</sup>)</th><th>Co2(Kg/m<sup>3</sup>)</th><th>No(Kg/m<sup>3</sup>)</th></tr></thead><tr>");
 
-            
+           
             
             for (int i = 0; i < temp.getLength(); i++) {
                 // this.dinamicOut.println("</br>");
@@ -1003,6 +1009,94 @@ public class LetturaRisultati extends Thread {
         }
     }
     
+    /**
+     * recupera dal file xml di output le caratteristiche chimiche di input ed output dall'impianto
+     * in funzione della query che gli viene passata.Recupera le caratteristiche chimiche di un tipolgia di refluo ovvero per
+     * esempio letame bovino e produce una riga della tabella.
+     * @param query 
+     */
+    private void caratteristichechimicheMCRich(String query, DecimalFormat dformat)
+    {
+        NodeList temp = null;
+        double ddfor =0;
+        //temp = null;
+        //String pattern1 = "(\\w*)([\\.,](\\w*))";
+        try {
+            temp = leggi.cerca1(query, true);
+            
+            //this.dinamicOut.println("<p class=\"labellocalizzazioneTable\">EMISSIONI</p>");
+             this.dinamicOut.println("<table class=\"localizzazioneTable2\" ><colgroup span=\"11\"></colgroup>");
+             this.dinamicOut.println("<thead >"
+                        + "<tr><th colspan=\"11\" >Valori al metro cubo</th></tr>"
+                        + "<tr><th colspan=\"6\" >Emissioni(Kg/m<sup>3</sup>)</th>"
+                        + "<th colspan=\"2\" >Costi(euro/a*m<sup>3</sup>)</th>"
+                        + "<th colspan=\"3\" >Energia(KWh/m<sup>3</sup>)</th></tr>");
+             this.dinamicOut.println("<thead>"
+                     + "<tr><th colspan=\"1\" >Ch4</th>"
+                     + "<th colspan=\"1\" >Nh3</th>"
+                     + "<th colspan=\"1\" >N2</th>"
+                     + "<th colspan=\"1\" >N2o</th>"
+                     + "<th colspan=\"1\" >Co2</th>"
+                     + "<th colspan=\"1\" >No</th>"
+                     + "<th colspan=\"1\" >Gestione Netto</th>"
+                     + "<th colspan=\"1\" >Costo lordo gestione</th>"
+                     + "<th colspan=\"1\" >Ricavo netto energia</th>"
+                     + "<th colspan=\"1\" >Prodotta</th>"
+                     + "<th colspan=\"1\" >Consumata</th>"
+                     + "</tr></thead>" );
+                     
+
+            this.dinamicOut.println("<tbody ><tr >");
+            
+            Map<String,String> valoriMC = new LinkedHashMap();
+            valoriMC.put("ch4","");
+            valoriMC.put("nh3","");
+            valoriMC.put("n2","");
+            valoriMC.put("n2o","");
+            valoriMC.put("co2","");
+            valoriMC.put("no","");
+            valoriMC.put("gestione","");
+            valoriMC.put("costo_netto_gestione","");
+            valoriMC.put("ricavo_netto_energia","");
+            valoriMC.put("energia_prodotta","");
+            valoriMC.put("energia_consumata","");
+            
+            for (int i = 0; i < temp.getLength(); i++) {
+                // this.dinamicOut.println("</br>");
+                if (temp.item(i).getNodeType() == Node.ELEMENT_NODE) // this.dinamicOut.println("<p>caratteristiche chimiche : " + temp.item(i).getFirstChild().getNodeValue() + " value " + temp.item(i).getNodeName()+"</p>");
+                // this.dinamicOut.println("<td>" + temp.item(i).getFirstChild().getNodeValue().replaceAll(pattern1, "$1") +"</td>");  
+                {
+                    String tt =temp.item(i).getFirstChild().getNodeValue();
+                    System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " +Thread.currentThread().getStackTrace()[1].getMethodName() + " valore letto da xml " +tt );
+                    
+                    //metto in valoriMC nella chiave indicata dal nome dell'item il suo valore
+                    //valoriMC.put(temp.item(i).getLocalName().trim(),dformat.format(Double.parseDouble(tt)));
+                    int po = tt.indexOf(".");
+                    tt = tt.substring(0, po + 3);
+                    valoriMC.put(temp.item(i).getLocalName().trim(),tt);
+                  
+                    }
+                }
+            
+            Iterator it = valoriMC.entrySet().iterator();
+            while(it.hasNext())
+            {
+                Map.Entry pair = (Map.Entry)it.next();
+                
+                this.dinamicOut.println("<td>"+ pair.getValue()+"</td>");
+            }
+            
+            
+         
+
+            this.dinamicOut.println("</tr></table>");
+
+            this.dinamicOut.println("<br/>"); 
+             
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
     
     /**
      * recupera dal file xml di output le caratteristiche chimiche di input ed output dall'impianto
@@ -1587,7 +1681,7 @@ public class LetturaRisultati extends Thread {
         if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
                             {
                                Connessione connessione = Connessione.getInstance();
-                               entityManager = connessione.apri("renuwal1");
+                               entityManager = connessione.apri("renuwal2");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                             }
          
@@ -1626,12 +1720,12 @@ public class LetturaRisultati extends Thread {
      {
          //String ritorno = "";
         
-          
+         
           
           if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
                             {
                                Connessione connessione = Connessione.getInstance();
-                               entityManager = connessione.apri("renuwal1");
+                               entityManager = connessione.apri("renuwal2");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                             }
          
@@ -1671,7 +1765,7 @@ public class LetturaRisultati extends Thread {
           if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
                             {
                                Connessione connessione = Connessione.getInstance();
-                               entityManager = connessione.apri("renuwal1");
+                               entityManager = connessione.apri("renuwal2");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                             }
          
@@ -1698,7 +1792,7 @@ public class LetturaRisultati extends Thread {
           if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
                             {
                                Connessione connessione = Connessione.getInstance();
-                               entityManager = connessione.apri("renuwal1");
+                               entityManager = connessione.apri("renuwal2");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                             }
          
@@ -2626,7 +2720,7 @@ public class LetturaRisultati extends Thread {
        
        Refluo ref = null;
        
-       ContenitoreReflui contenitore = new ContenitoreReflui();
+       ContenitoreReflui contenitore = new ContenitoreReflui(TipiReflui.getInstance().getTipologieDaAllevamento());
        
        for(String tipologia:contenitore.getTipologie())
        {
@@ -2666,6 +2760,223 @@ public class LetturaRisultati extends Thread {
        return contenitore;       
        
     }
+    
+    /**
+     * salva nella tabella risultati_confronto l'output del solutore. Questo record salvato 
+     * mi serve per capire se l'azienda identificata dallo scenario in questione ha effettuato un confronto
+     * tramite il solutore oppure no e quindi capire se è abilitato o meno a fare il piano di 
+     * concimazione
+     */
+    private void salvaRisultatoConfronto(ContenitoreReflui contenitore,int id_alternativa)
+    {       
+         if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
+         {
+            Connessione connessione = Connessione.getInstance();
+            entityManager = connessione.apri("renuwal2");
+         } 
+         
+         Query q = entityManager.createNamedQuery("AlternativeS.findById").setParameter("id", id_alternativa);
+         List<db.AlternativeS> alternative = q.getResultList();
+         
+         db.AlternativeS alternativa = null;
+         
+         if(alternative.isEmpty()) {
+            return;
+        }
+         else{
+             alternativa = alternative.get(0);
+         }
+             
+         
+         Query q1 = entityManager.createNamedQuery("RisultatoConfronto.findByIdScenario").setParameter("idScenario", this.scenario);
+         db.RisultatoConfronto risultatoConfronto = null;
+         
+         if(q1.getResultList().isEmpty()) {
+            risultatoConfronto = new db.RisultatoConfronto(this.scenario);
+        }
+         else
+         {
+             risultatoConfronto = (db.RisultatoConfronto)q1.getResultList().get(0);
+         }
+         
+         risultatoConfronto.setIdScenario(scenario);
+         risultatoConfronto.setIdAlternativa(alternativa);
+        // risultatoConfronto.setDigestato(alternativa.getDigestato() == 1);
+              
+         Refluo refluo = contenitore.getTipologia("Liquame Bovino");
+         
+         risultatoConfronto.setM3LBov(refluo.getMetricubi());
+         risultatoConfronto.setTknLBov(refluo.getAzotototale());
+         risultatoConfronto.setTanLBov(refluo.getAzotoammoniacale());
+         risultatoConfronto.setDmLBov(refluo.getSostanzasecca());
+         risultatoConfronto.setVsLBov(refluo.getSolidivolatili());
+         risultatoConfronto.setKLBov(refluo.getPotassiototale());
+         risultatoConfronto.setPLBov(refluo.getFosforototale());
+         
+         refluo = contenitore.getTipologia("Liquame Suino");
+         
+         risultatoConfronto.setM3LSui(refluo.getMetricubi());
+         risultatoConfronto.setTknLSui(refluo.getAzotototale());
+         risultatoConfronto.setTanLSui(refluo.getAzotoammoniacale());
+         risultatoConfronto.setDmLSui(refluo.getSostanzasecca());
+         risultatoConfronto.setVsLSui(refluo.getSolidivolatili());
+         risultatoConfronto.setKLSui(refluo.getPotassiototale());
+         risultatoConfronto.setPLSui(refluo.getFosforototale());
+         
+         refluo = contenitore.getTipologia("Liquame Avicolo");
+         
+         risultatoConfronto.setM3LAvi(refluo.getMetricubi());
+         risultatoConfronto.setTknLAvi(refluo.getAzotototale());
+         risultatoConfronto.setTanLAvi(refluo.getAzotoammoniacale());
+         risultatoConfronto.setDmLAvi(refluo.getSostanzasecca());
+         risultatoConfronto.setVsLAvi(refluo.getSolidivolatili());
+         risultatoConfronto.setKLAvi(refluo.getPotassiototale());
+         risultatoConfronto.setPLAvi(refluo.getFosforototale());
+         
+         refluo = contenitore.getTipologia("Liquame Biomassa");
+         
+         risultatoConfronto.setM3LBio(refluo.getMetricubi());
+         risultatoConfronto.setTknLBio(refluo.getAzotototale());
+         risultatoConfronto.setTanLBio(refluo.getAzotoammoniacale());
+         risultatoConfronto.setDmLBio(refluo.getSostanzasecca());
+         risultatoConfronto.setVsLBio(refluo.getSolidivolatili());
+         risultatoConfronto.setKLBio(refluo.getPotassiototale());
+         risultatoConfronto.setPLBio(refluo.getFosforototale());
+         
+         refluo = contenitore.getTipologia("Liquame Altro");
+         
+         risultatoConfronto.setM3LAlt(refluo.getMetricubi());
+         risultatoConfronto.setTknLAlt(refluo.getAzotototale());
+         risultatoConfronto.setTanLAlt(refluo.getAzotoammoniacale());
+         risultatoConfronto.setDmLAlt(refluo.getSostanzasecca());
+         risultatoConfronto.setVsLAlt(refluo.getSolidivolatili());
+         risultatoConfronto.setKLAlt(refluo.getPotassiototale());
+         risultatoConfronto.setPLAlt(refluo.getFosforototale());
+         
+         
+         
+         refluo = contenitore.getTipologia("Letame Bovino");
+         
+         risultatoConfronto.setM3PBov(refluo.getMetricubi());
+         risultatoConfronto.setTknPBov(refluo.getAzotototale());
+         risultatoConfronto.setTanPBov(refluo.getAzotoammoniacale());
+         risultatoConfronto.setDmPBov(refluo.getSostanzasecca());
+         risultatoConfronto.setVsPBov(refluo.getSolidivolatili());
+         risultatoConfronto.setKPBov(refluo.getPotassiototale());
+         risultatoConfronto.setPPBov(refluo.getFosforototale());
+         
+         refluo = contenitore.getTipologia("Letame Suino");
+         
+         risultatoConfronto.setM3PSui(refluo.getMetricubi());
+         risultatoConfronto.setTknPSui(refluo.getAzotototale());
+         risultatoConfronto.setTanPSui(refluo.getAzotoammoniacale());
+         risultatoConfronto.setDmPSui(refluo.getSostanzasecca());
+         risultatoConfronto.setVsPSui(refluo.getSolidivolatili());
+         risultatoConfronto.setKPSui(refluo.getPotassiototale());
+         risultatoConfronto.setPPSui(refluo.getFosforototale());
+         
+         refluo = contenitore.getTipologia("Letame Avicolo");
+         
+         risultatoConfronto.setM3PAvi(refluo.getMetricubi());
+         risultatoConfronto.setTknPAvi(refluo.getAzotototale());
+         risultatoConfronto.setTanPAvi(refluo.getAzotoammoniacale());
+         risultatoConfronto.setDmPAvi(refluo.getSostanzasecca());
+         risultatoConfronto.setVsPAvi(refluo.getSolidivolatili());
+         risultatoConfronto.setKPAvi(refluo.getPotassiototale());
+         risultatoConfronto.setPPAvi(refluo.getFosforototale());
+         
+         refluo = contenitore.getTipologia("Letame Biomassa");
+         
+         risultatoConfronto.setM3PBio(refluo.getMetricubi());
+         risultatoConfronto.setTknPBio(refluo.getAzotototale());
+         risultatoConfronto.setTanPBio(refluo.getAzotoammoniacale());
+         risultatoConfronto.setDmPBio(refluo.getSostanzasecca());
+         risultatoConfronto.setVsPBio(refluo.getSolidivolatili());
+         risultatoConfronto.setKPBio(refluo.getPotassiototale());
+         risultatoConfronto.setPPBio(refluo.getFosforototale());
+         
+         refluo = contenitore.getTipologia("Letame Altro");
+         
+         risultatoConfronto.setM3PAlt(refluo.getMetricubi());
+         risultatoConfronto.setTknPAlt(refluo.getAzotototale());
+         risultatoConfronto.setTanPAlt(refluo.getAzotoammoniacale());
+         risultatoConfronto.setDmPAlt(refluo.getSostanzasecca());
+         risultatoConfronto.setVsPAlt(refluo.getSolidivolatili());
+         risultatoConfronto.setKPAlt(refluo.getPotassiototale());
+         risultatoConfronto.setPPAlt(refluo.getFosforototale());
+         
+          entityManager.getTransaction().begin();
+          entityManager.persist(risultatoConfronto);
+          entityManager.getTransaction().commit();
+          
+          
+          Connessione.getInstance().chiudi();
+         
+    }
+    /*********************************************************************************
+     * 
+     * 
+     *              DA FINIRE    DA FINIRE    DA FINIRE
+     * 
+     * ********************************************************************************/
+    /**
+     * genera la tabella di output dei reflui senza usare i css Richfaces perchè non 
+     * riesco a gestire correttamente il toggle delle righe ed allora provo a costruirmene
+     * una io
+     * @param contenitore 
+     */
+    private void generaTabellaRefluiOut(ContenitoreReflui contenitore)
+    {
+         Refluo tot_letame = contenitore.totale("Letame");  
+         Refluo tot_liquame = contenitore.totale("Liquame");  
+         
+         Refluo letame_bovino = contenitore.getTipologia("Letame Bovino");  
+         Refluo letame_suino = contenitore.getTipologia("Letame Suino"); 
+         Refluo letame_avicolo = contenitore.getTipologia("Letame Avicolo"); 
+         Refluo letame_altro = contenitore.getTipologia("Letame Altro"); 
+         Refluo letame_biomasse = contenitore.getTipologia("Letame Biomassa"); 
+         
+         Refluo liquame_bovino = contenitore.getTipologia("Liquame Bovino");  
+         Refluo liquame_suino = contenitore.getTipologia("Liquame Suino"); 
+         Refluo liquame_avicolo = contenitore.getTipologia("Liquame Avicolo"); 
+         Refluo liquame_altro = contenitore.getTipologia("Liquame Altro"); 
+         Refluo liquame_biomasse = contenitore.getTipologia("Liquame Biomassa"); 
+         
+         try{
+          this.dinamicOut.println("<table class=\"localizzazioneTable3 righeBlue\">");
+          this.dinamicOut.println("<thead><tr><th>Tipo</th><th>Volume</th><th>TKN</th><th>TAN</th><th>DM</th><th>VS</th><th>K</th><th>P</th></tr></thead>");
+          this.dinamicOut.println("<tbody>");
+          this.dinamicOut.println("<tr><td><img alt='im1' id='imgsu'  src='/renuwal/faces/javax.faces.resource/org.richfaces/up_icon.gif'>"+tot_letame.getTipologia()+"</td><td>"+tot_letame.getMetricubi()+"</td><td>"+tot_letame.getAzotototale()+"</td><td>"+tot_letame.getAzotoammoniacale()+"</td><td>"+tot_letame.getSostanzasecca()+"</td><td>"+tot_letame.getSolidivolatili()+"</td><td>"+tot_letame.getPotassiototale()+"</td><td>"+tot_letame.getFosforototale()+"</td></tr>");
+          //this.dinamicOut.println("<tr><td>Tipo</th><th>Volume</td><td>TKN</td><td>TAN</td><td>DM</td><td>VS</td><td>K</td><td>P</td></tr>");
+          this.dinamicOut.println("<tr><td>Bovino</td><td>"+letame_bovino.getMetricubi()+"</td><td>"+letame_bovino.getAzotototale()+"</td><td>"+letame_bovino.getAzotoammoniacale()+"</td><td>"+letame_bovino.getSostanzasecca()+"</td><td>"+letame_bovino.getSolidivolatili()+"</td><td>"+letame_bovino.getPotassiototale()+"</td><td>"+letame_bovino.getFosforototale()+"</td></tr>");
+          this.dinamicOut.println("<tr><td>Suino</td><td>"+letame_suino.getMetricubi()+"</td><td>"+letame_suino.getAzotototale()+"</td><td>"+letame_suino.getAzotoammoniacale()+"</td><td>"+letame_suino.getSostanzasecca()+"</td><td>"+letame_suino.getSolidivolatili()+"</td><td>"+letame_suino.getPotassiototale()+"</td><td>"+letame_suino.getFosforototale()+"</td></tr>");
+          this.dinamicOut.println("<tr><td>Avicolo</td><td>"+letame_avicolo.getMetricubi()+"</td><td>"+letame_avicolo.getAzotototale()+"</td><td>"+letame_avicolo.getAzotoammoniacale()+"</td><td>"+letame_avicolo.getSostanzasecca()+"</td><td>"+letame_avicolo.getSolidivolatili()+"</td><td>"+letame_avicolo.getPotassiototale()+"</td><td>"+letame_avicolo.getFosforototale()+"</td></tr>");
+          this.dinamicOut.println("<tr><td>Altro</td><td>"+letame_altro.getMetricubi()+"</td><td>"+letame_altro.getAzotototale()+"</td><td>"+letame_altro.getAzotoammoniacale()+"</td><td>"+letame_altro.getSostanzasecca()+"</td><td>"+letame_altro.getSolidivolatili()+"</td><td>"+letame_altro.getPotassiototale()+"</td><td>"+letame_altro.getFosforototale()+"</td></tr>");
+          this.dinamicOut.println("<tr><td>Biomassa</td><td>"+letame_biomasse.getMetricubi()+"</td><td>"+letame_biomasse.getAzotototale()+"</td><td>"+letame_biomasse.getAzotoammoniacale()+"</td><td>"+letame_biomasse.getSostanzasecca()+"</td><td>"+letame_biomasse.getSolidivolatili()+"</td><td>"+letame_biomasse.getPotassiototale()+"</td><td>"+letame_biomasse.getFosforototale()+"</td></tr>");
+          this.dinamicOut.println("<tr><td><img alt='im2' id='imgsu1' src='/renuwal/faces/javax.faces.resource/org.richfaces/up_icon.gif'>"+tot_liquame.getTipologia()+"</td><td>"+tot_liquame.getMetricubi()+"</td><td>"+tot_liquame.getAzotototale()+"</td><td>"+tot_liquame.getAzotoammoniacale()+"</td><td>"+tot_liquame.getSostanzasecca()+"</td><td>"+tot_liquame.getSolidivolatili()+"</td><td>"+tot_liquame.getPotassiototale()+"</td><td>"+tot_liquame.getFosforototale()+"</td></tr>");
+          //this.dinamicOut.println("<tr><td>Tipo</th><th>Volume</td><td>TKN</td><td>TAN</td><td>DM</td><td>VS</td><td>K</td><td>P</td></tr>");
+          this.dinamicOut.println("<tr><td>Bovino</td><td>"+liquame_bovino.getMetricubi()+"</td><td>"+liquame_bovino.getAzotototale()+"</td><td>"+liquame_bovino.getAzotoammoniacale()+"</td><td>"+liquame_bovino.getSostanzasecca()+"</td><td>"+liquame_bovino.getSolidivolatili()+"</td><td>"+liquame_bovino.getPotassiototale()+"</td><td>"+liquame_bovino.getFosforototale()+"</td></tr>");
+          this.dinamicOut.println("<tr><td>Suino</td><td>"+liquame_suino.getMetricubi()+"</td><td>"+liquame_suino.getAzotototale()+"</td><td>"+liquame_suino.getAzotoammoniacale()+"</td><td>"+liquame_suino.getSostanzasecca()+"</td><td>"+liquame_suino.getSolidivolatili()+"</td><td>"+liquame_suino.getPotassiototale()+"</td><td>"+liquame_suino.getFosforototale()+"</td></tr>");
+          this.dinamicOut.println("<tr><td>Avicolo</td><td>"+liquame_avicolo.getMetricubi()+"</td><td>"+liquame_avicolo.getAzotototale()+"</td><td>"+liquame_avicolo.getAzotoammoniacale()+"</td><td>"+liquame_avicolo.getSostanzasecca()+"</td><td>"+liquame_avicolo.getSolidivolatili()+"</td><td>"+liquame_avicolo.getPotassiototale()+"</td><td>"+liquame_avicolo.getFosforototale()+"</td></tr>");
+          this.dinamicOut.println("<tr><td>Altro</td><td>"+liquame_altro.getMetricubi()+"</td><td>"+liquame_altro.getAzotototale()+"</td><td>"+liquame_altro.getAzotoammoniacale()+"</td><td>"+liquame_altro.getSostanzasecca()+"</td><td>"+liquame_altro.getSolidivolatili()+"</td><td>"+liquame_altro.getPotassiototale()+"</td><td>"+liquame_altro.getFosforototale()+"</td></tr>");
+          this.dinamicOut.println("<tr><td>Biomassa</td><td>"+liquame_biomasse.getMetricubi()+"</td><td>"+liquame_biomasse.getAzotototale()+"</td><td>"+liquame_biomasse.getAzotoammoniacale()+"</td><td>"+liquame_biomasse.getSostanzasecca()+"</td><td>"+liquame_biomasse.getSolidivolatili()+"</td><td>"+liquame_biomasse.getPotassiototale()+"</td><td>"+liquame_biomasse.getFosforototale()+"</td></tr>");
+
+          this.dinamicOut.println("</tbody>");
+          this.dinamicOut.println("</table>");
+         }catch(Exception ex)
+         {
+             ex.printStackTrace();
+         };
+    }
+    
+    /**
+     * mostra il risultato del solutore
+     * 
+     * @param leggi
+     * @param cache
+     * @param padre
+     * @param alternativa 
+     */
     private void recuperaSingola2multiRich(InputOutputXml leggi,boolean cache,String padre,String alternativa)  {
          
         // System.out.println("+++++++++++++"+padre+"++++++++++++++" + alternativa);
@@ -2711,6 +3022,11 @@ public class LetturaRisultati extends Thread {
               * dal solutore
               */   
              ContenitoreReflui contenitore = this.recuperaRefluo(leggi);
+             
+             
+             //salvo i risultati ottenuti dal solutore nel db
+             salvaRisultatoConfronto(contenitore,Integer.parseInt(alternativa));
+             
                 /**
                  * verifica dei vincoli nomrativi
                  */
@@ -2760,6 +3076,14 @@ public class LetturaRisultati extends Thread {
                 //this.dinamicOut.println("<thead><tr><th>Tipologia</th><th>Volume(m<sup>3</sup>)</th><th>TKN(kg)</th><th>TAN(kg)</th><th>DM(kg)</th><th>VS(kg)</th><th>P(kg)</th><th>K(kg)</th></tr></thead>");
                  //this.dinamicOut.println("<p><h3>Descrizione parametri :</h3><br/><ul><li><b># Alt :</b> numero alternativa </li><li><b>Descrizione :</b> composizione in moduli dell'alternativa </li><li><b>Em A :</b>emissioni acide =nh3(Kg) </li><li><b>Em G :</b>emissioni gas serra = ch4 + co2 + n2o + n0(Kg) </li><li><b>Energia :</b> energia(KWh) consumata - prodotta </li><li><b>Costo :</b>  gestione(esercizio)(Euro)</li><li><b>% surplus :</b> (refluo prodotto - distribuzione sui terreni aziendali) / refluo prodotto  </li></ul>");
               this.dinamicOut.println("<br/><br/>");
+              
+              /**
+               * per sostituire la tabella con le classi richfaces
+               */
+              this.generaTabellaRefluiOut(contenitore);
+              
+            /*  
+              
              this.dinamicOut.println("<table id='form:tablexmlA' class='rf-dt' style='width:700px;'>");
              this.dinamicOut.println("<colgroup span='8'></colgroup>");
              this.dinamicOut.println("<thead id='form:tablexmlA:th' class='rf-dt-thd'>");
@@ -2788,7 +3112,7 @@ public class LetturaRisultati extends Thread {
                                         +"<img alt='' src='/renuwal/faces/javax.faces.resource/org.richfaces/down_icon.gif'>\n"
                                         +"</span>\n"
                                         +"<script>\n"
-                                        +"new RichFaces.ui.CollapsibleSubTableToggler('form:tablexmlA:0:j_idt155',{'expandedControl':'form:tablexmlA:0:j_idt155:expanded','collapsedControl':'form:tablexmlA:0:j_idt155:collapsed','eventName':'click','forId':'form:tablexmlA:0:sbtbl'} )\n"
+                                        +"new RichFaces.ui.CollapsibleSubTableToggler('form:tablexmlA:0:j_idt155',{'expandedControl':'form:tablexmlA:0:j_idt155:expandeded','expandedControl':'form:tablexmlA:0:j_idt155:expanded','eventName':'click','forId':'form:tablexmlA:0:sbtbl'} )\n"
                                         +"</script>\n"
                                         +"</span>\n"
                                         +"Letame\n"
@@ -2803,8 +3127,8 @@ public class LetturaRisultati extends Thread {
                      );
              
              
-             this.dinamicOut.println("<tbody id='form:tablexmlA:0:sbtbl:c' class='rf-cst' style=''>\n"
-                                     +"<tr id='form:tablexmlA:0:sbtbl' style='display: none;'>\n"
+             this.dinamicOut.println("<tbody id='form:tablexmlA:0:sbtbl:c' class='rf-cst' >\n"
+                                     +"<tr id='form:tablexmlA:0:sbtbl' >\n"
                                      +"<td></td>\n"
                                      +"</tr>\n"
                                      +"<tr id='form:tablexmlA:0:sbtbl:ch' class='rf-cst-shdr'>\n"
@@ -2835,7 +3159,7 @@ public class LetturaRisultati extends Thread {
              
                 ref = contenitore.getTipologia("Letame Suino");  
              
-                this.dinamicOut.println("<tr id='form:tablexmlA:0:sbtbl:1:b' class='rf-cst-r rf-cst-fst-r odd-row'>\n"
+               this.dinamicOut.println("<tr id='form:tablexmlA:0:sbtbl:c:1'  class='rf-cst-r rf-cst-fst-r odd-row'>\n"
                                     +"<td id='form:tablexmlA:0:sbtbl:1:j_idt178' class='rf-cst-c' style='background-color: #58ACFA;'>Letame Suino</td>\n"
                                     +"<td id='form:tablexmlA:0:sbtbl:1:j_idt181' class='rf-cst-c' style='background-color: #58ACFA;'>\n"
                                     +"<span style='width:30px;'>"+ref.getMetricubi()+"</span>\n"
@@ -2850,7 +3174,7 @@ public class LetturaRisultati extends Thread {
                  
                  ref = contenitore.getTipologia("Letame Avicolo");  
              
-                this.dinamicOut.println("<tr id='form:tablexmlA:0:sbtbl:2:b' class='rf-cst-r rf-cst-fst-r odd-row'>\n"
+                this.dinamicOut.println("<tr id='form:tablexmlA:0:sbtbl:2:b'  class='rf-cst-r rf-cst-fst-r odd-row'>\n"
                                     +"<td id='form:tablexmlA:0:sbtbl:2:j_idt178' class='rf-cst-c' style='background-color: #58ACFA;'>Letame Avicolo</td>\n"
                                     +"<td id='form:tablexmlA:0:sbtbl:2:j_idt181' class='rf-cst-c' style='background-color: #58ACFA;'>\n"
                                     +"<span style='width:30px;'>"+ref.getMetricubi()+"</span>\n"
@@ -2865,7 +3189,7 @@ public class LetturaRisultati extends Thread {
                 
                  ref = contenitore.getTipologia("Letame Altro");  
              
-                this.dinamicOut.println("<tr id='form:tablexmlA:0:sbtbl:3:b' class='rf-cst-r rf-cst-fst-r odd-row'>\n"
+                this.dinamicOut.println("<tr id='form:tablexmlA:0:sbtbl:3:b'  class='rf-cst-r rf-cst-fst-r odd-row'>\n"
                                     +"<td id='form:tablexmlA:0:sbtbl:3:j_idt178' class='rf-cst-c' style='background-color: #58ACFA;'>Letame Altro</td>\n"
                                     +"<td id='form:tablexmlA:0:sbtbl:3:j_idt181' class='rf-cst-c' style='background-color: #58ACFA;'>\n"
                                     +"<span style='width:30px;'>"+ref.getMetricubi()+"</span>\n"
@@ -2880,8 +3204,8 @@ public class LetturaRisultati extends Thread {
                 
                  ref = contenitore.getTipologia("Letame Biomassa");  
              
-                this.dinamicOut.println("<tr id='form:tablexmlA:0:sbtbl:4:b' class='rf-cst-r rf-cst-fst-r odd-row'>\n"
-                                    +"<td id='form:tablexmlA:0:sbtbl:4:j_idt178' class='rf-cst-c' style='background-color: #58ACFA;'>Letame Suino</td>\n"
+                this.dinamicOut.println("<tr id='form:tablexmlA:0:sbtbl:4:b'  class='rf-cst-r rf-cst-fst-r odd-row'>\n"
+                                    +"<td id='form:tablexmlA:0:sbtbl:4:j_idt178' class='rf-cst-c' style='background-color: #58ACFA;'>Letame Biomassa</td>\n"
                                     +"<td id='form:tablexmlA:0:sbtbl:4:j_idt181' class='rf-cst-c' style='background-color: #58ACFA;'>\n"
                                     +"<span style='width:30px;'>"+ref.getMetricubi()+"</span>\n"
                                     +"</td>\n"
@@ -2891,7 +3215,7 @@ public class LetturaRisultati extends Thread {
                                     +"<td id='form:tablexmlA:0:sbtbl:4:j_idt193' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getSolidivolatili()+"</td>\n"
                                     +"<td id='form:tablexmlA:0:sbtbl:4:j_idt196' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getPotassiototale()+"</td>\n"
                                     +"<td id='form:tablexmlA:0:sbtbl:4:j_idt199' class='rf-cst-c' style='background-color: #58ACFA;'>"+ref.getFosforototale()+"</td>\n"
-                                    +"</tr>\n");
+                                    +"</tr></tbody>\n");
                 
                 this.dinamicOut.println("<tr id='form:tablexmlA:0:sbtbl:sc' style='display: none;'>\n"
                                         +"<td>\n"
@@ -2916,7 +3240,7 @@ public class LetturaRisultati extends Thread {
                                         +"<img alt='' src='/renuwal/faces/javax.faces.resource/org.richfaces/down_icon.gif'>\n"
                                         +"</span>\n"
                                         +"<script>\n"
-                                        +"new RichFaces.ui.CollapsibleSubTableToggler('form:tablexmlA:1:j_idt155',{'exapandedControl':'form:tablexmlA:1:j_idt155:expanded','collapsedControl':'form:tablexmlA:1:j_idt155:collapsed','eventName':'click','forId':'form:tablexmlA:1:sbtbl'} )\n"
+                                        +"new RichFaces.ui.CollapsibleSubTableToggler('form:tablexmlA:1:j_idt155',{'exapandedControl':'form:tablexmlA:1:j_idt155:collapsed','collapsedControl':'form:tablexmlA:1:j_idt155:collapsed','eventName':'click','forId':'form:tablexmlA:1:sbtbl'} )\n"
                                         +"</script>\n"
                                         +"</span>\n"
                                         +"Liquame"
@@ -3010,7 +3334,7 @@ public class LetturaRisultati extends Thread {
                  ref = contenitore.getTipologia("Liquame Biomassa");  
              
                 this.dinamicOut.println("<tr id='form:tablexmlA:1:sbtbl:4:b' class='rf-cst-r rf-cst-fst-r odd-row'>\n"
-                                    +"<td id='form:tablexmlA:1:sbtbl:4:j_idt178' class='rf-cst-c' style='background-color: #58ACFA;'>Liquame Suino</td>\n"
+                                    +"<td id='form:tablexmlA:1:sbtbl:4:j_idt178' class='rf-cst-c' style='background-color: #58ACFA;'>Liquame Biomassa</td>\n"
                                     +"<td id='form:tablexmlA:1:sbtbl:4:j_idt181' class='rf-cst-c' style='background-color: #58ACFA;'>\n"
                                     +"<span style='width:30px;'>"+ref.getMetricubi()+"</span>\n"
                                     +"</td>\n"
@@ -3034,7 +3358,7 @@ public class LetturaRisultati extends Thread {
                 
                 
                 
-                this.dinamicOut.println("</table>");
+                this.dinamicOut.println("</table>");*/
 
 
                 
@@ -3042,21 +3366,27 @@ public class LetturaRisultati extends Thread {
                 String pattern1 = "(\\w*)([\\.,](\\w*))";
                 
                 //EMISSIONI AGRO
-                this.dinamicOut.println("<p class=\"labellocalizzazioneTable\">EMISSIONI AGRO</p>");
-                this.dinamicOut.println("<table class=\"localizzazioneTable2\">");
-                this.dinamicOut.println("<thead><tr><th>NH3(kg/ha)</th><th>DRAINAGE(mm)</th><th>LEACH(kg/ha)</th></tr></thead>");
+                //this.dinamicOut.println("<br/><p class=\"labellocalizzazioneTable\">EMISSIONI AGRO</p>");
+                //this.dinamicOut.println("<table class=\"localizzazioneTable2\">");
+                this.dinamicOut.println("<br/><table class=\"localizzazioneTable2\" ><colgroup span=\"9\"></colgroup>");
+                //this.dinamicOut.println("<thead ><tr><th>NH3(kg/ha)</th><th>DRAINAGE(mm)</th><th>LEACH(kg/ha)</th></tr></thead>");
+                this.dinamicOut.println("<thead >"
+                        + "<tr><th colspan=\"9\" >Emissioni</th></tr>"
+                        + "<tr><th colspan=\"3\" >Agro</th>"
+                        + "<th colspan=\"6\" >ZooTecniche</th></tr>"
+                        + "<tr ><th colspan=\"1\" >Nh3(kg/ha)</th><th  colspan=\"1\">Drainage(mm)</th><th colspan=\"1\">Leach(kg/ha)</th><th colspan=\"1\">Ch4(kg)</th><th colspan=\"1\">Nh3(kg)</th><th  colspan=\"1\">N2(kg)</th><th colspan=\"1\">N2O(kg)</th><th colspan=\"1\">CO2(kg)</th><th colspan=\"1\">NO(kg)</th></tr></thead>");
 
-                this.dinamicOut.println("<tr>");
+                this.dinamicOut.println("<tbody ><tr >");
                 caratteristichechimiche(padre + "/totali/emissioni_agro");
-                
-                this.dinamicOut.println("</tr>");
+                caratteristichechimiche(padre + "/totali/emissioni");
+                this.dinamicOut.println("</tr></tbody>");
                 this.dinamicOut.println("</table>");
                 
                 
                 
                 
                 //EMISSIONI
-                this.dinamicOut.println("<p class=\"labellocalizzazioneTable\">EMISSIONI</p>");
+                /*this.dinamicOut.println("<p class=\"labellocalizzazioneTable\">EMISSIONI</p>");
                 this.dinamicOut.println("<table class=\"localizzazioneTable2\">");
                 this.dinamicOut.println("<thead><tr><th>CH4(kg)</th><th>NH3(kg)</th><th>N2(kg)</th><th>N20(kg)</th><th>CO2(kg)</th><th>No(kg)</th></tr></thead>");
 
@@ -3066,37 +3396,49 @@ public class LetturaRisultati extends Thread {
                caratteristichechimiche(padre + "/totali/emissioni");
                 
                 this.dinamicOut.println("</tr>");
-                this.dinamicOut.println("</table>");
+                this.dinamicOut.println("</table>");*/
 
 
                 //COSTI
-                this.dinamicOut.println("<p class=\"labellocalizzazioneTable\">COSTI</p>");
-                this.dinamicOut.println("<table class=\"localizzazioneTable2\">");
-                this.dinamicOut.println("<thead><tr><th>Investimento(euro)</th><th>Gestione Netto(euro/a)</th><th>Costo Lordo gestione(euro/a)</th><th>Ricavo Lordo energia(euro/a)</th><th>Ricavo ammonio(euro)</th></tr></thead>");
-                this.dinamicOut.println("<tr>");
+                //this.dinamicOut.println("<p class=\"labellocalizzazioneTable\">COSTI</p>");
+                this.dinamicOut.println("<br/><table class=\"localizzazioneTable2\"><colgroup span=\"8\"></colgroup>");
+                this.dinamicOut.println("<thead >"
+                        + "<tr><th colspan=\"5\" >Costi-Ricavi</th>"
+                        + "<th colspan=\"3\" >Energia(KWh)</th></tr>" 
+                        +"<tr><th  colspan=\"1\">Investimento(euro)</th>"
+                        + "<th  colspan=\"1\">Gestione Netto(euro/a)</th>"
+                        + "<th  colspan=\"1\">Costo Lordo gestione(euro/a)</th>"
+                        + "<th  colspan=\"1\">Ricavo Lordo energia(euro/a)</th>"
+                        + "<th  colspan=\"1\">Ricavo ammonio(euro)</th>"
+                        + "<th  colspan=\"1\">Prodotta</th>"
+                        + "<th  colspan=\"1\">Consumata</th>"
+                        + "<th  colspan=\"1\">Venduta</th>"
+                        + "</tr></thead>");
+                this.dinamicOut.println("<tbody ><tr >");
 
                  caratteristichechimiche(padre + "/totali/costi");
-
+                 caratteristichechimiche(padre + "/totali/energia");
+                 
                 this.dinamicOut.println("</tr>");
-                this.dinamicOut.println("</table>");
+                this.dinamicOut.println("</tbody></table>");
 
                 //ENERGIA
-                this.dinamicOut.println("<p class=\"labellocalizzazioneTable\">ENERGIA</p>");
+               /* this.dinamicOut.println("<p class=\"labellocalizzazioneTable\">ENERGIA</p>");
                 this.dinamicOut.println("<table class=\"localizzazioneTable2\">");
                 this.dinamicOut.println("<thead><tr><th>Energia Prodotta(KWh)</th><th>Energia consumata(KWh)</th><th>Energia Venduta(KWh)</th></tr></thead><tr>");
           
                 caratteristichechimiche(padre + "/totali/energia");
                 this.dinamicOut.println("</tr>");
-                this.dinamicOut.println("</table>");
+                this.dinamicOut.println("</table>");*/
 
 
                 this.dinamicOut.println("<br/>");
-                this.dinamicOut.println("<p class=\"labellocalizzazioneTable\">VALORI AL METRO CUBO</p>");
+                //this.dinamicOut.println("<p class=\"labellocalizzazioneTable\">VALORI AL METRO CUBO</p>");
            
                 //lo uso per le emissioni,costi , energie dei valori al metro cubo per mostrare due cifre decimali
                 DecimalFormat dformat = new DecimalFormat("#0.00");
              
-                caratteristichechimicheMC(padre + "/totali/valori_al_metro_cubo",dformat);
+                caratteristichechimicheMCRich(padre + "/totali/valori_al_metro_cubo",dformat);
                 
                 this.dinamicOut.println("<br/>");
                 //VALORI AL METRO CUBO energia
@@ -3920,36 +4262,47 @@ public class LetturaRisultati extends Thread {
              
 
              
-                boolean tabellarossa = false;
+                boolean[] tabellarossa = new boolean[4];
+                for(int i = 0; i < tabellarossa.length;i++)
+                    tabellarossa[i] = false;
+                //verifica surplus su liquame
                 if (datitotali[0][0] > 0 || datitotali[0][1] > 0 || datitotali[0][2] > 0 ||datitotali[0][3] > 0 ||datitotali[0][4] > 0 )
-                       tabellarossa = true;
+                       tabellarossa[0] = true;
+                //verifica surplus su letame
+                if (datitotali[1][0] > 0 || datitotali[1][1] > 0 || datitotali[1][2] > 0 || datitotali[1][3] > 0 || datitotali[1][4] > 0)
+                       tabellarossa[1] = true;
+                  //verifica surplus su liquame azoto
+                if (datitotali[2][0] > 0 || datitotali[2][1] > 0 ||datitotali[2][2] > 0 || datitotali[2][3] > 0 || datitotali[2][4] > 0) {
+                    tabellarossa[2] = true;
+                }              
+                //verififca surplus su letame azoto
+                   if ( datitotali[3][0] > 0 || datitotali[3][1] > 0 || datitotali[3][2] > 0 || datitotali[3][3] > 0 || datitotali[3][4] > 0)
+                    tabellarossa[3] = true;
                 
-                try{
+                
+                /*try{
 
-                this.dinamicOut.println("<p class=\"labellocalizzazioneTable\">SURPLUS</p>");
-                this.dinamicOut.println("<table class=\"localizzazioneTable2\">");
+                //this.dinamicOut.println("<p class=\"labellocalizzazioneTable\">SURPLUS</p>");
+                this.dinamicOut.println("<table class=\"localizzazioneTable2\" >");
                 if (!tabellarossa) {
                     this.dinamicOut.println("<thead><tr><th>Volume Liquame Bovino(m<sup>3</sup>)</th><th>Volume Liquame Suino(m<sup>3</sup>)</th><th>Volume Liquame Avicolo(m<sup>3</sup>)</th><th>Volume Liquame Altro(m<sup>3</sup>)</th><th>Volume Liquame Biomasse(m<sup>3</sup>)</th></tr></thead><tr>");
                 } else {
                     this.dinamicOut.println("<thead style=\"background-color:red;color:white;\"><tr><th>Volume Liquame Bovino(m<sup>3</sup>)</th><th>Volume Liquame Suino(m<sup>3</sup>)</th><th>Volume Liquame Avicolo(m<sup>3</sup>)</th><th>Volume Liquame Altro(m<sup>3</sup>)</th><th>Volume Liquame Biomasse(m<sup>3</sup>)</th></tr></thead><tr>");
-                }
+                }*/
 
 
 
                 //this.dinamicOut.println("<thead><tr><th>Volume Liquame Bovino(m<sup>3</sup>)</th><th>Volume Liquame Suino(m<sup>3</sup>)</th><th>Volume Liquame Avicolo(m<sup>3</sup>)</th><th>Volume Liquame Altro(m<sup>3</sup>)</th><th>Volume Liquame Biomasse(m<sup>3</sup>)</th></tr></thead><tr>");
-                this.dinamicOut.println("<td>" + datitotali[0][0] + "</td><td>" + datitotali[0][1] + "</td><td>" + datitotali[0][2] + "</td><td>" + datitotali[0][3] + "</td><td>" + datitotali[0][4] + "</td>");
+              /*  this.dinamicOut.println("<td>" + datitotali[0][0] + "</td><td>" + datitotali[0][1] + "</td><td>" + datitotali[0][2] + "</td><td>" + datitotali[0][3] + "</td><td>" + datitotali[0][4] + "</td>");
                 this.dinamicOut.println("</tr></table>");
 
-                this.dinamicOut.println("<table class=\"localizzazioneTable2\">");
+                this.dinamicOut.println("<table id=\"surplus1\" >");*/
 
-                tabellarossa = false;
-                if (datitotali[2][0] > 0 || datitotali[2][1] > 0 ||datitotali[2][2] > 0 || datitotali[2][3] > 0 || datitotali[2][4] > 0) {
-                    tabellarossa = true;
-                }
+               
 
 
 
-                if (!tabellarossa) {
+              /*  if (!tabellarossa) {
                     this.dinamicOut.println("<thead><tr><th>Azoto T Liquame Bovino(kg)</th><th>Azoto T Liquame Suino(kg)</th><th>Azoto T Liquame Avicolo(kg)</th><th>Azoto T Liquame Altro(kg)</th><th>Azoto T Liquame Biomasse(kg)</th></tr></thead><tr>");
                 } else {
                     this.dinamicOut.println("<thead style=\"background-color:red;color:white;\"><tr><th>Azoto T Liquame Bovino(kg)</th><th>Azoto T Liquame Suino(kg)</th><th>Azoto T Liquame Avicolo(kg)</th><th>Azoto T Liquame Altro(kg)</th><th>Azoto T Liquame Biomasse(kg)</th></tr></thead><tr>");
@@ -3959,15 +4312,15 @@ public class LetturaRisultati extends Thread {
                 this.dinamicOut.println("</tr></table>");
 
 
-                this.dinamicOut.println("<table class=\"localizzazioneTable2\">");
+                this.dinamicOut.println("<table id=\"surplus1\" >");*/
 
 
-                tabellarossa = false;
+                /*tabellarossa = false;
                 if (datitotali[1][0] > 0 || datitotali[1][1] > 0 || datitotali[1][2] > 0 || datitotali[1][3] > 0 || datitotali[1][4] > 0)
-                       tabellarossa = true;
+                       tabellarossa = true;*/
                 
 
-                if (!tabellarossa) {
+              /*  if (!tabellarossa) {
                     this.dinamicOut.println("<thead><tr><th>Volume Letame Bovino(m<sup>3</sup>)</th><th>Volume Letame Suino(m<sup>3</sup>)</th><th>Volume Letame Avicolo(m<sup>3</sup>)</th><th>Volume Letame Altro(m<sup>3</sup>)</th><th>Volume Letame Biomasse(m<sup>3</sup>)</th></tr></thead><tr>");
                 } else {
                     this.dinamicOut.println("<thead style=\"background-color:red;color:white;\"><tr><th>Volume Letame Bovino(m<sup>3</sup>)</th><th>Volume Letame Suino(m<sup>3</sup>)</th><th>Volume Letame Avicolo(m<sup>3</sup>)</th><th>Volume Letame Altro(m<sup>3</sup>)</th><th>Volume Letame Biomasse(m<sup>3</sup>)</th></tr></thead><tr>");
@@ -3976,15 +4329,15 @@ public class LetturaRisultati extends Thread {
                 this.dinamicOut.println("<td>" + datitotali[1][0] + "</td><td>" + datitotali[1][1] + "</td><td>" + datitotali[1][2] + "</td><td>" + datitotali[1][3] + "</td><td>" + datitotali[1][4] + "</td>");
                 this.dinamicOut.println("</tr></table>");
 
-                this.dinamicOut.println("<table class=\"localizzazioneTable2\">");
+                this.dinamicOut.println("<table id=\"surplus1\" ");*/
 
 
-                tabellarossa = false;
+                /*tabellarossa = false;
                 if ( datitotali[3][0] > 0 || datitotali[3][1] > 0 || datitotali[3][2] > 0 || datitotali[3][3] > 0 || datitotali[3][4] > 0)
-                    tabellarossa = true;
+                    tabellarossa = true;*/
                 
 
-                if (!tabellarossa) {
+             /*   if (!tabellarossa) {
                     this.dinamicOut.println("<thead><tr><th>Azoto T Letame Bovino(kg)</th><th>Azoto T Letame Suino(kg)</th><th>Azoto T Letame Avicolo(kg)</th><th>Azoto T Letame Altro(kg)</th><th>Azoto T Letame Biomasse(kg)</th></tr></thead><tr>");
                 } else {
                     this.dinamicOut.println("<thead style=\"background-color:red;color:white;\"><tr><th>Azoto T Letame Bovino(kg)</th><th>Azoto T Letame Suino(kg)</th><th>Azoto T Letame Avicolo(kg)</th><th>Azoto T Letame Altro(kg)</th><th>Azoto T Letame Biomasse(kg)</th></tr></thead><tr>");
@@ -3992,7 +4345,122 @@ public class LetturaRisultati extends Thread {
 
                 this.dinamicOut.println("<td>" + datitotali[3][0] + "</td><td>" + datitotali[3][1] + "</td><td>" + datitotali[3][2] + "</td><td>" + datitotali[3][3] + "</td><td>" + datitotali[3][4] + "</td>");
 
-                this.dinamicOut.println("</tr></table>");
+                this.dinamicOut.println("</tr></table>");*/
+                
+                //this.dinamicOut.println("<table>");
+                try{
+                  this.dinamicOut.println("<table class=\"localizzazioneTable2\" >");
+                  this.dinamicOut.println("<colgroup span=\"10\">");
+                  this.dinamicOut.println("<thead><tr>");
+                  if(tabellarossa[0])
+                  {
+                      this.dinamicOut.println("<th colspan=\"5\" style=\"background-color:red;\">Volume Liquame(m<sup>3</sup>)</th>");
+                  }
+                        else
+                  {
+                     this.dinamicOut.println("<th colspan=\"5\" >Volume Liquame(m<sup>3</sup>)</th>");
+
+                  }
+                  
+                  if(tabellarossa[1])
+                  {
+                      this.dinamicOut.println("<th colspan=\"5\" style=\"background-color:red;\">Volume Letame(m<sup>3</sup>)</th>");
+                  }
+                        else
+                  {
+                     this.dinamicOut.println("<th colspan=\"5\" >Volume Letame(m<sup>3</sup>)</th>");
+
+                  }
+                  
+                   this.dinamicOut.println("</tr>");
+                 
+                  this.dinamicOut.println("<tr>"
+                          + "<th colspan=\"1\">Bovino</th>"
+                          + "<th colspan=\"1\">Suino</th>"
+                          + "<th colspan=\"1\">Avicolo</th>"
+                          + "<th colspan=\"1\">Altro</th>"
+                          + "<th colspan=\"1\">Biomasse</th>"
+                          + "<th colspan=\"1\">Bovino</th>"
+                          + "<th colspan=\"1\">Suino</th>"
+                          + "<th colspan=\"1\">Avicolo</th>"
+                          + "<th colspan=\"1\">Altro</th>"
+                          + "<th colspan=\"1\">Biomasse</th>"
+                          + "</tr>"
+                          + "</thead>");
+                  this.dinamicOut.println("<tbody>"
+                          + "<tr>"
+                          + "<td>"+datitotali[0][0]+"</td>"
+                          + "<td>"+datitotali[0][1]+"</td>"
+                          + "<td>"+datitotali[0][2]+"</td>"
+                          + "<td>"+datitotali[0][3]+"</td>"
+                          + "<td>"+datitotali[0][4]+"</td>"
+                          + "<td>"+datitotali[1][0]+"</td>"
+                          + "<td>"+datitotali[1][1]+"</td>"
+                          + "<td>"+datitotali[1][2]+"</td>"
+                          + "<td>"+datitotali[1][3]+"</td>"
+                          + "<td>"+datitotali[1][4]+"</td>"
+                          + "</tr>"
+                          + "</tbody>");
+                  this.dinamicOut.println("</table>");
+                  
+                  
+                  
+                  this.dinamicOut.println("<table class=\"localizzazioneTable2\" >");
+                  this.dinamicOut.println("<colgroup span=\"10\">");
+                  this.dinamicOut.println("<thead><tr>");
+                  
+                  if(tabellarossa[2])
+                  {
+                      this.dinamicOut.println("<th colspan=\"5\" style=\"background-color:red;\">Azoto Totale Liquame(Kg)</th>");
+                  }
+                        else
+                  {
+                     this.dinamicOut.println("<th colspan=\"5\" >Azoto Totale Liquame(Kg)</th>");
+
+                  }
+                  
+                 if(tabellarossa[3])
+                  {
+                      this.dinamicOut.println("<th colspan=\"5\" style=\"background-color:red;\">Azoto Totale Letame(Kg)</th>");
+                  }
+                        else
+                  {
+                     this.dinamicOut.println("<th colspan=\"5\" >Azoto Totale Letame(Kg)</th>");
+
+                  }  
+                  
+                         
+                         this.dinamicOut.println("</tr>");
+                  this.dinamicOut.println("<tr>"
+                          + "<th colspan=\"1\">Bovino</th>"
+                          + "<th colspan=\"1\">Suino</th>"
+                          + "<th colspan=\"1\">Avicolo</th>"
+                          + "<th colspan=\"1\">Altro</th>"
+                          + "<th colspan=\"1\">Biomasse</th>"
+                          + "<th colspan=\"1\">Bovino</th>"
+                          + "<th colspan=\"1\">Suino</th>"
+                          + "<th colspan=\"1\">Avicolo</th>"
+                          + "<th colspan=\"1\">Altro</th>"
+                          + "<th colspan=\"1\">Biomasse</th>"
+                          + "</tr>"
+                          + "</thead>");
+                  this.dinamicOut.println("<tbody>"
+                          + "<tr>"
+                          + "<td>"+datitotali[2][0]+"</td>"
+                          + "<td>"+datitotali[2][1]+"</td>"
+                          + "<td>"+datitotali[2][2]+"</td>"
+                          + "<td>"+datitotali[2][3]+"</td>"
+                          + "<td>"+datitotali[2][4]+"</td>"
+                          + "<td>"+datitotali[3][0]+"</td>"
+                          + "<td>"+datitotali[3][1]+"</td>"
+                          + "<td>"+datitotali[3][2]+"</td>"
+                          + "<td>"+datitotali[3][3]+"</td>"
+                          + "<td>"+datitotali[3][4]+"</td>"
+                          + "</tr>"
+                          + "</tbody>");
+                  this.dinamicOut.println("</table>"); 
+                  
+                
                 
                 }catch(Exception ex){};
 

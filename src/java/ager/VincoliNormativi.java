@@ -60,7 +60,7 @@ public class VincoliNormativi {
         if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }        
         
        Query q = entityManager.createNamedQuery("ScenarioI.findByIdscenario").setParameter("idscenario", this.idscenario);
@@ -120,7 +120,7 @@ public class VincoliNormativi {
          if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }        
         /**
          * recupero lo scenario per avere la lista degli appezzamenti con le loro superfici
@@ -172,8 +172,8 @@ public class VincoliNormativi {
           * ciclo sulle tipologia di refluo sommando l'azoto totale
           */
           Query q2 = entityManager.createNamedQuery("AlternativeS.findById").setParameter("id", this.alternativa); 
-          db.AlternativeS alternativa = (db.AlternativeS)q2.getSingleResult();
-          boolean dadigestato = alternativa.getDigestato() == 0 ? false : true;
+          db.AlternativeS alternativaMas = (db.AlternativeS)q2.getSingleResult();
+         // boolean dadigestato = alternativa..getDigestato() == 0 ? false : true;
         /**
          * ciclo sulle tipologie di refluo e splitto la tipologia perchè l'efficienza dell'azoto 
          * cambia se è liquame o letame. Se l'alternativa ha digestato devo scelgiere quei coefficienti che 
@@ -181,32 +181,62 @@ public class VincoliNormativi {
          */  
         for (String s : this.contenitoreReflui.getTipologie()) {
             
-            if(s.contains("Altro")) {
+           /* if(s.contains("Altro")) {
                 continue;
-            }
-            azoto_colturale = contenitoreReflui.getContenitore().get(s).getAzotototale();
+            }*/
             
             String[] tipo_splittato = s.split(" ");
             tipo_splittato[0] = tipo_splittato[0].toLowerCase();
+            if(tipo_splittato[0].trim().equals("Liquame")) {
+                tipo_splittato[0] = "liquido";
+            }
+            else {
+                tipo_splittato[0] = "palabile";
+            }
+            
+            
             tipo_splittato[1] = tipo_splittato[1].toLowerCase();
             
+            
+             System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " +Thread.currentThread().getStackTrace()[1].getMethodName() + " spli 1 " + tipo_splittato[1] );
+            
+            
+            azoto_colturale = contenitoreReflui.getContenitore().get(s).getAzotototale();
+            Query q4 = entityManager.createQuery("SELECT a FROM Formarefluo a WHERE a.tipo1 =?1 ");
+            q4.setParameter(1, tipo_splittato[0].trim());
+            db.Formarefluo formaRefluo = (db.Formarefluo)q4.getSingleResult();
+            Query q5 = entityManager.createQuery("SELECT a FROM ProvenienzaRefluo a WHERE a.nome =?1 ");
+            q5.setParameter(1,tipo_splittato[1].trim().toLowerCase());
+            db.ProvenienzaRefluo provenienzaRefluo =( db.ProvenienzaRefluo)q5.getSingleResult();
+            
+            Query q3 = entityManager.createQuery("SELECT a FROM EfficienzeNpVincoliNormativi a WHERE a.idAlternativa = :alternativa and a.idFormaRefluo = :idforma and a.idProvenienzaRefluo = :idprovenienza");
+            q3.setParameter("alternativa", alternativaMas);
+            q3.setParameter("idforma", formaRefluo);
+            q3.setParameter("idprovenienza", provenienzaRefluo);
+            
+           System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " +Thread.currentThread().getStackTrace()[1].getMethodName() + " spli 0 " + tipo_splittato[0] + " spli 1 " + tipo_splittato[1] + " alternativa " + alternativaMas.getNome() + " idforma " + formaRefluo.getTipo1() + " provenienza " + provenienzaRefluo.getNome());
+           db.EfficienzeNpVincoliNormativi efficienzaNormativa = (db.EfficienzeNpVincoliNormativi)q3.getSingleResult();
+           
             //System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " +Thread.currentThread().getStackTrace()[1].getMethodName() + " spli 0 " + tipo_splittato[0] + " spli 1 " + tipo_splittato[1]);
             
             //mi restituisce il valore numerico del codice materia
             //della tipologia di refluo che sto prendendo dal contenitorereflui
-            int tipomateria = mappingTipiMateria.get( tipo_splittato[1].trim());
+            /*int tipomateria = mappingTipiMateria.get( tipo_splittato[1].trim());
              Query q0 = entityManager.createNamedQuery("TipomateriaS.findById").setParameter("id", tipomateria);
             db.TipomateriaS tipoM = (db.TipomateriaS)q0.getSingleResult();
             q1 = entityManager.createQuery("SELECT a FROM Efficienze a WHERE a.tipomateriaId = :tipo AND a.daDigestato = :digestato", db.Efficienze.class);
             q1.setParameter("tipo", tipoM);
             q1.setParameter("digestato", dadigestato);
-            db.Efficienze efficienza = (db.Efficienze) q1.getSingleResult();
+            db.Efficienze efficienza = (db.Efficienze) q1.getSingleResult();*/
             
-            if (s.contains("liquame")) {
+           azoto_animale += azoto_colturale * efficienzaNormativa.getCoefficienteN();
+           
+           
+          /*  if (s.contains("liquame")) {
                  azoto_animale += azoto_colturale * efficienza.getEfficienzaAzotoLiquame();
             } else {//letame
                 azoto_animale += azoto_colturale * efficienza.getEfficienzaAzotoLetame();
-            }
+            }*/
 
             
         }
@@ -232,7 +262,7 @@ public class VincoliNormativi {
         if(entityManagerFactory == null || (!entityManagerFactory.isOpen()))
          {
             Connessione connessione = Connessione.getInstance();
-            entityManager = connessione.apri("renuwal1");
+            entityManager = connessione.apri("renuwal2");
          }        
         /**
          * recupero lo scenario per avere la lista degli appezzamenti con le loro superfici
@@ -284,8 +314,8 @@ public class VincoliNormativi {
           * ciclo sulle tipologia di refluo sommando l'fosforo totale
           */
           Query q2 = entityManager.createNamedQuery("AlternativeS.findById").setParameter("id", this.alternativa); 
-          db.AlternativeS alternativa = (db.AlternativeS)q2.getSingleResult();
-          boolean dadigestato = alternativa.getDigestato() == 0 ? false : true;
+          db.AlternativeS alternativaMas = (db.AlternativeS)q2.getSingleResult();
+          //boolean dadigestato = alternativa.getDigestato() == 0 ? false : true;
         /**
          * ciclo sulle tipologie di refluo e splitto la tipologia perchè l'efficienza dell'fosforo 
          * cambia se è liquame o letame. Se l'alternativa ha digestato devo scelgiere quei coefficienti che 
@@ -296,28 +326,58 @@ public class VincoliNormativi {
                 continue;
             }
             
-            fosforo_colturale = contenitoreReflui.getContenitore().get(s).getFosforototale();
+           // fosforo_colturale = contenitoreReflui.getContenitore().get(s).getFosforototale();
             
-            String[] tipo_splittato = s.split(" ");
+              String[] tipo_splittato = s.split(" ");
             tipo_splittato[0] = tipo_splittato[0].toLowerCase();
+            if(tipo_splittato[0].trim().equals("Liquame")) {
+                tipo_splittato[0] = "liquido";
+            }
+            else {
+                tipo_splittato[0] = "palabile";
+            }
+            
+            
             tipo_splittato[1] = tipo_splittato[1].toLowerCase();
+            
+            System.out.println(Thread.currentThread().getStackTrace()[1].getClassName() + " " +Thread.currentThread().getStackTrace()[1].getMethodName()+ " spli 0 " + tipo_splittato[0] + " spli 1 " + tipo_splittato[1] );
+          
+            fosforo_colturale = contenitoreReflui.getContenitore().get(s).getFosforototale();
+            Query q4 = entityManager.createQuery("SELECT a FROM Formarefluo a WHERE a.tipo1 =?1");
+            q4.setParameter(1, tipo_splittato[0].trim());
+            db.Formarefluo formaRefluo = (db.Formarefluo)q4.getSingleResult();
+            Query q5 = entityManager.createQuery("SELECT a FROM ProvenienzaRefluo a WHERE a.nome =?1");
+            q5.setParameter(1, tipo_splittato[1].trim().toLowerCase());
+            db.ProvenienzaRefluo provenienzaRefluo =( db.ProvenienzaRefluo)q5.getSingleResult();
+            
+            Query q3 = entityManager.createQuery("SELECT a FROM EfficienzeNpVincoliNormativi a WHERE a.idAlternativa = :alternativa and a.idFormaRefluo = :idforma and a.idProvenienzaRefluo = :idprovenienza");
+            q3.setParameter("alternativa", alternativaMas);
+            q3.setParameter("idforma", formaRefluo);
+            q3.setParameter("idprovenienza", provenienzaRefluo);
+            
+            
+           db.EfficienzeNpVincoliNormativi efficienzaNormativa = (db.EfficienzeNpVincoliNormativi)q3.getSingleResult();
+           
+          /*  String[] tipo_splittato = s.split(" ");
+            tipo_splittato[0] = tipo_splittato[0].toLowerCase();
+            tipo_splittato[1] = tipo_splittato[1].toLowerCase();*/
             
             //mi restituisce il valore numerico del codice materia
             //della tipologia di refluo che sto prendendo dal contenitorereflui
-            int tipomateria = mappingTipiMateria.get( tipo_splittato[1].trim());
+          /*  int tipomateria = mappingTipiMateria.get( tipo_splittato[1].trim());
             Query q0 = entityManager.createNamedQuery("TipomateriaS.findById").setParameter("id", tipomateria);
             db.TipomateriaS tipoM = (db.TipomateriaS)q0.getSingleResult();
             q1 = entityManager.createQuery("SELECT a FROM Efficienze a WHERE a.tipomateriaId = :tipo AND a.daDigestato = :digestato", db.Efficienze.class);
             q1.setParameter("tipo", tipoM);
             q1.setParameter("digestato", dadigestato);
-            db.Efficienze efficienza = (db.Efficienze) q1.getSingleResult();
+            db.Efficienze efficienza = (db.Efficienze) q1.getSingleResult();*/
             
             //if (s.contains("liquame")) {
-                 fosforo_animale += fosforo_colturale * efficienza.getEfficienzaFosforo();
+              //   fosforo_animale += fosforo_colturale * efficienza.getEfficienzaFosforo();
            /* } else {//letame
                 fosforo_animale += fosforo_colturale * efficienza.getEfficienzaAzotoLetame();
             }*/
-
+            fosforo_animale += fosforo_colturale * efficienzaNormativa.getCoefficienteP();
             
         }
         

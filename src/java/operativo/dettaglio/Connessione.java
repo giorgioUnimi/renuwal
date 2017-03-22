@@ -66,7 +66,7 @@ public class Connessione {
     
     /**
      * apro la connessione il db postgresql
-     * @param connessione "renuwal1"
+     * @param connessione "renuwal2"
      */
     public synchronized EntityManager apri(String connessione)
     {
@@ -171,7 +171,7 @@ public class Connessione {
 //        /*if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
 //                            {
 //                               Connessione connessione = Connessione.getInstance();
-//                               entityManager = connessione.apri("renuwal1");
+//                               entityManager = connessione.apri("renuwal2");
 //                               entityManagerFactory = connessione.getEntityManagerFactory();
 //                            }*/
 //       
