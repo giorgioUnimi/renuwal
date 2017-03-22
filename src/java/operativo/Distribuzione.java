@@ -5,6 +5,7 @@
 package operativo;
 
 import alfam.Alfam;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -65,6 +66,9 @@ public class Distribuzione {
     private double indiceLetame = 0;
      //kg di azoto di liquame / metri cubi di superficie
     private double indiceLiquame = 0;
+    //uso una hash table con indici i nomi dei titoli
+    //per memorizzare una sola volta i titoli del refluo
+    private Hashtable<String,Double> titoli = new Hashtable<String,Double>();
     private double dose = 0;
     private double doseha = 0;
     //mi informa se è letame o liquame
@@ -93,6 +97,17 @@ public class Distribuzione {
          
          //inserisco i tipi di modalita di distribuzione nel menu a tendina 
          //popolaModalita();
+         
+         
+         //popolo i nomi dei titoli nella hashtable titoli
+          titoli.put("titololiquamemisto",new Double(0) );
+          titoli.put("titololetamemisto",new Double(0) );
+          titoli.put("titololiquamebovino",new Double(0) );
+          titoli.put("titololiquamesuino",new Double(0) );
+          titoli.put("titololiquameavicolo",new Double(0) );
+          titoli.put("titololiquamebiomassa",new Double(0) );
+          titoli.put("titololiquamealtro",new Double(0) );
+         
      }
     /**
      * calcola l'indice del azoto in funzione del liquame e del letame
@@ -764,7 +779,7 @@ public class Distribuzione {
      * e che sono presenti nella variabile db.RisultatoConfronto risultatoConfronto
      * @return the efficienza
      */
-    public double getEfficienza() {
+    public double getEfficienza_old() {
         
         //double ritorno = 0d;
         
@@ -841,6 +856,12 @@ public class Distribuzione {
           
         return efficienza;
     }
+    
+    
+     public double getEfficienza(){
+         
+         return 0d;
+     }
     
     
     /*private void setDosiNCampo()
