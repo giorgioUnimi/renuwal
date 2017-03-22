@@ -22,7 +22,7 @@ private void modificaRipristina(Double valore,String tipologia,int posizione,int
          {
              Connessione connessione = Connessione.getInstance();
             
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
              entityManagerFactory = Connessione.getInstance().getEntityManagerFactory();
          }
         
@@ -855,7 +855,7 @@ System.out.println("Sono in modifica ripristina");
          {
              Connessione connessione = Connessione.getInstance();
             
-             entityManager = connessione.apri("renuwal1");
+             entityManager = connessione.apri("renuwal2");
              entityManagerFactory = Connessione.getInstance().getEntityManagerFactory();
          }
       Query q = entityManager.createNamedQuery("ScenarioI.findByIdscenario").setParameter("idscenario",Integer.parseInt(scenario));

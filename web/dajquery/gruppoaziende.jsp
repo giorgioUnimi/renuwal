@@ -1,3 +1,4 @@
+<%@page import="ager.TipiReflui"%>
 <%@page import="javax.jms.ServerSession"%>
 <%@page import="javax.persistence.Persistence"%>
 <%@page import="java.util.ListIterator"%>
@@ -182,7 +183,7 @@
      /**
      *usato come somma dei contenitori di reflui
      */
-      ContenitoreReflui contenitoreTotale = new ContenitoreReflui();
+      ContenitoreReflui contenitoreTotale = new ContenitoreReflui(TipiReflui.getInstance().getTipologieDaAllevamento());
        
          /**
          *recupera la lista delle aziende e cicla su di essa per
@@ -197,7 +198,7 @@
          */
          if (entityManagerFactory == null || !(entityManagerFactory.isOpen())) {
                  Connessione connessione = Connessione.getInstance();
-                 entityManager = connessione.apri("renuwal1");
+                 entityManager = connessione.apri("renuwal2");
                  entityManagerFactory = connessione.getEntityManagerFactory();
              }
              //lo scenario mi arriva nella forma "scenario : 0" per cui nella posizione modulo 3 devo togliere la scritta scenario :
@@ -333,7 +334,7 @@
                  if (entityManagerFactory == null || !(entityManagerFactory.isOpen()))
                             {
                                Connessione connessione = Connessione.getInstance();
-                               entityManager = connessione.apri("renuwal1");
+                               entityManager = connessione.apri("renuwal2");
                                entityManagerFactory = connessione.getEntityManagerFactory();
                             }
                  
@@ -458,7 +459,7 @@
              modello = new Modello("F:\\netbeansproject\\renuwal","seespig1.exe",numerorandom1,false);
          }else
          {
-             modello = new Modello("/home/giorgiogalassi/Documenti/solutorec/","./solutore1.out",numerorandom1,true); 
+             modello = new Modello("/home/giorgiogalassi/Documenti/solutorec/","./solutore1_renuwal.out",numerorandom1,true); 
          }
          
                 
@@ -470,7 +471,7 @@
         
         
       InputOutputXml leggiXml = new InputOutputXml();
-      LetturaRisultati test1 = new LetturaRisultati(leggiXml,numerorandom1,out,modello,operazione);
+      LetturaRisultati test1 = new LetturaRisultati(leggiXml,numerorandom1,out,modello,operazione,scen1);
       test1.setContenitoreflui(contenitoreTotale);
       test1.run1();
         
